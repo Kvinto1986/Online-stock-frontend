@@ -25,7 +25,28 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "quote-props": [
+        "error",
+        "as-needed"
+      ],
+      "jsx-quotes": [
+        "error",
+        "prefer-single"
+      ],
+      "dot-notation": [
+        "error"
+      ],
+      "semi": [
+        "error",
+        "never"
+      ]
+    }
   },
   "browserslist": {
     "production": [
