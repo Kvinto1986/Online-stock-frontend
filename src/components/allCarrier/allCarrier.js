@@ -131,7 +131,6 @@ function CustomPaginationActionsTable(props) {
         let found = rows.find((elem, index) => {
             return elem._id === id
         });
-
         found.isDisabled = true
         setRows([...rows])
     };
@@ -240,7 +239,6 @@ function CustomPaginationActionsTable(props) {
                                     </TableRow>
                                 ))
                             }
-
                             {emptyRows > 0 && (
                                 <TableRow style={{height: 35 * emptyRows}}>
                                     <TableCell colSpan={6}/>

@@ -13,26 +13,53 @@ import DateFnsUtils from '@date-io/date-fns';
 import {getAllSender} from '../../servies/senderServies';
 import {listCarriers} from '../../servies/carrierServies';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import {addPrevPath} from "../../actions/carrierAction";
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import {addTtn} from "../../servies/ttn";
 import Select from "react-select";
+
+const currencies = [
+    {
+        value: 'КГ',
+        label: 'кг',
+    },
+    {
+        value: 'BOX',
+        label: 'box',
+    },
+];
+
 const TtnForm = (props) => {
     const[ttn, setTtn] = useState({
         TTNNumber: '',
         date: '',
         driver: '',
         carNumber: '',
-        description: ''
+        description: '',
+        products: []
     });
     const[options, setOptions] = useState([])
     const [selectedDate, setSelectedDate] = React.useState(new Date());
     const [sender, setSender] = useState(false);
     const [carrierItem, setCarrierItem] = useState(false);
     const [carrierOptions, setCarrierOptions] = useState([]);
-
+    const [values, setValues] = React.useState({
+        type: 'КГ',
+        name: '',
+        amount: "1"
+    });
+    const addProduct = () => {
+        setTtn({...ttn, products: [...ttn.products, values]})
+        setValues({...values, name: '', amount: '1'})
+    }
+    const handleChange = name => event => {
+        setValues({ ...values, [name]: event.target.value });
+    };
     useEffect(() => {
         getAllSender()
             .then((res) => {
@@ -44,13 +71,11 @@ const TtnForm = (props) => {
                 setCarrierOptions(res.data);
             })
     }, []);
-
     const handleChangeCompanyName = e => {
         setSender(e.value)
     };
     const handleChangeCarrierName = e => {
         setCarrierItem(e.value);
-
     };
     const handleInputChange = (e) => {
         setTtn({...ttn, [e.target.name]: e.target.value});
@@ -60,7 +85,6 @@ const TtnForm = (props) => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-
         const ttnInfo = {
            "date": selectedDate,
            "TTNNumber": ttn.TTNNumber,
@@ -68,19 +92,16 @@ const TtnForm = (props) => {
             "carrier": carrierItem,
             "sender": sender,
             "registrar": props.user,
-            "productAmount": +ttn.productAmount,
-            "nameAmount": +ttn.nameAmount,
             "description": ttn.description,
-            "carNumber": ttn.carNumber
+            "carNumber": ttn.carNumber,
+            "products": ttn.products
         };
-console.log(ttnInfo)
         addTtn(ttnInfo)
-            .then((res) => console.log(res))
-            .catch((err) => { console.error(err) } )
+            .then((res) => {props.history.push(props.prevPath)})
+            .catch((err) => {console.log(err)})
         }
 
     const classes = useStyles();
-
     return (
         <React.Fragment>
             <Container component="main" maxWidth="xs">
@@ -158,7 +179,6 @@ console.log(ttnInfo)
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextValidator
-
                                     className="noNumerical"
                                     variant="outlined"
                                     required
@@ -174,7 +194,6 @@ console.log(ttnInfo)
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextValidator
-                                    className=""
                                     variant="outlined"
                                     required
                                     fullWidth
@@ -185,34 +204,62 @@ console.log(ttnInfo)
                                     onChange={handleInputChange}
                                 />
                             </Grid>
-
                         </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={6}>
+                        <Grid container spacing={2} className={classes.container}>
+                            <Grid item xs={5}>
                                 <TextValidator
-                                    type='number'
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="info-product-amount"
-                                    label="Product amount"
-                                    name="productAmount"
-                                    autoComplete="carrier"
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <TextValidator
-                                    type='number'
+                                    type='text'
                                     variant="outlined"
                                     required
                                     fullWidth
                                     id="info-name-amount"
-                                    label="Name amount"
-                                    name="nameAmount"
-                                    autoComplete="carrier"
-                                    onChange={handleInputChange}
+                                    label="Product"
+                                    name="name"
+                                    value={values.name}
+                                    onChange={handleChange("name")}
                                 />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <TextField
+                                    id="standard-number"
+                                    label="Number"
+                                    value={values.amount}
+                                    onChange={handleChange('amount')}
+                                    type="number"
+                                    min="0"
+                                    className={classes.textField}
+                                    InputProps={{ inputProps: { min: 1 }}}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={3}>
+                                  <TextField
+                                    id="filled-select-currency"
+                                    select
+                                    label="Select"
+                                    className={classes.textField}
+                                    value={values.type}
+                                    onChange={handleChange('type')}
+                                    SelectProps={{
+                                        MenuProps: {
+                                            className: classes.menu,
+                                        },
+                                    }}
+                                    variant="filled"
+                                >
+                                    {currencies.map(option => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                    </TextField>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <Button variant="outlined" onClick={addProduct}> ADD PRODUCT</Button>
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
@@ -226,7 +273,7 @@ console.log(ttnInfo)
                                 />
                             </Grid>
                         </Grid>
-                        <Button
+                       <Button
                             type="submit"
                             fullWidth
                             variant="contained"
@@ -245,5 +292,6 @@ console.log(ttnInfo)
 
 const mapStateToProps = (state) => ({
     user: state.auth.user.name,
+    prevPath: state.carriersReducer.prevPath
 });
-export default connect(mapStateToProps, null)(TtnForm);
+export default connect(mapStateToProps, {addPrevPath})(TtnForm);

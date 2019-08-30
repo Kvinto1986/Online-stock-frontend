@@ -2,11 +2,6 @@ import {makeStyles} from '@material-ui/core/styles';
 import {bool} from "prop-types";
 
 const useStyles = makeStyles(theme => ({
-    '@global': {
-        body: {
-            background: 'linear-gradient(45deg, #b7bde8 30%, #5f1d66 90%)',
-        },
-    },
     paper: {
         marginTop: theme.spacing(8),
         display: 'flex',
@@ -55,9 +50,21 @@ const useStyles = makeStyles(theme => ({
         '& .css-26l3qy-menu': {
             zIndex: "99999999"
         }
-
-
+    },
+    textField: {
+        width: '100%'
+    },
+    dense: {
+        marginTop: 16,
+    },
+    menu: {
+        width: 200,
+    },
+    container: {
+        display: "flex",
+        justifyContent: "space-between"
     }
+
 }));
 
 export default useStyles

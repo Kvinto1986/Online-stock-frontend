@@ -2,6 +2,7 @@ import axios from 'axios';
 import server from "../serverConfig";
 
 export const addTtn = (info) => {
+    console.log(info)
     const{
         date,
         TTNNumber,
@@ -10,8 +11,7 @@ export const addTtn = (info) => {
         carNumber,
         driver,
         registrar,
-        nameAmount,
-        productAmount,
+        products,
         description
     } = info;
     return axios.post(`${server}api/ttn/addTtn`, {
@@ -22,8 +22,7 @@ export const addTtn = (info) => {
         registrar: registrar,
         carNumber: carNumber,
         sender: sender,
-        nameAmount: nameAmount,
-        productAmount: productAmount,
+        products: products,
         description: description
     })
 };

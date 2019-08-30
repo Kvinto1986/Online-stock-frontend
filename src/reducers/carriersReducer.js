@@ -1,7 +1,7 @@
 import { PREV_PATH } from '../actions/types';
 
 const initialState = {
-    prevPath:""
+    prevPath: "/"
 };
 
 export default function(state = initialState, action ) {
