@@ -57,7 +57,15 @@ export const updateCarrier = (rows, inputValue, id, cb) => {
 
     found.isDisabled = false;
     const{company, countryCode, passportNumber, _id} = found;
-    cb([...rows, found])
+    let newArr = [];
+    for(let i = 0; i < rows.length; i++) {
+        if(i === indx) {
+            newArr.push(found)
+        } else {
+            newArr.push(rows[i])
+        }
+    }
+    cb(newArr)
 
     axios.post(`${server}api/carriers/update`, {
      id:_id,
