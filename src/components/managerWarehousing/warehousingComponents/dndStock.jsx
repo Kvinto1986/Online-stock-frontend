@@ -64,51 +64,64 @@ const DndStock = props => {
                 key={stockUnit.area + stockUnit.type} 
             /> 
         )
-    })
+    })    
 
-    return (
-        <Container maxWidth="sm">
-            <Box my={10} display="flex">
-                <div style={{width: '100%'}}>
-                    <Box mb={7.5}>
-                        <Typography compoment="h1" variant="h5">
-                            Cargo
-                        </Typography>
-                    </Box>
-                    <Box display="flex" flexDirection="column">
-                        <DndElement name="Glass" amount="70" dimension="kg" />
-                        <DndElement name="Banana" amount="10" dimension="box"/>
-                        <DndElement name="Paper" amount="200" dimension="kg"/>
-                    </Box>
-                </div>
-                <div style={{width: '100%'}}>
-                    <Box mb={5}>
-                        <InputLabel htmlFor="age-helper">Select stock here*</InputLabel>
-                        <Select
-                            value={''}
-                            required    
-                            fullWidth
-                            onChange={handleChange}
-                            input={<Input name="chosenWarehouse" id="age-helper" />}
-                            name="chosenWarehouse"
-                        >
-                            {props.warehouses.length > 1 ? options : noOption}
-                        </Select>
-                        {props.errors.stocks && (
-                            <p style={{color: "red"}}>{props.errors.stocks}</p>
-                        )}
-                    </Box>
-                    <Box display="flex" flexDirection="column" justifyContent="flex-end">
-                        {dndDestenationAreas}
-                    </Box>
-                </div>
-            </Box>
-        </Container>
-    )
+    if (props.ttnIsFound) {
+        return (
+            <Container maxWidth="sm">
+                <Box my={10} display="flex">
+                    <div style={{width: '100%'}}>
+                        <Box mb={7.5}>
+                            <Typography compoment="h1" variant="h5">
+                                Cargo
+                            </Typography>
+                        </Box>
+                        <Box display="flex" flexDirection="column">
+                            {(props.ttnProductsData == true) && props.ttnProductsData.map(product => {
+                                return (
+                                    <DndElement 
+                                        key={product.name + product.type} 
+                                        name={product.name} 
+                                        amount={product.amount} 
+                                        dimension={product.type} 
+                                    />
+                                )
+                            })}
+                        </Box>
+                    </div>
+                    <div style={{width: '100%'}}>
+                        <Box mb={5}>
+                            <InputLabel htmlFor="age-helper">Select stock here*</InputLabel>
+                            <Select
+                                value={''}
+                                required    
+                                fullWidth
+                                onChange={handleChange}
+                                input={<Input name="chosenWarehouse" id="age-helper" />}
+                                name="chosenWarehouse"
+                            >
+                                {props.warehouses.length > 1 ? options : noOption}
+                            </Select>
+                            {props.errors.stocks && (
+                                <p style={{color: "red"}}>{props.errors.stocks}</p>
+                            )}
+                        </Box>
+                        <Box display="flex" flexDirection="column" justifyContent="flex-end">
+                            {dndDestenationAreas}
+                        </Box>
+                    </div>
+                </Box>
+            </Container>
+        )
+    }
+    else {
+        return null
+    }
 }
 
 const mapStateToProps = (state) => ({
     warehouses: state.warehouses,
-    errors: state.errors
+    errors: state.errors,
+    ttnProductsData: state.ttnData.products
 });
 export default connect(mapStateToProps, {fetchAvailableStocks})(DndStock)

@@ -2,20 +2,22 @@ import axios from 'axios';
 import server from "../serverConfig";
 import {FETCH_TTN_BY_NUMBER, GET_ERRORS} from './types';
 
-export const findTTNbyNumber = (number) => dispatch => {
-    return axios.post(`${server}api/ttn/findTTNbyNumber`, number)
+export const findTTNbyNumber = (number, dndIsShown) => dispatch => {
+    axios.post(`${server}api/ttn/findTTNbyNumber`, number)
     .then(result => {
-        console.log(result);
-        
         if (result) {
             dispatch({
                 type: FETCH_TTN_BY_NUMBER,
                 payload: result.data
             });
-            return Promise.resolve(true)
+            dndIsShown(true)
         }
         else {
-            return Promise.reject(false)
+            dispatch({
+                type: GET_ERRORS,
+                payload: {warehouseTtn: "TTN not found"}
+            });
+            dndIsShown(false)
         }
     })
     .catch(err => {
@@ -23,5 +25,6 @@ export const findTTNbyNumber = (number) => dispatch => {
             type: GET_ERRORS,
             payload: err.response.data
         });
+        dndIsShown(false)
     })
 }
