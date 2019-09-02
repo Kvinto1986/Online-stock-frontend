@@ -1,12 +1,10 @@
-import { GET_CURRENT_WAREHOUSES, FETCH_ALL_STOCKS } from '../actions/types';
+import { FETCH_TTN_BY_NUMBER } from '../actions/types';
 
 const initialState = [];
 
 export default function(state = initialState, action ) {
     switch(action.type) {
-        case GET_CURRENT_WAREHOUSES :
-            return action.payload;
-        case FETCH_ALL_STOCKS: 
+        case FETCH_TTN_BY_NUMBER:
             return action.payload;
         default:
             return state;

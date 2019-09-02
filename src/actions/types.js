@@ -13,3 +13,8 @@ export const  PREV_PATH = 'PREV_PATH';
 export const COMPANY_ADMIN = 'COMPANY_ADMIN'
 export const COMPANY_ADMINS = 'COMPANY_ADMINS'
 
+// Warehouses(stocks)
+export const FETCH_ALL_STOCKS = 'FETCH_ALL_STOCKS'
+
+// TTN 
+export const FETCH_TTN_BY_NUMBER = 'FETCH_TTN_BY_NUMBER'

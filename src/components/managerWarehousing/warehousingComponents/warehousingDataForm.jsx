@@ -3,7 +3,7 @@ import { TextValidator, ValidatorForm } from "react-material-ui-form-validator"
 import { Container, Box, Typography, Grid, Button } from "@material-ui/core"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 import DateFnsUtils from '@date-io/date-fns';
-import { findTTNbyNumber } from '../../../servies/ttn'
+import { findTTNbyNumber } from '../../../actions/ttnActions'
 import { connect } from 'react-redux'
 
 const WarehousingDataForm = props => {
@@ -23,35 +23,34 @@ const WarehousingDataForm = props => {
         setFormState({ ...formState, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = () => {
-        // formState
-    };
-
     const findTTN = () => {
-        findTTNbyNumber({ ttnNumber: formState.ttnNumber })
-            .then(result => {
-                const {data} = result
+        console.log(formState.ttnNumber);
+        
+        props.findTTNbyNumber({ ttnNumber: formState.ttnNumber })
+        .then(value => console.log(value))
+        // .then(result => {
+        //     const {data} = result
 
-                if (data) {
-                    setFormState({
-                        ...formState, 
-                        ttnIsExists: true,
-                        ttnDate: data.dataOfRegistration, 
-                        managerName: props.auth.user.name,
-                        operatorName: data.sender
-                    })
-                }
-                else {
-                    setFormState({
-                        ...formState, 
-                        ttnIsExists: false,
-                        ttnDate: '', 
-                        managerName: '',
-                        operatorName: '',
-                        deliveryForStorageDate: ''
-                    })
-                }
-            })
+        //     if (data) {
+        //         setFormState({
+        //             ...formState, 
+        //             ttnIsExists: true,
+        //             ttnDate: data.dataOfRegistration, 
+        //             managerName: props.auth.user.name,
+        //             operatorName: data.sender
+        //         })
+        //     }
+        //     else {
+        //         setFormState({
+        //             ...formState, 
+        //             ttnIsExists: false,
+        //             ttnDate: '', 
+        //             managerName: '',
+        //             operatorName: '',
+        //             deliveryForStorageDate: ''
+        //         })
+        //     }
+        // })
     }
 
     const {ttnNumber, ttnDate, managerName, operatorName, ttnIsExists} = formState
@@ -63,9 +62,9 @@ const WarehousingDataForm = props => {
                 <Box>
                     <Typography compoment="h1" variant="h5">
                         Transfer goods to store
-              </Typography>
+                    </Typography>
                 </Box>
-                <ValidatorForm onSubmit={handleSubmit}>
+                <ValidatorForm>
                     <Grid container>
                         <Grid item xs={12}>
                             <Box my={1.5}>
@@ -142,17 +141,6 @@ const WarehousingDataForm = props => {
                                         // errorMessages={['His field is required']}
                                     />
                                 </MuiPickersUtilsProvider>
-                                <Box my={3}>
-                                    <Button
-                                        disabled={isDisabled}
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        color="primary"
-                                    >
-                                        Go to warehousing
-                                    </Button>
-                                </Box>
                             </Box>
                         </Grid>
                     </Grid>
@@ -164,6 +152,9 @@ const WarehousingDataForm = props => {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
+    ttnData: state.ttnData
 });
 
-export default connect(mapStateToProps, {})(WarehousingDataForm)
+export default connect(mapStateToProps, {
+    findTTNbyNumber
+})(WarehousingDataForm)

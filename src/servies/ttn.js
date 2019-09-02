@@ -28,7 +28,3 @@ export const addTtn = (info) => {
     })
 };
 
-export const findTTNbyNumber = number => {
-    return axios.post(`${server}api/ttn/findTTNbyNumber`, number)
-}
-
