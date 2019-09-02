@@ -6,6 +6,7 @@ import companiesListReduser from './companiesListReduser';
 import companyReduser from './companyReduser';
 import warehouseReduser from './warehouseReduser';
 import carriersReducer from "./carriersReducer";
+import users from './userReducer'
 
 export default combineReducers({
     errors: errorReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
     companiesList:companiesListReduser,
     currentCompany:companyReduser,
     warehouses:warehouseReduser,
-    carriersReducer: carriersReducer
+    carriersReducer: carriersReducer,
+    users
 });

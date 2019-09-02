@@ -47,7 +47,8 @@ const Header = (props) => {
                 return navigation([
                     {name: 'Home', link: '/'},
                     {name: 'My warehouses', link: '/myWarehouses'},
-                    {name: 'Create new user', link: '/createUser'}]);
+                    {name: 'Create new user', link: '/createUser'},
+                    {name: 'Company employees', link: '/employees'}]);
             case 'manager':
                 return navigation([
                     {name: 'Stock delivery', link: '/stockDelivery'},

@@ -3,7 +3,7 @@ import {GET_CURRENT_STATISTIC, GET_ERRORS, GET_CURRENT_COMPANIES_LIST, GET_CURRE
 import server from '../serverConfig'
 
 export const registerAdmin = (admin, reset) => dispatch => {
-    axios.post(`${server}api/admins/registration`, admin)
+    axios.post(`${server}api/companyadmins/registration`, admin)
         .then(() => {
             reset();
             dispatch({
