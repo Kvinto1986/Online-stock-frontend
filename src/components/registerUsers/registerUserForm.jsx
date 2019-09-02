@@ -153,7 +153,7 @@ const Form = ({props}) => {
                             }}
                         >
                             <MenuItem value='manager'>Manager</MenuItem>
-                            <MenuItem value='oerator'>Operator</MenuItem>
+                            <MenuItem value='operator'>Operator</MenuItem>
                             <MenuItem value='controller'>Controller</MenuItem>
                         </Select>
                         {props.errors && (

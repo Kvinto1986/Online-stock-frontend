@@ -1,4 +1,4 @@
- import React from 'react';
+import React, {Fragment} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import {Redirect} from 'react-router-dom';
 import {connect} from "react-redux";
@@ -26,48 +26,45 @@ const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
         switch (props.auth.user.role) {
             case 'employee':
+
+
                 return (
                     <div>
                         <Header/>
                         <Switch>
-                            <Route exact path="/stockDelivery" component={DeliveryFromStockForm}/>
-                            <Route exact path="/warehousing" component={Warehousing}/>
-                            <Route exact path="/manager3" component={AdminRegister}/>
-                            <Route exact path="/manager4" component={AdminRegister}/>
-                            <Route component={Home}/>
+                            {props.auth.user.position === 'manager' && (
+                                <Fragment>
+                                    <Route exact path="/stockDelivery" component={DeliveryFromStockForm}/>
+                                    <Route exact path="/warehousing" component={Warehousing}/>
+                                    <Route exact path="/manager3" component={AdminRegister}/>
+                                    <Route exact path="/manager4" component={AdminRegister}/>
+                                    <Route component={Home}/>
+                                </Fragment>
+                            )}
+                            {props.auth.user.position === 'operator' && (
+                                <Fragment>
+                                    <Route exact path="/searchCarrier" component={Carrier}/>
+                                    <Route exact path="/driveRegistration" component={DriverRegistrer}/>
+                                    <Route exact path="/allCarrier" component={AllCarrier}/>
+                                    <Route exact path="/addCarrier" component={AddCarrier}/>
+                                    <Route exact path="/addTtn" component={TtnForm}/>
+                                    <Route component={Home}/>
+                                </Fragment>
+                            )}
+                            {props.auth.user.position === 'controller' && (
+                                <Fragment>
+                                    <Route exact path="/controller1" component={AdminRegister}/>
+                                    <Route exact path="/controller2" component={AdminRegister}/>
+                                    <Route exact path="/controller3" component={AdminRegister}/>
+                                    <Route exact path="/controller4" component={AdminRegister}/>
+                                    <Route component={Home}/>
+                                </Fragment>
+                            )}
                         </Switch>
                         <Footer/>
                     </div>
                 );
-            case 'operator':
-                return (
-                    <div>
-                        <Header/>
-                        <Switch>
-                            <Route exact path="/searchCarrier" component={Carrier}/>
-                            <Route exact path="/driveRegistration" component={DriverRegistrer}/>
-                            <Route exact path="/allCarrier" component={AllCarrier} />
-                            <Route exact path="/addCarrier" component={AddCarrier} />
-                            <Route exact path="/addTtn" component={TtnForm} />
-                            <Route component={Home}/>
-                        </Switch>
-                        <Footer/>
-                    </div>
-                );
-            case 'controller':
-                return (
-                    <div>
-                        <Header/>
-                        <Switch>
-                            <Route exact path="/controller1" component={AdminRegister}/>
-                            <Route exact path="/controller2" component={AdminRegister}/>
-                            <Route exact path="/controller3" component={AdminRegister}/>
-                            <Route exact path="/controller4" component={AdminRegister}/>
-                            <Route component={Home}/>
-                        </Switch>
-                        <Footer/>
-                    </div>
-                );
+
             case 'mainAdmin':
                 return (
                     <div>

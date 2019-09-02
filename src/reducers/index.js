@@ -20,9 +20,8 @@ export default combineReducers({
     currentCompany:companyReduser,
     warehouses:warehouseReduser,
 
-    ttnData: ttnReducer
+    ttnData: ttnReducer,
 
     carriersReducer: carriersReducer,
-    users
 
 });
