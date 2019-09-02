@@ -71,7 +71,7 @@ const Form = ({props}) => {
             street: form.street,
             house: form.house,
             apartment: form.apartment,
-            role: form.role,
+            position: form.role,
             dateOfBirth: dateOfBirth,
             company: props.auth.user.company
         };
@@ -152,9 +152,9 @@ const Form = ({props}) => {
                                 name: 'role',
                             }}
                         >
-                            <MenuItem value='Manager'>Manager</MenuItem>
-                            <MenuItem value='Operator'>Operator</MenuItem>
-                            <MenuItem value='Controller'>Controller</MenuItem>
+                            <MenuItem value='manager'>Manager</MenuItem>
+                            <MenuItem value='oerator'>Operator</MenuItem>
+                            <MenuItem value='controller'>Controller</MenuItem>
                         </Select>
                         {props.errors && (
                             <FormHelperText className={classes.helperText}>{props.errors.role}</FormHelperText>)}

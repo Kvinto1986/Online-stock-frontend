@@ -22,8 +22,8 @@ export const registerWarehouse = (warehouse, reset,unlock) => dispatch => {
         });
 };
 
-export const getWarehouses = (id) => dispatch => {
-    axios.post(`${server}api/warehouses/getList`,id)
+export const getWarehouses = () => dispatch => {
+    axios.get(`${server}api/warehouses/`)
         .then(res => {
             dispatch({
                 type: GET_CURRENT_WAREHOUSES,
