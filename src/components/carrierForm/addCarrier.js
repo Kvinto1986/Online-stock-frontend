@@ -12,10 +12,15 @@ import SearchIcon from '@material-ui/icons/Search';
 import ReactPhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/dist/style.css';
 import { connect } from 'react-redux'
-import {addPrevPath} from "../../actions/carrierAction";
 
 const AddCarrier = (props) => {
-    const [carrier, setCarrier] = useState({});
+    const [carrier, setCarrier] = useState({
+        passport: '',
+        email: '',
+        tel: '',
+        country: '',
+        company: ''
+    });
     const[phone, setPhone] = useState("")
     const handleInputChange = (e) => {
         setCarrier({...carrier, [e.target.name]:e.target.value })
@@ -24,7 +29,6 @@ const AddCarrier = (props) => {
     function handleOnChange(value) {
         setPhone( value )
     }
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -51,19 +55,21 @@ const AddCarrier = (props) => {
                     <Typography component="h1" variant="h5">
                        Add Carrier
                     </Typography>
-                    <ValidatorForm className={classes.form} noValidate onSubmit={handleSubmit}>
+                    <ValidatorForm className={classes.form} onSubmit={handleSubmit}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextValidator
                                     type='number'
                                     className='noNumerical'
                                     variant="outlined"
-                                    required
                                     fullWidth
-                                    id="company"
+                                    id="company_passport"
                                     label="Passport number"
                                     name="passport"
                                     autoComplete="passport"
+                                    value={carrier.passport}
+                                    validators={['minNumber:0', 'required']}
+                                    errorMessages={['Passport number will be positive', 'This field is required']}
                                     onChange={handleInputChange}
                                 />
                             </Grid>
@@ -72,12 +78,14 @@ const AddCarrier = (props) => {
                             <Grid item xs={12}>
                                 <TextValidator
                                     variant="outlined"
-                                    required
                                     fullWidth
-                                    id="company"
+                                    id="company_email"
                                     label="Email"
                                     name="email"
                                     autoComplete="email"
+                                    value={carrier.email}
+                                    validators={['required', 'isEmail']}
+                                    errorMessages={['This field is required', 'email is not valid']}
                                     onChange={handleInputChange}
                                 />
                             </Grid>
@@ -88,7 +96,7 @@ const AddCarrier = (props) => {
                                     inputClass={classes.tel}
                                     buttonClass={classes.drop}
                                     defaultCountry={'by'}
-                                     value={carrier.tel}
+                                    value={carrier.tel}
                                     inputExtraProps={{
                                         name: 'tel',
                                         onChange: handleInputChange
@@ -100,12 +108,14 @@ const AddCarrier = (props) => {
                             <Grid item xs={12}>
                                 <TextValidator
                                     variant="outlined"
-                                    required
                                     fullWidth
                                     id="company"
                                     label="Company"
                                     name="company"
                                     autoComplete="company"
+                                    value={carrier.company}
+                                    validators={['required','matchRegexp:[a-z, A-Z, а-я, А-Я]']}
+                                    errorMessages={['This field is required','Company name will be no numerical']}
                                     onChange={handleInputChange}
                                 />
                             </Grid>
@@ -114,12 +124,14 @@ const AddCarrier = (props) => {
                             <Grid item xs={12}>
                                 <TextValidator
                                     variant="outlined"
-                                    required
                                     fullWidth
-                                    id="company"
+                                    id="country"
                                     label="Country code"
                                     name="country"
                                     autoComplete="country"
+                                    value={carrier.country}
+                                    validators={['required','matchRegexp:[a-z, A-Z, а-я, А-Я]']}
+                                    errorMessages={['This field is required','country name will be no numerical']}
                                     onChange={handleInputChange}
                                 />
                             </Grid>
