@@ -111,6 +111,7 @@ function CustomPaginationActionsTable(props) {
     useEffect(() => {
         allCarriers()
             .then((res) => {
+
                 const fetchArr = [];
                 res.data.forEach(item => fetchArr.push((createData(item))));
                 setRows(fetchArr);
@@ -122,6 +123,7 @@ function CustomPaginationActionsTable(props) {
     const removeItem = (id) => {
         deleteCarriers(id, setRows, rows)
     };
+
     const handleEdit = (id) => {
         rows.forEach((item, indx) => {
             rows[indx].isDisabled = false;
@@ -129,9 +131,8 @@ function CustomPaginationActionsTable(props) {
         let found = rows.find((elem, index) => {
             return elem._id === id
         });
-
         found.isDisabled = true
-        setRows([...rows, found])
+        setRows([...rows])
     };
 
     const handelEditInput = (e) => {
@@ -168,7 +169,7 @@ function CustomPaginationActionsTable(props) {
                             {!loaded
                                 ? <Spinner/>
                                 : rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                                    <TableRow key={row.id}>
+                                    <TableRow key={row._id}>
                                         <TableCell component="th" scope="row">
                                             {
                                                 row.isDisabled
@@ -238,7 +239,6 @@ function CustomPaginationActionsTable(props) {
                                     </TableRow>
                                 ))
                             }
-
                             {emptyRows > 0 && (
                                 <TableRow style={{height: 35 * emptyRows}}>
                                     <TableCell colSpan={6}/>

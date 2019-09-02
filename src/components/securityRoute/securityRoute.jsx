@@ -1,5 +1,5 @@
  import React from 'react';
-import {Router, Route, Switch} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import {Redirect} from 'react-router-dom';
 import {connect} from "react-redux";
 import AdminRegister from "../registerAdmin/registerAdmin";
@@ -19,11 +19,13 @@ import TtnForm from '../ttnForm';
 import AddCarrier from "../carrierForm";
 import DeliveryFromStockForm from '../deliveryFromStock/deliveryFromStock'
 import Warehousing from '../managerWarehousing/warehousing'
+import Employees from '../employeePage/employee'
+
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
         switch (props.auth.user.role) {
-            case 'manager':
+            case 'employee':
                 return (
                     <div>
                         <Header/>
@@ -86,6 +88,7 @@ const SecurityRoute = (props) => {
                         <Switch>
                             <Route exact path="/myWarehouses" component={Warehouse}/>
                             <Route exact path="/createUser" component={UserForm}/>
+                            <Route exact path="/employees" component={Employees}/>
                             <Route component={Home}/>
                         </Switch>
                         <Footer/>

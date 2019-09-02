@@ -9,12 +9,21 @@ export const GET_CURRENT_WAREHOUSES='GET_CURRENT_WAREHOUSES'
 export const  PREV_PATH = 'PREV_PATH';
 
 
+
 // company admin
 export const COMPANY_ADMIN = 'COMPANY_ADMIN'
 export const COMPANY_ADMINS = 'COMPANY_ADMINS'
+
 
 // Warehouses(stocks)
 export const FETCH_ALL_STOCKS = 'FETCH_ALL_STOCKS'
 
 // TTN 
 export const FETCH_TTN_BY_NUMBER = 'FETCH_TTN_BY_NUMBER'
+
+export const USER = 'USER'
+export const USERS = 'USERS'
+
+export const GET_USER_SUCCESS ='GET_USER_SUCCESS'
+export const GET_USERS_SUCCESS ='GET_USERS_SUCCESS'
+

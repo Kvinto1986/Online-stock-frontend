@@ -21,7 +21,6 @@ import Box from "@material-ui/core/Box";
 
 const AdminRegister = (props) => {
     const [values, setValues] = useState({
-        role:'companyAdmin',
         company:'',
         email: '',
         password: '',
