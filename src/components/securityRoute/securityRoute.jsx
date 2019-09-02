@@ -25,7 +25,7 @@ import Employees from '../employeePage/employee'
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
         switch (props.auth.user.role) {
-            case 'employee':
+            case 'manager':
                 return (
                     <div>
                         <Header/>
