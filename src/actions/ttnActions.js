@@ -1,6 +1,6 @@
 import axios from 'axios';
 import server from "../serverConfig";
-import {FETCH_TTN_BY_NUMBER, GET_ERRORS} from './types';
+import {FETCH_TTN_BY_NUMBER, SET_ERRORS} from './types';
 
 export const findTTNbyNumber = (number, dndIsShown) => dispatch => {
     axios.post(`${server}api/ttn/findTTNbyNumber`, number)
@@ -22,7 +22,7 @@ export const findTTNbyNumber = (number, dndIsShown) => dispatch => {
     })
     .catch(err => {
         dispatch({
-            type: GET_ERRORS,
+            type: SET_ERRORS,
             payload: err.response.data
         });
         dndIsShown(false)

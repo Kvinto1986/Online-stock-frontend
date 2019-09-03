@@ -100,7 +100,7 @@ const TtnForm = (props) => {
             .then((res) => {props.history.push(props.prevPath)})
             .catch((err) => {console.log(err)})
         }
-
+    //TODO доделать валидацию для carrier sender
     const classes = useStyles();
     return (
         <React.Fragment>
@@ -120,14 +120,15 @@ const TtnForm = (props) => {
                                     type="number"
                                     className="noNumerical"
                                     variant="outlined"
-                                    required
                                     fullWidth
                                     id="ttnNumber"
                                     label="TTN number"
                                     name="TTNNumber"
-                                    autoComplete="TTNNumber"
-                                    onChange={handleInputChange}
                                     value={ttn.TTNNumber}
+                                    validators={['minNumber:0', 'required']}
+                                    errorMessages={['Ttn number will be positive', 'This field is required']}
+                                    onChange={handleInputChange}
+
                                 />
                             </Grid>
 
@@ -181,12 +182,14 @@ const TtnForm = (props) => {
                                 <TextValidator
                                     className="noNumerical"
                                     variant="outlined"
-                                    required
                                     fullWidth
-                                    id="info_about_сфк"
+                                    id="info_about_car"
                                     label="Car Number"
                                     name="carNumber"
                                     autoComplete="car"
+                                    value={ttn.carNumber}
+                                    validators={['minNumber:0', 'required']}
+                                    errorMessages={['Ttn number will be positive', 'This field is required']}
                                     onChange={handleInputChange}
                                 />
                             </Grid>
@@ -195,12 +198,14 @@ const TtnForm = (props) => {
                             <Grid item xs={12}>
                                 <TextValidator
                                     variant="outlined"
-                                    required
                                     fullWidth
                                     id="info_about_carrier"
                                     label="Driver"
                                     name="driver"
                                     autoComplete="driver"
+                                    value={ttn.driver}
+                                    validators={['required','matchRegexp:[a-z, A-Z, а-я, А-Я]']}
+                                    errorMessages={['This field is required','Driver name will be no numerical']}
                                     onChange={handleInputChange}
                                 />
                             </Grid>
@@ -210,7 +215,6 @@ const TtnForm = (props) => {
                                 <TextValidator
                                     type='text'
                                     variant="outlined"
-                                    required
                                     fullWidth
                                     id="info-name-amount"
                                     label="Product"

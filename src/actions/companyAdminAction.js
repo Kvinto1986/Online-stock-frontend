@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_CURRENT_STATISTIC, GET_ERRORS, GET_CURRENT_COMPANIES_LIST, GET_CURRENT_COMPANY} from './types';
+import {GET_CURRENT_STATISTIC, SET_ERRORS, GET_CURRENT_COMPANIES_LIST, GET_CURRENT_COMPANY} from './types';
 import server from '../serverConfig'
 
 export const registerAdmin = (admin, reset) => dispatch => {
@@ -7,14 +7,14 @@ export const registerAdmin = (admin, reset) => dispatch => {
         .then(() => {
             reset();
             dispatch({
-                 type: GET_ERRORS,
+                 type: SET_ERRORS,
                  payload: {}
             });
         })
         .catch(err => {
             if (err.response) {
                 dispatch({
-                    type: GET_ERRORS,
+                    type: SET_ERRORS,
                     payload: err.response.data
                 });
             }
@@ -31,14 +31,14 @@ export const getStatistic = (date) => dispatch => {
         })
         .then(() => {
             dispatch({
-                type: GET_ERRORS,
+                type: SET_ERRORS,
                 payload: {}
             });
         })
         .catch(err => {
             if (err.response) {
                 dispatch({
-                    type: GET_ERRORS,
+                    type: SET_ERRORS,
                     payload: err.response.data
                 });
             }
@@ -55,14 +55,14 @@ export const getCompaniesList = () => dispatch => {
         })
         .then(() => {
             dispatch({
-                type: GET_ERRORS,
+                type: SET_ERRORS,
                 payload: {}
             });
         })
         .catch(err => {
             if (err.response) {
                 dispatch({
-                    type: GET_ERRORS,
+                    type: SET_ERRORS,
                     payload: err.response.data
                 });
             }
@@ -79,14 +79,14 @@ export const getCompany = (company) => dispatch => {
         })
         .then(() => {
             dispatch({
-                type: GET_ERRORS,
+                type: SET_ERRORS,
                 payload: {}
             });
         })
         .catch(err => {
             if (err.response) {
                 dispatch({
-                    type: GET_ERRORS,
+                    type: SET_ERRORS,
                     payload: err.response.data
                 });
             }

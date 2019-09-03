@@ -121,7 +121,7 @@ const WarehouseForm = (props) => {
         e.preventDefault();
 
         const warehouse = {
-            adminId:props.auth.user.id,
+            adminId:props.auth.user._id,
             name: values.name,
             license: values.license,
             totalArea: originalArea,

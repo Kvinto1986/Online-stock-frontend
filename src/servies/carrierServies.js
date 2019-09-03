@@ -1,6 +1,6 @@
 import axios from 'axios';
 import server from "../serverConfig";
-import {GET_ERRORS} from "../actions/types";
+import {SET_ERRORS} from "../actions/types";
 
 export const addCarrier = (carrier) => {
 
