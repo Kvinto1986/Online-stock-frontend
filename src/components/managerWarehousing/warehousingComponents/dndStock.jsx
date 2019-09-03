@@ -30,12 +30,16 @@ const DndStock = props => {
     //     state.activeDnDCargoUnit
     // }
 
+    console.log(state.activeDnDCargoUnit);
+    
+
     const setCurrentHendleCargoUnit = (name, amount, dimension) => {
         const personalCargoUnitData = {
             name,
             amount,
             dimension
         }
+        
         setState({...state, activeDnDCargoUnit: personalCargoUnitData})
     }
 
@@ -77,12 +81,13 @@ const DndStock = props => {
                             </Typography>
                         </Box>
                         <Box display="flex" flexDirection="column">
-                            {(props.ttnProductsData == true) && props.ttnProductsData.map(product => {
+                            {props.ttnProductsData && props.ttnProductsData.map(product => {
                                 return (
                                     <DndElement 
                                         key={product.name + product.type} 
                                         name={product.name} 
                                         amount={product.amount} 
+                                        setCurrentHendleCargoUnit={setCurrentHendleCargoUnit}
                                         dimension={product.type} 
                                     />
                                 )
