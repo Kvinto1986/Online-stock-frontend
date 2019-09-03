@@ -24,12 +24,12 @@ import {addTtn} from "../../servies/ttn";
 import Select from "react-select";
 const currencies = [
     {
-        value: 'КГ',
-        label: 'кг',
+        value: 'KG',
+        label: 'KG',
     },
     {
         value: 'BOX',
-        label: 'box',
+        label: 'BOX',
     },
 ];
 
