@@ -1,6 +1,6 @@
 import React from 'react'
 import {fireEvent, render} from '@testing-library/react'
-import RegisterUserForm from './registerUserForm'
+import RegisterUserForm from './registerEmployeeForm'
 
 
 it('sending data', async () => {

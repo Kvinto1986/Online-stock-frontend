@@ -1,4 +1,4 @@
-import {GET_ERRORS, PREV_PATH} from "./types";
+import {SET_ERRORS, PREV_PATH} from "./types";
 import axios from "axios";
 import server from "../serverConfig";
 
@@ -14,7 +14,7 @@ export const searchCarrier = (carrier, history) => dispatch => {
     axios.get(`${server}api/carriers/${passport}`)
         .then((res) => {
             dispatch({
-                type:GET_ERRORS,
+                type:SET_ERRORS,
                 payload: {}
             })
             if(res.data._id ) {
@@ -25,7 +25,7 @@ export const searchCarrier = (carrier, history) => dispatch => {
         })
         .catch((err) => {
             dispatch({
-                type:GET_ERRORS,
+                type:SET_ERRORS,
                 payload: {carrier:`This field musn't be empty`}
             })
         })

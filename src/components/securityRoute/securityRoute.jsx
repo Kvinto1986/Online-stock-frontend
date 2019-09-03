@@ -4,10 +4,10 @@ import {Redirect} from 'react-router-dom';
 import {connect} from "react-redux";
 import AdminRegister from "../registerAdmin/registerAdmin";
 import Warehouse from "../warehousesPage/warehouse";
-import UserForm from "../registerUsers/registerUser";
+import UserForm from "../registerEmployee/registerEmployee";
 import DriverRegistrer from '../registerDrive';
 import Home from '../homePage/homePage';
-import Login from '../loginPage/login';
+import Login from '../loginPage/loginPage';
 import Report from '../mainAdminReportPage/reportPage'
 import Header from '../header/header';
 import Footer from '../footer/footer';
@@ -27,7 +27,6 @@ const SecurityRoute = (props) => {
         switch (props.auth.user.role) {
             case 'employee':
 
-
                 return (
                     <div>
                         <Header/>
@@ -36,8 +35,6 @@ const SecurityRoute = (props) => {
                                 <Fragment>
                                     <Route exact path="/stockDelivery" component={DeliveryFromStockForm}/>
                                     <Route exact path="/warehousing" component={Warehousing}/>
-                                    <Route exact path="/manager3" component={AdminRegister}/>
-                                    <Route exact path="/manager4" component={AdminRegister}/>
                                     <Route component={Home}/>
                                 </Fragment>
                             )}
@@ -53,10 +50,6 @@ const SecurityRoute = (props) => {
                             )}
                             {props.auth.user.position === 'controller' && (
                                 <Fragment>
-                                    <Route exact path="/controller1" component={AdminRegister}/>
-                                    <Route exact path="/controller2" component={AdminRegister}/>
-                                    <Route exact path="/controller3" component={AdminRegister}/>
-                                    <Route exact path="/controller4" component={AdminRegister}/>
                                     <Route component={Home}/>
                                 </Fragment>
                             )}

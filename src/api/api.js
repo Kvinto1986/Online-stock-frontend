@@ -13,14 +13,6 @@ const api = (action_type, url, dispatch, data) => {
                 data: json
             })
         })
-        .catch(response => {
-            debugger
-            dispatch({
-                type: action_type + '_FAIL',
-                error: response.text()
-            })
-            return response
-        })
 }
 
 const METHOD_GET = {method: GET}

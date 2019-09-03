@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {FETCH_ALL_STOCKS, GET_ERRORS} from './types';
+import {FETCH_ALL_STOCKS, SET_ERRORS} from './types';
 import server from '../serverConfig'
 
 export const fetchAvailableStocks = () => dispatch => { 
@@ -14,7 +14,7 @@ export const fetchAvailableStocks = () => dispatch => {
     .catch(err => {
         if (err.response) {
             dispatch({
-                type: GET_ERRORS,
+                type: SET_ERRORS,
                 payload: err.response.data
             });
         }

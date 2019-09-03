@@ -1,23 +1,15 @@
 import axios from 'axios';
-import {GET_ERRORS} from './types';
+import {SET_ERRORS} from './types';
 import server from '../serverConfig'
 
-export const registerUser = (user, reset) => dispatch => {
-    axios.post(`${server}api/users/registration`, user)
+export const registerEmployee = (user, reset) => dispatch => {
+    axios.post(`${server}api/employee/`, user)
         .then(() => {
             reset();
             dispatch({
-                type: GET_ERRORS,
+                type: SET_ERRORS,
                 payload: {}
             });
         })
-        .catch(err => {
-            if (err.response) {
-                dispatch({
-                    type: GET_ERRORS,
-                    payload: err.response.data
-                });
-            }
-        });
 };
 

@@ -2,8 +2,8 @@ import createRest from './api'
 import {USER, USERS} from '../actions/types'
 
 export const {
-    add: addUser,
+    add: addEmployee,
     getAll: getUsers,
     get: getUser,
     edit: editUser
-} = createRest('api/users/', USER, USERS)
+} = createRest('api/employee/', USER, USERS)
