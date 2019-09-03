@@ -16,10 +16,10 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 import 'sweetalert2/src/sweetalert2.scss'
 
-import useStyles from './registerUserStyles'
+import useStyles from './registerEmployeeStyles'
 
 
-const Form = ({props}) => {
+export default({onSubmit,errors,currentUser}) => {
 
     const [form, setForm] = useState({
         firstName: '',
@@ -47,22 +47,10 @@ const Form = ({props}) => {
         setDateOfBirth(e)
     };
 
-    const reset = () => {
-
-        Swal.fire({
-            type: 'success',
-            title: 'Congratulations!',
-            text: 'User registration was successful !',
-            allowOutsideClick: false
-        }).then(() => {
-            window.location.reload()
-        })
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const user = {
+        const employee = {
             firstName: form.firstName,
             lastName: form.lastName,
             patronymic: form.patronymic,
@@ -73,10 +61,10 @@ const Form = ({props}) => {
             apartment: form.apartment,
             position: form.role,
             dateOfBirth: dateOfBirth,
-            company: props.auth.user.company
+            company: currentUser.company
         };
-
-        props.registerUser(user, reset)
+console.log(employee)
+        onSubmit(employee)
     };
 
     return (
@@ -156,8 +144,8 @@ const Form = ({props}) => {
                             <MenuItem value='operator'>Operator</MenuItem>
                             <MenuItem value='controller'>Controller</MenuItem>
                         </Select>
-                        {props.errors && (
-                            <FormHelperText className={classes.helperText}>{props.errors.role}</FormHelperText>)}
+                        {errors && (
+                            <FormHelperText className={classes.helperText}>{errors.role}</FormHelperText>)}
 
                     </FormControl>
                 </Grid>
@@ -174,8 +162,8 @@ const Form = ({props}) => {
                         validators={['required', 'isEmail']}
                         errorMessages={['this field is required', 'email is not valid']}
                     />
-                    {props.errors && (
-                        <FormHelperText className={classes.helperText}>{props.errors.email}</FormHelperText>)}
+                    {errors && (
+                        <FormHelperText className={classes.helperText}>{errors.email}</FormHelperText>)}
                 </Grid>
             </Grid>
 
@@ -248,5 +236,3 @@ const Form = ({props}) => {
         </ValidatorForm>
     )
 };
-
-export default Form

@@ -4,7 +4,6 @@ import {Provider} from 'react-redux';
 import store from './store';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './setAuthToken';
-import { createBrowserHistory } from 'history';
 import {setCurrentUser} from './actions/authenticationAction';
 
 import SecurityRoute from './components/securityRoute/securityRoute';

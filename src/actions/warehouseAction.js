@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_ERRORS, GET_CURRENT_WAREHOUSES} from './types';
+import {SET_ERRORS, GET_CURRENT_WAREHOUSES} from './types';
 import server from '../serverConfig';
 
 export const registerWarehouse = (warehouse, reset,unlock) => dispatch => {
@@ -7,7 +7,7 @@ export const registerWarehouse = (warehouse, reset,unlock) => dispatch => {
         .then(() => {
             reset();
             dispatch({
-                type: GET_ERRORS,
+                type: SET_ERRORS,
                 payload: {}
             });
         })
@@ -15,7 +15,7 @@ export const registerWarehouse = (warehouse, reset,unlock) => dispatch => {
             if (err.response) {
                 unlock()
                 dispatch({
-                    type: GET_ERRORS,
+                    type: SET_ERRORS,
                     payload: err.response.data
                 });
             }
@@ -32,14 +32,14 @@ export const getWarehouses = () => dispatch => {
         })
         .then(() => {
             dispatch({
-                type: GET_ERRORS,
+                type: SET_ERRORS,
                 payload: {}
             });
         })
         .catch(err => {
             if (err.response) {
                 dispatch({
-                    type: GET_ERRORS,
+                    type: SET_ERRORS,
                     payload: err.response.data
                 });
             }
@@ -50,14 +50,14 @@ export const deleteWarehouse = (id) => dispatch => {
     axios.post(`${server}api/warehouses/delete`,id)
         .then(() => {
             dispatch({
-                type: GET_ERRORS,
+                type: SET_ERRORS,
                 payload: {}
             });
         })
         .catch(err => {
             if (err.response) {
                 dispatch({
-                    type: GET_ERRORS,
+                    type: SET_ERRORS,
                     payload: err.response.data
                 });
             }

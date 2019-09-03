@@ -1,0 +1,1 @@
+export const currentUser = store => store.auth.user
