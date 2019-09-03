@@ -6,55 +6,58 @@ import DateFnsUtils from '@date-io/date-fns';
 import { findTTNbyNumber } from '../../../actions/ttnActions'
 import { connect } from 'react-redux'
 
-const WarehousingDataForm = props => {
+const WarehousingDataForm = ({ dndIsShown, ...props}) => {
 
     const initialFormState = {
-        ttnIsExists: "",
-        ttnNumber: "",
-        ttnDate: "",
-        managerName: "",
-        operatorName: "",
-        deliveryForStorageDate: ""
+        ttnIsExists: '',
+        ttnNumber: '',
+        ttnDate: '',
+        managerInitials: '',
+        operatorName: '',
+        deliveryForStorageDate: ''
     };
 
     const [formState, setFormState] = useState(initialFormState);
+
+    // TODO: Make one useEffect if it's possible
+
+    useEffect(() => {
+        if(Object.keys(props.ttnData).length > 0) {
+            const ttnData = props.ttnData
+            const { firstName, lastName, patronymic } = props.auth.user
+
+            setFormState({
+                ...formState, 
+                ttnIsExists: true,
+                ttnDate: ttnData.dataOfRegistration, 
+                managerInitials:  `${firstName} ${lastName} ${patronymic}`,
+                operatorName: ttnData.sender
+            })
+        }
+    }, [props.ttnData])
+
+    useEffect(() => {
+        if (Object.keys(props.errors).length > 0) {
+            setFormState({
+                ...formState, 
+                ttnIsExists: false,
+                ttnDate: '', 
+                managerInitials: '',
+                operatorName: '',
+                deliveryForStorageDate: ''
+            })
+        }
+    }, [props.errors])
 
     const handleChange = e => {
         setFormState({ ...formState, [e.target.name]: e.target.value });
     };
 
     const findTTN = () => {
-        console.log(formState.ttnNumber);
-        
-        props.findTTNbyNumber({ ttnNumber: formState.ttnNumber })
-        .then(value => console.log(value))
-        // .then(result => {
-        //     const {data} = result
-
-        //     if (data) {
-        //         setFormState({
-        //             ...formState, 
-        //             ttnIsExists: true,
-        //             ttnDate: data.dataOfRegistration, 
-        //             managerName: props.auth.user.name,
-        //             operatorName: data.sender
-        //         })
-        //     }
-        //     else {
-        //         setFormState({
-        //             ...formState, 
-        //             ttnIsExists: false,
-        //             ttnDate: '', 
-        //             managerName: '',
-        //             operatorName: '',
-        //             deliveryForStorageDate: ''
-        //         })
-        //     }
-        // })
+        props.findTTNbyNumber({ ttnNumber: formState.ttnNumber }, dndIsShown)
     }
-
-    const {ttnNumber, ttnDate, managerName, operatorName, ttnIsExists} = formState
-    const isDisabled = (ttnIsExists === true) ? false : true
+    
+    const {ttnNumber, ttnDate, managerInitials, operatorName, ttnIsExists} = formState  
     
     return (
         <Container component="main" maxWidth="xs">
@@ -76,9 +79,9 @@ const WarehousingDataForm = props => {
                                     name="ttnNumber"
                                     autoComplete="ttnNumber"
                                     onChange={handleChange}
-                                    value={ttnNumber}
+                                    value={ttnNumber || ''}
                                 />
-                                {(ttnIsExists === false) && (
+                                {((ttnIsExists === false) || Object.keys(props.errors).length > 0) && (
                                     <p style={{color: 'red'}}>TTN not found</p>
                                 )}
                                 <Box mt={2} mb={5}>
@@ -98,18 +101,17 @@ const WarehousingDataForm = props => {
                                     name="ttnDate"
                                     autoComplete="ttnDate"
                                     onChange={handleChange}
-                                    value={ttnDate}
+                                    value={ttnDate || ''}
                                 />
-
                                 <TextValidator
                                     disabled
                                     fullWidth
-                                    id="managerName"
-                                    label="Manager name"
-                                    name="managerName"
-                                    autoComplete="managerName"
+                                    id="managerInitials"
+                                    label="Manager initials"
+                                    name="managerInitials"
+                                    autoComplete="managerInitials"
                                     onChange={handleChange}
-                                    value={managerName}
+                                    value={managerInitials || ''}
                                 />
                                 <TextValidator
                                     disabled
@@ -119,12 +121,12 @@ const WarehousingDataForm = props => {
                                     name="operatorName"
                                     autoComplete="operatorName"
                                     onChange={handleChange}
-                                    value={operatorName}
+                                    value={operatorName || ''}
                                 />
                                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                     <KeyboardDatePicker
                                         required
-                                        disabled={isDisabled}
+                                        disabled
                                         disableToolbar
                                         variant="inline"
                                         format="MM/dd/yyyy"
@@ -152,7 +154,8 @@ const WarehousingDataForm = props => {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    ttnData: state.ttnData
+    ttnData: state.ttnData,
+    errors: state.errors
 });
 
 export default connect(mapStateToProps, {
