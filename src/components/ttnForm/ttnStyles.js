@@ -1,5 +1,5 @@
 import {makeStyles} from '@material-ui/core/styles';
-import {bool} from "prop-types";
+
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -63,6 +63,9 @@ const useStyles = makeStyles(theme => ({
     container: {
         display: "flex",
         justifyContent: "space-between"
+    },
+    amount: {
+        padding: "10px 0 7px"
     }
 
 }));
