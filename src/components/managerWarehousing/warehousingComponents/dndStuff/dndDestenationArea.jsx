@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDrop } from 'react-dnd'
 import ItemTypes from './ItemTypes'
 
 const DndDestenationArea = ({ index, area, type, dropHendler }) => {
+
+    const [areaState, setAreaState] = useState()
+    const [updatedAreaState , updateAreaState] = useState()
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: ItemTypes.BOX,
         drop: () => ({ name: `Type: ${type}` }),
@@ -12,21 +15,35 @@ const DndDestenationArea = ({ index, area, type, dropHendler }) => {
         }),
     })
 
+    useEffect(() => {
+        setAreaState({index, area, type})
+    }, [])
+
+    const dropOnArea = () => {
+        // setAreaState({index, area, type})
+        updateAreaState({...areaState, updatedAreaState})
+        dropHendler()
+    } 
+
     const isActive = canDrop && isOver
     let backgroundColor = 'white'
 
     if (isActive) {
-        backgroundColor = 'darkgreen'
+        backgroundColor = '#70e66e'
     } else if (canDrop) {
-        backgroundColor = 'darkkhaki'
+        backgroundColor = '#d7ddfa'
     }
     return (
-        <div ref={drop} style={{ ...style, backgroundColor }} onDrop={dropHendler}>
-            {isActive ? 'Release to drop' : (
+        <div ref={drop} style={{ ...style, backgroundColor }} onDrop={dropOnArea}>
+            {isActive 
+            ? (
+                <p><b>- Drop cargo here to place it to stock -</b></p>
+            ) 
+            : (
                 <div>
-                    <span>Warehouse area <em>№ {index}</em></span><br/>
-                    <span>Type: <small>{type}</small></span><br/>
-                    <span>Free area: {area}m (={area * 100}) kg</span>
+                    <span>Area <em>№ {index}</em></span><br/>
+                    <span>Type: <b style={{textDecoration: "underline"}}>{type}</b></span><br/>
+                    <span>Free area: {area}m</span>
                     <p><b>- Drag a cargo here -</b></p>
                 </div>
             )}
