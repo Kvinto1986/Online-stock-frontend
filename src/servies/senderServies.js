@@ -1,6 +1,7 @@
 import axios from "axios";
 import server from "../serverConfig";
 
-export const getAllSender = () => {
-    return axios.get(`${server}api/sender/`)
+export const getAllSender = async () => {
+    const allSender = await axios.get(`${server}api/sender/`)
+    return allSender.data;
 }

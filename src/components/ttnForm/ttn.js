@@ -22,33 +22,38 @@ import {
 } from '@material-ui/pickers';
 import {addTtn} from "../../servies/ttn";
 import Select from "react-select";
-
 const currencies = [
     {
-        value: 'КГ',
-        label: 'кг',
+        value: 'KG',
+        label: 'KG',
     },
     {
         value: 'BOX',
-        label: 'box',
+        label: 'BOX',
     },
 ];
 
 const TtnForm = (props) => {
+    const [carrierOptions, setCarrierOptions] = useState([])
+    const [selectedDate, setSelectedDate] = React.useState(new Date())
     const[ttn, setTtn] = useState({
         TTNNumber: '',
-        date: '',
         driver: '',
         carNumber: '',
         description: '',
-        products: []
+        products: [],
     });
-    const[options, setOptions] = useState([])
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
-    const [sender, setSender] = useState(false);
-    const [carrierItem, setCarrierItem] = useState(false);
-    const [carrierOptions, setCarrierOptions] = useState([]);
-    const [values, setValues] = React.useState({
+    const[options, setOptions] = useState({
+        sender: [],
+        carrier: [],
+        data: Math.random()
+    })
+    const[selectItems, setSelectItems] = useState({
+        sender: '',
+        carrier: '',
+    });
+
+    const [values, setValues] = useState({
         type: 'КГ',
         name: '',
         amount: "1"
@@ -60,25 +65,21 @@ const TtnForm = (props) => {
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value });
     };
-    useEffect(() => {
-        getAllSender()
-            .then((res) => {
-                setOptions(res.data);
-            } )
 
-        listCarriers()
-            .then((res) => {
-                setCarrierOptions(res.data);
-            })
+    useEffect( () => {
+        (async () => {
+            const  allCarriers = await listCarriers();
+            const allSender = await getAllSender();
+            setOptions(allSender);
+            setCarrierOptions(allCarriers);
+        })();
+
     }, []);
-    const handleChangeCompanyName = e => {
-        setSender(e.value)
+    const handleChangeSelect = name => event => {
+        setSelectItems({...selectItems, [name]: event.value})
     };
-    const handleChangeCarrierName = e => {
-        setCarrierItem(e.value);
-    };
-    const handleInputChange = (e) => {
-        setTtn({...ttn, [e.target.name]: e.target.value});
+    const handleInputChange = name => event => {
+        setTtn({...ttn, [event.target.name]: event.target.value});
     }
     function handleDateChange(date) {
         setSelectedDate(date);
@@ -89,18 +90,17 @@ const TtnForm = (props) => {
            "date": selectedDate,
            "TTNNumber": ttn.TTNNumber,
             "driver": ttn.driver,
-            "carrier": carrierItem,
-            "sender": sender,
+            "carrier": selectItems.carrier,
+            "sender": selectItems.sender,
             "registrar": props.user,
             "description": ttn.description,
             "carNumber": ttn.carNumber,
             "products": ttn.products
-        };
+        }
         addTtn(ttnInfo)
             .then((res) => {props.history.push(props.prevPath)})
             .catch((err) => {console.log(err)})
-        }
-    //TODO доделать валидацию для carrier sender
+         }
     const classes = useStyles();
     return (
         <React.Fragment>
@@ -113,10 +113,11 @@ const TtnForm = (props) => {
                     <Typography component="h1" variant="h5">
                         Add TTN
                     </Typography>
-                    <ValidatorForm className={classes.form} noValidate onSubmit={handleSubmit}>
+                    <ValidatorForm className={classes.form}  onSubmit={handleSubmit}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextValidator
+                                    InputProps={{ min: "0", max: "14" } }
                                     type="number"
                                     className="noNumerical"
                                     variant="outlined"
@@ -127,8 +128,7 @@ const TtnForm = (props) => {
                                     value={ttn.TTNNumber}
                                     validators={['minNumber:0', 'required']}
                                     errorMessages={['Ttn number will be positive', 'This field is required']}
-                                    onChange={handleInputChange}
-
+                                    onChange={handleInputChange("TTNNumber")}
                                 />
                             </Grid>
 
@@ -137,7 +137,8 @@ const TtnForm = (props) => {
                             <Grid item xs={12}>
                                 <Select
                                     placeholder="Sender"
-                                    onChange={handleChangeCompanyName}
+                                    name='sender'
+                                    onChange={handleChangeSelect('sender')}
                                     options={options}
                                     className={classes.select}
                                 />
@@ -160,7 +161,6 @@ const TtnForm = (props) => {
                                         KeyboardButtonProps={{
                                             'aria-label': 'change date',
                                         }}
-
                                     />
                                 </MuiPickersUtilsProvider>
                             </Grid>
@@ -170,7 +170,8 @@ const TtnForm = (props) => {
                         <Grid item xs={12}>
                             <Select
                                 placeholder="Carrier"
-                                onChange={handleChangeCarrierName}
+                                name="carrier"
+                                onChange={handleChangeSelect("carrier")}
                                 options={carrierOptions}
                                 className={classes.select}
                             />
@@ -190,7 +191,7 @@ const TtnForm = (props) => {
                                     value={ttn.carNumber}
                                     validators={['minNumber:0', 'required']}
                                     errorMessages={['Ttn number will be positive', 'This field is required']}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChange('carNumber')}
                                 />
                             </Grid>
                         </Grid>
@@ -206,7 +207,7 @@ const TtnForm = (props) => {
                                     value={ttn.driver}
                                     validators={['required','matchRegexp:[a-z, A-Z, а-я, А-Я]']}
                                     errorMessages={['This field is required','Driver name will be no numerical']}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChange('driver')}
                                 />
                             </Grid>
                         </Grid>
@@ -225,13 +226,12 @@ const TtnForm = (props) => {
                             </Grid>
                             <Grid item xs={3}>
                                 <TextField
-                                    id="standard-number"
-                                    label="Number"
+                                    id="amount"
+                                    label="Amount"
                                     value={values.amount}
                                     onChange={handleChange('amount')}
                                     type="number"
-                                    min="0"
-                                    className={classes.textField}
+                                    className={classes.amount}
                                     InputProps={{ inputProps: { min: 1 }}}
                                     InputLabelProps={{
                                         shrink: true,
@@ -273,7 +273,7 @@ const TtnForm = (props) => {
                                     defaultValue="Description"
                                     rows={5}
                                     name='description'
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChange('description')}
                                 />
                             </Grid>
                         </Grid>
@@ -295,7 +295,7 @@ const TtnForm = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.auth.user.name,
+    user: state.auth.user.email,
     prevPath: state.carriersReducer.prevPath
 });
 export default connect(mapStateToProps, {addPrevPath})(TtnForm);
