@@ -16,7 +16,6 @@ const DndElement = ({ name, amount, dimension, setCurrentHendleCargoUnit }) => {
         }),
     })
 
-    // const useState 
     const dragStartHendler = () => {
         setCurrentHendleCargoUnit(name, amount, dimension)
     }

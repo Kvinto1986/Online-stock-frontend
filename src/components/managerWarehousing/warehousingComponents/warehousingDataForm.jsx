@@ -54,7 +54,9 @@ const WarehousingDataForm = ({ dndIsShown, ...props}) => {
     };
 
     const findTTN = () => {
-        props.findTTNbyNumber({ ttnNumber: formState.ttnNumber }, dndIsShown)
+        const calculateAreaFlag = true
+
+        props.findTTNbyNumber({ ttnNumber: formState.ttnNumber }, dndIsShown, calculateAreaFlag)
     }
     
     const {ttnNumber, ttnDate, managerInitials, operatorName, ttnIsExists} = formState  
