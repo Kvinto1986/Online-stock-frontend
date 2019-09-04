@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useDrop } from 'react-dnd'
 import ItemTypes from './ItemTypes'
 
-const DndDestenationArea = ({ index, area, type, dropHendler }) => {
+const DndDestenationArea = ({ index, area, type, dropHendler, addCargoUnitToRemove }) => {
+    const initialState = {
+        index: 'Loading ...',
+        area: 'Loading ...',
+        type: 'Loading ...'
+    }
 
-    const [areaState, setAreaState] = useState()
-    const [updatedAreaState , updateAreaState] = useState()
+    const [state, setState] = useState(initialState)
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: ItemTypes.BOX,
         drop: () => ({ name: `Type: ${type}` }),
@@ -16,13 +20,15 @@ const DndDestenationArea = ({ index, area, type, dropHendler }) => {
     })
 
     useEffect(() => {
-        setAreaState({index, area, type})
+        setState({index, area, type})
     }, [])
 
+    // Change area data
     const dropOnArea = () => {
-        // setAreaState({index, area, type})
-        updateAreaState({...areaState, updatedAreaState})
-        dropHendler()
+        const dropedAreaUnitData = dropHendler()
+        // TODO: Yury type fix
+        setState({...state, area: Number(state.area) - Number(dropedAreaUnitData.size)})
+        addCargoUnitToRemove(dropedAreaUnitData)
     } 
 
     const isActive = canDrop && isOver
@@ -33,20 +39,15 @@ const DndDestenationArea = ({ index, area, type, dropHendler }) => {
     } else if (canDrop) {
         backgroundColor = '#d7ddfa'
     }
+    
     return (
         <div ref={drop} style={{ ...style, backgroundColor }} onDrop={dropOnArea}>
-            {isActive 
-            ? (
-                <p><b>- Drop cargo here to place it to stock -</b></p>
-            ) 
-            : (
-                <div>
-                    <span>Area <em>№ {index}</em></span><br/>
-                    <span>Type: <b style={{textDecoration: "underline"}}>{type}</b></span><br/>
-                    <span>Free area: {area}m</span>
-                    <p><b>- Drag a cargo here -</b></p>
-                </div>
-            )}
+            <div>
+                <span>Area <em>№ {state.index}</em></span><br/>
+                <span>Type: <b style={{textDecoration: "underline"}}>{state.type}</b></span><br/>
+                <span>Free area: {state.area}m</span>
+                <p><b>- Drag a cargo here -</b></p>
+            </div>
         </div>
     )
 }
