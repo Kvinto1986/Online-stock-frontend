@@ -16,12 +16,14 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import {addPrevPath} from "../../actions/carrierAction";
+
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import {addTtn} from "../../servies/ttn";
 import Select from "react-select";
+import {uid} from "react-uid";
 const currencies = [
     {
         value: 'KG',
@@ -54,11 +56,13 @@ const TtnForm = (props) => {
     });
 
     const [values, setValues] = useState({
-        type: 'КГ',
+        type: 'KG',
         name: '',
-        amount: "1"
+        amount: "1",
+        id: ''
     });
     const addProduct = () => {
+        values.id = `f${(~~(Math.random()*1e8)).toString(16)}`
         setTtn({...ttn, products: [...ttn.products, values]})
         setValues({...values, name: '', amount: '1'})
     }
