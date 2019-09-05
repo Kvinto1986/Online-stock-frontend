@@ -1,25 +1,21 @@
-import React, {useCallback, useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {getUsers} from "../../api/users";
+import React, {useEffect} from 'react'
+import EmployeePage from './employeePage'
+import {useApiCallback} from "../../hooks/hook";
+import {getEmployees} from "../../api/employee";
+import {useSelector} from "react-redux"
 
 
-const Employee = () => {
+export default () => {
+    const state = useSelector(state => state);
+    const [getList,errors] = useApiCallback(getEmployees, ()=>{},{})
 
-    const auth = useSelector(state => state.auth);
-    const errors = useSelector(state => state.errors);
+    useEffect(() => {
+        getList()
+    }, [])
 
-    const dispatch = useDispatch();
-
-    // useEffect(getUsers(dispatch), [])
-
-
-    return (
-        <div>
-            <h1>{auth.user.company}</h1>
-            {/*<button onChange={() => dispatch({type: getEmpoyeesList})}>Click me</button>*/}
-        </div>
-    )
-}
-
-
-export default Employee;
+    return <EmployeePage
+        currentUser={state.auth.user}
+        employeesList={state.employees}
+        errors={errors}
+    />
+};

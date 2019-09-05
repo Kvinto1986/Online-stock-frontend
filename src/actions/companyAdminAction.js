@@ -22,7 +22,7 @@ export const registerAdmin = (admin, reset) => dispatch => {
 };
 
 export const getStatistic = (date) => dispatch => {
-    axios.post(`${server}api/admins/getStatistic`, date)
+    axios.post(`${server}api/companyAdmins/getStatistic`, date)
         .then(res => {
             dispatch({
                 type: GET_CURRENT_STATISTIC,

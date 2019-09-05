@@ -9,7 +9,7 @@ import warehouseReduser from './warehouseReduser';
 import ttnReducer from './ttnReducer'
 
 import carriersReducer from "./carriersReducer";
-import users from './userReducer'
+import employeeReducer from './employeesReducer'
 
 
 export default combineReducers({
@@ -19,9 +19,8 @@ export default combineReducers({
     companiesList:companiesListReduser,
     currentCompany:companyReduser,
     warehouses:warehouseReduser,
-
     ttnData: ttnReducer,
-
+    employees:employeeReducer,
     carriersReducer: carriersReducer,
 
 });

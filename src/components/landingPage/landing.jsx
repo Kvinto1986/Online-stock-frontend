@@ -2,18 +2,15 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
+import Link from "../header/Link";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-import {SocialIcon} from 'react-social-icons';
 
 import useStyles from './landingStyles'
 
@@ -43,8 +40,10 @@ export default function Landing() {
                     <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
                         Company name
                     </Typography>
-                    <Button href="/login" color="primary" variant="outlined" className={classes.link}>
-                        Login
+                    <Button  color="primary" variant="outlined" className={classes.link}>
+                        <Link variant="button" color="primary" to='/login' className={classes.link}>
+                            Login
+                        </Link>
                     </Button>
                 </Toolbar>
             </AppBar>

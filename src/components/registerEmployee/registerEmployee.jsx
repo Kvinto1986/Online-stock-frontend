@@ -1,16 +1,15 @@
 import React from 'react'
-import RegisterForm from './registerEmployeePage'
-import {useApiCallback} from "../../hooks/hook";
-import {addEmployee} from "../../api/users";
+import RegisterPage from './registerEmployeePage'
+import {useStorelessApiCallback} from "../../hooks/hook";
+import {addEmployee} from "../../api/employee";
 import {currentUser} from '../../filters'
-import {useSelector} from "react-redux";
+import {useSelector} from "react-redux"
 
 
 export default () => {
     const user = useSelector(currentUser);
-    const [onSubmit, _, errors] = useApiCallback(addEmployee, false, {})
-
-    return <RegisterForm
+    const [onSubmit,errors] = useStorelessApiCallback(addEmployee, ()=>{},{})
+    return <RegisterPage
         onSubmit={onSubmit}
         errors={errors}
         currentUser={user}
