@@ -1,12 +1,18 @@
 import React from 'react'
 import {Box, Button, Container} from '@material-ui/core'
+import { warehousingSubmit } from '../../../actions/warehousingActions'
 
-const WarehousingSubmitButton = ({ isDisabled }) => {
+const WarehousingSubmitButton = ({ sendAllDataToServer }) => {
+
+    const handleSubmit = () => {
+        warehousingSubmit()
+        // sendAllDataToServer()
+    }
+
      return (
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" onClick={handleSubmit}>
             <Box my={3}>
                 <Button
-                    disabled={isDisabled}
                     type="submit"
                     fullWidth
                     variant="contained"

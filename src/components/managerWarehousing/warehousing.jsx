@@ -5,7 +5,7 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import DndStock from './warehousingComponents/dndStock'
 import WarehousingSubmitButton from './warehousingComponents/WarehousingSubmitButton'
 import { useState, useEffect } from 'react'
-import { fetchAvailableStocks } from '../../actions/fetchAvailableStocks'
+import { fetchAvailableStocks } from '../../actions/warehousingActions'
 import { connect } from 'react-redux'
 
 const Warehousing = props => {
@@ -15,7 +15,7 @@ const Warehousing = props => {
     }
 
     const [state, setState] = useState(initialState)
-
+    // const []
     const dndIsShown = value => {
         setState({
             ...state,
@@ -27,11 +27,24 @@ const Warehousing = props => {
         props.fetchAvailableStocks()
     }, [])
 
+    const getEachAreaState = value => {
+
+        return value
+    }
+
+    const sendAllDataToServer = () => {
+
+    }
+
     return (
         <React.Fragment>
             <WarehousingDataForm dndIsShown={dndIsShown} />
             <DndProvider backend={HTML5Backend}>
-                {state.ttnIsFound && <DndStock warehouses={props.warehouses} />}
+                {state.ttnIsFound && 
+                    <DndStock 
+                        warehouses={props.warehouses} 
+                        getEachAreaState={getEachAreaState} />
+                }
             </DndProvider>
             <WarehousingSubmitButton />
         </React.Fragment>
@@ -41,6 +54,7 @@ const Warehousing = props => {
 const mapStateToProps = (state) => ({
     warehouses: state.warehouses,
 });
+
 export default connect(mapStateToProps, {
     fetchAvailableStocks
 })(Warehousing)
