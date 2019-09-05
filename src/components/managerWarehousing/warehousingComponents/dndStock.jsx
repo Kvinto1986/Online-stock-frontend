@@ -90,7 +90,7 @@ const DndStock = props => {
                 dropHendler={dropHendler}
                 addCargoUnitToRemove={addCargoUnitToRemove}
                 getEachAreaState={props.getEachAreaState}
-                key={stockUnit.area + stockUnit.type} 
+                key={stockUnit.area + stockUnit.type + index} 
             /> 
         )
     })    

@@ -14,8 +14,12 @@ const Warehousing = props => {
         ttnIsFound: false
     }
 
+    const initialSomeState = {
+        areasData: []
+    }
+
     const [state, setState] = useState(initialState)
-    // const []
+    const [someState, setSomeState] = useState(initialSomeState)
     const dndIsShown = value => {
         setState({
             ...state,
@@ -27,14 +31,26 @@ const Warehousing = props => {
         props.fetchAvailableStocks()
     }, [])
 
-    const getEachAreaState = value => {
+    // Dear developer
+    // Don't try to understand the function bellow
+    // If you are absolutely sure, good luck
+    // Please, increase the counter of the spent hours of life for this function
+    // HOURS: 2
+    const arr = []
 
-        return value
+    const getEachAreaState = value => {
+        arr.push(value)
+        setSomeState({
+            areasData: arr
+        })
     }
 
     const sendAllDataToServer = () => {
 
     }
+
+    console.log(someState);
+    
 
     return (
         <React.Fragment>
