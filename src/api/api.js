@@ -3,6 +3,7 @@ import axios from 'axios'
 
 export const GET = 'GET'
 export const POST = 'POST'
+export const DELETE='DELETE'
 
 const api = (action_type, url, dispatch, method, body) => {
     return axios({method: method, url: server + url, data: body})
@@ -19,7 +20,6 @@ export const get = (url, action_type) => dispatch => (url_args = '') =>
 
 export const post = (url, action_type) => dispatch => (data, url_args = '') =>
     api(action_type, url + url_args, dispatch, POST, data)
-
 
 export default (url, singularAction, pluralAction) => {
     return {

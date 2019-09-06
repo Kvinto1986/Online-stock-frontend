@@ -15,7 +15,6 @@ import {getWarehouses, deleteWarehouse} from '../../actions/warehouseAction'
 
 import useStyles from './warehousePageStyles'
 import {connect} from "react-redux";
-import {changeStatus} from "../../actions/companyAdminAction";
 
 const WarehousesTable = (props) => {
     useEffect(() => {

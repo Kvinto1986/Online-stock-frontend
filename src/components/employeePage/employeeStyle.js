@@ -27,12 +27,13 @@ const useStyles = makeStyles(theme => ({
     },
     form: {
         width: '100%',
-        marginTop: theme.spacing(4),
+        marginTop: theme.spacing(10),
     },
     submit: {
         width: '100%',
         margin: theme.spacing(4, 0, 0),
     },
+
 }));
 
 export default useStyles
