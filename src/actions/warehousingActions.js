@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {FETCH_ALL_STOCKS, SET_ERRORS} from './types';
+import {FETCH_ALL_STOCKS, SET_WAREHOUSING_STATUS_FLAG, SET_ERRORS} from './types';
 import server from '../serverConfig'
 
 export const fetchAvailableStocks = () => dispatch => { 
@@ -20,3 +20,10 @@ export const fetchAvailableStocks = () => dispatch => {
         }
     })   
 };
+
+export const warehousingSubmit = flag => dispatch => {
+    dispatch({
+        type: SET_WAREHOUSING_STATUS_FLAG,
+        payload: flag
+    })
+}

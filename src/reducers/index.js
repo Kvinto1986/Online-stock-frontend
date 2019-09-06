@@ -5,11 +5,11 @@ import adminCompanyStatisticReduser from './adminsCompanyStatisticReduser';
 import companiesListReduser from './companiesListReduser';
 import companyReduser from './companyReduser';
 import warehouseReduser from './warehouseReduser';
-
 import ttnReducer from './ttnReducer'
-
 import carriersReducer from "./carriersReducer";
 import employeeReducer from './employeesReducer'
+import users from './userReducer'
+import warehousingFlagRegucer from "./warehousingFlagRegucer"
 
 
 export default combineReducers({
@@ -22,5 +22,5 @@ export default combineReducers({
     ttnData: ttnReducer,
     employees:employeeReducer,
     carriersReducer: carriersReducer,
-
+    warehousingFlag: warehousingFlagRegucer,
 });

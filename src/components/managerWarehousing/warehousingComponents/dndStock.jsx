@@ -15,16 +15,11 @@ const DndStock = props => {
 
     const initialState = {
         chosenWarehouse: '',
-        activeDnDCargoUnit: ''
+        activeDnDCargoUnit: '',
+        movedCargoUnits: []
     }
 
     const [state, setState] = useState(initialState)
-
-    // useEffect(() => {
-    //     console.log('!!');
-        
-    //     props.fetchAvailableStocks()
-    // }, [])
 
     // *** Functions ***
     const handleChange = e => {
@@ -35,14 +30,23 @@ const DndStock = props => {
         return state.activeDnDCargoUnit
     }
     
-    const setCurrentHendleCargoUnit = (name, amount, dimension) => {
+    const setCurrentHendleCargoUnit = (name, amount, dimension, size, id) => {
         const personalCargoUnitData = {
             name,
             amount,
-            dimension
+            dimension,
+            size,
+            id
         }
         
         setState({...state, activeDnDCargoUnit: personalCargoUnitData})
+    }
+
+    const addCargoUnitToRemove = cargoUnitData => {
+        setState({
+            ...state, 
+            movedCargoUnits: [...state.movedCargoUnits, cargoUnitData.id]
+        })
     }
 
     // *** Constants ***
@@ -61,13 +65,32 @@ const DndStock = props => {
         </MenuItem>
     )
 
+    const cargoUnits = props.ttnProductsData && props.ttnProductsData.map(product => {
+        if(state.movedCargoUnits.includes(product.id) === false) {
+            return (
+                <DndElement 
+                    key={product.id} 
+                    name={product.name} 
+                    amount={product.amount} 
+                    size={product.size}
+                    setCurrentHendleCargoUnit={setCurrentHendleCargoUnit}
+                    dimension={product.type} 
+                    id={product.id}
+                />
+            )
+        }
+    })
+    
     const dndDestenationAreas = state.chosenWarehouse && state.chosenWarehouse.areas.map((stockUnit, index) => {
         return (
             <DndDestenationArea 
                 index={index + 1}
                 area={stockUnit.area}
                 type={stockUnit.type}
-                key={stockUnit.area + stockUnit.type} 
+                dropHendler={dropHendler}
+                addCargoUnitToRemove={addCargoUnitToRemove}
+                getEachAreaState={props.getEachAreaState}
+                key={stockUnit.area + stockUnit.type + index} 
             /> 
         )
     })    
@@ -81,24 +104,14 @@ const DndStock = props => {
                             Cargo 
                             {state.chosenWarehouse && (
                                 <span>
-                                    <img style={arrowStyle} src={arow}/> 
+                                    <img style={arrowStyle} src={arow} alt="-->" /> 
                                     {state.chosenWarehouse.name}
                                 </span>
                             )}
                         </Typography>
                     </Box>
                     <Box display="flex" flexDirection="column">
-                        {props.ttnProductsData && props.ttnProductsData.map(product => {
-                            return (
-                                <DndElement 
-                                    key={product.name + product.type} 
-                                    name={product.name} 
-                                    amount={product.amount} 
-                                    setCurrentHendleCargoUnit={setCurrentHendleCargoUnit}
-                                    dimension={product.type} 
-                                />
-                            )
-                        })}
+                        {cargoUnits}
                     </Box>
                 </div>
                 <div style={{width: '100%'}}>
