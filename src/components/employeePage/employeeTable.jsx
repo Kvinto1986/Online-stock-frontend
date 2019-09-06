@@ -41,17 +41,18 @@ export default ({employeesList, delEmployee, getList}) => {
     }
 
     const CreateTable = () => {
-        const employeeArr = employeesList.map((elem) => {
+        const employeeArr = Object.values(employeesList).map((elem) => {
             return (
-                <TableRow>
-                    <TableCell align="center"><Button variant="contained" color="secondary" className={classes.button}
-                                                      onClick={() => handleDelete(elem.id)}>
+                <TableRow key={elem.id+'tableRow'}>
+                    <TableCell key={elem.id + 'action'} align="center"><Button variant="contained" color="secondary" key={elem.id + 'button'}
+                                                                               className={classes.button}
+                                                                               onClick={() => handleDelete(elem.id)}>
                         Delete
                     </Button></TableCell>
-                    <TableCell align="center">{elem.position}</TableCell>
-                    <TableCell align="center">{elem.lastName}</TableCell>
-                    <TableCell align="center">{elem.email}</TableCell>
-                    <TableCell align="center">{moment(elem.dateOfBirth).format('MMMM Do YYYY')}</TableCell>
+                    <TableCell key={elem.id + elem.position} align="center">{elem.position}</TableCell>
+                    <TableCell key={elem.id + elem.lastName} align="center">{elem.lastName}</TableCell>
+                    <TableCell key={elem.id + elem.email} align="center">{elem.email}</TableCell>
+                    <TableCell key={elem.id + elem.dateOfBirth} align="center">{moment(elem.dateOfBirth).format('MMMM Do YYYY')}</TableCell>
                 </TableRow>
             )
         })
