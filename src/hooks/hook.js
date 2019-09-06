@@ -1,15 +1,21 @@
 import {useDispatch} from 'react-redux'
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useState} from 'react'
 
-export function useApiCallback(apiCallback, initData, initError) {
-
+export function useApiCallback(apiCallback, reset, initError) {
     const dispatch = useDispatch()
-    const [errors, setErrors] = useState(initData)
-    const [data, setData] = useState(initError)
+    const [errors, setErrors] = useState(initError)
     const callback = useCallback((...args) => apiCallback(dispatch)(...args)
-        .then(({response: {data}}) => setData(data))
-        .catch(({response: {data}}) => setErrors(data)), [dispatch]
-    )
+        .then(reset)
+        .catch(({errors}) => setErrors(errors)), [])
 
-    return [callback, data, errors]
+    return [callback, errors]
+}
+
+export function useStorelessApiCallback(apiCallback, reset, initError) {
+    const [errors, setErrors] = useState(initError)
+    const callback = useCallback((...args) => apiCallback(...args)
+        .then(reset)
+        .catch(({response: errors}) => setErrors(errors.data)), [])
+
+    return [callback, errors]
 }

@@ -56,7 +56,7 @@ const WarehousesTable = (props) => {
             <Table className={classes.table} size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell align="center">Check</TableCell>
+                        <TableCell align="center">Action</TableCell>
                         <TableCell align="center">Warehouse</TableCell>
                         <TableCell align="center">License</TableCell>
                         <TableCell align="center">Total area</TableCell>
