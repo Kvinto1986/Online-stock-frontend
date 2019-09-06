@@ -4,6 +4,7 @@ import DndElement from './dndStuff/dndElement'
 import { Box, Grid, Typography, FormControl, InputLabel, Select, MenuItem, Input, Container } from '@material-ui/core'
 import { connect } from 'react-redux'
 import arow from '../../../resources/images/play-button.png'
+import { setActiveWarehousingStockData } from '../../../actions/warehousingActions'
 
 const arrowStyle = {
     margin: "0px 8px"
@@ -22,13 +23,17 @@ const DndStock = props => {
     const [state, setState] = useState(initialState)
 
     // *** Functions ***
+
+    useEffect(() => {
+        const { areas, _id } = state.chosenWarehouse
+        props.setActiveWarehousingStockData({areas,_id})
+    }, [state.chosenWarehouse])
+
     const handleChange = e => {
         setState({...state, [e.target.name]: e.target.value})
     }
 
-    const dropHendler = () => {
-        return state.activeDnDCargoUnit
-    }
+    const dropHendler = () => state.activeDnDCargoUnit
     
     const setCurrentHendleCargoUnit = (name, amount, dimension, size, id) => {
         const personalCargoUnitData = {
@@ -144,4 +149,6 @@ const mapStateToProps = (state) => ({
     errors: state.errors,
     ttnProductsData: state.ttnData.products
 });
-export default connect(mapStateToProps)(DndStock)
+export default connect(mapStateToProps, {
+    setActiveWarehousingStockData
+})(DndStock)

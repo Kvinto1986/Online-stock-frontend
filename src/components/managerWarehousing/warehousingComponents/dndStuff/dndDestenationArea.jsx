@@ -24,17 +24,11 @@ const DndDestenationArea = ({ index, area, type, dropHendler, addCargoUnitToRemo
         setState({index, area, type})
     }, [])
 
-    useEffect(
-        () => {
-            // const newResult = props.warehousingFlag
-            // (async (newResult) => {
-                if(props.warehousingFlag) {
-                    setTimeout(() => {getEachAreaState(state)}, 0)
-                }
-            // })(props.warehousingFlag);
-        },
-        [props.warehousingFlag]
-    );
+    useEffect(() => {
+        if(props.warehousingFlag) {
+            setTimeout(() => {getEachAreaState(state)}, 0)
+        }
+    }, [props.warehousingFlag]);
 
     // Change area data
     const dropOnArea = () => {

@@ -7,6 +7,8 @@ import companyReduser from './companyReduser';
 import warehouseReduser from './warehouseReduser';
 import ttnReducer from './ttnReducer'
 import carriersReducer from "./carriersReducer";
+import warehousingFlagRegucer from './warehousingFlagRegucer'
+import warehousingActiveStockReducer from './warehousingActiveStockReducer'
 import employeeReducer from './employeesReducer'
 import warehousingFlagRegucer from "./warehousingFlagRegucer"
 
@@ -22,4 +24,5 @@ export default combineReducers({
     employees:employeeReducer,
     carriersReducer: carriersReducer,
     warehousingFlag: warehousingFlagRegucer,
+    warehousingActiveStock: warehousingActiveStockReducer
 });
