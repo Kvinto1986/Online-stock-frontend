@@ -10,7 +10,6 @@ import carriersReducer from "./carriersReducer";
 import warehousingFlagRegucer from './warehousingFlagRegucer'
 import warehousingActiveStockReducer from './warehousingActiveStockReducer'
 import employeeReducer from './employeesReducer'
-import warehousingFlagRegucer from "./warehousingFlagRegucer"
 
 
 export default combineReducers({
