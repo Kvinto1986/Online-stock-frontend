@@ -6,7 +6,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { findTTNbyNumber } from '../../../actions/ttnActions'
 import { connect } from 'react-redux'
 
-const WarehousingDataForm = ({ dndIsShown, ...props}) => {
+const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
 
     const initialFormState = {
         ttnIsExists: '',
@@ -18,19 +18,22 @@ const WarehousingDataForm = ({ dndIsShown, ...props}) => {
     };
 
     const [formState, setFormState] = useState(initialFormState);
-    
+
     useEffect(() => {
         if(Object.keys(props.ttnData).length > 0) {
             const ttnData = props.ttnData
             const { firstName, lastName, patronymic } = props.auth.user
-
+            const managerInitials = `${firstName} ${lastName} ${patronymic}`
+            
             setFormState({
                 ...formState, 
                 ttnIsExists: true,
                 ttnDate: ttnData.dataOfRegistration, 
-                managerInitials:  `${firstName} ${lastName} ${patronymic}`,
-                operatorName: ttnData.sender
+                managerInitials,
+                operatorName: ttnData.sender,
             })
+
+            getFormData(ttnData, managerInitials)
         }
     }, [props.ttnData])
 
@@ -53,7 +56,6 @@ const WarehousingDataForm = ({ dndIsShown, ...props}) => {
 
     const findTTN = () => {
         const calculateAreaFlag = true
-
         props.findTTNbyNumber({ ttnNumber: formState.ttnNumber }, dndIsShown, calculateAreaFlag)
     }
     

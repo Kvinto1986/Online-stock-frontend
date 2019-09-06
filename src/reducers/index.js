@@ -7,9 +7,9 @@ import companyReduser from './companyReduser';
 import warehouseReduser from './warehouseReduser';
 import ttnReducer from './ttnReducer'
 import carriersReducer from "./carriersReducer";
-import employeeReducer from './employeesReducer'
-import warehousingFlagRegucer from "./warehousingFlagRegucer"
-
+import users from './userReducer'
+import warehousingFlagRegucer from './warehousingFlagRegucer'
+import warehousingActiveStockReducer from './warehousingActiveStockReducer'
 
 export default combineReducers({
     errors: errorReducer,
@@ -19,7 +19,7 @@ export default combineReducers({
     currentCompany:companyReduser,
     warehouses:warehouseReduser,
     ttnData: ttnReducer,
-    employees:employeeReducer,
     carriersReducer: carriersReducer,
     warehousingFlag: warehousingFlagRegucer,
+    warehousingActiveStock: warehousingActiveStockReducer
 });
