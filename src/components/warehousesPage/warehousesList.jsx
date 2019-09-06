@@ -15,7 +15,6 @@ import {getWarehouses, deleteWarehouse} from '../../actions/warehouseAction'
 
 import useStyles from './warehousePageStyles'
 import {connect} from "react-redux";
-import {changeStatus} from "../../actions/companyAdminAction";
 
 const WarehousesTable = (props) => {
     useEffect(() => {
@@ -56,7 +55,7 @@ const WarehousesTable = (props) => {
             <Table className={classes.table} size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell align="center">Check</TableCell>
+                        <TableCell align="center">Action</TableCell>
                         <TableCell align="center">Warehouse</TableCell>
                         <TableCell align="center">License</TableCell>
                         <TableCell align="center">Total area</TableCell>

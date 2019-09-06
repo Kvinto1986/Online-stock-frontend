@@ -15,12 +15,14 @@ export const addCarrier = (carrier) => {
     })
 };
 
-export const listCarriers = (carrier) => {
-    return axios.get(`${server}api/carriers`)
+export const listCarriers = async () => {
+    const allCarriers = await axios.get(`${server}api/carriers`)
+   return allCarriers.data
 };
 
-export const allCarriers = () => {
-    return axios.get(`${server}api/carriers/all`)
+export const allCarriers = async () => {
+    const listCarrier = await axios.get(`${server}api/carriers/all`)
+    return listCarrier.data
 };
 
 export const deleteCarriers = (id, cb, rows) => {

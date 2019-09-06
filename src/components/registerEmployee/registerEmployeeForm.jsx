@@ -12,12 +12,8 @@ import {
     MuiPickersUtilsProvider
 } from "@material-ui/pickers";
 import FormControl from "@material-ui/core/FormControl";
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-
-import 'sweetalert2/src/sweetalert2.scss'
 
 import useStyles from './registerEmployeeStyles'
-
 
 export default({onSubmit,errors,currentUser}) => {
 
@@ -63,7 +59,6 @@ export default({onSubmit,errors,currentUser}) => {
             dateOfBirth: dateOfBirth,
             company: currentUser.company
         };
-console.log(employee)
         onSubmit(employee)
     };
 

@@ -1,33 +1,31 @@
 import server from '../serverConfig'
+import axios from 'axios'
 
 export const GET = 'GET'
 export const POST = 'POST'
+export const DELETE='DELETE'
 
-const api = (action_type, url, dispatch, data) => {
-    dispatch({type: action_type + '_REQUEST'})
-    fetch(server + url, data)
-        .then(response => response.json())
-        .then(json => {
+const api = (action_type, url, dispatch, method, body) => {
+    return axios({method: method, url: server + url, data: body})
+        .then(res => {
             dispatch({
-                type: action_type + '_SUCCESS',
-                data: json
+                type: action_type,
+                payload: res.data
             })
         })
 }
 
-const METHOD_GET = {method: GET}
+export const get = (url, action_type) => dispatch => (url_args = '') =>
+    api(action_type, url + url_args, dispatch, GET)
 
-export const get = (action_type, url) => dispatch => (url_args = '') =>
-    api(action_type, url + url_args, dispatch, METHOD_GET)
-
-export const post = (action_type, url) => dispatch => (data, url_args = '') =>
-    api(action_type, url + url_args, dispatch, {method: POST, ...data})
+export const post = (url, action_type) => dispatch => (data, url_args = '') =>
+    api(action_type, url + url_args, dispatch, POST, data)
 
 export default (url, singularAction, pluralAction) => {
     return {
-        add: post(url, 'ADD_' + singularAction),
-        getAll: get(url, 'GET_' + pluralAction),
-        get: get(url, 'GET_' + singularAction),
-        edit: get(url, 'EDIT_' + singularAction)
+        add: post(url, singularAction),
+        getAll: get(url, pluralAction),
+        get: get(url, singularAction),
+        edit: post(url, singularAction)
     }
 }

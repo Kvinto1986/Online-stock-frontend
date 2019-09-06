@@ -2,24 +2,24 @@ import React, {Fragment} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import {Redirect} from 'react-router-dom';
 import {connect} from "react-redux";
-import AdminRegister from "../registerAdmin/registerAdmin";
-import Warehouse from "../warehousesPage/warehouse";
-import UserForm from "../registerEmployee/registerEmployee";
-import DriverRegistrer from '../registerDrive';
-import Home from '../homePage/homePage';
-import Login from '../loginPage/loginPage';
-import Report from '../mainAdminReportPage/reportPage'
-import Header from '../header/header';
-import Footer from '../footer/footer';
-import Companies from '../companiesListPage/companiesList'
-import Carrier from '../searchCarrier';
-import Landing from '../landingPage/landing'
-import AllCarrier from '../allCarrier';
-import TtnForm from '../ttnForm';
-import AddCarrier from "../carrierForm";
-import DeliveryFromStockForm from '../deliveryFromStock/deliveryFromStock'
-import Warehousing from '../managerWarehousing/warehousing'
-import Employees from '../employeePage/employee'
+import AdminRegister from "../components/registerCompanyAdmin/registerCompanyAdmin";
+import Warehouse from "../components/warehousesPage/warehouse";
+import UserForm from "../components/registerEmployee/registerEmployee";
+import DriverRegistrer from '../components/registerDrive';
+import Home from '../components/homePage/homePage';
+import Login from '../components/loginPage/loginPage';
+import Report from '../components/mainAdminReport/reportPage'
+import Header from '../components/header/header';
+import Footer from '../components/footer/footer';
+import Companies from '../components/companiesListPage/companiesList'
+import Carrier from '../components/searchCarrier';
+import Landing from '../components/landingPage/landing'
+import AllCarrier from '../components/allCarrier';
+import TtnForm from '../components/ttnForm';
+import AddCarrier from "../components/carrierForm";
+import DeliveryFromStockForm from '../components/deliveryFromStock/deliveryFromStock'
+import Warehousing from '../components/managerWarehousing/warehousing'
+import Employees from '../components/employeePage/employee'
 
 
 const SecurityRoute = (props) => {
