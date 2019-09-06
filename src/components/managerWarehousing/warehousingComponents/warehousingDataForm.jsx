@@ -18,9 +18,7 @@ const WarehousingDataForm = ({ dndIsShown, ...props}) => {
     };
 
     const [formState, setFormState] = useState(initialFormState);
-
-    // TODO: Make one useEffect if it's possible
-
+    
     useEffect(() => {
         if(Object.keys(props.ttnData).length > 0) {
             const ttnData = props.ttnData

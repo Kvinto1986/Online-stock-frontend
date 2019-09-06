@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDrop } from 'react-dnd'
 import ItemTypes from './ItemTypes'
+import { connect } from 'react-redux'
 
-const DndDestenationArea = ({ index, area, type, dropHendler, addCargoUnitToRemove }) => {
+const DndDestenationArea = ({ index, area, type, dropHendler, addCargoUnitToRemove, getEachAreaState, ...props}) => {
     const initialState = {
         index: 'Loading ...',
         area: 'Loading ...',
@@ -22,6 +23,18 @@ const DndDestenationArea = ({ index, area, type, dropHendler, addCargoUnitToRemo
     useEffect(() => {
         setState({index, area, type})
     }, [])
+
+    useEffect(
+        () => {
+            // const newResult = props.warehousingFlag
+            // (async (newResult) => {
+                if(props.warehousingFlag) {
+                    setTimeout(() => {getEachAreaState(state)}, 0)
+                }
+            // })(props.warehousingFlag);
+        },
+        [props.warehousingFlag]
+    );
 
     // Change area data
     const dropOnArea = () => {
@@ -52,7 +65,11 @@ const DndDestenationArea = ({ index, area, type, dropHendler, addCargoUnitToRemo
     )
 }
 
-export default DndDestenationArea
+const mapStateToProps = (state) => ({
+    warehousingFlag: state.warehousingFlag,
+});
+
+export default connect(mapStateToProps)(DndDestenationArea)
 
 const style = {
     height: '9.5rem',
