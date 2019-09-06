@@ -8,7 +8,8 @@ import warehouseReduser from './warehouseReduser';
 import ttnReducer from './ttnReducer'
 import carriersReducer from "./carriersReducer";
 import users from './userReducer'
-import warehousingFlagRegucer from "./warehousingFlagRegucer"
+import warehousingFlagRegucer from './warehousingFlagRegucer'
+import warehousingActiveStockReducer from './warehousingActiveStockReducer'
 
 export default combineReducers({
     errors: errorReducer,
@@ -20,4 +21,5 @@ export default combineReducers({
     ttnData: ttnReducer,
     carriersReducer: carriersReducer,
     warehousingFlag: warehousingFlagRegucer,
+    warehousingActiveStock: warehousingActiveStockReducer
 });

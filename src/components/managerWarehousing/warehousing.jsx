@@ -7,23 +7,45 @@ import WarehousingSubmitButton from './warehousingComponents/WarehousingSubmitBu
 import { useState, useEffect } from 'react'
 import { fetchAvailableStocks } from '../../actions/warehousingActions'
 import { connect } from 'react-redux'
+import { warehousingPostData } from '../../actions/warehousingActions'
+import 'sweetalert2/src/sweetalert2.scss'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 const Warehousing = props => {
+
+    // *** State ***
 
     const initialState = {
         ttnIsFound: false
     }
 
-    const initialSomeState = {
-        areasData: []
+    const initialWareHousingState = {
+        areasData: [],
+        formData: ''
     }
 
     const [state, setState] = useState(initialState)
-    const [someState, setSomeState] = useState(initialSomeState)
-    const dndIsShown = value => {
-        setState({
-            ...state,
-            ttnIsFound: value
+    const [wareHousingState, setWareHousingState] = useState(initialWareHousingState)
+
+    // *** Variables ***
+
+    const associativeAreaState = []
+
+     // *** Functions ***
+
+    const successWirehousingAletrt = () => {
+        Swal
+        .fire({
+            title: 'Success',
+            text: "Cargo will be plased to stock in close time.",
+            type: 'success',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+            allowOutsideClick: false
+        })
+        .then(() => {
+            window.location.reload()
         })
     }
 
@@ -31,30 +53,47 @@ const Warehousing = props => {
         props.fetchAvailableStocks()
     }, [])
 
-    // Dear developer
-    // Don't try to understand the function bellow
-    // If you are absolutely sure, good luck
-    // Please, increase the counter of the spent hours of life for this function
-    // HOURS: 2
-    const arr = []
+    useEffect(() => {
+        setTimeout(() => {
+            if(wareHousingState.areasData.length > 0) {
+                if(wareHousingState.areasData.length === props.warehousingActiveStock.areas.length) {
+                    const data = {
+                        stockData: props.warehousingActiveStock,
+                        wareHousingData: wareHousingState,
+                    }
+                    
+                    props.warehousingPostData(data, successWirehousingAletrt)
+                }
+            }
+        }, 0)
+    }, [wareHousingState.areasData])
 
-    const getEachAreaState = value => {
-        arr.push(value)
-        setSomeState({
-            areasData: arr
+    const dndIsShown = value => {
+        setState({
+            ...state,
+            ttnIsFound: value
         })
     }
 
-    const sendAllDataToServer = () => {
+    const getEachAreaState = value => {
+        associativeAreaState.push(value)
 
+        setWareHousingState({
+            ...wareHousingState,
+            areasData: associativeAreaState
+        })
     }
 
-    console.log(someState);
+    const getFormData = data => {
+        setWareHousingState({
+            ...wareHousingState,
+            formData: data
+        })
+    }
     
-
     return (
         <React.Fragment>
-            <WarehousingDataForm dndIsShown={dndIsShown} />
+            <WarehousingDataForm dndIsShown={dndIsShown} getFormData={getFormData} />
             <DndProvider backend={HTML5Backend}>
                 {state.ttnIsFound && 
                     <DndStock 
@@ -69,8 +108,10 @@ const Warehousing = props => {
 
 const mapStateToProps = (state) => ({
     warehouses: state.warehouses,
+    warehousingActiveStock: state.warehousingActiveStock
 });
 
 export default connect(mapStateToProps, {
-    fetchAvailableStocks
+    fetchAvailableStocks,
+    warehousingPostData
 })(Warehousing)
