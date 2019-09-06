@@ -6,9 +6,9 @@ const initialState = {}
 export default (state = initialState, {type, payload}) => {
     switch (type) {
         case EMPLOYEES:
-            return payload.reduce(normalize('_id'), {})
+            return payload.reduce(normalize('id'), {})
         case EMPLOYEE:
-            return {...state, [payload._id]: payload}
+            return {...state, [payload.id]: payload}
         default:
             return state
     }
