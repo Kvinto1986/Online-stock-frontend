@@ -11,6 +11,6 @@ export const post = url => (body, url_args = '') => {
 export default url => {
     return {
         add: post(url),
-        edit: post(url)
+        edit: post(url),
     }
 }

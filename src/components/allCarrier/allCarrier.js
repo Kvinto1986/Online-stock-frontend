@@ -109,15 +109,14 @@ function CustomPaginationActionsTable(props) {
     }
 
     useEffect(() => {
-        allCarriers()
-            .then((res) => {
+        (async () => {
+            const listCarriers = await allCarriers();
+            const fetchArr = [];
+            listCarriers.forEach(item => fetchArr.push((createData(item))));
+            setRows(fetchArr);
+            setLoaded(true)
+        })()
 
-                const fetchArr = [];
-                res.data.forEach(item => fetchArr.push((createData(item))));
-                setRows(fetchArr);
-                setLoaded(true)
-            })
-            .catch((err) => console.error(err))
     }, []);
 
     const removeItem = (id) => {
