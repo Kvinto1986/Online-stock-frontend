@@ -4,3 +4,4 @@ import {EMPLOYEES, EMPLOYEE} from '../actions/types'
 
 export const {add: addEmployee} = createStorelessRest('api/employee/')
 export const {getAll: getEmployees} = createRest('api/employee/', EMPLOYEE, EMPLOYEES)
+export const {delete: deleteEmployee} = createStorelessRest('api/employee/')

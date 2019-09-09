@@ -1,11 +1,14 @@
-import {EMPLOYEES} from "../actions/types";
+import {EMPLOYEE, EMPLOYEES} from '../actions/types'
+import {normalize} from '../utils/utils'
 
-const initialState= []
+const initialState = {}
 
-export default (state = initialState, action) => {
-    switch (action.type) {
+export default (state = initialState, {type, payload}) => {
+    switch (type) {
         case EMPLOYEES:
-            return action.payload
+            return payload.reduce(normalize('id'), {})
+        case EMPLOYEE:
+            return {...state, [payload.id]: payload}
         default:
             return state
     }

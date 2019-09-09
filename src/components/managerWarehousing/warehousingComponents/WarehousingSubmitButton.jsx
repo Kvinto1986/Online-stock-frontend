@@ -26,7 +26,7 @@ const WarehousingSubmitButton = (props) => {
      )
 }
 
-const mapStateToProps = (state) => {}
+let mapStateToProps
 
 export default connect(mapStateToProps, {
     warehousingSubmit
