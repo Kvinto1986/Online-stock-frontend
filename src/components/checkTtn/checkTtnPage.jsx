@@ -5,6 +5,7 @@ import TtnTable from './ttnTabale'
 
 export const CheckTtnPage = () => {
     const[rows, setRows] = useState([])
+    const[err, setErr] = useState(true)
 
     function createData( number, status, dataOfRegistration, carrier, carNumber, driver, sender) {
         return { status, number, dataOfRegistration, carrier, carNumber, driver, sender };
@@ -12,9 +13,11 @@ export const CheckTtnPage = () => {
 
     const f = async (ttnNumber) => {
         let ttn = await findTtn(ttnNumber)
-        console.log(ttn)
         const{number, status,  dataOfRegistration, carrier, carNumber, driver, sender} = ttn
         setRows([createData(status, number, dataOfRegistration, carrier, carNumber, driver, sender) ])
+        if(!!ttn) {
+            setErr(false )
+        }
     }
 
     return(
@@ -22,9 +25,14 @@ export const CheckTtnPage = () => {
             <TtnCheck
                 submit={f}
             />
-            <TtnTable
-                rows = {rows}
-            />
+            {!err
+                ?
+                <TtnTable
+                    rows = {rows}
+                />
+                : null
+            }
+
         </Fragment>
 
 
