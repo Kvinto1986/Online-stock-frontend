@@ -28,8 +28,8 @@ export default function TtnTable(props) {
                     <TableBody>
                         {props.rows.map(row => (
                             <TableRow key={row.name}>
-                                <TableCell align="right">{row.number}</TableCell>
                                 <TableCell align="right">{row.status}</TableCell>
+                                <TableCell align="right">{row.number}</TableCell>
                                 <TableCell align="right">{moment(row.dataOfRegistration).format('MMMM Do YYYY')}</TableCell>
                                 <TableCell align="right">{row.driver}</TableCell>
                                 <TableCell align="right">{row.carNumber}</TableCell>
