@@ -1,21 +1,24 @@
 import React, {useState} from 'react'
 import Grid from '@material-ui/core/Grid/index'
 import Button from '@material-ui/core/Button/index'
-import DateFnsUtils from "@date-io/date-fns";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import DateFnsUtils from '@date-io/date-fns'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator'
 import {
     DatePicker,
     MuiPickersUtilsProvider
-} from "@material-ui/pickers";
-import FormControl from "@material-ui/core/FormControl";
+} from '@material-ui/pickers'
+import FormControl from '@material-ui/core/FormControl'
+import Input from '@material-ui/core/Input';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import useStyles from './registerEmployeeStyles'
 
-export default({onSubmit,errors,currentUser}) => {
+export default ({onSubmit, errors, currentUser}) => {
 
     const [form, setForm] = useState({
         firstName: '',
@@ -26,25 +29,37 @@ export default({onSubmit,errors,currentUser}) => {
         street: '',
         house: '',
         apartment: '',
-        role: '',
         login: '',
         password: ''
-    });
+    })
 
-    const [dateOfBirth, setDateOfBirth] = useState('1970-01-01');
+    const roles = [
+        'manager',
+        'operator',
+        'controller',
+    ];
 
-    const classes = useStyles();
+    const [dateOfBirth, setDateOfBirth] = useState('1970-01-01')
+    const [role, setRole] = useState([]);
+
+    const classes = useStyles()
+
+    function handleChangeRole(e) {
+        setRole(e.target.value);
+    }
+
 
     const handleInputChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
-    };
+    }
 
     const handleChangeDate = (e) => {
         setDateOfBirth(e)
-    };
+    }
+
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         const employee = {
             firstName: form.firstName,
@@ -55,12 +70,12 @@ export default({onSubmit,errors,currentUser}) => {
             street: form.street,
             house: form.house,
             apartment: form.apartment,
-            position: form.role,
+            position: role,
             dateOfBirth: dateOfBirth,
             company: currentUser.company
-        };
+        }
         onSubmit(employee)
-    };
+    }
 
     return (
         <ValidatorForm noValidate onSubmit={handleSubmit}>
@@ -119,9 +134,9 @@ export default({onSubmit,errors,currentUser}) => {
                             openTo="year"
                             format="dd/MM/yyyy"
                             label="Date of Birth"
-                            views={["year", "month", "date"]}
-                            minDate={new Date("1960-01-01")}
-                            maxDate={new Date("2001-01-01")}
+                            views={['year', 'month', 'date']}
+                            minDate={new Date('1960-01-01')}
+                            maxDate={new Date('2001-01-01')}
                         />
                     </MuiPickersUtilsProvider>
                 </Grid>
@@ -129,15 +144,18 @@ export default({onSubmit,errors,currentUser}) => {
                     <FormControl className={classes.formControl} required>
                         <InputLabel>Role</InputLabel>
                         <Select
-                            value={form.role}
-                            onChange={handleInputChange}
-                            inputProps={{
-                                name: 'role',
-                            }}
+                            multiple
+                            value={role}
+                            onChange={handleChangeRole}
+                            input={<Input id="select-multiple-checkbox" />}
+                            renderValue={selected => selected.join(', ')}
                         >
-                            <MenuItem value='manager'>Manager</MenuItem>
-                            <MenuItem value='operator'>Operator</MenuItem>
-                            <MenuItem value='controller'>Controller</MenuItem>
+                            {roles.map(elem => (
+                                <MenuItem key={elem} value={elem}>
+                                    <Checkbox checked={role.indexOf(elem) > -1} />
+                                    <ListItemText primary={elem} />
+                                </MenuItem>
+                            ))}
                         </Select>
                         {errors && (
                             <FormHelperText className={classes.helperText}>{errors.role}</FormHelperText>)}

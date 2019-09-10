@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom';
 import {connect} from "react-redux";
 import AdminRegister from "../components/registerCompanyAdmin/registerCompanyAdmin";
 import Warehouse from "../components/warehousesPage/warehouse";
-import UserForm from "../components/registerEmployee/registerEmployee";
+import UserForm from "../components/registerEmployee/registerEmployeePage";
 import DriverRegistrer from '../components/registerDrive';
 import Home from '../components/homePage/homePage';
 import Login from '../components/loginPage/loginPage';
