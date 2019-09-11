@@ -10,7 +10,8 @@ import carriersReducer from "./carriersReducer";
 import warehousingFlagRegucer from './warehousingFlagRegucer'
 import warehousingActiveStockReducer from './warehousingActiveStockReducer'
 import employeeReducer from './employeesReducer'
-
+import senderReducer from './senderReducer'
+import carrierReducer from './carrierReducer'
 
 export default combineReducers({
     errors: errorReducer,
@@ -23,6 +24,8 @@ export default combineReducers({
     employees:employeeReducer,
     carriersReducer: carriersReducer,
     warehousingFlag: warehousingFlagRegucer,
-    warehousingActiveStock: warehousingActiveStockReducer
+    warehousingActiveStock: warehousingActiveStockReducer,
+    senders: senderReducer,
+    carriers: carrierReducer
 });
 

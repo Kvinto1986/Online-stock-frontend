@@ -17,7 +17,7 @@ import Landing from '../components/landingPage/landing'
 import AllCarrier from '../components/allCarrier';
 import TtnForm from '../components/ttnForm';
 import AddCarrier from "../components/carrierForm";
-import DeliveryFromStockForm from '../components/deliveryFromStock/deliveryFromStock'
+import DeliveryGoodsFromStock from '../components/deliveryFromStock/deliveryFromStockPage'
 import Warehousing from '../components/managerWarehousing/warehousing'
 import Employees from '../components/employeePage/employee'
 import {CheckTtnPage} from "../components/checkTtn/checkTtnPage";
@@ -34,7 +34,7 @@ const SecurityRoute = (props) => {
                         <Switch>
                             {props.auth.user.position === 'manager' && (
                                 <Fragment>
-                                    <Route exact path="/stockDelivery" component={DeliveryFromStockForm}/>
+                                    <Route exact path="/stockDelivery" component={DeliveryGoodsFromStock}/>
                                     <Route exact path="/warehousing" component={Warehousing}/>
                                     <Route component={Home}/>
                                 </Fragment>

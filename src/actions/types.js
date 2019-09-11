@@ -5,15 +5,11 @@ export const GET_CURRENT_COMPANIES_LIST = 'GET_CURRENT_COMPANIES_LIST';
 export const GET_CURRENT_COMPANY = 'GET_CURRENT_COMPANY';
 export const ADD_CARRIER = 'ADD_CARRIER';
 export const GET_CURRENT_WAREHOUSES='GET_CURRENT_WAREHOUSES'
-
-export const  PREV_PATH = 'PREV_PATH';
-
-
+export const PREV_PATH = 'PREV_PATH';
 
 // company admin
 export const COMPANY_ADMIN = 'COMPANY_ADMIN'
 export const COMPANY_ADMINS = 'COMPANY_ADMINS'
-
 
 // Warehouses(stocks)
 export const FETCH_ALL_STOCKS = 'FETCH_ALL_STOCKS'
@@ -25,4 +21,12 @@ export const FETCH_TTN_BY_NUMBER = 'FETCH_TTN_BY_NUMBER'
 
 export const EMPLOYEES = 'EMPLOYEES'
 export const EMPLOYEE = 'EMPLOYEE'
+
+// Companies
+export const SENDERS = 'SENDERS'
+export const SENDER = 'SENDER'
+
+// Transporters 
+export const CARRIER = 'CARRIER'
+export const CARRIERS = 'CARRIERS'
 
