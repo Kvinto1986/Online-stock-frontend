@@ -8,51 +8,31 @@ import Button from '@material-ui/core/Button'
 import useStyles from './employeeStyle'
 import moment from 'moment'
 
-import Swal from 'sweetalert2/dist/sweetalert2.js'
+import swalModalWindow from './swalModal'
 
-import 'sweetalert2/src/sweetalert2.scss'
-
-export default ({employeesList, delEmployee, getList}) => {
+export default ({employees, delEmployee}) => {
     const classes = useStyles()
 
-    const handleDelete = (id) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'Do you want to delete warehouse?',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Accept',
-            allowOutsideClick: false
-        }).then((result) => {
-            if (result.value) {
-                Swal.fire({
-                    type: 'success',
-                    title: 'Congratulations!',
-                    text: 'Data successfully changed !',
-                    allowOutsideClick: false,
-                    timer: 3000
-                }).then(() => delEmployee(id))
-                    .then(() => getList())
-            }
-        })
-
-    }
-
     const CreateTable = () => {
-        const employeeArr = Object.values(employeesList).map((elem) => {
+        const employeeArr = Object.values(employees).map((elem) => {
             return (
-                <TableRow key={elem.id+'tableRow'}>
-                    <TableCell key={elem.id + 'action'} align="center"><Button variant="contained" color="secondary" key={elem.id + 'button'}
-                                                                               className={classes.button}
-                                                                               onClick={() => handleDelete(elem.id)}>
-                        Delete
-                    </Button></TableCell>
-                    <TableCell key={elem.id + elem.position} align="center">{elem.position}</TableCell>
+                <TableRow key={elem.id + 'tableRow'}>
+                    <TableCell key={elem.id + 'action'} align="center">
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            key={elem.id + 'button'}
+                            data-testid={'delete-'+elem.id}
+                            className={classes.button}
+                            onClick={() => swalModalWindow(elem.id,delEmployee)}>
+                            Delete
+                        </Button>
+                    </TableCell>
+                    <TableCell key={elem.id + elem.position[0]} align="center">{elem.position.join(', ')}</TableCell>
                     <TableCell key={elem.id + elem.lastName} align="center">{elem.lastName}</TableCell>
                     <TableCell key={elem.id + elem.email} align="center">{elem.email}</TableCell>
-                    <TableCell key={elem.id + elem.dateOfBirth} align="center">{moment(elem.dateOfBirth).format('MMMM Do YYYY')}</TableCell>
+                    <TableCell key={elem.id + elem.dateOfBirth}
+                               align="center">{moment(elem.dateOfBirth).format('MMMM Do YYYY')}</TableCell>
                 </TableRow>
             )
         })
