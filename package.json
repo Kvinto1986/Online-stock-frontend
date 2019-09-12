@@ -42,7 +42,8 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
-    "sweetalert2": "^8.13.6"
+    "sweetalert2": "^8.13.6",
+    "@testing-library/dom": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -99,5 +100,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.1.0",
+    "@testing-library/react": "^9.1.4"
   }
 }

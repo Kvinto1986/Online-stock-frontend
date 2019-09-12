@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 
 
-export default ({currentUser, employeesList, errors, delEmployee,getList}) => {
+export default ({currentUser, employees, errors, delEmployee}) => {
 
     const classes = useStyles()
     return (
@@ -19,9 +19,8 @@ export default ({currentUser, employeesList, errors, delEmployee,getList}) => {
             </Typography>
             <Paper className={classes.form}>
                 <EmployeeTable
-                    employeesList={employeesList}
+                    employees={employees}
                     delEmployee={delEmployee}
-                    getList={getList}
                 />
             </Paper>
         </Container>
