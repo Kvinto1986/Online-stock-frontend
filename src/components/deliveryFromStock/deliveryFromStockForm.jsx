@@ -7,9 +7,9 @@ import {
     TextField, InputLabel, MenuItem, FormControl,
 } from '@material-ui/core';
 
-const DeliveryFromStockForm = ({ senderList, carrierList }) => {
-
-    // *** Constants ***
+const DeliveryFromStockForm = ({ 
+    senderList, carrierList, fetchTtnData, ttnData, managerName, handleSubmit
+ }) => {
 
     // *** Hooks ***
 
@@ -36,15 +36,14 @@ const DeliveryFromStockForm = ({ senderList, carrierList }) => {
         setFormState({...formState, [e.target.name]: e.target.value })
     }
 
-    const handleSubmit = () => {
-        console.log(formState);
-        
-        // registerDelivery(formState)
-    }
+    // const reset = () => {
+    //     setFormState(initialState)
+    // }
 
-    const reset = () => {
-        setFormState(initialState)
-    }
+    // *** Constants ***
+
+    /* TODO: Create automaticly calculated value inside TTN model */
+    const numberOfGoodTypes = (ttnData.products) && [...new Set(ttnData.products.map(product => product.name))].length
 
     // *** View ***
 
@@ -70,18 +69,27 @@ const DeliveryFromStockForm = ({ senderList, carrierList }) => {
                             />
                         </Box>
                     </Grid>
+                    <Button
+                        type="button"
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => fetchTtnData(formState.ttnNumber)}
+                    >
+                        Fetch TTN data
+                    </Button>
                 </Grid>
                 <Grid container>
                     <Grid item xs={12}>
                         <Box my={1.5}>
                             <TextValidator
                                 required
+                                disabled
+                                value={ttnData.dataOut || ''}
                                 fullWidth
                                 id="ttnDate"
-                                label="TTN date"
+                                label="TTN discharge date"
                                 name="ttnNumber"
                                 autoComplete="ttnNumber"
-                                disabled
                                 onChange={handleChange}
                             />
                         </Box>
@@ -94,7 +102,7 @@ const DeliveryFromStockForm = ({ senderList, carrierList }) => {
                                 <InputLabel htmlFor="age-helper">Sender *</InputLabel>
                                 <Select
                                     required
-                                    value={formState.sender}
+                                    value={formState.sender || ''}
                                     onChange={handleChange}
                                     input={<Input name="sender" id="age-helper" />}
                                     name="sender"
@@ -215,6 +223,8 @@ const DeliveryFromStockForm = ({ senderList, carrierList }) => {
                         <Box my={1}>
                             <TextValidator
                                 required
+                                disabled
+                                value={Object(ttnData.products).length || ''}
                                 fullWidth
                                 id="ttnNumber"
                                 label="The amount of goods on TTN"
@@ -230,6 +240,8 @@ const DeliveryFromStockForm = ({ senderList, carrierList }) => {
                         <Box my={1.5}>
                             <TextValidator
                                 required
+                                disabled
+                                value={numberOfGoodTypes || ''}
                                 fullWidth
                                 id="ttnNumber"
                                 label="The number of good's types on TTN"
@@ -245,6 +257,8 @@ const DeliveryFromStockForm = ({ senderList, carrierList }) => {
                         <Box my={1.5}>
                             <TextValidator
                                 required
+                                disabled
+                                value={managerName}
                                 fullWidth
                                 id="ttnNumber"
                                 label="Manager name"
@@ -260,6 +274,8 @@ const DeliveryFromStockForm = ({ senderList, carrierList }) => {
                         <Box my={1.5}>
                             <TextValidator
                                 required
+                                disabled
+                                value={ttnData.dataOfRegistration || ''}
                                 fullWidth
                                 id="ttnNumber"
                                 label="Registration date and time  of TTN"
