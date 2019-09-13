@@ -5,40 +5,39 @@ import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
 import Button from '@material-ui/core/Button'
-import useStyles from './employeeStyle'
+import useStyles from './style'
 import moment from 'moment'
 
-import swalModalWindow from './swalModal'
+import swalModalWindow from './swalModel'
+import Link from '../header/Link'
 
 export default ({employees, delEmployee}) => {
     const classes = useStyles()
-
-    const CreateTable = () => {
-        const employeeArr = Object.values(employees).map((elem) => {
-            return (
-                <TableRow key={elem.id + 'tableRow'}>
-                    <TableCell key={elem.id + 'action'} align="center">
+    console.log(employees)
+    const CreateTable = () =>
+        (Object.values(employees).map(({id, position, lastName, email, dateOfBirth}) =>
+                <TableRow key={id}>
+                    <TableCell align="center">
                         <Button
                             variant="contained"
                             color="secondary"
-                            key={elem.id + 'button'}
-                            data-testid={'delete-'+elem.id}
+                            data-testid={'delete-' + id}
                             className={classes.button}
-                            onClick={() => swalModalWindow(elem.id,delEmployee)}>
+                            onClick={() => swalModalWindow(id, delEmployee)}>
                             Delete
                         </Button>
                     </TableCell>
-                    <TableCell key={elem.id + elem.position[0]} align="center">{elem.position.join(', ')}</TableCell>
-                    <TableCell key={elem.id + elem.lastName} align="center">{elem.lastName}</TableCell>
-                    <TableCell key={elem.id + elem.email} align="center">{elem.email}</TableCell>
-                    <TableCell key={elem.id + elem.dateOfBirth}
-                               align="center">{moment(elem.dateOfBirth).format('MMMM Do YYYY')}</TableCell>
+                    <TableCell align="center">{position.join(', ')}</TableCell>
+                    <TableCell align="center">{lastName}</TableCell>
+                    <TableCell align="center">
+                        <Link href={'/employees/' + id}>
+                            {email}
+                        </Link>
+                    </TableCell>
+                    <TableCell align="center">{moment(dateOfBirth).format('MMMM Do YYYY')}</TableCell>
                 </TableRow>
             )
-        })
-
-        return employeeArr
-    }
+        )
 
 
     return (

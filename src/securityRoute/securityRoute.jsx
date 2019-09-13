@@ -1,10 +1,10 @@
+
 import React, {Fragment} from 'react'
-import {Route, Switch} from 'react-router-dom'
-import {Redirect} from 'react-router-dom'
+import {Redirect, Route, Switch} from 'react-router-dom'
 import {connect} from 'react-redux'
 import AdminRegister from '../components/registerCompanyAdmin/registerCompanyAdmin'
 import Warehouse from '../components/warehousesPage/warehouse'
-import UserForm from '../components/registerEmployee/registerEmployeePage'
+import UserForm from '../components/registerEmployee/registerEmployee'
 import DriverRegistrer from '../components/registerDrive'
 import Home from '../components/homePage/homePage'
 import Login from '../components/loginPage/loginPage'
@@ -19,27 +19,26 @@ import TtnForm from '../components/ttnForm'
 import AddCarrier from '../components/carrierForm'
 import DeliveryFromStockForm from '../components/deliveryFromStock/deliveryFromStock'
 import Warehousing from '../components/managerWarehousing/warehousing'
-import Employees from '../components/employeePage/employee'
-import {CheckTtnPage} from '../components/checkTtn/checkTtnPage'
-import ControlTtnPage from '../components/controllerPage/controlTTN'
-
+import Employees from '../components/employeesPage'
+import Employee from '../components/employeePage'
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
         switch (props.auth.user.role) {
             case 'employee':
+
                 return (
                     <div>
                         <Header/>
                         <Switch>
-                            {props.auth.user.position.includes('manager') && (
+                            {props.auth.user.position === 'manager' && (
                                 <Fragment>
                                     <Route exact path="/stockDelivery" component={DeliveryFromStockForm}/>
                                     <Route exact path="/warehousing" component={Warehousing}/>
                                     <Route component={Home}/>
                                 </Fragment>
                             )}
-                            {props.auth.user.position.includes('operator') && (
+                            {props.auth.user.position === 'operator' && (
                                 <Fragment>
                                     <Route exact path="/searchCarrier" component={Carrier}/>
                                     <Route exact path="/driveRegistration" component={DriverRegistrer}/>
@@ -47,15 +46,14 @@ const SecurityRoute = (props) => {
                                     <Route exact path="/addCarrier" component={AddCarrier}/>
                                     <Route exact path="/addTtn" component={TtnForm}/>
                                     <Route exact path="/checkTtn" component={CheckTtnPage}/>
-                                    <Route exact path="/" component={Home}/>
+                                    <Route component={Home}/>
                                 </Fragment>
                             )}
-                            {props.auth.user.position.includes('controller') && (
+                            {props.auth.user.position === 'controller' && (
                                 <Fragment>
-                                    <Route exact path="/controlTTN" component={ControlTtnPage}/>
+                                    <Route component={Home}/>
                                 </Fragment>
                             )}
-
                         </Switch>
                         <Footer/>
                     </div>
@@ -82,18 +80,19 @@ const SecurityRoute = (props) => {
                             <Route exact path="/myWarehouses" component={Warehouse}/>
                             <Route exact path="/createUser" component={UserForm}/>
                             <Route exact path="/employees" component={Employees}/>
+                            <Route exact path="/employees/:id" component={Employee}/>
                             <Route component={Home}/>
                         </Switch>
                         <Footer/>
                     </div>
                 )
             default:
+
                 return <Redirect to={{pathname: '/'}}/>
         }
 
     } else {
         return (
-
             <div>
                 <Switch>
                     <Route exact path="/login" component={Login}/>
