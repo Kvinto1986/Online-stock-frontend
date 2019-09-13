@@ -49,7 +49,7 @@ export default ({user}) => {
                     {name: 'Search carrier', link: '/searchCarrier'},
                     {name: 'Add driver', link: '/driveRegistration'},
                     {name: 'All carrier', link: '/allCarrier'},
-                    {name: 'operator4', link: '/operator4'}]
+                    {name: 'Check Ttn', link: '/checkTtn'}]
             }
             if (user.position === 'controller') {
                 arr = [

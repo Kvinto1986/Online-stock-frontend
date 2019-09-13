@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom';
 import {connect} from "react-redux";
 import AdminRegister from "../components/registerCompanyAdmin/registerCompanyAdmin";
 import Warehouse from "../components/warehousesPage/warehouse";
-import UserForm from "../components/registerEmployee/registerEmployee";
+import UserForm from "../components/registerEmployee/registerEmployeePage";
 import DriverRegistrer from '../components/registerDrive';
 import Home from '../components/homePage/homePage';
 import Login from '../components/loginPage/loginPage';
@@ -20,6 +20,7 @@ import AddCarrier from "../components/carrierForm";
 import DeliveryFromStockForm from '../components/deliveryFromStock/deliveryFromStock'
 import Warehousing from '../components/managerWarehousing/warehousing'
 import Employees from '../components/employeePage/employee'
+import {CheckTtnPage} from "../components/checkTtn/checkTtnPage";
 
 
 const SecurityRoute = (props) => {
@@ -45,6 +46,7 @@ const SecurityRoute = (props) => {
                                     <Route exact path="/allCarrier" component={AllCarrier}/>
                                     <Route exact path="/addCarrier" component={AddCarrier}/>
                                     <Route exact path="/addTtn" component={TtnForm}/>
+                                    <Route exact path="/checkTtn" component={CheckTtnPage}/>
                                     <Route component={Home}/>
                                 </Fragment>
                             )}

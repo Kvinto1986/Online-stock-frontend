@@ -35,8 +35,6 @@ const DriverRegister = (props) => {
             surnName: values.surnName,
             drivingLicense: values.license
         };
-
-        console.log(driver)
         props.addDriver(driver);
 
     };
