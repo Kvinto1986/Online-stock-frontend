@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Typography from "@material-ui/core/Typography";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 // import {registerDelivery} from "../../servies/registerDelivery";
@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 
 const DeliveryFromStockForm = ({ 
-    senderList, carrierList, fetchTtnData, ttnData, managerName, handleSubmit
+    senderList, carrierList, fetchTtnData, ttnData, managerData, handleSubmit, numberError, submitErrors
  }) => {
 
     // *** Hooks ***
@@ -23,7 +23,7 @@ const DeliveryFromStockForm = ({
         consignmentDescription: '',
         goodsAmount: '',
         goodsTypesAmount: '',
-        managerName: '',
+        manager: `${managerData.lastName} ${managerData.firstName} ${managerData.patronymic}`,
         registerDate: '',
         consignmentLabeling: '',
     }
@@ -46,6 +46,8 @@ const DeliveryFromStockForm = ({
     const numberOfGoodTypes = (ttnData.products) && [...new Set(ttnData.products.map(product => product.name))].length
 
     // *** View ***
+    // console.log(numberError);
+    
 
     return (
         <Box my={12}>
@@ -54,7 +56,7 @@ const DeliveryFromStockForm = ({
                     Register the delivery from stock
                 </Typography>
             </Box>
-            <ValidatorForm onSubmit={handleSubmit}>
+            <ValidatorForm onSubmit={() => handleSubmit(formState)}>
                 <Grid container>
                     <Grid item xs={12}>
                         <Box my={1.5}>
@@ -68,6 +70,12 @@ const DeliveryFromStockForm = ({
                                 onChange={handleChange}
                             />
                         </Box>
+                        {/* {numberError.notFound && (
+                            <Typography >
+                                {numberError.notFound}
+                                <p>f</p>
+                            </Typography>
+                        )} */}
                     </Grid>
                     <Button
                         type="button"
@@ -106,6 +114,7 @@ const DeliveryFromStockForm = ({
                                     onChange={handleChange}
                                     input={<Input name="sender" id="age-helper" />}
                                     name="sender"
+                                    className="senderListSelect"
                                 >
                                     {
                                         senderList.length > 1
@@ -120,7 +129,7 @@ const DeliveryFromStockForm = ({
                                             ))
                                         ) 
                                         : (
-                                            <MenuItem value="">
+                                            <MenuItem className="notFoundSenderList">
                                                 <em>Senders not found</em>
                                             </MenuItem>
                                         )
@@ -180,6 +189,7 @@ const DeliveryFromStockForm = ({
                         </Box>
                     </Grid>
                 </Grid>
+                {/* TODO: */}
                 {/* ========== If transport type is a car =========== */}
                 <Grid container>
                     <Grid item xs={12}>
@@ -243,10 +253,9 @@ const DeliveryFromStockForm = ({
                                 disabled
                                 value={numberOfGoodTypes || ''}
                                 fullWidth
-                                id="ttnNumber"
                                 label="The number of good's types on TTN"
                                 name="goodsTypesAmount"
-                                autoComplete="ttnNumber"
+                                autoComplete="goodsTypesAmount"
                                 onChange={handleChange}
                             />
                         </Box>
@@ -258,12 +267,12 @@ const DeliveryFromStockForm = ({
                             <TextValidator
                                 required
                                 disabled
-                                value={managerName}
+                                value={formState.manager}
                                 fullWidth
-                                id="ttnNumber"
+                                id="manager"
                                 label="Manager name"
-                                name="managerName"
-                                autoComplete="ttnNumber"
+                                name="manager"
+                                autoComplete="manager"
                                 onChange={handleChange}
                             />
                         </Box>
@@ -277,10 +286,10 @@ const DeliveryFromStockForm = ({
                                 disabled
                                 value={ttnData.dataOfRegistration || ''}
                                 fullWidth
-                                id="ttnNumber"
+                                id="registerDate"
                                 label="Registration date and time  of TTN"
                                 name="registerDate"
-                                autoComplete="ttnNumber"
+                                autoComplete="registerDate"
                                 onChange={handleChange}
                             />
                         </Box>

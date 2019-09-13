@@ -1,38 +1,49 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useApiCallback, useStorelessApiCallback } from "../../hooks/hook";
 import { getAllSenders } from "../../api/senders";
 import { getAllTransporters } from "../../api/transportes";
-import { getTtn } from "../../api/ttns"
+import { getTtn, finishStockDelivery } from "../../api/ttns"
 import Form from "./deliveryFromStockForm";
 import { senders, carriers, ttns } from "../../filters"
 import { useSelector } from "react-redux"
 
 export default () => {
-    // const [number, setNumber] = useState('')
-    
     const senderList = Object.values(useSelector(senders));
     const carrierList = Object.values(useSelector(carriers));
     const ttnData = useSelector(ttns);
-    const managerName = useSelector(state=>state.auth.user.name);
+    const managerData = useSelector(state=>state.auth.user);
     const [fetchSenders] = useApiCallback(getAllSenders, () => {}, {})
     const [fetchTransporters] = useApiCallback(getAllTransporters, () => {}, {})
-    const [fetchTtnDataByNumber] = useApiCallback(getTtn, () => {}, {})
-    // const [handleSubmit, errors] = useStorelessApiCallback(addEmployee, ()=>{},{})
+    const [fetchTtnDataByNumber, numberError] = useApiCallback(getTtn, () => {}, {})
+    const [handleSubmit, submitErrors] = useStorelessApiCallback(finishStockDelivery, res => showAlert(res), {})
+
+    // console.log(numberError);
+    // let f = null
+    const showAlert = res => {
+        // f = true
+    }
 
     useEffect(() => {
         fetchSenders()
         fetchTransporters()
     }, [])
 
-    return <Form
-        senderList={senderList}
-        carrierList={carrierList}
-        fetchTtnData={fetchTtnDataByNumber}
-        ttnData={ttnData}
-        managerName={managerName}
-        // handleSubmit={handleSubmit}
-        // errors={errors}
-    />
+    
+    return (
+        <>
+            {/* {f} */}
+            <Form
+                senderList={senderList}
+                carrierList={carrierList}
+                fetchTtnData={fetchTtnDataByNumber}
+                ttnData={ttnData}
+                managerData={managerData}
+                handleSubmit={handleSubmit}
+                numberError={numberError}
+                submitErrors={submitErrors}
+            />
+        </>
+    )
 };
 
 
