@@ -13,7 +13,13 @@ const useStyles = makeStyles(theme => ({
     helperText:{
         color:'red'
     },
-
+    appBar: {
+        position: 'relative',
+    },
+    title: {
+        marginLeft: theme.spacing(2),
+        flex: 1,
+    },
     mainContainer: {
         marginTop: theme.spacing(5),
         display: 'flex',
@@ -37,6 +43,10 @@ const useStyles = makeStyles(theme => ({
     },
     table:{
         marginTop: theme.spacing(5),
+    },
+    description:{
+        marginTop: theme.spacing(5),
+        padding: theme.spacing(5,5,5,5),
     }
 
 }));
