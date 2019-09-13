@@ -13,6 +13,7 @@ import FormControl from '@material-ui/core/FormControl'
 import useStyles from './registerEmployeeStyles'
 import Input from '@material-ui/core/Input'
 
+
 const initialForm = {
     firstName: '',
     lastName: '',
@@ -27,8 +28,10 @@ const initialForm = {
 
 export default ({onSubmit, errors, initial = initialForm}) => {
     const [form, setForm] = useState(initial)
+
     const [dateOfBirth, setDateOfBirth] = useState('1970-01-01')
     const classes = useStyles()
+
 
     const handleInputChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
@@ -48,6 +51,7 @@ export default ({onSubmit, errors, initial = initialForm}) => {
             apartment: form.apartment,
             position: form.position,
             dateOfBirth: dateOfBirth
+
         }
 
         onSubmit(employee)
@@ -121,14 +125,18 @@ export default ({onSubmit, errors, initial = initialForm}) => {
                         <InputLabel>Role</InputLabel>
                         <Select
                             multiple
+
                             name="position"
                             value={form.position}
                             onChange={handleInputChange}
                             input={<Input id="select-multiple"/>}
+
                         >
                             <MenuItem value="manager">Manager</MenuItem>
                             <MenuItem value="operator">Operator</MenuItem>
                             <MenuItem value="controller">Controller</MenuItem>
+
+                         
                         </Select>
                         {errors && (
                             <FormHelperText className={classes.helperText}>{errors.position}</FormHelperText>)}

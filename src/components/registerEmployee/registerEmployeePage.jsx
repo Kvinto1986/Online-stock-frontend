@@ -3,11 +3,10 @@ import useStyles from "./registerEmployeeStyles";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
-import RegisterUserForm from "./registerEmployeeForm";
+import RegisterUser from "./registerEmployee";
 
 
-export default ({onSubmit,errors,currentUser}) => {
-
+export default () => {
     const classes = useStyles();
 
     return (
@@ -17,11 +16,7 @@ export default ({onSubmit,errors,currentUser}) => {
                 <Typography component="h1" variant="h5" className={classes.formName}>
                     New user information
                 </Typography>
-                <RegisterUserForm
-                    onSubmit={onSubmit}
-                    errors={errors}
-                    currentUser={currentUser}
-                />
+                <RegisterUser/>
             </div>
         </Container>
     )

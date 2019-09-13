@@ -1,3 +1,4 @@
+
 import React, {Fragment} from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -20,7 +21,8 @@ import DeliveryFromStockForm from '../components/deliveryFromStock/deliveryFromS
 import Warehousing from '../components/managerWarehousing/warehousing'
 import Employees from '../components/employeesPage'
 import Employee from '../components/employeePage'
-
+import ControllerPage from '../components/controllerPage/controlTTN'
+import {CheckTtnPage} from '../components/checkTtn/checkTtnPage'
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
@@ -45,11 +47,13 @@ const SecurityRoute = (props) => {
                                     <Route exact path="/allCarrier" component={AllCarrier}/>
                                     <Route exact path="/addCarrier" component={AddCarrier}/>
                                     <Route exact path="/addTtn" component={TtnForm}/>
+                                    <Route exact path="/checkTtn" component={CheckTtnPage}/>
                                     <Route component={Home}/>
                                 </Fragment>
                             )}
                             {props.auth.user.position === 'controller' && (
                                 <Fragment>
+                                    <Route exact path="/controlTTN" component={ControllerPage}/>
                                     <Route component={Home}/>
                                 </Fragment>
                             )}
