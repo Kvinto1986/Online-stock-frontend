@@ -11,6 +11,7 @@ import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers'
 import FormControl from '@material-ui/core/FormControl'
 
 import useStyles from './registerEmployeeStyles'
+import Input from '@material-ui/core/Input'
 
 export default ({onSubmit, errors}) => {
 
@@ -129,8 +130,8 @@ export default ({onSubmit, errors}) => {
                         <InputLabel>Role</InputLabel>
                         <Select
                             multiple
-                            value={role}
-                            onChange={handleChangeRole}
+                            //value={role}
+                            //onChange={handleChangeRole}
                             input={<Input id="select-multiple-checkbox" />}
                             renderValue={selected => selected.join(', ')}
                         >
