@@ -5,11 +5,12 @@ import adminCompanyStatisticReduser from './adminsCompanyStatisticReduser'
 import companiesListReduser from './companiesListReduser'
 import companyReduser from './companyReduser'
 import warehouseReduser from './warehouseReduser'
-import ttnReducer from './ttnReducer'
 import carriersReducer from './carriersReducer'
 import warehousingFlagRegucer from './warehousingFlagRegucer'
 import warehousingActiveStockReducer from './warehousingActiveStockReducer'
 import {normalize} from '../utils/utils'
+import ttnReduser from './ttnReduser'
+import ttnsReducer from './ttnsReducer'
 import {EMPLOYEE, EMPLOYEES} from '../actions/types'
 
 
@@ -38,8 +39,9 @@ export default combineReducers({
     companiesList: companiesListReduser,
     currentCompany: companyReduser,
     warehouses: warehouseReduser,
-    ttnData: ttnReducer,
     carriersReducer: carriersReducer,
+    TTN:ttnReduser,
+    TTNS:ttnsReducer,
     warehousingFlag: warehousingFlagRegucer,
     warehousingActiveStock: warehousingActiveStockReducer
 })

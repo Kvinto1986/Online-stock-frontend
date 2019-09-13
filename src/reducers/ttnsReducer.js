@@ -1,12 +1,10 @@
-import { FETCH_TTN_BY_NUMBER } from '../actions/types';
+import {TTNS} from '../actions/types'
 
-const initialState = {};
-
+const initialState = {}
 export default function(state = initialState, action ) {
     switch(action.type) {
-        case FETCH_TTN_BY_NUMBER: {
+        case TTNS :
             return action.payload;
-        }
         default:
             return state;
     }

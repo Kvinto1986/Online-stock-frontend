@@ -21,6 +21,8 @@ import DeliveryFromStockForm from '../components/deliveryFromStock/deliveryFromS
 import Warehousing from '../components/managerWarehousing/warehousing'
 import Employees from '../components/employeesPage'
 import Employee from '../components/employeePage'
+import ControllerPage from '../components/controllerPage/controlTTN'
+import {CheckTtnPage} from '../components/checkTtn/checkTtnPage'
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
@@ -51,6 +53,7 @@ const SecurityRoute = (props) => {
                             )}
                             {props.auth.user.position === 'controller' && (
                                 <Fragment>
+                                    <Route exact path="/controlTTN" component={ControllerPage}/>
                                     <Route component={Home}/>
                                 </Fragment>
                             )}
