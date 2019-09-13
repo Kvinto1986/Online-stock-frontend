@@ -1,2 +1,3 @@
-export const currentUser = store => store.employees;
-export const employee = store => store.auth.user
+export const employeesFilter = store => store.employees
+export const authUser = ({auth}) => auth.user
+export const company = ({auth}) => auth.user.company
