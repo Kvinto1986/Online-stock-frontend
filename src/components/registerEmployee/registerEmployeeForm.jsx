@@ -1,21 +1,18 @@
 import React, {useState} from 'react'
 import Grid from '@material-ui/core/Grid/index'
 import Button from '@material-ui/core/Button/index'
-import DateFnsUtils from "@date-io/date-fns";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-import {
-    DatePicker,
-    MuiPickersUtilsProvider
-} from "@material-ui/pickers";
-import FormControl from "@material-ui/core/FormControl";
+import DateFnsUtils from '@date-io/date-fns'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
+import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers'
+import FormControl from '@material-ui/core/FormControl'
 
 import useStyles from './registerEmployeeStyles'
 
-export default({onSubmit,errors,currentUser}) => {
+export default ({onSubmit, errors}) => {
 
     const [form, setForm] = useState({
         firstName: '',
@@ -29,22 +26,22 @@ export default({onSubmit,errors,currentUser}) => {
         role: '',
         login: '',
         password: ''
-    });
+    })
 
-    const [dateOfBirth, setDateOfBirth] = useState('1970-01-01');
+    const [dateOfBirth, setDateOfBirth] = useState('1970-01-01')
 
-    const classes = useStyles();
+    const classes = useStyles()
 
     const handleInputChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
-    };
+    }
 
     const handleChangeDate = (e) => {
         setDateOfBirth(e)
-    };
+    }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         const employee = {
             firstName: form.firstName,
@@ -56,11 +53,10 @@ export default({onSubmit,errors,currentUser}) => {
             house: form.house,
             apartment: form.apartment,
             position: form.role,
-            dateOfBirth: dateOfBirth,
-            company: currentUser.company
-        };
+            dateOfBirth: dateOfBirth
+        }
         onSubmit(employee)
-    };
+    }
 
     return (
         <ValidatorForm noValidate onSubmit={handleSubmit}>
@@ -69,9 +65,9 @@ export default({onSubmit,errors,currentUser}) => {
                     <TextValidator
                         required
                         fullWidth
-                        name='lastName'
-                        label='Last name'
-                        type='text'
+                        name="lastName"
+                        label="Last name"
+                        type="text"
                         value={form.lastName}
                         onChange={handleInputChange}
                         validators={['required', 'matchRegexp:[a-zA-Z]$', 'minStringLength:2', 'maxStringLength:30']}
@@ -82,9 +78,9 @@ export default({onSubmit,errors,currentUser}) => {
                     <TextValidator
                         required
                         fullWidth
-                        label='First name'
-                        name='firstName'
-                        type='text'
+                        label="First name"
+                        name="firstName"
+                        type="text"
                         value={form.firstName}
                         onChange={handleInputChange}
                         validators={['required', 'matchRegexp:[a-zA-Z]$', 'minStringLength:2', 'maxStringLength:30']}
@@ -95,9 +91,9 @@ export default({onSubmit,errors,currentUser}) => {
                     <TextValidator
                         required
                         fullWidth
-                        label='Patronymic'
-                        name='patronymic'
-                        type='text'
+                        label="Patronymic"
+                        name="patronymic"
+                        type="text"
                         value={form.patronymic}
                         onChange={handleInputChange}
                         validators={['required', 'matchRegexp:[a-zA-Z]$', 'minStringLength:2', 'maxStringLength:30']}
@@ -115,13 +111,13 @@ export default({onSubmit,errors,currentUser}) => {
                             disableFuture
                             value={dateOfBirth}
                             onChange={handleChangeDate}
-                            name='dateOfBirth'
+                            name="dateOfBirth"
                             openTo="year"
                             format="dd/MM/yyyy"
                             label="Date of Birth"
-                            views={["year", "month", "date"]}
-                            minDate={new Date("1960-01-01")}
-                            maxDate={new Date("2001-01-01")}
+                            views={['year', 'month', 'date']}
+                            minDate={new Date('1960-01-01')}
+                            maxDate={new Date('2001-01-01')}
                         />
                     </MuiPickersUtilsProvider>
                 </Grid>
@@ -135,9 +131,9 @@ export default({onSubmit,errors,currentUser}) => {
                                 name: 'role',
                             }}
                         >
-                            <MenuItem value='manager'>Manager</MenuItem>
-                            <MenuItem value='operator'>Operator</MenuItem>
-                            <MenuItem value='controller'>Controller</MenuItem>
+                            <MenuItem value="manager">Manager</MenuItem>
+                            <MenuItem value="operator">Operator</MenuItem>
+                            <MenuItem value="controller">Controller</MenuItem>
                         </Select>
                         {errors && (
                             <FormHelperText className={classes.helperText}>{errors.role}</FormHelperText>)}
@@ -149,9 +145,9 @@ export default({onSubmit,errors,currentUser}) => {
                     <TextValidator
                         required
                         fullWidth
-                        name='email'
-                        label='E-mail'
-                        type='text'
+                        name="email"
+                        label="E-mail"
+                        type="text"
                         value={form.email}
                         onChange={handleInputChange}
                         validators={['required', 'isEmail']}
@@ -167,9 +163,9 @@ export default({onSubmit,errors,currentUser}) => {
                     <TextValidator
                         required
                         fullWidth
-                        name='city'
-                        label='City'
-                        type='text'
+                        name="city"
+                        label="City"
+                        type="text"
                         value={form.city}
                         onChange={handleInputChange}
                         validators={['required', 'matchRegexp:[a-zA-Z]$', 'minStringLength:2', 'maxStringLength:30']}
@@ -180,9 +176,9 @@ export default({onSubmit,errors,currentUser}) => {
                     <TextValidator
                         required
                         fullWidth
-                        name='street'
-                        label='Street'
-                        type='text'
+                        name="street"
+                        label="Street"
+                        type="text"
                         value={form.street}
                         onChange={handleInputChange}
                         validators={['required', 'minStringLength:2', 'maxStringLength:30']}
@@ -193,10 +189,10 @@ export default({onSubmit,errors,currentUser}) => {
                     <TextValidator
                         required
                         fullWidth
-                        name='house'
-                        type='number'
+                        name="house"
+                        type="number"
                         value={form.house}
-                        label='House number'
+                        label="House number"
                         onChange={handleInputChange}
                         validators={['required', 'minNumber:1', 'isPositive', 'isNumber', 'minStringLength:1', 'maxStringLength:10']}
                         errorMessages={['this field is required', 'value must be greater than 0', 'the value must be positive', 'value must be a number', 'the value must be at least 1 characters', 'the value must be no more than 10 characters']}
@@ -206,10 +202,10 @@ export default({onSubmit,errors,currentUser}) => {
                     <TextValidator
                         required
                         fullWidth
-                        type='number'
-                        name='apartment'
+                        type="number"
+                        name="apartment"
                         value={form.apartment}
-                        label='Apartment number'
+                        label="Apartment number"
                         onChange={handleInputChange}
                         validators={['required', 'minNumber:1', 'isPositive', 'isNumber', 'minStringLength:1', 'maxStringLength:10']}
                         errorMessages={['this field is required', 'value must be greater than 0', 'the value must be positive.', 'value must be a number', 'the value must be at least 1 characters', 'the value must be no more than 10 characters']}
@@ -225,9 +221,9 @@ export default({onSubmit,errors,currentUser}) => {
                     color="primary"
                     className={classes.submit}
                 >
-                    Create user
+                    Submit
                 </Button>
             </Grid>
         </ValidatorForm>
     )
-};
+}
