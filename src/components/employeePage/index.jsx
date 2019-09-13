@@ -5,8 +5,10 @@ import Box from '@material-ui/core/Box'
 
 export default ({match: {params: {id}}}) => {
     return (
-        <Box component={Container} m={2}>
-            <EmployeeProfile employeeId={id}/>
-        </Box>
+        <Container>
+            <Box m={2}>
+                <EmployeeProfile employeeId={id}/>
+            </Box>
+        </Container>
     )
 }

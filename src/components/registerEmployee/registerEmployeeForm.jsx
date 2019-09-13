@@ -11,33 +11,27 @@ import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers'
 import FormControl from '@material-ui/core/FormControl'
 
 import useStyles from './registerEmployeeStyles'
+import Input from '@material-ui/core/Input'
 
-export default ({onSubmit, errors}) => {
+const initialForm = {
+    firstName: '',
+    lastName: '',
+    patronymic: '',
+    email: '',
+    city: '',
+    street: '',
+    house: '',
+    apartment: '',
+    position: []
+}
 
-    const [form, setForm] = useState({
-        firstName: '',
-        lastName: '',
-        patronymic: '',
-        email: '',
-        city: '',
-        street: '',
-        house: '',
-        apartment: '',
-        role: '',
-        login: '',
-        password: ''
-    })
-
+export default ({onSubmit, errors, initial = initialForm}) => {
+    const [form, setForm] = useState(initial)
     const [dateOfBirth, setDateOfBirth] = useState('1970-01-01')
-
     const classes = useStyles()
 
     const handleInputChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
-    }
-
-    const handleChangeDate = (e) => {
-        setDateOfBirth(e)
     }
 
     const handleSubmit = (e) => {
@@ -52,9 +46,10 @@ export default ({onSubmit, errors}) => {
             street: form.street,
             house: form.house,
             apartment: form.apartment,
-            position: form.role,
+            position: form.position,
             dateOfBirth: dateOfBirth
         }
+
         onSubmit(employee)
     }
 
@@ -110,7 +105,7 @@ export default ({onSubmit, errors}) => {
                             className={classes.formControl}
                             disableFuture
                             value={dateOfBirth}
-                            onChange={handleChangeDate}
+                            onChange={setDateOfBirth}
                             name="dateOfBirth"
                             openTo="year"
                             format="dd/MM/yyyy"
@@ -125,19 +120,18 @@ export default ({onSubmit, errors}) => {
                     <FormControl className={classes.formControl} required>
                         <InputLabel>Role</InputLabel>
                         <Select
-                            value={form.role}
+                            multiple
+                            name="position"
+                            value={form.position}
                             onChange={handleInputChange}
-                            inputProps={{
-                                name: 'role',
-                            }}
+                            input={<Input id="select-multiple"/>}
                         >
                             <MenuItem value="manager">Manager</MenuItem>
                             <MenuItem value="operator">Operator</MenuItem>
                             <MenuItem value="controller">Controller</MenuItem>
                         </Select>
                         {errors && (
-                            <FormHelperText className={classes.helperText}>{errors.role}</FormHelperText>)}
-
+                            <FormHelperText className={classes.helperText}>{errors.position}</FormHelperText>)}
                     </FormControl>
                 </Grid>
 
@@ -171,6 +165,8 @@ export default ({onSubmit, errors}) => {
                         validators={['required', 'matchRegexp:[a-zA-Z]$', 'minStringLength:2', 'maxStringLength:30']}
                         errorMessages={['this field is required', 'the value must contain only letters', 'the value must be at least 2 characters', 'the value must be no more than 30 characters']}
                     />
+                    {errors && (
+                        <FormHelperText className={classes.helperText}>{errors.city}</FormHelperText>)}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextValidator
@@ -184,32 +180,31 @@ export default ({onSubmit, errors}) => {
                         validators={['required', 'minStringLength:2', 'maxStringLength:30']}
                         errorMessages={['this field is required', 'the value must be at least 2 characters', 'the value must be no more than 30 characters']}
                     />
+                    {errors && (
+                        <FormHelperText className={classes.helperText}>{errors.street}</FormHelperText>)}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextValidator
                         required
                         fullWidth
                         name="house"
-                        type="number"
                         value={form.house}
                         label="House number"
                         onChange={handleInputChange}
-                        validators={['required', 'minNumber:1', 'isPositive', 'isNumber', 'minStringLength:1', 'maxStringLength:10']}
-                        errorMessages={['this field is required', 'value must be greater than 0', 'the value must be positive', 'value must be a number', 'the value must be at least 1 characters', 'the value must be no more than 10 characters']}
                     />
+                    {errors && (
+                        <FormHelperText className={classes.helperText}>{errors.house}</FormHelperText>)}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextValidator
-                        required
                         fullWidth
-                        type="number"
                         name="apartment"
                         value={form.apartment}
                         label="Apartment number"
                         onChange={handleInputChange}
-                        validators={['required', 'minNumber:1', 'isPositive', 'isNumber', 'minStringLength:1', 'maxStringLength:10']}
-                        errorMessages={['this field is required', 'value must be greater than 0', 'the value must be positive.', 'value must be a number', 'the value must be at least 1 characters', 'the value must be no more than 10 characters']}
                     />
+                    {errors && (
+                        <FormHelperText className={classes.helperText}>{errors.apartment}</FormHelperText>)}
                 </Grid>
             </Grid>
 
