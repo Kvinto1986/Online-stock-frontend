@@ -1,18 +1,17 @@
 import React, {useState} from 'react'
-import RegisterEmployeeForm from '../registerEmployee/registerEmployeeForm'
 import Profile from './profile'
 import {Paper} from '@material-ui/core'
 import PropTypes from 'prop-types'
 import useStyles from './styles'
 import Button from '@material-ui/core/Button'
+import EditEmployee from './editEmployee'
 
 
-export default function Switcher({onSubmit, errors, employee, editPermission}) {
+export default function Switcher({employee}) {
     const [editing, setEditing] = useState(false)
     const classes = useStyles()
 
     return <Paper className={classes.paper}>
-        {editPermission !== 'none' &&
         <Button
             color="primary"
             variant="outlined"
@@ -20,17 +19,11 @@ export default function Switcher({onSubmit, errors, employee, editPermission}) {
             className={classes.editButton}
         >
             {editing ? 'Show profile' : 'Edit'}
-        </Button>}
+        </Button>
         {editing ?
-            <RegisterEmployeeForm
-                initial={employee}
-                onSubmit={onSubmit}
-                errors={errors}
-            />
+            <EditEmployee employee={employee} />
             :
-            <Profile
-                employee={employee}
-            />}
+            <Profile employee={employee}/>}
     </Paper>
 }
 

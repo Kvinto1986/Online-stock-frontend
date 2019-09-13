@@ -9,7 +9,6 @@ export default function EmployeeProfile({employeeId}) {
 
     return <Switcher
         employee={employees[employeeId] || {}}
-        editPermission={true}
     />
 }
 
