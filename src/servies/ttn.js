@@ -1,7 +1,7 @@
 import axios from 'axios';
 import server from "../serverConfig";
 
-export const addTtn = (info) => {
+export const addTtn = info => {
     console.log(info)
     const{
         date,
@@ -26,4 +26,9 @@ export const addTtn = (info) => {
         description: description
     })
 };
+export const findTtn = async (number) => {
+    const{ttnNumber} = number
+    const ttn = await axios.get(`${server}api/ttn/${ttnNumber}`)
+    return ttn.data
+}
 

@@ -14,6 +14,7 @@ import useStyles from './registerEmployeeStyles'
 
 export default ({onSubmit, errors}) => {
 
+
     const [form, setForm] = useState({
         firstName: '',
         lastName: '',
@@ -23,14 +24,15 @@ export default ({onSubmit, errors}) => {
         street: '',
         house: '',
         apartment: '',
-        role: '',
         login: '',
         password: ''
     })
 
+
     const [dateOfBirth, setDateOfBirth] = useState('1970-01-01')
 
     const classes = useStyles()
+
 
     const handleInputChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
@@ -54,6 +56,7 @@ export default ({onSubmit, errors}) => {
             apartment: form.apartment,
             position: form.role,
             dateOfBirth: dateOfBirth
+
         }
         onSubmit(employee)
     }
@@ -125,15 +128,17 @@ export default ({onSubmit, errors}) => {
                     <FormControl className={classes.formControl} required>
                         <InputLabel>Role</InputLabel>
                         <Select
-                            value={form.role}
-                            onChange={handleInputChange}
-                            inputProps={{
-                                name: 'role',
-                            }}
+                            multiple
+                            value={role}
+                            onChange={handleChangeRole}
+                            input={<Input id="select-multiple-checkbox" />}
+                            renderValue={selected => selected.join(', ')}
                         >
                             <MenuItem value="manager">Manager</MenuItem>
                             <MenuItem value="operator">Operator</MenuItem>
                             <MenuItem value="controller">Controller</MenuItem>
+
+                         
                         </Select>
                         {errors && (
                             <FormHelperText className={classes.helperText}>{errors.role}</FormHelperText>)}
