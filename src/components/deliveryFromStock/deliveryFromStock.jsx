@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useApiCallback, useStorelessApiCallback } from "../../hooks/hook";
 import { getAllSenders } from "../../api/senders";
 import { getAllTransporters } from "../../api/transportes";
@@ -8,6 +8,7 @@ import { senders, carriers, ttns } from "../../filters"
 import { useSelector } from "react-redux"
 
 export default () => {
+    const [alertMessage, saveAlertMessage] = useState(null)
     const senderList = Object.values(useSelector(senders));
     const carrierList = Object.values(useSelector(carriers));
     const ttnData = useSelector(ttns);
@@ -15,34 +16,38 @@ export default () => {
     const [fetchSenders] = useApiCallback(getAllSenders, () => {}, {})
     const [fetchTransporters] = useApiCallback(getAllTransporters, () => {}, {})
     const [fetchTtnDataByNumber, numberError] = useApiCallback(getTtn, () => {}, {})
-    const [handleSubmit, submitErrors] = useStorelessApiCallback(finishStockDelivery, res => showAlert(res), {})
+    const [handleSubmit, submitErrors] = useStorelessApiCallback(finishStockDelivery, res => outputAlert(res), {})
 
-    // console.log(numberError);
-    // let f = null
-    const showAlert = res => {
-        // f = true
+    // TODO: Put this logic into Form component
+    const outputAlert = (res) => {
+
+        saveAlertMessage(res.data.message)
+        
+        setTimeout(() => {
+            // resetForm()
+            saveAlertMessage(null)
+        }, 2000)
     }
 
     useEffect(() => {
         fetchSenders()
         fetchTransporters()
     }, [])
-
     
+    console.log(numberError);
+
     return (
-        <>
-            {/* {f} */}
-            <Form
-                senderList={senderList}
-                carrierList={carrierList}
-                fetchTtnData={fetchTtnDataByNumber}
-                ttnData={ttnData}
-                managerData={managerData}
-                handleSubmit={handleSubmit}
-                numberError={numberError}
-                submitErrors={submitErrors}
-            />
-        </>
+        <Form
+            senderList={senderList}
+            carrierList={carrierList}
+            fetchTtnData={fetchTtnDataByNumber}
+            ttnData={ttnData}
+            managerData={managerData}
+            handleSubmit={handleSubmit}
+            numberError={numberError}
+            submitErrors={submitErrors}
+            alertMessage={alertMessage}
+        />
     )
 };
 
