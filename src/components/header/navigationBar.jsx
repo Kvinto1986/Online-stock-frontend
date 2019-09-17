@@ -52,12 +52,11 @@ export default ({user}) => {
                     {name: 'Check Ttn', link: '/checkTtn'}])
             }
             if (user.position.includes('controller')) {
-                console.log(arr)
+
                 arr = arr.concat([
                     {name: 'TTN control', link: '/controlTTN'}])
             }
 
-            console.log(arr)
             return navigation(arr)
 
         default:
