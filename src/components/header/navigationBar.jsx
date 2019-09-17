@@ -40,9 +40,7 @@ export default ({user}) => {
             if (user.position === 'manager') {
                 arr = [
                     {name: 'Stock delivery', link: '/stockDelivery'},
-                    {name: 'Warehousing', link: '/warehousing'},
-                    {name: 'manager3', link: '/manager3'},
-                    {name: 'manager4', link: '/manager4'}]
+                    {name: 'Warehousing', link: '/warehousing'}]
             }
             if (user.position === 'operator') {
                 arr = [

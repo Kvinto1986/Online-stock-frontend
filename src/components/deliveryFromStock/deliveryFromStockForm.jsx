@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Typography from "@material-ui/core/Typography";
 import { TextValidator, ValidatorForm, SelectValidator  } from "react-material-ui-form-validator";
 // import {registerDelivery} from "../../servies/registerDelivery";
@@ -10,12 +10,12 @@ import {
 import RightBottomAlert from "../common/alerts/rightBottomAlert"
 
 const DeliveryFromStockForm = ({ 
-    senderList, carrierList, fetchTtnData, ttnData, managerData, handleSubmit, numberError, submitErrors, alertMessage
+    senderList, carrierList, fetchTtnData, managerData, submitAction, submitErrors, alertMessage, saveAlertMessage
  }) => {
 
     // *** Hooks ***
 
-    const initialState = {
+    const initialFormState = {
         ttnNumber: '',
         ttnDate: '',
         sender: '',
@@ -28,9 +28,13 @@ const DeliveryFromStockForm = ({
         manager: `${managerData.lastName} ${managerData.firstName} ${managerData.patronymic}`,
         registerDate: '',
         consignmentLabeling: '',
+        alertMessage: ''
     }
 
-    const [formState, setFormState] = useState(initialState);
+    const initialErrorsState = {}
+
+    const [formState, setFormState] = useState(initialFormState);
+    const [errors, setErrors] = useState(initialErrorsState)
 
     // *** Functions ***
 
@@ -38,16 +42,67 @@ const DeliveryFromStockForm = ({
         setFormState({...formState, [e.target.name]: e.target.value })
     }
 
-    const reset = () => {
-        setFormState(initialState)
+    useEffect(() => {
+        if(alertMessage) {
+            setFormState({...formState, alertMessage})
+            setFormState(initialFormState)
+            setTimeout(() => {
+                saveAlertMessage(null)
+            }, 3000)
+        }
+    }, [alertMessage])
+
+    const handleTtnFetch = () => {
+        fetchTtnData({ttnNumber: formState.ttnNumber})
+        .then(res => {
+            if(res) {
+                if(res.status === "warehoused") {
+                    const {dataOut, products, dataOfRegistration} = res
+                    /* TODO: Create automaticly calculated value inside TTN model */
+                    const numberOfGoodTypes = (products) && [...new Set(products.map(product => product.name))].length
+                    
+                    setFormState({
+                        ...formState,
+                        ttnDate: dataOut,
+                        goodsAmount: products.length,
+                        goodsTypesAmount: numberOfGoodTypes,
+                        registerDate: dataOfRegistration
+                    })
+                    setErrors({...errors, numberError: ""})
+                }
+                else {
+                    setErrors({...errors, numberError: "TTN №" + formState.ttnNumber + " hasn't been warehoused"})
+                    setFormState(initialFormState)
+                }
+            }
+            else {
+                setErrors({...errors, numberError: "TTN №" + formState.ttnNumber + " is not found"})
+                setFormState(initialFormState)
+            }
+        })
+        .catch(() => setErrors({...errors, numberError: "TTN is required"}))
     }
 
-    // *** Constants ***
+    const handleSubmit = () => {
+        const unhendledErrors = handleUnhendledErrors(formState)
 
-    /* TODO: Create automaticly calculated value inside TTN model */
-    const numberOfGoodTypes = (ttnData.products) && [...new Set(ttnData.products.map(product => product.name))].length
+        if (Object.values(unhendledErrors).length === 0) {
+            submitAction(formState)
+        }
+        else {
+            setErrors({...errors, ...unhendledErrors})
+        }
+    }
 
     // *** View ***
+
+    const errorMessageSpawner = error => {
+        if (error) {
+            return (
+                <small style={{color: "red", marginTop: "5px"}}>{error}</small>
+            )
+        }
+    }
 
     return (
         <>
@@ -61,12 +116,13 @@ const DeliveryFromStockForm = ({
                             Register the delivery from stock
                         </Typography>
                     </Box>
-                    <ValidatorForm onSubmit={() => handleSubmit(formState)}>
+                    <ValidatorForm onSubmit={handleSubmit}>
                         <Grid container>
                             <Grid item xs={12}>
                                 <Box my={1.5}>
                                     <TextValidator
                                         fullWidth
+                                        value={formState.ttnNumber || ''}
                                         id="ttnNumber"
                                         label="TTN number"
                                         name="ttnNumber"
@@ -76,18 +132,13 @@ const DeliveryFromStockForm = ({
                                         errorMessages={['This field is required', 'The value must contain only numbers']}
                                     />
                                 </Box>
-                                {/* {numberError.err && (
-                                    <Typography >
-                                        {numberError.err}
-                                        <p>f</p>
-                                    </Typography>
-                                )} */}
+                                {errorMessageSpawner(errors.numberError)}
                             </Grid>
                             <Button
                                 type="button"
                                 variant="outlined"
                                 color="primary"
-                                onClick={() => fetchTtnData(formState.ttnNumber)}
+                                onClick={() => handleTtnFetch()}
                             >
                                 Fetch TTN data
                             </Button>
@@ -97,14 +148,15 @@ const DeliveryFromStockForm = ({
                                 <Box my={1.5}>
                                     <TextValidator
                                         disabled
-                                        value={ttnData.dataOut || ''}
+                                        value={formState.ttnDate}
                                         fullWidth
                                         id="ttnDate"
                                         label="TTN discharge date"
-                                        name="ttnNumber"
-                                        autoComplete="ttnNumber"
+                                        name="ttnDate"
+                                        autoComplete="ttnDate"
                                         onChange={handleChange}
                                         validators={['required']}
+                                        errorMessages={['This field is required']}
                                     />
                                 </Box>
                             </Grid>
@@ -115,14 +167,14 @@ const DeliveryFromStockForm = ({
                                     <FormControl fullWidth>
                                         <InputLabel htmlFor="age-helper">Sender *</InputLabel>
                                         <Select
-                                            value={formState.sender || ''}
+                                            required
+                                            value={formState.sender}
                                             onChange={handleChange}
                                             input={<Input name="sender" id="age-helper" />}
                                             name="sender"
                                             autoComplete="ttnNumber"
                                             className="senderListSelect"
-                                            // validators={['required']}
-                                            // errorMessages={['This field is required']}
+                                            error={errors.senderErr && true}
                                         >
                                             {
                                                 senderList.length > 1
@@ -143,6 +195,7 @@ const DeliveryFromStockForm = ({
                                                 )
                                             }
                                         </Select>
+                                        {errorMessageSpawner(errors.senderErr)}
                                     </FormControl>
                                 </Box>
                             </Grid>
@@ -152,13 +205,13 @@ const DeliveryFromStockForm = ({
                                 <Box my={1.5}>
                                     <FormControl fullWidth>
                                         <InputLabel htmlFor="age-helper">Transporter*</InputLabel>
-                                        <SelectValidator
+                                        <Select
+                                            required
                                             value={formState.transporter}
                                             onChange={handleChange}
                                             input={<Input name="transporter" />}
                                             name="transporter"
-                                            validators={['required']}
-                                            errorMessages={['This field is required']}
+                                            error={errors.transporterErr && true}
                                         >
                                             {
                                                 carrierList.length > 1
@@ -178,7 +231,8 @@ const DeliveryFromStockForm = ({
                                                     </MenuItem>
                                                 )
                                             }
-                                        </SelectValidator>
+                                        </Select>
+                                        {errorMessageSpawner(errors.transporterErr)}
                                     </FormControl>
                                 </Box>
                             </Grid>
@@ -188,6 +242,7 @@ const DeliveryFromStockForm = ({
                                 <Box my={1.5}>
                                     <TextValidator
                                         fullWidth
+                                        value={formState.transportNumber}
                                         id="ttnNumber"
                                         label="Transport number"
                                         name="transportNumber"
@@ -197,36 +252,13 @@ const DeliveryFromStockForm = ({
                                         errorMessages={['This field is required', 'The value must contain only numbers']}
                                     />
                                 </Box>
-                                {/* TODO: If driver not found print the error message */}
                             </Grid>
                         </Grid>
-                        {/* TODO: */}
-                        {/* ========== If transport type is a car =========== */}
-                        {/* <Grid container>
-                            <Grid item xs={12}>
-                                <Box my={1}>
-                                    <TextField
-                                        required
-                                        id="outlined-multiline-static"
-                                        label="Car driver data"
-                                        multiline
-                                        rows="5"
-                                        margin="normal"
-                                        variant="outlined"
-                                        fullWidth
-                                        onChange={handleChange}
-                                        name="carDriverData"
-                                        validators={['required']}
-                                        errorMessages={['This field is required']}
-                                    />
-                                </Box>
-                            </Grid>
-                        </Grid> */}
-                        {/* ==========****************************=========== */}
                         <Grid container>
                             <Grid item xs={12}>
                                 <Box my={0}>
                                     <TextField
+                                        value={formState.consignmentDescription}
                                         id="outlined-multiline-static"
                                         label="Description of the consignment"
                                         multiline
@@ -236,24 +268,23 @@ const DeliveryFromStockForm = ({
                                         fullWidth
                                         onChange={handleChange}
                                         name="consignmentDescription"
-                                        // validators={['required']}
-                                        // errorMessages={['This field is required']}
+                                        error={errors.consignmentDescriptionErr && true}
                                     />
                                 </Box>
+                                {errorMessageSpawner(errors.consignmentDescriptionErr)}
                             </Grid>
                         </Grid>
                         <Grid container>
                             <Grid item xs={12}>
                                 <Box my={1}>
                                     <TextValidator
-                                        // required
                                         disabled
-                                        value={Object(ttnData.products).length || ''}
+                                        value={formState.goodsAmount}
                                         fullWidth
-                                        id="ttnNumber"
+                                        id="goodsAmount"
                                         label="The amount of goods on TTN"
                                         name="goodsAmount"
-                                        autoComplete="ttnNumber"
+                                        autoComplete="goodsAmount"
                                         onChange={handleChange}
                                         validators={['required', 'matchRegexp:[0-9]$']}
                                         errorMessages={['This field is required', 'The value must contain only numbers']}
@@ -265,9 +296,8 @@ const DeliveryFromStockForm = ({
                             <Grid item xs={12} >
                                 <Box my={1.5}>
                                     <TextValidator
-                                        // required
                                         disabled
-                                        value={numberOfGoodTypes || ''}
+                                        value={formState.goodsTypesAmount}
                                         fullWidth
                                         label="The number of good's types on TTN"
                                         name="goodsTypesAmount"
@@ -283,7 +313,6 @@ const DeliveryFromStockForm = ({
                             <Grid item xs={12} >
                                 <Box my={1.5}>
                                     <TextValidator
-                                        // required
                                         disabled
                                         value={formState.manager}
                                         fullWidth
@@ -302,9 +331,8 @@ const DeliveryFromStockForm = ({
                             <Grid item xs={12} >
                                 <Box my={1.5}>
                                     <TextValidator
-                                        // required
                                         disabled
-                                        value={ttnData.dataOfRegistration || ''}
+                                        value={formState.registerDate}
                                         fullWidth
                                         id="registerDate"
                                         label="Registration date and time  of TTN"
@@ -321,7 +349,7 @@ const DeliveryFromStockForm = ({
                             <Grid item xs={12}>
                                 <Box my={1}>
                                     <TextField
-                                        // required
+                                        value={formState.consignmentLabeling}
                                         id="outlined-multiline-static"
                                         label="Description and labeling of the consignment"
                                         multiline
@@ -331,10 +359,10 @@ const DeliveryFromStockForm = ({
                                         fullWidth
                                         onChange={handleChange}
                                         name="consignmentLabeling"
-                                        // validators={['required']}
-                                        // errorMessages={['This field is required']}
+                                        error={errors.consignmentLabelingErr && true}
                                     />
                                 </Box>
+                                {errorMessageSpawner(errors.consignmentLabelingErr)}
                             </Grid>
                         </Grid>
                         <Box mt={3}>
@@ -355,3 +383,33 @@ const DeliveryFromStockForm = ({
 }
 
 export default DeliveryFromStockForm
+
+// This validation staff below needed because Select and TextField components
+// in React Material UI is implemented without any validation properties ...
+
+const handleUnhendledErrors = (formState) => {
+    const {sender, transporter, consignmentDescription, consignmentLabeling } = formState
+    
+    let unhendledErrors = {}
+    const requiredMessage = "This field is required"
+
+    // Selects validation
+    if (!sender) {
+        unhendledErrors = Object.assign({}, unhendledErrors, {senderErr: requiredMessage})
+    }
+
+    if(!transporter) {
+        unhendledErrors = Object.assign({}, unhendledErrors, {transporterErr: requiredMessage})
+    }
+
+    // TextFields validation
+    if(!consignmentDescription) {
+        unhendledErrors = Object.assign({}, unhendledErrors, {consignmentDescriptionErr: requiredMessage})
+    }
+
+    if(!consignmentLabeling) {
+        unhendledErrors = Object.assign({}, unhendledErrors, {consignmentLabelingErr: requiredMessage})
+    }
+
+    return unhendledErrors
+}
