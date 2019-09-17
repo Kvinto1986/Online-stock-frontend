@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import useStyles from './controlTTNstyle'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'

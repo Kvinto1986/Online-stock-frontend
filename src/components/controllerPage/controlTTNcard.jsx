@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment, useState} from 'react'
 import useStyles from './controlTTNstyle'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
@@ -6,9 +6,25 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import moment from 'moment'
 import Table from './controlTTNcargoTable'
+import Button from '@material-ui/core/Button'
+import DialogContent from '@material-ui/core/DialogContent'
+import Dialog from '@material-ui/core/Dialog'
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
+import Toolbar from '@material-ui/core/Toolbar'
+import AppBar from '@material-ui/core/AppBar'
 
-export default ({ttn}) => {
+export default ({ttn, open, report}) => {
     const classes = useStyles()
+
+    const [openReport, setOpenReport] = useState(false)
+
+    const handleOpen = () => {
+        setOpenReport(true)
+    }
+    const handleClose = () => {
+        setOpenReport(false)
+    }
 
     return (
         <Paper className={classes.cardPaper}>
@@ -45,17 +61,46 @@ export default ({ttn}) => {
                     </Typography>
                     <Table
                         cargo={ttn.products}
+                        open={open}
                     />
                     {ttn.description.length > 0 && (
                         <Paper className={classes.description}>
-                        <Typography color="textPrimary">
-                            {ttn.description}
-                        </Typography>
+                            <Typography color="textPrimary">
+                                {ttn.description}
+                            </Typography>
                         </Paper>)}
-
-
                 </CardContent>
+
             </Card>
+            {report.length > 0 && (
+                <Fragment>
+                    <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={openReport}>
+                        <AppBar className={classes.appBar}>
+                            <Toolbar>
+                                <Typography variant="h6" className={classes.title}>
+                                    Report
+                                </Typography>
+                                <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+                                    <CloseIcon/>
+                                </IconButton>
+                            </Toolbar>
+                        </AppBar>
+
+                        <DialogContent dividers>
+                            <Typography gutterBottom>
+                                {report}
+                            </Typography>
+                        </DialogContent>
+                    </Dialog>
+                    <Button
+                        className={classes.report}
+                        variant="outlined"
+                        color="primary"
+                        onClick={handleOpen}>
+                        Read report
+                    </Button>
+                </Fragment>)}
+
         </Paper>
 
     )
