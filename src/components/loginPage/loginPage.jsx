@@ -19,12 +19,14 @@ export default () => {
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
             <Box className={classes.paper}>
-                <Fab variant="extended" aria-label="delete" color="primary" className={classes.fab}>
-                    <NavigationIcon className={classes.extendedIcon}/>
+
                     <Link variant="button" color="primary" to='/' className={classes.link}>
+                        <Fab variant="extended" aria-label="delete" color="primary" className={classes.fab}>
+                            <NavigationIcon className={classes.extendedIcon}/>
                         Go to main page
+                        </Fab>
                     </Link>
-                </Fab>
+
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon/>
                 </Avatar>
