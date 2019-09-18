@@ -57,6 +57,6 @@ export function createRestHooks(singular, plural, selector) {
         ['useEdit' + singularName]: createApiHook(post(singular, url), selector),
         ['useDel' + singularName]: createApiHook(del(`DELETE_${singular}`, url), selector),
         ['useGet' + pluralName]: createApiHook(() => get(plural, url)(), selector),
-        ['useAdd' + singularName]: createApiHook((data) => post(plural, url)(data), selector),
+        ['useAdd' + singularName]: createApiHook((data) => post(singular, url)(data), selector),
     }
 }
