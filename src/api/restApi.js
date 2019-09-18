@@ -23,23 +23,20 @@ export const del = (action_type, url) => (url_args = '') => dispatch =>
 export const post = (action_type, url) => (data, url_args = '') => dispatch =>
     apiRequest(action_type, url, url_args, dispatch, POST, data)
 
-export const createApiHook = (request, selector) => onSuccess => {
+const doNothing = x => {}
+
+export const createApiHook = (request, selector) => (onSuccess = doNothing) => {
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
     const data = useSelector(selector)
     const [errors, setErrors] = useState({})
     const cb = useCallback((...args) => {
-            console.log('use callback');
-            (async () => {
-                setLoading(true)
-                await request(...args)(dispatch)
-                    .then(onSuccess || (() => {
-                    }))
-                    .catch((request) =>
-                        setErrors(request.data)
-                    )
-                setLoading(false)
-            })()
+            console.log('use callback')
+            setLoading(true)
+            request(...args)(dispatch)
+                .then(onSuccess)
+                .catch(({response:{data}}) => setErrors(data))
+                .finally(() => setLoading(false))
         },
         [dispatch, onSuccess]
     )
@@ -60,6 +57,6 @@ export function createRestHooks(singular, plural, selector) {
         ['useEdit' + singularName]: createApiHook(post(singular, url), selector),
         ['useDel' + singularName]: createApiHook(del(`DELETE_${singular}`, url), selector),
         ['useGet' + pluralName]: createApiHook(() => get(plural, url)(), selector),
-        ['useAdd' + singularName]: createApiHook((data) => post(plural, url)(data), selector),
+        ['useAdd' + singularName]: createApiHook((data) => post(singular, url)(data), selector),
     }
 }

@@ -32,7 +32,6 @@ export default ({onSubmit, errors, initial = initialForm}) => {
     const [dateOfBirth, setDateOfBirth] = useState('1970-01-01')
     const classes = useStyles()
 
-
     const handleInputChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
     }
@@ -51,7 +50,6 @@ export default ({onSubmit, errors, initial = initialForm}) => {
             apartment: form.apartment,
             position: form.position,
             dateOfBirth: dateOfBirth
-
         }
 
         onSubmit(employee)
