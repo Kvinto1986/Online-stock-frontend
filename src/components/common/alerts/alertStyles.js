@@ -10,7 +10,8 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         alignItems: "center",
         border: "1px solid #32a83e",
-        zIndex: "99"
+        zIndex: "999",
+        background: "#fafafa"
     },
     textStyle: {
         display: "block",

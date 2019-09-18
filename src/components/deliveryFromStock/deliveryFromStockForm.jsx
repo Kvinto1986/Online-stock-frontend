@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Typography from "@material-ui/core/Typography";
-import { TextValidator, ValidatorForm, SelectValidator  } from "react-material-ui-form-validator";
+import { TextValidator, ValidatorForm  } from "react-material-ui-form-validator";
 // import {registerDelivery} from "../../servies/registerDelivery";
 import {
     Grid, Button, Input, Select, Box, Container,
@@ -11,7 +11,7 @@ import RightBottomAlert from "../common/alerts/rightBottomAlert"
 
 const DeliveryFromStockForm = ({ 
     senderList, carrierList, fetchTtnData, managerData, submitAction, submitErrors, alertMessage, saveAlertMessage
- }) => {
+}) => {
 
     // *** Hooks ***
 
@@ -130,6 +130,7 @@ const DeliveryFromStockForm = ({
                                         onChange={handleChange}
                                         validators={['required', 'matchRegexp:[0-9]$']}
                                         errorMessages={['This field is required', 'The value must contain only numbers']}
+                                        
                                     />
                                 </Box>
                                 {errorMessageSpawner(errors.numberError)}
@@ -138,7 +139,8 @@ const DeliveryFromStockForm = ({
                                 type="button"
                                 variant="outlined"
                                 color="primary"
-                                onClick={() => handleTtnFetch()}
+                                onClick={handleTtnFetch}
+                                id="fetchtTTNButton"
                             >
                                 Fetch TTN data
                             </Button>
@@ -177,13 +179,14 @@ const DeliveryFromStockForm = ({
                                             error={errors.senderErr && true}
                                         >
                                             {
-                                                senderList.length > 1
+                                                senderList.length > 0
                                                 ? (
                                                     senderList
                                                     .map(sender => (
                                                         <MenuItem 
                                                             key={sender.id} 
-                                                            value={sender.value}>
+                                                            value={sender.value}
+                                                            >
                                                                 {sender.value}
                                                         </MenuItem>
                                                     ))
@@ -212,9 +215,10 @@ const DeliveryFromStockForm = ({
                                             input={<Input name="transporter" />}
                                             name="transporter"
                                             error={errors.transporterErr && true}
+                                            className="transporterSelect"
                                         >
                                             {
-                                                carrierList.length > 1
+                                                carrierList.length > 0
                                                 ? (
                                                     carrierList
                                                     .map(carier => (
@@ -227,7 +231,7 @@ const DeliveryFromStockForm = ({
                                                 ) 
                                                 : (
                                                     <MenuItem value="">
-                                                        <em>Senders not found</em>
+                                                        <em>Carriers not found</em>
                                                     </MenuItem>
                                                 )
                                             }
