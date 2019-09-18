@@ -13,8 +13,9 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import Toolbar from '@material-ui/core/Toolbar'
 import AppBar from '@material-ui/core/AppBar'
+import DeleteIcon from '@material-ui/icons/Delete'
 
-export default ({ttn, open, report}) => {
+export default ({ttn, open, report, setReport}) => {
     const classes = useStyles()
 
     const [openReport, setOpenReport] = useState(false)
@@ -24,6 +25,10 @@ export default ({ttn, open, report}) => {
     }
     const handleClose = () => {
         setOpenReport(false)
+    }
+
+    const handleDeleteReport = () => {
+        setReport('')
     }
 
     return (
@@ -92,6 +97,9 @@ export default ({ttn, open, report}) => {
                             </Typography>
                         </DialogContent>
                     </Dialog>
+                    <IconButton onClick={handleDeleteReport} aria-label="close" style={{marginLeft: '5%', marginBottom: '5%'}}>
+                        <DeleteIcon fontSize="large"/>
+                    </IconButton>
                     <Button
                         className={classes.report}
                         variant="outlined"

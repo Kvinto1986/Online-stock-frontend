@@ -8,6 +8,7 @@ import TTNsearch from './controlTTNsearch'
 import TTNcard from './controlTTNcard'
 import SubmitButton from './controlTTNsubmit'
 import TTNdialog from './controlTTNdialog'
+import modalSwal from './swalModal'
 import moment from 'moment'
 
 export default ({editCurrentTTN, currentTTN, setCurrentTTN, report, setReport, ttnsList, selectedTtn, findTTN}) => {
@@ -25,12 +26,13 @@ export default ({editCurrentTTN, currentTTN, setCurrentTTN, report, setReport, t
     }
 
     const handleSubmitTTN = () => {
-        window.location.reload()
-        editCurrentTTN({
+        const reportData = {
             id: currentTTN._id,
             products: currentTTN.products,
-            report: {report: report, date: moment().format()}})
-        console.log(currentTTN)
+            report: {report: report, date: moment().format()}
+        }
+
+        modalSwal(reportData,editCurrentTTN,open,setOpen)
         setEditTTN(true)
     }
 
@@ -59,8 +61,10 @@ export default ({editCurrentTTN, currentTTN, setCurrentTTN, report, setReport, t
                         ttn={selectedTtn}
                         open={open}
                         report={report}
+                        setReport={setReport}
                     />
                     <SubmitButton
+                        saveTTN={handleSubmitTTN}
                         confirm={confirm}
                         setConfirm={setConfirm}
                         open={open}

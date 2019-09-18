@@ -5,7 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 import Button from '@material-ui/core/Button'
 
 
-export default ({confirm, setConfirm, open, setOpen}) => {
+export default ({saveTTN,confirm, setConfirm, open, setOpen}) => {
     const classes = useStyles()
 
     return (
@@ -33,6 +33,7 @@ export default ({confirm, setConfirm, open, setOpen}) => {
                 color="primary"
                 className={classes.submit}
                 disabled={!confirm}
+                onClick={saveTTN}
             >
                 Finish control
             </Button>

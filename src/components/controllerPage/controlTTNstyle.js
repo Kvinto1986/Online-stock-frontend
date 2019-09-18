@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     },
 
     report: {
-        marginLeft:'15%',
+        marginLeft:'5%',
         width: '70%',
         marginBottom: '5%'
     },
