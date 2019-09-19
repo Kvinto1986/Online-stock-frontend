@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
 
     const initialFormState = {
-        ttnIsExists: '',
+        ttnIsExists: null,
         ttnNumber: '',
         ttnDate: '',
         managerInitials: '',
@@ -39,6 +39,7 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
 
     useEffect(() => {
         if (Object.keys(props.errors).length > 0) {
+            
             setFormState({
                 ...formState, 
                 ttnIsExists: false,
@@ -136,13 +137,8 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
                                         id="date-picker-inline"
                                         label="Date of goods delivery for storage"
                                         onChange={handleChange}
-                                        // KeyboardButtonProps={{
-                                        //     'aria-label': 'change date',
-                                        // }}
                                         name="deliveryForStorageDate"
                                         fullWidth
-                                        // validators={['required']}
-                                        // errorMessages={['His field is required']}
                                     />
                                 </MuiPickersUtilsProvider>
                             </Box>
