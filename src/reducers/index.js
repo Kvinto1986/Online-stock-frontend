@@ -22,7 +22,9 @@ function createNormalReducer(singular, plural) {
             case singular:
                 return {...store, [data.id]: data}
             case `DELETE_${singular}`:
-                return {...store, [data.id]: undefined}
+                const newStore = {...store}
+                delete newStore[data.id]
+                return newStore
             default:
                 return store
         }
@@ -40,8 +42,8 @@ export default combineReducers({
     currentCompany: companyReduser,
     warehouses: warehouseReduser,
     carriersReducer: carriersReducer,
-    TTN:ttnReduser,
-    TTNS:ttnsReducer,
+    TTN: ttnReduser,
+    TTNS: ttnsReducer,
     warehousingFlag: warehousingFlagRegucer,
     warehousingActiveStock: warehousingActiveStockReducer
 })
