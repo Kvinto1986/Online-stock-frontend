@@ -25,7 +25,6 @@ export const post = (action_type, url) => (data, url_args = '') => dispatch =>
 
 const doNothing = x => x
 
-
 export const createApiHook = (request, selector) => (onSuccess = doNothing) => {
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)

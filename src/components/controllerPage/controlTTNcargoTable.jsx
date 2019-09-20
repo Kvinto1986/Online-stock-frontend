@@ -22,6 +22,9 @@ export default ({cargo, open, handleChangeTTN}) => {
             </TableHead>
             <TableBody>
                 {cargo.map((elem) => {
+
+                    const handleChange = (e) => handleChangeTTN(e, elem.id)
+
                     return (
                         <TableRow key={elem.id}>
                             <TableCell align="center">
@@ -32,25 +35,28 @@ export default ({cargo, open, handleChangeTTN}) => {
                             </TableCell>
                             <TableCell align="center">
                                 <InputBase
+                                    inputProps={{'data-testid': elem.id + '-name'}}
                                     disabled={!open}
                                     defaultValue={elem.name}
                                     name='name'
-                                    onChange={(e) => handleChangeTTN(e, elem.id)}
+                                    onChange={handleChange}
                                 />
                             </TableCell>
                             <TableCell align="center">
                                 <InputBase
+                                    data-testid={elem.id + '-amount'}
                                     defaultValue={elem.amount}
                                     name='amount'
-                                    onChange={(e) => handleChangeTTN(e, elem.id)}
+                                    onChange={handleChange}
                                     disabled={!open}
                                 />
                             </TableCell>
                             <TableCell align="center">
                                 <InputBase
+                                    data-testid={elem.id + '-type'}
                                     defaultValue={elem.type}
                                     name='type'
-                                    onChange={(e) => handleChangeTTN(e, elem.id)}
+                                    onChange={handleChange}
                                     disabled={!open}/>
                             </TableCell>
                         </TableRow>

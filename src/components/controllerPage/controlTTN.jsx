@@ -26,8 +26,8 @@ export default () => {
         setRawCurrentTTN({...obj, products: [...obj.products.map(x => ({...x}))]})
     }
 
-    const findTTN = (req) => {
-        getCurrentTTN(req.value)
+    const findTTN = (ttn) => {
+        getCurrentTTN(ttn.value)
         setReport('')
     }
 
