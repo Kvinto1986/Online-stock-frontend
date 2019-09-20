@@ -33,7 +33,7 @@ export default ({ttn, open, report, setReport}) => {
 
     return (
         <Paper className={classes.cardPaper}>
-            <Typography component="h1" variant="h5" align="center" color="textPrimary" style={{marginTop: '2%'}}>
+            <Typography component="h1" variant="h5" align="center" color="textPrimary" data-testid={'number'}style={{marginTop: '2%'}}>
                 TTN #{ttn.number}
             </Typography>
             <Card className={classes.card}>

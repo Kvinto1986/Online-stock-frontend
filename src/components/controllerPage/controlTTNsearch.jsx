@@ -7,11 +7,14 @@ export default ({ttnsList, findTTN}) => {
     const classes = useStyles()
 
     return (
-        <Paper className={classes.select}>
-        <Select
-            onChange={findTTN}
-            options={ttnsList}
-        />
+        <Paper className={classes.select} data-testid='container'>
+            <Select
+                innerProps={{
+                    'data-testid': 'select'
+                }}
+                onChange={findTTN}
+                options={ttnsList}
+            />
         </Paper>
     )
 }
