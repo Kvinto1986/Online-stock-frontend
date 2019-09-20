@@ -61,7 +61,6 @@ it('table delete button test', async () => {
 
     const deleteButton = getByTestId('delete-2000')
 
-
     fireEvent.click(deleteButton)
 
     await wait(() => getByText('Accept'))

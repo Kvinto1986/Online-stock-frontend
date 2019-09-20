@@ -40,18 +40,17 @@ export default function Landing() {
                     <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
                         Company name
                     </Typography>
-                    <Button  color="primary" variant="outlined" className={classes.link}>
                         <Link variant="button" color="primary" to='/login' className={classes.link}>
+                            <Button  color="primary" variant="outlined" className={classes.link}>
                             Login
+                            </Button>
                         </Link>
-                    </Button>
                 </Toolbar>
             </AppBar>
             <Box maxWidth="xl">
                 <img src={image} style={{width: '100%'}}/>
             </Box>
             <Container component="main" className={classes.heroContent}>
-
                 <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
                     Industrial and Commercial Warehousing
                 </Typography>

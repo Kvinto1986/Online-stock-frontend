@@ -1,10 +1,9 @@
-
 import React, {Fragment} from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {connect} from 'react-redux'
 import AdminRegister from '../components/registerCompanyAdmin/registerCompanyAdmin'
 import Warehouse from '../components/warehousesPage/warehouse'
-import UserForm from '../components/registerEmployee/registerEmployee'
+import UserForm from '../components/registerEmployee/registerEmployeePage'
 import DriverRegistrer from '../components/registerDrive'
 import Home from '../components/homePage/homePage'
 import Login from '../components/loginPage/loginPage'
@@ -26,21 +25,22 @@ import {CheckTtnPage} from '../components/checkTtn/checkTtnPage'
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
+
         switch (props.auth.user.role) {
+
             case 'employee':
 
                 return (
                     <div>
                         <Header/>
                         <Switch>
-                            {props.auth.user.position === 'manager' && (
+                            {props.auth.user.position.includes('manager') && (
                                 <Fragment>
                                     <Route exact path="/stockDelivery" component={DeliveryFromStockForm}/>
                                     <Route exact path="/warehousing" component={Warehousing}/>
-                                    <Route component={Home}/>
                                 </Fragment>
                             )}
-                            {props.auth.user.position === 'operator' && (
+                            {props.auth.user.position.includes('operator') && (
                                 <Fragment>
                                     <Route exact path="/searchCarrier" component={Carrier}/>
                                     <Route exact path="/driveRegistration" component={DriverRegistrer}/>
@@ -48,15 +48,14 @@ const SecurityRoute = (props) => {
                                     <Route exact path="/addCarrier" component={AddCarrier}/>
                                     <Route exact path="/addTtn" component={TtnForm}/>
                                     <Route exact path="/checkTtn" component={CheckTtnPage}/>
-                                    <Route component={Home}/>
                                 </Fragment>
                             )}
-                            {props.auth.user.position === 'controller' && (
+                            {props.auth.user.position.includes('controller') && (
                                 <Fragment>
                                     <Route exact path="/controlTTN" component={ControllerPage}/>
-                                    <Route component={Home}/>
                                 </Fragment>
                             )}
+                            <Route component={Home}/>
                         </Switch>
                         <Footer/>
                     </div>
