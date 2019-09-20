@@ -61,6 +61,10 @@ const Warehousing = props => {
                         stockData: props.warehousingActiveStock,
                         wareHousingData: wareHousingState,
                     }
+
+                    console.log(data.wareHousingData);
+                    console.log("====================");
+                    console.log(data.stockData);
                     
                     props.warehousingPostData(data, successWirehousingAletrt)
                 }
@@ -90,7 +94,7 @@ const Warehousing = props => {
             formData: data
         })
     }
-    
+        
     return (
         <React.Fragment>
             <WarehousingDataForm dndIsShown={dndIsShown} getFormData={getFormData} />

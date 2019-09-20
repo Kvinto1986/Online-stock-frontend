@@ -23,7 +23,7 @@ import {
 } from '@material-ui/pickers';
 import {addTtn} from "../../servies/ttn";
 import Select from "react-select";
-import {uid} from "react-uid";
+
 const currencies = [
     {
         value: 'KG',
@@ -64,7 +64,7 @@ const TtnForm = (props) => {
     const addProduct = () => {
         values.id = `f${(~~(Math.random()*1e8)).toString(16)}`
         setTtn({...ttn, products: [...ttn.products, values]})
-        setValues({...values, name: '', amount: '1'})
+        setValues({...values, name: '', amount: '1', warehouseID: '', warehouseAreas: []})
     }
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value });
