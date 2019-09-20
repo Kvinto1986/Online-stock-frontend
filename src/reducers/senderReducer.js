@@ -6,8 +6,9 @@ const initialState = {}
 export default (state = initialState, {type, payload}) => {
     switch (type) {
         case SENDERS:
-            return payload.reduce(normalize('id'), {})
+            return payload.reduce(normalize, {})
         case SENDER:
+            debugger
             return {...state, [payload.id]: payload}
         default:
             return state
