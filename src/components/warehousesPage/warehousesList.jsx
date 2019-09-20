@@ -36,14 +36,13 @@ const WarehousesTable = (props) => {
         }).then((result) => {
             if (result.value) {
                 props.deleteWarehouse({id:id});
+                props.getWarehouses({id: props.auth.user.id})
                 Swal.fire({
                     type: 'success',
                     title: 'Congratulations!',
                     text: 'Data successfully changed !',
                     allowOutsideClick: false,
                     timer: 3000
-                }).then(() => {
-                    props.getWarehouses({id: props.auth.user.id})
                 })
             }
         })

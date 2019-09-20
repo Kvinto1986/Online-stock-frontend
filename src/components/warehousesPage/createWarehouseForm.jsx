@@ -102,6 +102,9 @@ const WarehouseForm = (props) => {
     };
 
     const handleDeleteArea = (index, area) => {
+
+        console.log(index)
+        console.log( area)
         const array = [...list];
 
         array.splice(index, 1);
