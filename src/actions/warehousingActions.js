@@ -9,7 +9,7 @@ import server from '../serverConfig'
 
 export const fetchAvailableStocks = () => dispatch => { 
     axios
-    .get(`${server}api/warehouses/getAll`)
+    .get(`${server}api/warehouses/`)
     .then(res => {
         dispatch({
             type: FETCH_ALL_STOCKS,
