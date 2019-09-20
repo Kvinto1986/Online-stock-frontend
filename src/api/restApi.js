@@ -23,7 +23,7 @@ export const del = (action_type, url) => (url_args = '') => dispatch =>
 export const post = (action_type, url) => (data, url_args = '') => dispatch =>
     apiRequest(action_type, url, url_args, dispatch, POST, data)
 
-const doNothing = x => {}
+const doNothing = x => x
 
 export const createApiHook = (request, selector) => (onSuccess = doNothing) => {
     const dispatch = useDispatch()
