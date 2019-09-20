@@ -28,7 +28,7 @@ export default ({list, handleDeleteArea}) => {
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button variant="contained" color="secondary" onClick={(e) => handleDeleteArea(i,list[i].totalArea)}>
+                    <Button variant="contained" color="secondary" onClick={() => handleDeleteArea(i,list[i].area)}>
                         Delete
                     </Button>
                 </CardActions>

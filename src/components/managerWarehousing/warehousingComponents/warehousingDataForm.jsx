@@ -21,6 +21,7 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
 
     useEffect(() => {
         if(Object.keys(props.ttnData).length > 0) {
+            console.log(props.ttnData)
             const ttnData = props.ttnData
             const { firstName, lastName, patronymic } = props.auth.user
             const managerInitials = `${firstName} ${lastName} ${patronymic}`
@@ -152,7 +153,7 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    ttnData: state.ttnData,
+    ttnData: state.TTN,
     errors: state.errors
 });
 

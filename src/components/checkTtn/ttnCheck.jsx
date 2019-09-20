@@ -34,9 +34,10 @@ export const TtnCheck = ({submit}) => {
                 <Button
                     variant="contained"
                     className={classes.button}
-                    type="submit"
+                    color='primary'
+                    type='submit'
                 >
-                    Default
+                    Find
                 </Button>
             </ValidatorForm>
 

@@ -6,27 +6,61 @@ import Table from '@material-ui/core/Table'
 import React from 'react'
 import useStyles from './controlTTNstyle'
 
-export default ({cargo}) => {
+import InputBase from '@material-ui/core/InputBase'
+
+export default ({cargo, open, handleChangeTTN}) => {
+
     const classes = useStyles()
 
     return (
         <Table className={classes.table} size="small">
             <TableHead>
                 <TableRow>
-                    <TableCell align="center">ID</TableCell>
-                    <TableCell align="center">Name</TableCell>
-                    <TableCell align="center">Amount</TableCell>
-                    <TableCell align="center">Packing material</TableCell>
+                    <TableCell align="left">ID</TableCell>
+                    <TableCell align="left">Name</TableCell>
+                    <TableCell align="left">Amount</TableCell>
+                    <TableCell align="left">Packing material</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
                 {cargo.map((elem) => {
+
+                    const handleChange = (e) => handleChangeTTN(e, elem.id)
+
                     return (
-                        <TableRow key={elem.id + 'tableRow'}>
-                            <TableCell key={elem.id} align="center">{elem.id}</TableCell>
-                            <TableCell key={elem.id + elem.name} align="center">{elem.name}</TableCell>
-                            <TableCell key={elem.id + elem.amount} align="center">{elem.amount}</TableCell>
-                            <TableCell key={elem.id + elem.type} align="center">{elem.type}</TableCell>
+                        <TableRow key={elem.id}>
+                            <TableCell align="center">
+                                <InputBase
+                                    disabled={true}
+                                    defaultValue={elem.id}
+                                />
+                            </TableCell>
+                            <TableCell align="center">
+                                <InputBase
+                                    inputProps={{'data-testid': elem.id + '-name'}}
+                                    disabled={!open}
+                                    defaultValue={elem.name}
+                                    name='name'
+                                    onChange={handleChange}
+                                />
+                            </TableCell>
+                            <TableCell align="center">
+                                <InputBase
+                                    data-testid={elem.id + '-amount'}
+                                    defaultValue={elem.amount}
+                                    name='amount'
+                                    onChange={handleChange}
+                                    disabled={!open}
+                                />
+                            </TableCell>
+                            <TableCell align="center">
+                                <InputBase
+                                    data-testid={elem.id + '-type'}
+                                    defaultValue={elem.type}
+                                    name='type'
+                                    onChange={handleChange}
+                                    disabled={!open}/>
+                            </TableCell>
                         </TableRow>
                     )
                 })}
@@ -34,3 +68,4 @@ export default ({cargo}) => {
         </Table>
     )
 }
+

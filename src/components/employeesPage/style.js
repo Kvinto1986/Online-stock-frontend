@@ -1,6 +1,7 @@
-import {makeStyles} from "@material-ui/core";
+import {makeStyles} from '@material-ui/core'
 
-const useStyles = makeStyles(theme => ({
+
+export default makeStyles(theme => ({
     '@global': {
         body: {
             backgroundColor: theme.palette.common.white,
@@ -9,13 +10,9 @@ const useStyles = makeStyles(theme => ({
     formName: {
         marginBottom: theme.spacing(3),
     },
-
-    helperText:{
-
-        color:'red'
-
+    helperText: {
+        color: 'red'
     },
-
     paper: {
         marginTop: theme.spacing(5),
         display: 'flex',
@@ -33,7 +30,7 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         margin: theme.spacing(4, 0, 0),
     },
-
-}));
-
-export default useStyles
+    companyName: {
+        marginTop: '3%'
+    }
+}))

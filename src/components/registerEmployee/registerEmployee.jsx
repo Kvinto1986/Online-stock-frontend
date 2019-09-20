@@ -1,17 +1,14 @@
 import React from 'react'
-import {useStorelessApiCallback} from "../../hooks/hook";
-import {addEmployee} from "../../api/employee";
-import {useSelector} from "react-redux"
 import Form from './registerEmployeeForm'
+import {useAddEmployee} from '../../api/apiRequests'
+import swalModal from './swalModal'
 
 export default () => {
-    const user = useSelector(state=>state.auth.user);
-    const [onSubmit,errors] = useStorelessApiCallback(addEmployee, ()=>{},{})
+    const [addEmployee, , errors] = useAddEmployee(swalModal)
 
     return <Form
-        onSubmit={onSubmit}
+        onSubmit={addEmployee}
         errors={errors}
-        currentUser={user}
     />
-};
+}
 

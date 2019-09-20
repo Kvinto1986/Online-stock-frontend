@@ -1,4 +1,4 @@
-export const normalize = key => (store, dict) => {
-    store[dict[key]] = dict
+export const normalize = (store, dict) => {
+    store[dict.id] = dict
     return store
 }

@@ -1,4 +1,4 @@
-import {makeStyles} from "@material-ui/core";
+import {makeStyles} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     '@global': {
@@ -10,8 +10,8 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(3),
     },
 
-    helperText:{
-        color:'red'
+    helperText: {
+        color: 'red'
     },
     appBar: {
         position: 'relative',
@@ -19,6 +19,11 @@ const useStyles = makeStyles(theme => ({
     title: {
         marginLeft: theme.spacing(2),
         flex: 1,
+    },
+    dialogPaper: {
+        width: '50%',
+        marginTop: '2%',
+        marginLeft: '25%',
     },
     mainContainer: {
         marginTop: theme.spacing(5),
@@ -31,7 +36,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(5),
     },
     card: {
-        margin: theme.spacing(5,5,5,5),
+        margin: theme.spacing(5, 5, 5, 5),
     },
     select: {
         width: '40%',
@@ -41,14 +46,20 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         margin: theme.spacing(4, 0, 0),
     },
-    table:{
+
+    report: {
+        marginLeft:'5%',
+        width: '70%',
+        marginBottom: '5%'
+    },
+    table: {
         marginTop: theme.spacing(5),
     },
-    description:{
+    description: {
         marginTop: theme.spacing(5),
-        padding: theme.spacing(5,5,5,5),
+        padding: theme.spacing(5, 5, 5, 5),
     }
 
-}));
+}))
 
 export default useStyles
