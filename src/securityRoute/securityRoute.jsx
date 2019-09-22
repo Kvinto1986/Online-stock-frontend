@@ -13,10 +13,11 @@ import Footer from '../components/footer/footer'
 import Companies from '../components/companiesListPage/companiesList'
 import Carrier from '../components/searchCarrier'
 import Landing from '../components/landingPage/landing'
-import AllCarrier from '../components/allCarrier'
-import TtnForm from '../components/ttnForm'
-import AddCarrier from '../components/carrierForm'
-import DeliveryFromStockForm from '../components/deliveryFromStock/deliveryFromStock'
+import AllCarrier from '../components/allCarrier';
+import TtnForm from '../components/ttnForm';
+import AddCarrier from "../components/carrierForm";
+import DeliveryGoodsFromStock from '../components/deliveryFromStock/deliveryFromStockPage'
+
 import Warehousing from '../components/managerWarehousing/warehousing'
 import Employees from '../components/employeesPage'
 import Employee from '../components/employeePage'
@@ -36,7 +37,7 @@ const SecurityRoute = (props) => {
                         <Switch>
                             {props.auth.user.position.includes('manager') && (
                                 <Fragment>
-                                    <Route exact path="/stockDelivery" component={DeliveryFromStockForm}/>
+                                    <Route exact path="/stockDelivery" component={DeliveryGoodsFromStock}/>
                                     <Route exact path="/warehousing" component={Warehousing}/>
                                 </Fragment>
                             )}

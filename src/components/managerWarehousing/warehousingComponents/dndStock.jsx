@@ -70,11 +70,11 @@ const DndStock = props => {
         </MenuItem>
     )
 
-    const cargoUnits = props.ttnProductsData && props.ttnProductsData.map(product => {
+    const cargoUnits = props.ttnProductsData && props.ttnProductsData.map((product, index) => {
         if(state.movedCargoUnits.includes(product.id) === false) {
             return (
                 <DndElement 
-                    key={product.id} 
+                    key={product.id + index} 
                     name={product.name} 
                     amount={product.amount} 
                     size={product.size}
@@ -127,6 +127,7 @@ const DndStock = props => {
                             required    
                             fullWidth
                             onChange={handleChange}
+                            value={state.chosenWarehouse}
                             input={<Input name="chosenWarehouse" id="age-helper" />}
                             name="chosenWarehouse"
                         >

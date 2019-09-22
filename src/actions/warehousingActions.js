@@ -34,8 +34,6 @@ export const warehousingSubmit = flag => dispatch => {
 }
 
 export const setActiveWarehousingStockData = data => dispatch => {
-    console.log(data);
-    
     dispatch({
         type: SET_ACTIVE_WAREHOUSING_STOCK_DATA,
         payload: data

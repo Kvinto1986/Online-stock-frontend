@@ -1,9 +1,10 @@
-import axios from 'axios';
-import server from "../serverConfig";
+import axios from "axios"
+import server from "../serverConfig"
+// import { FETCH_TTN_BY_NUMBER } from "../actions/types"
 
 export const addTtn = info => {
-    console.log(info)
-    const{
+
+    const {
         date,
         TTNNumber,
         carrier,
@@ -14,6 +15,7 @@ export const addTtn = info => {
         products,
         description
     } = info;
+
     return axios.post(`${server}api/ttn/addTtn`, {
         number: TTNNumber,
         date: date,
@@ -26,6 +28,7 @@ export const addTtn = info => {
         description: description
     })
 };
+
 export const findTtn = async (number) => {
     const{ttnNumber} = number
     const ttn = await axios.get(`${server}api/ttn/getbyNumber/${ttnNumber}`)

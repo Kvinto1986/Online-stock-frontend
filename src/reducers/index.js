@@ -8,6 +8,8 @@ import warehouseReduser from './warehouseReduser'
 import carriersReducer from './carriersReducer'
 import warehousingFlagRegucer from './warehousingFlagRegucer'
 import warehousingActiveStockReducer from './warehousingActiveStockReducer'
+import senderReducer from './senderReducer'
+import carrierReducer from './carrierReducer'
 import {normalize} from '../utils/utils'
 import ttnReduser from './ttnReduser'
 import ttnsReducer from './ttnsReducer'
@@ -43,5 +45,8 @@ export default combineReducers({
     TTN:ttnReduser,
     TTNS:ttnsReducer,
     warehousingFlag: warehousingFlagRegucer,
-    warehousingActiveStock: warehousingActiveStockReducer
-})
+    warehousingActiveStock: warehousingActiveStockReducer,
+    senders: senderReducer,
+    carriers: carrierReducer
+});
+
