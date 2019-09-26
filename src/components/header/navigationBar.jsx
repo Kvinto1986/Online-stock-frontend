@@ -38,13 +38,11 @@ export default ({user}) => {
             let arr = []
 
             if (user.position.includes('manager')) {
-                console.log(arr)
                 arr = arr.concat([
                     {name: 'Stock delivery', link: '/stockDelivery'},
                     {name: 'Warehousing', link: '/warehousing'},])
             }
             if (user.position.includes('operator')) {
-                console.log(arr)
                 arr = arr.concat([
                     {name: 'Search carrier', link: '/searchCarrier'},
                     {name: 'Add driver', link: '/driveRegistration'},

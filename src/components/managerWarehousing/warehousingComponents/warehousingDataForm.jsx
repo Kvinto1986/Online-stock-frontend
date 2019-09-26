@@ -21,7 +21,6 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
 
     useEffect(() => {
         if(Object.keys(props.ttnData).length > 0) {
-            console.log(props.ttnData)
             const ttnData = props.ttnData
             const { firstName, lastName, patronymic } = props.auth.user
             const managerInitials = `${firstName} ${lastName} ${patronymic}`
@@ -74,74 +73,86 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
                 <ValidatorForm>
                     <Grid container>
                         <Grid item xs={12}>
-                            <Box my={1.5}>
-                                <TextValidator
-                                    required
-                                    fullWidth
-                                    id="ttnNumber"
-                                    label="TTN number"
-                                    name="ttnNumber"
-                                    autoComplete="ttnNumber"
-                                    onChange={handleChange}
-                                    value={ttnNumber || ''}
-                                />
-                                {((ttnIsExists === false) || Object.keys(props.errors).length > 0) && (
-                                    <p style={{color: 'red'}}>TTN not found</p>
-                                )}
-                                <Box mt={2} mb={5}>
+                            <Box>
+                                <Box>
+                                    <TextValidator
+                                        required
+                                        fullWidth
+                                        id="ttnNumber"
+                                        label="TTN number"
+                                        name="ttnNumber"
+                                        autoComplete="ttnNumber"
+                                        onChange={handleChange}
+                                        value={ttnNumber || ''}
+                                    />
+                                    {((ttnIsExists === false) || Object.keys(props.errors).length > 0) && (
+                                        <p style={{color: 'red'}}>TTN not found</p>
+                                    )}
+                                </Box>
+                                <Box mt={2}>
                                     <Button
                                         type="button"
                                         onClick={findTTN}
-                                        variant="contained"
+                                        variant="outlined"
                                     >
                                         Fetch TTN data
                                     </Button>
                                 </Box>
-                                <TextValidator
-                                    disabled
-                                    fullWidth
-                                    id="ttnDate"
-                                    label="TTN register date"
-                                    name="ttnDate"
-                                    autoComplete="ttnDate"
-                                    onChange={handleChange}
-                                    value={ttnDate || ''}
-                                />
-                                <TextValidator
-                                    disabled
-                                    fullWidth
-                                    id="managerInitials"
-                                    label="Manager initials"
-                                    name="managerInitials"
-                                    autoComplete="managerInitials"
-                                    onChange={handleChange}
-                                    value={managerInitials || ''}
-                                />
-                                <TextValidator
-                                    disabled
-                                    fullWidth
-                                    id="operatorName"
-                                    label="TTN operator name"
-                                    name="operatorName"
-                                    autoComplete="operatorName"
-                                    onChange={handleChange}
-                                    value={operatorName || ''}
-                                />
-                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                    <KeyboardDatePicker
-                                        required
+                            </Box>
+                            <Box>
+                                <Box mt={2}>
+                                    <TextValidator
                                         disabled
-                                        disableToolbar
-                                        variant="inline"
-                                        format="MM/dd/yyyy"
-                                        margin="normal"
-                                        id="date-picker-inline"
-                                        label="Date of goods delivery for storage"
-                                        onChange={handleChange}
-                                        name="deliveryForStorageDate"
                                         fullWidth
+                                        id="ttnDate"
+                                        label="TTN register date"
+                                        name="ttnDate"
+                                        autoComplete="ttnDate"
+                                        onChange={handleChange}
+                                        value={ttnDate || ''}
                                     />
-                                </MuiPickersUtilsProvider>
+                                </Box>
+                                <Box mt={2}>
+                                    <TextValidator
+                                        disabled
+                                        fullWidth
+                                        id="managerInitials"
+                                        label="Manager initials"
+                                        name="managerInitials"
+                                        autoComplete="managerInitials"
+                                        onChange={handleChange}
+                                        value={managerInitials || ''}
+                                    />
+                                </Box>
+                                <Box mt={2}>
+                                    <TextValidator
+                                        disabled
+                                        fullWidth
+                                        id="operatorName"
+                                        label="TTN operator name"
+                                        name="operatorName"
+                                        autoComplete="operatorName"
+                                        onChange={handleChange}
+                                        value={operatorName || ''}
+                                    />
+                                </Box>
+                                <Box mt={1}>
+                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                        <KeyboardDatePicker
+                                            required
+                                            disabled
+                                            disableToolbar
+                                            variant="inline"
+                                            format="MM/dd/yyyy"
+                                            margin="normal"
+                                            id="date-picker-inline"
+                                            label="Date of goods delivery for storage"
+                                            onChange={handleChange}
+                                            name="deliveryForStorageDate"
+                                            fullWidth
+                                        />
+                                    </MuiPickersUtilsProvider>
+                                </Box>
                             </Box>
                         </Grid>
                     </Grid>

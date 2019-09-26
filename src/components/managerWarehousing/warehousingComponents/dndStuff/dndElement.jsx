@@ -1,8 +1,8 @@
-import React from 'react'
-import { useDrag, useState } from 'react-dnd'
-import ItemTypes from './ItemTypes'
+import React from "react"
+import { useDrag } from "react-dnd"
+import ItemTypes from "./ItemTypes"
 
-const DndElement = ({ name, amount, dimension, size, setCurrentHendleCargoUnit, id }) => {
+const DndElement = ({ name, amount, dimension, size, setCurrentHendleCargoUnit, id, ...props }) => {
     const [{ isDragging }, drag] = useDrag({
         item: { name, type: ItemTypes.BOX },
         collect: monitor => ({
@@ -18,7 +18,10 @@ const DndElement = ({ name, amount, dimension, size, setCurrentHendleCargoUnit, 
 
     return (
         <div ref={drag} style={{ ...style, opacity }} onDragStart={dragStartHendler}>
-            <b>{name}</b> | <small>{amount}{dimension} <b>({size}m)</b></small>
+            <div>
+                <b>{name}</b> | <small>{amount}{dimension} <b>({size}m)</b></small>
+            </div>
+            {props.spinerIndex}
         </div>
     )
 }
@@ -26,11 +29,12 @@ const DndElement = ({ name, amount, dimension, size, setCurrentHendleCargoUnit, 
 export default DndElement
 
 const style = {
-    border: '1px solid gray',
-    backgroundColor: 'white',
-    padding: '10px 15px',
-    marginRight: '1.5rem',
-    marginBottom: '1.5rem',
-    cursor: 'move',
-    float: 'left',
+    display: "flex",
+    justifyContent: "space-between",
+    border: "1px solid gray",
+    backgroundColor: "white",
+    padding: "10px 15px",
+    marginRight: "1.5rem",
+    marginBottom: "1.5rem",
+    cursor: "move"
 }

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import DndDestenationArea from './dndStuff/dndDestenationArea'
-import DndElement from './dndStuff/dndElement'
-import { Box, Grid, Typography, FormControl, InputLabel, Select, MenuItem, Input, Container } from '@material-ui/core'
-import { connect } from 'react-redux'
-import arow from '../../../resources/images/play-button.png'
-import { setActiveWarehousingStockData } from '../../../actions/warehousingActions'
+import React, { useState, useEffect } from "react"
+import DndDestenationArea from "./dndStuff/dndDestenationArea"
+import DndElement from "./dndStuff/dndElement"
+import { Box, Typography, InputLabel, Select, MenuItem, Input, Container, CircularProgress } from "@material-ui/core"
+import { connect } from "react-redux"
+import arow from "../../../resources/images/play-button.png"
+import { setActiveWarehousingStockData } from "../../../actions/warehousingActions"
+import WarehousingDetails from "./warehousingDetails/warehousingDetails"
 
 const arrowStyle = {
     margin: "0px 8px"
@@ -15,9 +16,13 @@ const DndStock = props => {
     // *** State ***
 
     const initialState = {
-        chosenWarehouse: '',
-        activeDnDCargoUnit: '',
-        movedCargoUnits: []
+        chosenWarehouse: "",
+        activeDnDCargoUnit: "",
+        movedCargoUnits: [],
+        cargoIndex: null,
+        cargoDetails: null,
+        activeArea: null,
+        movedData: {}
     }
 
     const [state, setState] = useState(initialState)
@@ -32,8 +37,6 @@ const DndStock = props => {
     const handleChange = e => {
         setState({...state, [e.target.name]: e.target.value})
     }
-
-    const dropHendler = () => state.activeDnDCargoUnit
     
     const setCurrentHendleCargoUnit = (name, amount, dimension, size, id) => {
         const personalCargoUnitData = {
@@ -54,6 +57,24 @@ const DndStock = props => {
         })
     }
 
+    const initActiveCargoAndArea = (details, areaData) => {
+        setState({
+            ...state, 
+            cargoIndex: details.id, 
+            cargoDetails: details,
+            activeArea: areaData
+        })
+    }
+
+    const resetActiveData = () => {
+        setState({
+            ...state,
+            activeArea: null,
+            cargoIndex: null,
+            cargoDetails: null
+        })
+    }
+
     // *** Constants ***
 
     const options = props.warehouses.map((stock) => {
@@ -71,7 +92,11 @@ const DndStock = props => {
     )
 
     const cargoUnits = props.ttnProductsData && props.ttnProductsData.map((product, index) => {
-        if(state.movedCargoUnits.includes(product.id) === false) {
+        if(!state.movedCargoUnits.includes(product.id)) {
+            const spinerIndex = ((state.cargoIndex !== null) && (state.cargoIndex === product.id)) 
+            ? <CircularProgress size={20}/>
+            : null
+            
             return (
                 <DndElement 
                     key={product.id + index} 
@@ -81,29 +106,34 @@ const DndStock = props => {
                     setCurrentHendleCargoUnit={setCurrentHendleCargoUnit}
                     dimension={product.type} 
                     id={product.id}
+                    spinerIndex={spinerIndex}
                 />
             )
         }
     })
     
     const dndDestenationAreas = state.chosenWarehouse && state.chosenWarehouse.areas.map((stockUnit, index) => {
+        const isActive = (state.activeArea && (state.activeArea.index === (index + 1))) ? true : false
+        
         return (
             <DndDestenationArea 
                 index={index + 1}
                 area={stockUnit.area}
                 type={stockUnit.type}
-                dropHendler={dropHendler}
+                activeCargoUnit={state.activeDnDCargoUnit}
                 addCargoUnitToRemove={addCargoUnitToRemove}
                 getEachAreaState={props.getEachAreaState}
                 key={stockUnit.area + stockUnit.type + index} 
+                initActiveCargoAndArea={initActiveCargoAndArea}
+                isActiveArea={isActive}
             /> 
         )
     })    
     
     return (
-        <Container maxWidth="sm">
-            <Box my={10} display="flex">
-                <div style={{width: '100%'}}>
+        <Container fixed>
+            <Box my={15} display="flex">
+                <div style={{width: "100%"}}>
                     <Box mb={7.5}>
                         <Typography compoment="h1" variant="h5">
                             Cargo 
@@ -119,11 +149,11 @@ const DndStock = props => {
                         {cargoUnits}
                     </Box>
                 </div>
-                <div style={{width: '100%'}}>
+                <div style={{width: "100%"}}>
                     <Box mb={5}>
                         <InputLabel htmlFor="age-helper">Select stock here*</InputLabel>
                         <Select
-                            value={state.chosenWarehouse.name || ''}
+                            value={state.chosenWarehouse.name || ""}
                             required    
                             fullWidth
                             onChange={handleChange}
@@ -141,15 +171,22 @@ const DndStock = props => {
                         {dndDestenationAreas}
                     </Box>
                 </div>
+                <div style={{width: "100%"}}>
+                    <WarehousingDetails 
+                        cargoDetails={state.cargoDetails} 
+                        areaData={state.area} 
+                        resetActiveData={resetActiveData}
+                    />
+                </div>
             </Box>
-        </Container>
+        </Container> 
     )
 }
 
 const mapStateToProps = (state) => ({
     errors: state.errors,
     ttnProductsData: state.TTN.products
-});
+})
 export default connect(mapStateToProps, {
     setActiveWarehousingStockData
 })(DndStock)

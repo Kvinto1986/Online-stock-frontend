@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Button, Container} from '@material-ui/core'
+import { Box, Button, Container } from '@material-ui/core'
 import { warehousingSubmit } from '../../../actions/warehousingActions'
 import { connect } from 'react-redux'
 
@@ -19,13 +19,12 @@ const WarehousingSubmitButton = (props) => {
                     color="primary"
                     onClick={handleSubmit}
                 >
-                    Move and save
+                    Save warehousing
                 </Button>
             </Box>
         </Container>
      )
 }
-
 let mapStateToProps
 
 export default connect(mapStateToProps, {

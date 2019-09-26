@@ -61,10 +61,6 @@ const Warehousing = props => {
                         stockData: props.warehousingActiveStock,
                         wareHousingData: wareHousingState,
                     }
-
-                    console.log(data.wareHousingData);
-                    console.log("====================");
-                    console.log(data.stockData);
                     
                     props.warehousingPostData(data, successWirehousingAletrt)
                 }
