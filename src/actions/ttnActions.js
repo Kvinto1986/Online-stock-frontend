@@ -20,5 +20,11 @@ export const findTTNbyNumber = (number, dndIsShown, calculateAreaFlag) => dispat
             dndIsShown(false)
         }
     })
-
+    .catch(err => {
+        dispatch({
+            type: SET_ERRORS,
+            payload: {warehouseTtn: "TTN not found"}
+        });
+        dndIsShown(false)
+    })
 }

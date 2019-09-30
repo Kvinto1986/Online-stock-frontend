@@ -108,7 +108,6 @@ export default ({ttn, open, report, setReport}) => {
                         Read report
                     </Button>
                 </Fragment>)}
-
         </Paper>
 
     )

@@ -5,9 +5,11 @@ import TableBody from '@material-ui/core/TableBody'
 import Table from '@material-ui/core/Table'
 import React from 'react'
 import useStyles from './controlTTNstyle'
+
 import InputBase from '@material-ui/core/InputBase'
 
 export default ({cargo, open, handleChangeTTN}) => {
+
     const classes = useStyles()
 
     return (
@@ -66,3 +68,4 @@ export default ({cargo, open, handleChangeTTN}) => {
         </Table>
     )
 }
+

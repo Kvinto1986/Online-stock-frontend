@@ -25,7 +25,6 @@ const useStyles = makeStyles(theme => ({
         marginTop: '2%',
         marginLeft: '25%',
     },
-
     mainContainer: {
         marginTop: theme.spacing(5),
         display: 'flex',
