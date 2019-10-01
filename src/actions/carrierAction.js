@@ -9,9 +9,8 @@ export const addPrevPath = (prevPath) => dispatch => {
     })
 };
 
-export const searchCarrier = (carrier, history) => dispatch => {
-    const{passport} = carrier;
-    axios.get(`${server}api/carriers/${passport}`)
+export const searchCarrier = (unp, history) => dispatch => {
+    axios.get(`${server}api/carriers/${unp}`)
         .then((res) => {
             dispatch({
                 type:SET_ERRORS,

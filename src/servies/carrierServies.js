@@ -4,13 +4,13 @@ import {SET_ERRORS} from "../actions/types";
 
 export const addCarrier = (carrier) => {
 
-    const{email, tel, company, passport, country} = carrier.carrier;
+    const{email, tel, company, unp, country} = carrier.carrier;
 
-    return axios.post(`${server}api/carriers/addCarrier`, {
+    return axios.post(`${server}api/carriers/`, {
         email: email,
         tel: tel,
         company: company,
-        passportNumber: passport,
+        unp: unp,
         countryCode: country
     })
 };
@@ -21,12 +21,13 @@ export const listCarriers = async () => {
 };
 
 export const allCarriers = async () => {
-    const listCarrier = await axios.get(`${server}api/carriers/all`)
+    const listCarrier = await axios.get(`${server}api/carriers/`)
     return listCarrier.data
 };
 
 export const deleteCarriers = (id, cb, rows) => {
     const newArr = rows.filter((item) => item._id != id);
+    console.log(id)
     axios.delete(`${server}api/carriers/${id}`)
         .then((res) => {
             cb(newArr);
@@ -58,7 +59,7 @@ export const updateCarrier = (rows, inputValue, id, cb) => {
     }
 
     found.isDisabled = false;
-    const{company, countryCode, passportNumber, _id} = found;
+    const{company, countryCode, unp, _id} = found;
     let newArr = [];
     for(let i = 0; i < rows.length; i++) {
         if(i === indx) {
@@ -74,7 +75,7 @@ export const updateCarrier = (rows, inputValue, id, cb) => {
      company: company,
      countryCode:countryCode,
      email: email,
-     passportNumber: passportNumber,
+        unp: unp,
      tel: tel
  })
      .then((res) => {console.log(res)})

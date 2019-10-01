@@ -12,7 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import {connect} from 'react-redux';
 import {addPrevPath, searchCarrier} from '../../actions/carrierAction';
 const SearchCarrier = (props) => {
-    const [passport, setPassport] = useState('');
+    const [unp, setPassport] = useState('');
     const [driver, setDriver] = useState('');
 
     const handleInputChange = (e) => {
@@ -24,18 +24,13 @@ const SearchCarrier = (props) => {
     const handleSubmitCarrier = (e) => {
         e.preventDefault();
         props.addPrevPath(props.location.pathname)
-        const  findCarrier = {
-            passport: passport,
-        };
-        props.searchCarrier(findCarrier, props.history)
+
+        props.searchCarrier(unp, props.history)
 };
     const handleSubmitDriver = (e) => {
         e.preventDefault();
 
-            const driverLicense = {
-                license: driver,
-            };
-            props.findDriver(driverLicense, props.history)
+            props.findDriver(driver, props.history)
     };
 
     const classes = useStyles();
@@ -61,7 +56,7 @@ const SearchCarrier = (props) => {
                             required
                             fullWidth
                             id="company"
-                            label="Passport number"
+                            label="UNP"
                             name="company"
                             autoComplete="company"
                             onChange={handleInputChange}
@@ -93,7 +88,7 @@ const SearchCarrier = (props) => {
                                 required
                                 fullWidth
                                 id="driver"
-                                label="Driver name"
+                                label="Driver license"
                                 name="driver"
                                 autoComplete="driver"
                                 onChange={handleDriverInputChange}

@@ -33,7 +33,7 @@ const DriverRegister = (props) => {
             email: values.email,
             name: values.name,
             surnName: values.surnName,
-            drivingLicense: values.license
+            driverLicense: values.license
         };
         props.addDriver(driver);
 
