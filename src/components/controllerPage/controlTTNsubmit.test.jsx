@@ -32,5 +32,4 @@ it('control submit test', async () => {
 
     fireEvent.click(currentCheckbox)
     fireEvent.click(currentReportButton)
-
 })

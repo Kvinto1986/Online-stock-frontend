@@ -11,14 +11,9 @@ it('cargo table rendering test', async () => {
 
     const open = true
 
-    const onChange = () => {
-    }
-
-
     const {getByDisplayValue} = render(<ControlTable
         cargo={cargo}
         open={open}
-        handleChangeTTN={onChange}
     />)
 
     expect(getByDisplayValue('oranges')).toBeInTheDocument()
@@ -34,8 +29,6 @@ it('table change button test', async () => {
         expect(id).toBe('1234567')
     }
 
-
-
     const {getByTestId, getByDisplayValue} = render(<ControlTable
         cargo={cargo}
         open={open}
@@ -45,8 +38,6 @@ it('table change button test', async () => {
     const currentInput = getByTestId('1234567-name')
 
     fireEvent.change(currentInput, { target: { value: 'applex' } })
-
-
 
     expect(getByDisplayValue('applex')).toBeInTheDocument()
 
