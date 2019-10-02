@@ -1,14 +1,21 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import {TextValidator} from 'react-material-ui-form-validator'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import PropTypes from 'prop-types'
 
 
 export const NumberField = ({required, name, error = {}, value = {}, helperClass, validators = [], errorMessages = [], handleChange, ...props}) => {
-    if (required) {
-        validators.push('required')
-        errorMessages.push('This field is required')
-    }
+
+    const [newValidators, newErrorMessages] = useMemo(() => {
+        const newValidators = [...validators]
+        const newErrorMessages = [...errorMessages]
+        if (required) {
+            newValidators.push('required')
+            newErrorMessages.push('This field is required')
+        }
+        return [newValidators, newErrorMessages]
+    }, [validators, errorMessages, required])
+
     const onChange = e => handleChange({...value, [name]: e.target.value})
 
     return <>
@@ -17,8 +24,8 @@ export const NumberField = ({required, name, error = {}, value = {}, helperClass
             type="number"
             onChange={onChange}
             value={value[name]}
-            validators={validators}
-            errorMessages={errorMessages}
+            validators={newValidators}
+            errorMessages={newErrorMessages}
         />
         <FormHelperText className={helperClass}>{error[name]}</FormHelperText>
     </>
