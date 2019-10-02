@@ -35,15 +35,14 @@ const WarehousesTable = (props) => {
             allowOutsideClick: false
         }).then((result) => {
             if (result.value) {
-                props.deleteWarehouse({id:id});
-                props.getWarehouses({id: props.auth.user.id})
+                props.deleteWarehouse(id);
                 Swal.fire({
                     type: 'success',
                     title: 'Congratulations!',
                     text: 'Data successfully changed !',
                     allowOutsideClick: false,
                     timer: 3000
-                })
+                }).then(()=>{props.getWarehouses({id: props.auth.user.id})})
             }
         })
 
@@ -63,9 +62,9 @@ const WarehousesTable = (props) => {
                 </TableHead>
                 <TableBody>
                     {props.warehouses.map(elem => (
-                        <TableRow key={elem._id}>
+                        <TableRow key={elem.id}>
                             <TableCell align="center">
-                                <Button variant="contained" color="secondary" className={classes.button} onClick={(e)=>handleDelete(elem._id)}>
+                                <Button variant="contained" color="secondary" className={classes.button} onClick={(e)=>handleDelete(elem.id)}>
                                     Delete
                                     <DeleteIcon style={{marginLeft: '5%'}}/>
                                 </Button>

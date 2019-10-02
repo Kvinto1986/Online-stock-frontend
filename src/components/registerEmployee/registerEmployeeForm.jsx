@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import Grid from '@material-ui/core/Grid/index'
 import Button from '@material-ui/core/Button/index'
 import DateFnsUtils from '@date-io/date-fns'
@@ -12,7 +12,6 @@ import FormControl from '@material-ui/core/FormControl'
 
 import useStyles from './registerEmployeeStyles'
 import Input from '@material-ui/core/Input'
-
 
 const initialForm = {
     firstName: '',
@@ -35,6 +34,10 @@ export default ({onSubmit, errors, initial = initialForm}) => {
     const handleInputChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
     }
+
+    useEffect(() => {
+        setForm(initial)
+    }, [initial])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -134,7 +137,7 @@ export default ({onSubmit, errors, initial = initialForm}) => {
                             <MenuItem value="operator">Operator</MenuItem>
                             <MenuItem value="controller">Controller</MenuItem>
 
-                         
+
                         </Select>
                         {errors && (
                             <FormHelperText className={classes.helperText}>{errors.position}</FormHelperText>)}

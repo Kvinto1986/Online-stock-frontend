@@ -8,8 +8,6 @@ import warehouseReduser from './warehouseReduser'
 import carriersReducer from './carriersReducer'
 import warehousingFlagRegucer from './warehousingFlagRegucer'
 import warehousingActiveStockReducer from './warehousingActiveStockReducer'
-import senderReducer from './senderReducer'
-import carrierReducer from './carrierReducer'
 import {normalize} from '../utils/utils'
 import ttnReduser from './ttnReduser'
 import ttnsReducer from './ttnsReducer'
@@ -24,7 +22,9 @@ function createNormalReducer(singular, plural) {
             case singular:
                 return {...store, [data.id]: data}
             case `DELETE_${singular}`:
-                return {...store, [data.id]: undefined}
+                const newStore = {...store}
+                delete newStore[data.id]
+                return newStore
             default:
                 return store
         }
@@ -42,11 +42,8 @@ export default combineReducers({
     currentCompany: companyReduser,
     warehouses: warehouseReduser,
     carriersReducer: carriersReducer,
-    TTN:ttnReduser,
-    TTNS:ttnsReducer,
+    TTN: ttnReduser,
+    TTNS: ttnsReducer,
     warehousingFlag: warehousingFlagRegucer,
-    warehousingActiveStock: warehousingActiveStockReducer,
-    senders: senderReducer,
-    carriers: carrierReducer
-});
-
+    warehousingActiveStock: warehousingActiveStockReducer
+})

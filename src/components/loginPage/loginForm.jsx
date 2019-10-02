@@ -47,8 +47,8 @@ export default ({onSubmit, errors}) => {
                 autoFocus
                 onChange={handleInputChange}
                 value={values.email}
-                validators={['required', 'isEmail']}
-                errorMessages={['this field is required', 'email is not valid']}
+                validators={['required', 'isEmail','minStringLength:2', 'maxStringLength:30']}
+                errorMessages={['this field is required', 'email is not valid','the value must be at least 2 characters', 'the value must be no more than 30 characters']}
             />
             <TextValidator
                 variant="outlined"

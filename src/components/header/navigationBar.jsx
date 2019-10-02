@@ -24,8 +24,8 @@ export default ({user}) => {
             return navigation([
                 {name: 'Home', link: '/'},
                 {name: 'Registration new company ', link: '/newCompanyAdmin'},
-                {name: 'Reports', link: '/reports'},
-                {name: 'Companies', link: '/companiesList'}])
+                {name: 'Companies', link: '/companiesList'},
+                {name: 'Reports', link: '/reports'}])
 
         case 'companyAdmin':
             return navigation([
