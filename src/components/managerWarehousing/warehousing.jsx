@@ -1,15 +1,15 @@
-import React from 'react'
-import WarehousingDataForm from './warehousingComponents/warehousingDataForm'
-import { DndProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
-import DndStock from './warehousingComponents/dndStock'
-import WarehousingSubmitButton from './warehousingComponents/WarehousingSubmitButton'
-import { useState, useEffect } from 'react'
-import { fetchAvailableStocks } from '../../actions/warehousingActions'
-import { connect } from 'react-redux'
-import { warehousingPostData } from '../../actions/warehousingActions'
-import 'sweetalert2/src/sweetalert2.scss'
-import Swal from 'sweetalert2/dist/sweetalert2.js'
+import React from "react"
+import WarehousingDataForm from "./warehousingComponents/warehousingDataForm"
+import { DndProvider } from "react-dnd"
+import HTML5Backend from "react-dnd-html5-backend"
+import DndStock from "./warehousingComponents/dndStock"
+import WarehousingSubmitButton from "./warehousingComponents/WarehousingSubmitButton"
+import { useState, useEffect } from "react"
+import { fetchAvailableStocks } from "../../actions/warehousingActions"
+import { connect } from "react-redux"
+import { warehousingPostData } from "../../actions/warehousingActions"
+import "sweetalert2/src/sweetalert2.scss"
+import Swal from "sweetalert2/dist/sweetalert2.js"
 
 const Warehousing = props => {
 
@@ -21,7 +21,7 @@ const Warehousing = props => {
 
     const initialWareHousingState = {
         areasData: [],
-        formData: ''
+        formData: ""
     }
 
     const [state, setState] = useState(initialState)
@@ -31,17 +31,17 @@ const Warehousing = props => {
 
     const associativeAreaState = []
 
-     // *** Functions ***
+    // *** Functions ***
 
     const successWirehousingAletrt = () => {
         Swal
         .fire({
-            title: 'Success',
+            title: "Success",
             text: "Cargo will be plased to stock in close time.",
-            type: 'success',
+            type: "success",
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK',
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "OK",
             allowOutsideClick: false
         })
         .then(() => {
@@ -50,7 +50,7 @@ const Warehousing = props => {
     }
 
     useEffect(() => {
-        props.fetchAvailableStocks()
+        props.fetchAvailableStocks(props.user)
     }, [])
 
     useEffect(() => {
@@ -61,7 +61,6 @@ const Warehousing = props => {
                         stockData: props.warehousingActiveStock,
                         wareHousingData: wareHousingState,
                     }
-                    
                     props.warehousingPostData(data, successWirehousingAletrt)
                 }
             }
@@ -77,7 +76,7 @@ const Warehousing = props => {
 
     const getEachAreaState = value => {
         associativeAreaState.push(value)
-
+        
         setWareHousingState({
             ...wareHousingState,
             areasData: associativeAreaState
@@ -98,7 +97,8 @@ const Warehousing = props => {
                 {state.ttnIsFound && 
                     <DndStock 
                         warehouses={props.warehouses} 
-                        getEachAreaState={getEachAreaState} />
+                        getEachAreaState={getEachAreaState} 
+                    />
                 }
             </DndProvider>
             <WarehousingSubmitButton />
@@ -108,8 +108,10 @@ const Warehousing = props => {
 
 const mapStateToProps = (state) => ({
     warehouses: state.warehouses,
-    warehousingActiveStock: state.warehousingActiveStock
-});
+    warehousingActiveStock: state.warehousingActiveStock,
+    user: state.auth.user,
+    warehousingFlag: state.warehousingFlag,
+})
 
 export default connect(mapStateToProps, {
     fetchAvailableStocks,

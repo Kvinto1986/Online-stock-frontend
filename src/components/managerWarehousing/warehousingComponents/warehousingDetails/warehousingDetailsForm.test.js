@@ -1,7 +1,7 @@
-import React from 'react'
-import { fireEvent, render } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
-import WarehousingDetailsForm from './warehousingDetailsForm'
+import React from "react"
+import { fireEvent, render } from "@testing-library/react"
+import "@testing-library/jest-dom/extend-expect"
+import WarehousingDetailsForm from "./warehousingDetailsForm"
 
 const cargoDetails = {
     name: "apple", 
@@ -17,7 +17,7 @@ const areaData = {
 
 const changeActiveData = () => {}
 
-it('cargo unit warehousing details rendering test', async () => {
+it("cargo unit warehousing details rendering test", async () => {
     const {getByText} = render(
         <WarehousingDetailsForm 
             cargoDetails={cargoDetails} 
@@ -26,6 +26,8 @@ it('cargo unit warehousing details rendering test', async () => {
         />
     )
 
-    expect(getByText('Name: apple')).toBeInTheDocument()
-    expect(getByText('Cargo amount: 1BOX')).toBeInTheDocument()
+    expect(getByText("• Name:")).toBeInTheDocument()
+    expect(getByText("apple")).toBeInTheDocument()
+    expect(getByText("• Cargo amount:")).toBeInTheDocument()
+    expect(getByText("1BOX")).toBeInTheDocument()
 })

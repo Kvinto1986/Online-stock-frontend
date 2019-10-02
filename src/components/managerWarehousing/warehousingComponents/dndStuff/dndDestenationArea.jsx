@@ -32,14 +32,8 @@ const DndDestenationArea = ({ index, area, type, addCargoUnitToRemove, getEachAr
 
     const dropOnArea = () => {
         const {activeCargoUnit, initActiveCargoAndArea} = props
-        
-        const dropedAreaUnitData = activeCargoUnit
-        initActiveCargoAndArea(dropedAreaUnitData, state)
-        
 
-        // TODO: Yury type fix
-        // setState({...state, area: Number(state.area) - Number(dropedAreaUnitData.size)})
-        // addCargoUnitToRemove(dropedAreaUnitData)
+        initActiveCargoAndArea(activeCargoUnit, state)
     } 
 
     let outline = "1px dashed black"

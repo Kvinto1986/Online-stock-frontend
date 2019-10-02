@@ -9,9 +9,6 @@ const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
         productArea: ""
     }
 
-    console.log(cargoDetails, areaData);
-    
-
     const [formState, setFormState] = useState(initialDetailsFormState)
 
     useEffect(() => {

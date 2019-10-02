@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator"
 import { Container, Box, Typography, Grid, Button } from "@material-ui/core"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
-import DateFnsUtils from '@date-io/date-fns';
-import { findTTNbyNumber } from '../../../actions/ttnActions'
-import { connect } from 'react-redux'
+import DateFnsUtils from "@date-io/date-fns";
+import { findTTNbyNumber } from "../../../actions/ttnActions"
+import { connect } from "react-redux"
 
 const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
 
     const initialFormState = {
         ttnIsExists: null,
-        ttnNumber: '',
-        ttnDate: '',
-        managerInitials: '',
-        operatorName: '',
-        deliveryForStorageDate: ''
+        ttnNumber: "",
+        ttnDate: "",
+        managerInitials: "",
+        operatorName: "",
+        deliveryForStorageDate: ""
     };
 
     const [formState, setFormState] = useState(initialFormState);
@@ -43,10 +43,10 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
             setFormState({
                 ...formState, 
                 ttnIsExists: false,
-                ttnDate: '', 
-                managerInitials: '',
-                operatorName: '',
-                deliveryForStorageDate: ''
+                ttnDate: "", 
+                managerInitials: "",
+                operatorName: "",
+                deliveryForStorageDate: ""
             })
         }
     }, [props.errors])
@@ -56,8 +56,7 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
     };
 
     const findTTN = () => {
-        const calculateAreaFlag = true
-        props.findTTNbyNumber({ ttnNumber: formState.ttnNumber }, dndIsShown, calculateAreaFlag)
+        props.findTTNbyNumber(formState.ttnNumber, dndIsShown)
     }
     
     const {ttnNumber, ttnDate, managerInitials, operatorName, ttnIsExists} = formState  
@@ -83,10 +82,10 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
                                         name="ttnNumber"
                                         autoComplete="ttnNumber"
                                         onChange={handleChange}
-                                        value={ttnNumber || ''}
+                                        value={ttnNumber || ""}
                                     />
                                     {((ttnIsExists === false) || Object.keys(props.errors).length > 0) && (
-                                        <p style={{color: 'red'}}>TTN not found</p>
+                                        <p style={{color: "red"}}>TTN not found</p>
                                     )}
                                 </Box>
                                 <Box mt={2}>
@@ -109,7 +108,7 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
                                         name="ttnDate"
                                         autoComplete="ttnDate"
                                         onChange={handleChange}
-                                        value={ttnDate || ''}
+                                        value={ttnDate || ""}
                                     />
                                 </Box>
                                 <Box mt={2}>
@@ -121,7 +120,7 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
                                         name="managerInitials"
                                         autoComplete="managerInitials"
                                         onChange={handleChange}
-                                        value={managerInitials || ''}
+                                        value={managerInitials || ""}
                                     />
                                 </Box>
                                 <Box mt={2}>
@@ -133,7 +132,7 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
                                         name="operatorName"
                                         autoComplete="operatorName"
                                         onChange={handleChange}
-                                        value={operatorName || ''}
+                                        value={operatorName || ""}
                                     />
                                 </Box>
                                 <Box mt={1}>

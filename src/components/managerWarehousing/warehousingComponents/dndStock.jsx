@@ -20,19 +20,26 @@ const DndStock = props => {
         movedData: {},
         cargoElements: props.ttnProductsData,
         chosenWarehouse: "",
+        chosenWarehouseInitialState: null
     }
     
     const [state, setState] = useState(initialState)
 
     // *** Functions ***
-
+    
     useEffect(() => {
-        const { areas, _id } = state.chosenWarehouse
-        props.setActiveWarehousingStockData({areas,_id})
-    }, [state.chosenWarehouse])
+        if(state.chosenWarehouse.id !== props.warehousingActiveStock.id) {
+            const { areas, id } = state.chosenWarehouse
+            props.setActiveWarehousingStockData({areas, id})
+        }
+    }, [state.chosenWarehouse.id])
 
-    const handleChange = e => {
-        setState({...state, [e.target.name]: e.target.value})
+    const handleSelectChange = e => {
+        setState({
+            ...state, 
+            [e.target.name]: e.target.value, 
+            chosenWarehouseInitialState: e.target.value
+        })
     }
     
     const setCurrentHendleCargoUnit = (name, amount, dimension, size, id) => {
@@ -70,12 +77,15 @@ const DndStock = props => {
             }
             return element
         }) 
-
-        const newWarehouseAreasState = [...state.chosenWarehouse.areas].map((unit, index) => {
+        
+        let newWarehouseAreasState = [];
+        [...state.chosenWarehouse.areas].forEach((unit, index) => {
             if((index + 1) === newAreaState.index) {
-                unit.area = newAreaState.area
+                const { area, type } = newAreaState
+                newWarehouseAreasState.push({area, type})
+            } else {
+                newWarehouseAreasState.push(unit)
             }
-            return unit
         }) 
         
         setState({
@@ -170,10 +180,9 @@ const DndStock = props => {
                     <Box mb={5}>
                         <InputLabel htmlFor="age-helper">Select stock here*</InputLabel>
                         <Select
-                            value={state.chosenWarehouse.name || ""}
                             required    
                             fullWidth
-                            onChange={handleChange}
+                            onChange={handleSelectChange}
                             value={state.chosenWarehouse}
                             input={<Input name="chosenWarehouse" id="age-helper" />}
                             name="chosenWarehouse"
@@ -202,7 +211,8 @@ const DndStock = props => {
 
 const mapStateToProps = (state) => ({
     errors: state.errors,
-    ttnProductsData: state.TTN.products
+    ttnProductsData: state.TTN.products,
+    warehousingActiveStock: state.warehousingActiveStock,
 })
 export default connect(mapStateToProps, {
     setActiveWarehousingStockData
