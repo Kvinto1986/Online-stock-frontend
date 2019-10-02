@@ -15,6 +15,7 @@ it('should not allow numbers', async () => {
         return <ValidatorForm noValidate>
             <TextField
                 value={val}
+                error={{}}
                 name="test_name"
                 handleChange={values => {
                     setVal(values)
@@ -69,6 +70,7 @@ describe('required attribute', () => {
                 <TextField
                     required
                     value={val}
+                    error={{}}
                     name="test_name"
                     handleChange={setVal}
                     inputProps={{'data-testid': 'input'}}
@@ -100,6 +102,7 @@ describe('required attribute', () => {
             return <ValidatorForm noValidate onSubmit={onSubmit}>
                 <TextField
                     value={val}
+                    error={{}}
                     name="test_name"
                     handleChange={setVal}
                     inputProps={{'data-testid': 'input'}}
@@ -126,6 +129,7 @@ it('new validators should works with old', async () => {
         return <ValidatorForm noValidate onSubmit={onSubmit}>
             <TextField
                 value={val}
+                error={{}}
                 name="test_name"
                 handleChange={setVal}
                 validators={['minStringLength:2']}
@@ -156,6 +160,7 @@ it('value should match pattern', async () => {
         return <ValidatorForm noValidate>
             <TextField
                 value={val}
+                error={{}}
                 name="test_name"
                 pattern={/^[1-3]+$/}
                 handleChange={values => {
@@ -187,6 +192,7 @@ it('min and max args', async () => {
             <TextField
                 value={val}
                 name="test_name"
+                error={{}}
                 min={2}
                 max={3}
                 handleChange={values => {

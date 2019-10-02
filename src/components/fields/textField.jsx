@@ -9,8 +9,8 @@ export const TextField = ({
                               min,
                               name,
                               required,
-                              error = {},
-                              value = {},
+                              error,
+                              value,
                               helperClass,
                               handleChange,
                               validators = [],
@@ -55,8 +55,8 @@ export const TextField = ({
 
 TextField.prototype = {
     name: PropTypes.string.isRequired,
-    error: PropTypes.object,
-    value: PropTypes.object,
+    error: PropTypes.object.isRequired,
+    value: PropTypes.object.isRequired,
     pattern: PropTypes.instanceOf(RegExp),
     min: PropTypes.number,
     max: PropTypes.number,
