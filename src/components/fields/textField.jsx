@@ -1,14 +1,42 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import {TextValidator} from 'react-material-ui-form-validator'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import PropTypes from 'prop-types'
 
 
-export const TextField = ({required, pattern = /^[a-zA-Z]*$/, name, error = {}, value = {}, helperClass, validators = [], errorMessages = [], handleChange, ...props}) => {
-    if (required) {
-        validators.push('required')
-        errorMessages.push('This field is required')
-    }
+export const TextField = ({
+                              max,
+                              min,
+                              name,
+                              required,
+                              error = {},
+                              value = {},
+                              helperClass,
+                              handleChange,
+                              validators = [],
+                              errorMessages = [],
+                              pattern = /^[a-zA-Z]*$/,
+                              ...props
+                          }) => {
+
+    const [newValidators, newErrorMessages] = useMemo(() => {
+        const newValidators = [...validators]
+        const newErrorMessages = [...errorMessages]
+        if (required) {
+            newValidators.push('required')
+            newErrorMessages.push('This field is required')
+        }
+        if (min) {
+            newValidators.push('minStringLength:' + min)
+            newErrorMessages.push(`Value should be at least ${min} characters`)
+        }
+        if (max) {
+            newValidators.push('maxStringLength:' + max)
+            newErrorMessages.push(`Value should be no more than ${max} characters`)
+        }
+        return [newValidators, newErrorMessages]
+    }, [validators, errorMessages, min, max, required])
+
     const onChange = ({target: {value: val}}) => pattern.test(val) && handleChange({...value, [name]: val})
 
     return <>
@@ -17,8 +45,8 @@ export const TextField = ({required, pattern = /^[a-zA-Z]*$/, name, error = {}, 
             type="text"
             onChange={onChange}
             value={value[name]}
-            validators={validators}
-            errorMessages={errorMessages}
+            validators={newValidators}
+            errorMessages={newErrorMessages}
         />
         <FormHelperText className={helperClass}>{error[name]}</FormHelperText>
     </>
@@ -28,8 +56,10 @@ export const TextField = ({required, pattern = /^[a-zA-Z]*$/, name, error = {}, 
 TextField.prototype = {
     name: PropTypes.string.isRequired,
     error: PropTypes.object,
-    value: PropTypes.obj,
+    value: PropTypes.object,
     pattern: PropTypes.instanceOf(RegExp),
+    min: PropTypes.number,
+    max: PropTypes.number,
     required: PropTypes.bool,
     helperClass: PropTypes.string,
     validators: PropTypes.array,

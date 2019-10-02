@@ -176,3 +176,35 @@ it('value should match pattern', async () => {
     fireEvent.change(input, {target: {value: '123'}})
     await wait(() => expect((spy.mock.calls[0])).toContainEqual({test_name: '123'}))
 })
+
+it('min and max args', async () => {
+    const spy = jest.fn()
+
+    const Component = () => {
+        const [val, setVal] = useState({test_name: ''})
+
+        return <ValidatorForm noValidate>
+            <TextField
+                value={val}
+                name="test_name"
+                min={2}
+                max={3}
+                handleChange={values => {
+                    setVal(values)
+                    spy(values)
+                }}
+                inputProps={{'data-testid': 'input'}}
+            />
+        </ValidatorForm>
+    }
+
+    const {getByTestId, getByText} = render(<Component/>)
+
+    const input = getByTestId('input')
+
+    fireEvent.change(input, {target: {value: 'a'}})
+    await wait(() => getByText('Value should be at least 2 characters'))
+
+    fireEvent.change(input, {target: {value: 'aaaa'}})
+    await wait(() => getByText('Value should be no more than 3 characters'))
+})
