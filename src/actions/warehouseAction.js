@@ -3,7 +3,7 @@ import {SET_ERRORS, GET_CURRENT_WAREHOUSES} from './types';
 import server from '../serverConfig';
 
 export const registerWarehouse = (warehouse, reset,unlock) => dispatch => {
-    axios.post(`${server}api/warehouses/registration`, warehouse)
+    axios.post(`${server}api/warehouses/`, warehouse)
         .then(() => {
             reset();
             dispatch({
@@ -47,7 +47,7 @@ export const getWarehouses = () => dispatch => {
 };
 
 export const deleteWarehouse = (id) => dispatch => {
-    axios.post(`${server}api/warehouses/delete`,id)
+    axios.delete(`${server}api/warehouses/${id}`)
         .then(() => {
             dispatch({
                 type: SET_ERRORS,
