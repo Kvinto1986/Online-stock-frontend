@@ -16,6 +16,7 @@ import Landing from '../components/landingPage/landing'
 import AllCarrier from '../components/allCarrier';
 import TtnForm from '../components/ttnForm';
 import AddCarrier from "../components/carrierForm";
+import TTNregister from '../components/operatorPage/index'
 import DeliveryGoodsFromStock from '../components/deliveryFromStock/deliveryFromStockPage'
 
 import Warehousing from '../components/managerWarehousing/warehousing'
@@ -44,6 +45,7 @@ const SecurityRoute = (props) => {
                             {props.auth.user.position.includes('operator') && (
                                 <Fragment>
                                     <Route exact path="/searchCarrier" component={Carrier}/>
+                                    <Route exact path="/ttnRegister" component={TTNregister}/>
                                     <Route exact path="/driveRegistration" component={DriverRegistrer}/>
                                     <Route exact path="/allCarrier" component={AllCarrier}/>
                                     <Route exact path="/addCarrier" component={AddCarrier}/>

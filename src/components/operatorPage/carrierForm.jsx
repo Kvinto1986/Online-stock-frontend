@@ -1,48 +1,47 @@
-import React, {useState } from 'react';
-import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
-import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import useStyles from "./addCarrierStyles";
-import {addCarrier} from "../../servies/carrierServies";
-import SearchIcon from '@material-ui/icons/Search';
-import ReactPhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/dist/style.css';
-import { connect } from 'react-redux'
+import React, {useState} from 'react'
+import Container from '@material-ui/core/Container'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Avatar from '@material-ui/core/Avatar'
+import Typography from '@material-ui/core/Typography'
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import useStyles from '../carrierForm/addCarrierStyles'
+import {addCarrier} from '../../servies/carrierServies'
+import SearchIcon from '@material-ui/icons/Search'
+import ReactPhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/dist/style.css'
 
-const AddCarrier = (props) => {
+export default (props) => {
     const [carrier, setCarrier] = useState({
         passport: '',
         email: '',
         tel: '',
         country: '',
         company: ''
-    });
-    const[phone, setPhone] = useState("")
+    })
+    const [phone, setPhone] = useState('')
     const handleInputChange = (e) => {
-        setCarrier({...carrier, [e.target.name]:e.target.value })
-    };
+        setCarrier({...carrier, [e.target.name]: e.target.value})
+    }
 
     function handleOnChange(value) {
-        setPhone( value )
+        setPhone(value)
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        const  carrierInfo = {
+        const carrierInfo = {
             carrier: carrier,
-        };
+        }
         addCarrier(carrierInfo)
             .then((res) => {
                 props.history.push(props.prevPath)
             })
-    };
+    }
 
-    const classes = useStyles();
+    const classes = useStyles()
 
     return (
         <React.Fragment>
@@ -50,10 +49,10 @@ const AddCarrier = (props) => {
                 <CssBaseline/>
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
-                        <SearchIcon />
+                        <SearchIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                       Add Carrier
+                        Add Carrier
                     </Typography>
                     <ValidatorForm className={classes.form} onSubmit={handleSubmit}>
                         <Grid container spacing={2}>
@@ -101,7 +100,7 @@ const AddCarrier = (props) => {
                                         name: 'tel',
                                         onChange: handleInputChange
                                     }}
-                                    />
+                                />
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
@@ -114,8 +113,8 @@ const AddCarrier = (props) => {
                                     name="company"
                                     autoComplete="company"
                                     value={carrier.company}
-                                    validators={['required','matchRegexp:[a-z, A-Z, а-я, А-Я]']}
-                                    errorMessages={['This field is required','Company name will be no numerical']}
+                                    validators={['required', 'matchRegexp:[a-z, A-Z, а-я, А-Я]']}
+                                    errorMessages={['This field is required', 'Company name will be no numerical']}
                                     onChange={handleInputChange}
                                 />
                             </Grid>
@@ -130,8 +129,8 @@ const AddCarrier = (props) => {
                                     name="country"
                                     autoComplete="country"
                                     value={carrier.country}
-                                    validators={['required','matchRegexp:[a-z, A-Z, а-я, А-Я]']}
-                                    errorMessages={['This field is required','country name will be no numerical']}
+                                    validators={['required', 'matchRegexp:[a-z, A-Z, а-я, А-Я]']}
+                                    errorMessages={['This field is required', 'country name will be no numerical']}
                                     onChange={handleInputChange}
                                 />
                             </Grid>
@@ -151,11 +150,5 @@ const AddCarrier = (props) => {
             </Container>
 
         </React.Fragment>
-
     )
-
 }
-const mapStateToProps = state => ({
-    prevPath: state.carriersReducer.prevPath
-})
-export default connect(mapStateToProps, null)(AddCarrier)

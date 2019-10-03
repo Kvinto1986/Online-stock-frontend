@@ -52,7 +52,7 @@ export default ({onSubmit, errors, initial = initialForm}) => {
             house: form.house,
             apartment: form.apartment,
             position: form.position,
-            dateOfBirth: dateOfBirth
+            dateOfBirth: dateOfBirth,
         }
 
         onSubmit(employee)

@@ -31,7 +31,7 @@ export const addTtn = info => {
 
 export const findTtn = async (number) => {
     const{ttnNumber} = number
-    const ttn = await axios.get(`${server}api/ttn/getbyNumber/${ttnNumber}`)
+    const ttn = await axios.get(`${server}api/ttns/${ttnNumber}`)
     return ttn.data
 }
 

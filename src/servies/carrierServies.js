@@ -21,7 +21,7 @@ export const listCarriers = async () => {
 };
 
 export const allCarriers = async () => {
-    const listCarrier = await axios.get(`${server}api/carriers/all`)
+    const listCarrier = await axios.get(`${server}api/carriers/`)
     return listCarrier.data
 };
 
