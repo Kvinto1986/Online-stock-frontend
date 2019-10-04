@@ -41,8 +41,8 @@ export const TextField = ({
 
     return <>
         <TextValidator
-            {...props}
             type="text"
+            {...props}
             onChange={onChange}
             value={value[name]}
             validators={newValidators}

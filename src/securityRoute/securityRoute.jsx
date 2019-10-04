@@ -13,9 +13,9 @@ import Footer from '../components/footer/footer'
 import Companies from '../components/companiesListPage/companiesList'
 import Carrier from '../components/searchCarrier'
 import Landing from '../components/landingPage/landing'
-import AllCarrier from '../components/allCarrier';
-import TtnForm from '../components/ttnForm';
-import AddCarrier from "../components/carrierForm";
+import AllCarrier from '../components/allCarrier'
+import TtnForm from '../components/ttnForm'
+import AddCarrier from '../components/carrierForm'
 import DeliveryGoodsFromStock from '../components/deliveryFromStock/deliveryFromStockPage'
 
 import Warehousing from '../components/managerWarehousing/warehousing'
@@ -23,6 +23,7 @@ import Employees from '../components/employeesPage'
 import Employee from '../components/employeePage'
 import ControllerPage from '../components/controllerPage/controlTTN'
 import {CheckTtnPage} from '../components/checkTtn/checkTtnPage'
+import EmployeeEditPage from '../components/employeeEditPage'
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
@@ -35,6 +36,7 @@ const SecurityRoute = (props) => {
                     <div>
                         <Header/>
                         <Switch>
+                            <Route exact path="/me" component={EmployeeEditPage}/>
                             {props.auth.user.position.includes('manager') && (
                                 <Fragment>
                                     <Route exact path="/stockDelivery" component={DeliveryGoodsFromStock}/>
