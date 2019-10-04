@@ -24,7 +24,7 @@ const DndStock = props => {
     }
     
     const [state, setState] = useState(initialState)
-
+    
     // *** Functions ***
     
     useEffect(() => {
@@ -43,6 +43,7 @@ const DndStock = props => {
     }
     
     const setCurrentHendleCargoUnit = (name, amount, dimension, size, id) => {
+
         const personalCargoUnitData = {
             name,
             amount,
@@ -71,23 +72,27 @@ const DndStock = props => {
     }
 
     const changeActiveData = (newCargoState, newAreaState) => {
-        const newCargoElementsState = [...state.cargoElements].map(element => {
+
+        let newCargoElementsState = [];
+        [...state.cargoElements].forEach(element => {
             if(element.id === newCargoState.id) {
-                element.amount = newCargoState.amount
+                newCargoElementsState.push({...newCargoState, dimension: element.type})
+            } 
+            else {
+                newCargoElementsState.push({...element, dimension: element.type})
             }
-            return element
-        }) 
-        
+        })
+
         let newWarehouseAreasState = [];
-        [...state.chosenWarehouse.areas].forEach((unit, index) => {
-            if((index + 1) === newAreaState.index) {
-                const { area, type } = newAreaState
-                newWarehouseAreasState.push({area, type})
+        [...state.chosenWarehouse.areas].forEach((unit, i) => {
+            if((i + 1) === newAreaState.index) {
+                const { area, type, index, storedCargo } = newAreaState
+                newWarehouseAreasState.push({area, type, index, storedCargo: [...unit.storedCargo, storedCargo]})
             } else {
                 newWarehouseAreasState.push(unit)
             }
         }) 
-        
+
         setState({
             ...state,
             activeArea: null,
@@ -119,6 +124,7 @@ const DndStock = props => {
             const spinerIndex = ((state.cargoIndex !== null) && (state.cargoIndex === product.id)) 
             ? <CircularProgress size={20}/>
             : null
+            const dimension = (product.type) ? product.type : product.dimension
             
             if(product.amount > 0) {
                 return (
@@ -128,7 +134,7 @@ const DndStock = props => {
                         amount={product.amount} 
                         size={product.size}
                         setCurrentHendleCargoUnit={setCurrentHendleCargoUnit}
-                        dimension={product.type} 
+                        dimension={dimension} 
                         id={product.id}
                         spinerIndex={spinerIndex}
                     />
@@ -136,6 +142,13 @@ const DndStock = props => {
             }
         }
     })
+
+    useEffect(() => {
+        var unWarehousedCargo = state.cargoElements.filter(unit => unit.amount > 0)
+        if (unWarehousedCargo.length === 0) {
+            props.showSaveButton()
+        }
+    }, [state.cargoElements])
     
     const dndDestenationAreas = state.chosenWarehouse && state.chosenWarehouse.areas.map((stockUnit, index) => {
         const isActive = (state.activeArea && (state.activeArea.index === (index + 1))) ? true : false
@@ -146,6 +159,7 @@ const DndStock = props => {
                     index={index + 1}
                     area={stockUnit.area}
                     type={stockUnit.type}
+                    storedCargo = {stockUnit.storedCargo}
                     activeCargoUnit={state.activeDnDCargoUnit}
                     addCargoUnitToRemove={addCargoUnitToRemove}
                     getEachAreaState={props.getEachAreaState}

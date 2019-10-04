@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator"
 import { Container, Box, Typography, Grid, Button } from "@material-ui/core"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
@@ -15,7 +15,7 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
         managerInitials: "",
         operatorName: "",
         deliveryForStorageDate: ""
-    };
+    }
 
     const [formState, setFormState] = useState(initialFormState);
 
@@ -69,7 +69,7 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
                         Transfer goods to store
                     </Typography>
                 </Box>
-                <ValidatorForm>
+                <ValidatorForm onSubmit={() => {}}>
                     <Grid container>
                         <Grid item xs={12}>
                             <Box>
@@ -165,7 +165,7 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
     ttnData: state.TTN,
     errors: state.errors
-});
+})
 
 export default connect(mapStateToProps, {
     findTTNbyNumber

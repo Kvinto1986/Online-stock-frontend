@@ -19,7 +19,8 @@ const DndElement = ({ name, amount, dimension, size, setCurrentHendleCargoUnit, 
     return (
         <div ref={drag} style={{ ...style, opacity }} onDragStart={dragStartHendler}>
             <div>
-                <b>{name}</b> | <small>{amount}{dimension} <b>({size}m)</b></small>
+                <b>{name}</b> | 
+                <small> {amount}{dimension}</small>
             </div>
             {props.spinerIndex}
         </div>

@@ -3,11 +3,12 @@ import { useDrop } from "react-dnd"
 import ItemTypes from "./ItemTypes"
 import { connect } from "react-redux"
 
-const DndDestenationArea = ({ index, area, type, addCargoUnitToRemove, getEachAreaState, isActiveArea, ...props}) => {
+const DndDestenationArea = ({ index, area, storedCargo, type, addCargoUnitToRemove, getEachAreaState, isActiveArea, ...props}) => {
     const initialState = {
         index: "",
         area: "",
-        type: ""
+        type: "",
+        storedCargo: ""
     }
 
     const [state, setState] = useState(initialState)
@@ -21,7 +22,7 @@ const DndDestenationArea = ({ index, area, type, addCargoUnitToRemove, getEachAr
     })
 
     useEffect(() => {
-        setState({index, area, type})
+        setState({index, area, type, storedCargo})
     }, [])
 
     useEffect(() => {
@@ -32,7 +33,6 @@ const DndDestenationArea = ({ index, area, type, addCargoUnitToRemove, getEachAr
 
     const dropOnArea = () => {
         const {activeCargoUnit, initActiveCargoAndArea} = props
-
         initActiveCargoAndArea(activeCargoUnit, state)
     } 
 

@@ -5,6 +5,7 @@ import HTML5Backend from "react-dnd-html5-backend"
 import DndStock from "./warehousingComponents/dndStock"
 import WarehousingSubmitButton from "./warehousingComponents/WarehousingSubmitButton"
 import { useState, useEffect } from "react"
+import { warehousingSubmit } from "../../actions/warehousingActions"     
 import { fetchAvailableStocks } from "../../actions/warehousingActions"
 import { connect } from "react-redux"
 import { warehousingPostData } from "../../actions/warehousingActions"
@@ -45,6 +46,7 @@ const Warehousing = props => {
             allowOutsideClick: false
         })
         .then(() => {
+            props.warehousingSubmit(false)
             window.location.reload()
         })
     }
@@ -57,15 +59,20 @@ const Warehousing = props => {
         setTimeout(() => {
             if(wareHousingState.areasData.length > 0) {
                 if(wareHousingState.areasData.length === props.warehousingActiveStock.areas.length) {
-                    const data = {
-                        stockData: props.warehousingActiveStock,
-                        wareHousingData: wareHousingState,
-                    }
-                    props.warehousingPostData(data, successWirehousingAletrt)
+                    finishWarehousing()
                 }
             }
         }, 0)
     }, [wareHousingState.areasData])
+    
+    const finishWarehousing = () => {
+        const data = {
+            stockData: props.warehousingActiveStock,
+            wareHousingData: wareHousingState,
+        }
+
+        props.warehousingPostData(data, successWirehousingAletrt)
+    }
 
     const dndIsShown = value => {
         setState({
@@ -77,6 +84,7 @@ const Warehousing = props => {
     const getEachAreaState = value => {
         associativeAreaState.push(value)
         
+
         setWareHousingState({
             ...wareHousingState,
             areasData: associativeAreaState
@@ -89,6 +97,10 @@ const Warehousing = props => {
             formData: data
         })
     }
+
+    const showSaveButton = () => {
+        setState({...state, isSubmitButtonShowen: true})
+    }
         
     return (
         <React.Fragment>
@@ -98,10 +110,14 @@ const Warehousing = props => {
                     <DndStock 
                         warehouses={props.warehouses} 
                         getEachAreaState={getEachAreaState} 
+                        showSaveButton={showSaveButton} 
                     />
                 }
             </DndProvider>
-            <WarehousingSubmitButton />
+            <WarehousingSubmitButton 
+                isShowen={state.isSubmitButtonShowen}
+                finishWarehousing={finishWarehousing} 
+            />
         </React.Fragment>
     )
 }
@@ -115,5 +131,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
     fetchAvailableStocks,
-    warehousingPostData
+    warehousingPostData,
+    warehousingSubmit
 })(Warehousing)

@@ -3,7 +3,7 @@ import { Typography, Box, Button } from "@material-ui/core"
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator"
 
 const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
-
+    
     const initialDetailsFormState = {
         productQuantity: "",
         productArea: ""
@@ -14,20 +14,20 @@ const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
     useEffect(() => {
         if(cargoDetails !== null) {
             ValidatorForm.addValidationRule(
-                'isValidCargoAmount', (value) => (value > cargoDetails.amount) ? false : true
+                "isValidCargoAmount", (value) => (value > cargoDetails.amount) ? false : true
             )
             ValidatorForm.addValidationRule(
-                'isValidWarehouseArea', (value) => (value > areaData.area) ? false : true
+                "isValidWarehouseArea", (value) => (value > areaData.area) ? false : true
             )
         }
     }, [cargoDetails])
 
     useEffect(() => {
         return () => {
-            ValidatorForm.removeValidationRule('isValidCargoAmount')
-            ValidatorForm.removeValidationRule('isValidWarehouseArea')
+            ValidatorForm.removeValidationRule("isValidCargoAmount")
+            ValidatorForm.removeValidationRule("isValidWarehouseArea")
         }
-    }, []);
+    }, [])
 
     const handleChange = event => {
         setFormState({...formState, [event.target.name]: event.target.value})
@@ -39,14 +39,22 @@ const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
 
         const newCargoState = {
             ...cargoDetails,
-            amount: cargoDetails.amount - productQuantity 
+            amount: cargoDetails.amount - productQuantity
         } 
+
+        const newStoredCargo = {
+            name: newCargoState.name,
+            amount: productQuantity,
+            dimension: newCargoState.dimension,
+            size: productArea
+        }
 
         const newAreaState = {
             ...areaData,
-            area: areaData.area - productArea
+            area: areaData.area - productArea,
+            storedCargo: newStoredCargo
         }
-        
+
         changeActiveData(newCargoState, newAreaState)
         setFormState(initialDetailsFormState)
     }
