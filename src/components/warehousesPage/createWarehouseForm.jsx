@@ -158,7 +158,7 @@ const WarehouseForm = (props) => {
                                     label="Warehouse name"
                                     name="name"
                                     disabled={addArea}
-                                    value={values.name}
+                                    value={values}
                                     onChange={handleInputChange}
                                     validators={['required', 'minStringLength:2', 'maxStringLength:30']}
                                     errorMessages={['this field is required', 'the value must be at least 2 characters', 'the value must be no more than 30 characters']}
