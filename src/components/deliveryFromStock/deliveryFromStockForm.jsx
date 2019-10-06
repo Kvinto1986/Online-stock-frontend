@@ -104,6 +104,9 @@ const DeliveryFromStockForm = ({
         }
     }
 
+    console.log(carrierList);
+    
+
     return (
         <>
             {alertMessage && (
@@ -185,9 +188,9 @@ const DeliveryFromStockForm = ({
                                                     .map(sender => (
                                                         <MenuItem 
                                                             key={sender.id} 
-                                                            value={sender.value}
+                                                            value={sender.name}
                                                             >
-                                                                {sender.value}
+                                                                {sender.name}
                                                         </MenuItem>
                                                     ))
                                                 ) 
@@ -224,8 +227,8 @@ const DeliveryFromStockForm = ({
                                                     .map(carier => (
                                                         <MenuItem 
                                                             key={carier.id} 
-                                                            value={carier.value}>
-                                                                {carier.value}
+                                                            value={carier.name}>
+                                                                {carier.name}
                                                         </MenuItem>
                                                     ))
                                                 ) 
