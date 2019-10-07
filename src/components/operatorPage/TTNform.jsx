@@ -53,19 +53,14 @@ export default ({onSubmit, error,  authUser,currentCarrier,currentDriver}) => {
 
     const handleAddProduct = (e) => {
         e.preventDefault()
+        console.log(product)
         setCargo([...cargo,product])
-        setProduct()
     }
 
-
     const handleDeleteProduct = (index) => {
-
         const array = [...cargo];
-
         array.splice(index, 1);
-
         setCargo([...array]);
-
     };
 
 
