@@ -5,20 +5,19 @@ import Typography from '@material-ui/core/Typography'
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
 import Grid from '@material-ui/core/Grid'
 import useStyles from './operatorPageStyles'
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button'
 import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import MenuItem from '@material-ui/core/MenuItem'
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from '@material-ui/icons/Edit'
 
 import InputText from '../fields/textField'
 import CargoTable from './cargoTable'
 
-export default ({onSubmit, error,  authUser,currentCarrier,currentDriver}) => {
+export default ({onSubmit, error, authUser, currentCarrier, currentDriver}) => {
 
     const [TTN, setTTN] = useState({
-        products: [],
         number: '',
         carrier: {
             unp: currentCarrier.unp,
@@ -33,9 +32,9 @@ export default ({onSubmit, error,  authUser,currentCarrier,currentDriver}) => {
             name: `${authUser.firstName} ${authUser.patronymic} ${authUser.lastName}`,
             id: authUser.id
         },
-        carNumber:'',
-        warehouseCompany:authUser.company,
-        owner:'',
+        carNumber: '',
+        warehouseCompany: authUser.company,
+        owner: '',
     })
 
     const [product, setProduct] = useState({
@@ -53,21 +52,23 @@ export default ({onSubmit, error,  authUser,currentCarrier,currentDriver}) => {
 
     const handleAddProduct = (e) => {
         e.preventDefault()
-        console.log(product)
-        setCargo([...cargo,product])
+
+        setCargo([...cargo, product])
     }
 
     const handleDeleteProduct = (index) => {
-        const array = [...cargo];
-        array.splice(index, 1);
-        setCargo([...array]);
-    };
+        const array = [...cargo]
+        array.splice(index, 1)
+        setCargo([...array])
+    }
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        onSubmit(TTN)
-    };
+        const data = {...TTN}
+        data.products = cargo
+        onSubmit(data)
+    }
 
     const classes = useStyles()
 
@@ -78,14 +79,14 @@ export default ({onSubmit, error,  authUser,currentCarrier,currentDriver}) => {
                 <div className={classes.paperTTN}>
                     <ValidatorForm className={classes.TTNform} onSubmit={handleSubmit}>
                         <Grid container>
-                            <Grid item xl={4} >
+                            <Grid item xl={4}>
                             </Grid>
-                            <Grid item xl={1} >
-                            <Typography component="h1" variant="h5" className={classes.TTNhead}>
-                               TTN №
-                            </Typography>
+                            <Grid item xl={1}>
+                                <Typography component="h1" variant="h5" className={classes.TTNhead}>
+                                    TTN №
+                                </Typography>
                             </Grid>
-                            <Grid item xl={2} >
+                            <Grid item xl={2}>
                                 <InputText
                                     min={10}
                                     max={15}
@@ -100,11 +101,11 @@ export default ({onSubmit, error,  authUser,currentCarrier,currentDriver}) => {
                                     helperClass={classes.error}
                                 />
                             </Grid>
-                            <Grid item xl={4} >
+                            <Grid item xl={4}>
                             </Grid>
                         </Grid>
-                            <Grid container>
-                                <Grid item xl={1} className={classes.gridItem}>
+                        <Grid container>
+                            <Grid item xl={1} className={classes.gridItem}>
                                 <Typography component="h1" variant="h6" className={classes.TTNhead}>
                                     Cargo owner:
                                 </Typography>
@@ -124,20 +125,20 @@ export default ({onSubmit, error,  authUser,currentCarrier,currentDriver}) => {
                                     helperClass={classes.error}
                                 />
                             </Grid>
-                            </Grid>
+                        </Grid>
                         <Grid container className={classes.formContainer}>
-                                <Grid item xl={1} className={classes.gridItem}>
-                                    <Typography component="h1" variant="h6" className={classes.TTNhead}>
-                                        Carrier info:
-                                    </Typography>
-                                </Grid>
-                                <Grid item xl={10}>
-                                    <TextValidator
-                                        fullWidth
-                                        disabled={true}
-                                        label={`UNP №  ${TTN.carrier.unp}, phone number:  ${TTN.carrier.tel}, company name: ${TTN.carrier.company}`}
-                                    />
-                                </Grid>
+                            <Grid item xl={1} className={classes.gridItem}>
+                                <Typography component="h1" variant="h6" className={classes.TTNhead}>
+                                    Carrier info:
+                                </Typography>
+                            </Grid>
+                            <Grid item xl={10}>
+                                <TextValidator
+                                    fullWidth
+                                    disabled={true}
+                                    label={`UNP №  ${TTN.carrier.unp}, phone number:  ${TTN.carrier.tel}, company name: ${TTN.carrier.company}`}
+                                />
+                            </Grid>
                         </Grid>
 
                         <Grid container>
@@ -187,8 +188,8 @@ export default ({onSubmit, error,  authUser,currentCarrier,currentDriver}) => {
                             </Grid>
                         </Grid>
                         <Grid container>
-                            <Grid item xl={12} style={{marginTop:'3%',marginBottom:'1%'}}>
-                                <Typography component="h1" variant="h5" style={{textAlign:'center'}}>
+                            <Grid item xl={12} style={{marginTop: '3%', marginBottom: '1%'}}>
+                                <Typography component="h1" variant="h5" style={{textAlign: 'center'}}>
                                     Add product to cargo:
                                 </Typography>
                             </Grid>
@@ -235,10 +236,10 @@ export default ({onSubmit, error,  authUser,currentCarrier,currentDriver}) => {
                                 />
                             </Grid>
                             <Grid item xl={1} className={classes.gridItem}>
-                            <Typography component="h1" variant="h6" className={classes.TTNhead}>
-                                Boxing:
-                            </Typography>
-                        </Grid>
+                                <Typography component="h1" variant="h6" className={classes.TTNhead}>
+                                    Boxing:
+                                </Typography>
+                            </Grid>
                             <Grid item xl={1}>
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <InputLabel htmlFor="outlined-age-simple">
@@ -259,31 +260,32 @@ export default ({onSubmit, error,  authUser,currentCarrier,currentDriver}) => {
                                 </FormControl>
                             </Grid>
                             <Grid item xl={2} className={classes.gridItem}>
-                                <Button variant="contained" color="primary" style={{marginTop:'5%',}} type="button" onClick={handleAddProduct}>
+                                <Button variant="contained" color="primary" style={{marginTop: '5%',}} type="button"
+                                        onClick={handleAddProduct}>
                                     Add to current cargo list
                                 </Button>
                             </Grid>
                         </Grid>
                         <Grid container>
-                            <Grid item xl={12} style={{marginTop:'3%',marginBottom:'2%'}}>
-                            <Typography component="h1" variant="h5" style={{textAlign:'center'}}>
-                                Cargo table:
-                            </Typography>
+                            <Grid item xl={12} style={{marginTop: '3%', marginBottom: '2%'}}>
+                                <Typography component="h1" variant="h5" style={{textAlign: 'center'}}>
+                                    Cargo table:
+                                </Typography>
                             </Grid>
                         </Grid>
                         <Grid container>
                             <Grid item xl={1}>
                             </Grid>
                             <Grid item xl={10}>
-                        <CargoTable
-                            cargoList={cargo}
-                            handleDeleteProduct={handleDeleteProduct}
-                        />
+                                <CargoTable
+                                    cargoList={cargo}
+                                    handleDeleteProduct={handleDeleteProduct}
+                                />
                             </Grid>
                         </Grid>
-                        {cargo.length>0&&(<Grid container>
+                        {cargo.length > 0 && (<Grid container>
                             <Grid item xl={12} className={classes.gridItem}>
-                                <Button variant="contained" color="primary" type='submit' style={{marginTop:'5%',}}>
+                                <Button variant="contained" color="primary" type='submit' style={{marginTop: '5%',}}>
                                     Submit
                                 </Button>
                             </Grid>
