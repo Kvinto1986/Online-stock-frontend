@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Select from 'react-select';
 import useStyles from './companiesListStyles'
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
@@ -10,26 +9,30 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import Moment from 'react-moment';
 
 import 'sweetalert2/src/sweetalert2.scss'
 import {getCompaniesList, getCompany, changeStatus} from '../../actions/companyAdminAction';
+import Box from '@material-ui/core/Box'
 
 const Companies = (props) => {
     const classes = useStyles();
 
-    useEffect(() => {
-        props.getCompaniesList()
-    }, []);
-
-
     const [companyName, setCompanyName] = useState(false);
 
     const handleChangeCompanyName = (e) => {
-        props.getCompany({company: e.value});
-        setCompanyName(e.value)
+        setCompanyName(e.target.value)
+    };
+
+    const handleSubmit = () => {
+        props.getCompany(companyName);
     };
 
     const handleChangeStatus = () => {
@@ -44,9 +47,7 @@ const Companies = (props) => {
             allowOutsideClick: false
         }).then((result) => {
             if (result.value) {
-                changeStatus({
-                    id: props.currentCompany._id,
-                }, props.getCompaniesList);
+                changeStatus(props.currentCompany.id,{active:!props.currentCompany.active});
                 Swal.fire({
                     type: 'success',
                     title: 'Congratulations!',
@@ -68,11 +69,25 @@ const Companies = (props) => {
                 <Typography variant="h5" align="center" color="textSecondary" component="p" className={classes.main}>
                     Find company by email or name
                 </Typography>
-                <Select
-                    onChange={handleChangeCompanyName}
-                    options={props.companiesList}
-                />
-                {companyName ? (<Card className={classes.card}>
+                <Paper className={classes.rootPaper}>
+                    <InputBase
+                        className={classes.input}
+                        placeholder="Find company by email or name"
+                        inputProps={{ 'aria-label': 'search google maps' }}
+                        onChange={handleChangeCompanyName}
+                    />
+                    <Divider className={classes.divider} orientation="vertical" />
+                    <Button onClick={handleSubmit}>
+                        <IconButton className={classes.iconButton} aria-label="search">
+                            <SearchIcon/>
+                        </IconButton>
+                    </Button>
+
+                </Paper>
+                <Box mt={1}>
+                <span style={{color: 'red'}}>{props.errors.user}</span>
+                </Box>
+                {props.currentCompany.id ? (<Card className={classes.card}>
                     <CardContent>
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
                             Company name: <span className={classes.bullet}>{props.currentCompany.company}</span>

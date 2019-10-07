@@ -32,4 +32,7 @@ export const SENDER = 'SENDER'
 // Transporters 
 export const CARRIER = 'CARRIER'
 export const CARRIERS = 'CARRIERS'
+//DRIVERS
+export const DRIVER = 'DRIVER'
+export const DRIVERS = 'DRIVERS'
 

@@ -103,8 +103,6 @@ const WarehouseForm = (props) => {
 
     const handleDeleteArea = (index, area) => {
 
-        console.log(index)
-        console.log( area)
         const array = [...list];
 
         array.splice(index, 1);
@@ -128,7 +126,8 @@ const WarehouseForm = (props) => {
             name: values.name,
             license: values.license,
             totalArea: originalArea,
-            areas: list
+            areas: list,
+            company:props.auth.user.company
         };
 
         props.registerWarehouse(warehouse,reset,unlock);
@@ -157,7 +156,7 @@ const WarehouseForm = (props) => {
                                     label="Warehouse name"
                                     name="name"
                                     disabled={addArea}
-                                    value={values.name}
+                                    value={values}
                                     onChange={handleInputChange}
                                     validators={['required', 'minStringLength:2', 'maxStringLength:30']}
                                     errorMessages={['this field is required', 'the value must be at least 2 characters', 'the value must be no more than 30 characters']}

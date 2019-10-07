@@ -1,8 +1,11 @@
+
+export const authUserFilter = store => store.auth.user
 export const senders = store => store.senders
 export const carriers = store => store.carriers
+export const carriersFilter = store => store.carriers
+export const driversFilter = store => store.drivers
 export const ttns = store => store.ttnData
 export const employeesFilter = store => store.employees
-export const ttnsFilter = store => store.TTNS
+export const ttnsFilter = store => store.ttns
 export const ttnFilter = store => store.TTN
-export const authUser = ({auth}) => auth.user
 export const company = ({auth}) => auth.user.company

@@ -1,3 +1,3 @@
-import AddCarrier from "./addCarrier";
+import AddCarrier from "../operatorPage/carrierForm";
 
 export default AddCarrier;
