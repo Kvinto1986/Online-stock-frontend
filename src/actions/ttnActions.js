@@ -2,8 +2,8 @@ import axios from 'axios';
 import server from "../serverConfig";
 import {TTN, SET_ERRORS} from './types';
 
-export const findTTNbyNumber = (number, dndIsShown, calculateAreaFlag) => dispatch => {
-    axios.post(`${server}api/ttn/findTTNbyNumber`, {...number, calculateAreaFlag})
+export const findTTNbyNumber = (number, dndIsShown) => dispatch => {
+    axios.get(`${server}api/ttns/${number}`)
     .then(result => {
         if (result) {
             dispatch({
