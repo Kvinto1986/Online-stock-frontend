@@ -8,10 +8,11 @@ import DriverForm from './driverForm'
 import TTNForm from './TTNform'
 import Search from './search'
 import ExpansionPanel from './expansionPanel'
+import SuccessPage from './successPage'
 
 
 export default ({
-                    activeStep, searchCarrier, searchCarrierError, createCarrier, createCarrierError,
+                    activeStep, setActiveStep,searchCarrier, searchCarrierError, createCarrier, createCarrierError,
                     searchDriver, searchDriverError, createDriver, createDriverError, createTtn, createTtnError,
                     currentCarrier,currentDriver,authUser
                 }) => {
@@ -72,7 +73,9 @@ export default ({
                     authUser={authUser}
                 />
             default:
-                return 'Uknown step'
+                return <SuccessPage
+                    setActiveStep={setActiveStep}
+                />
         }
     }
 

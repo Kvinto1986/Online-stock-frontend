@@ -23,6 +23,7 @@ export default () => {
 
     return <StepperPage
         activeStep={activeStep}
+        setActiveStep={setActiveStep}
         searchCarrier={getCarrier}
         searchCarrierError={getCarrierError}
         createCarrier={addCarrier}

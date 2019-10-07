@@ -117,6 +117,15 @@ const useStyles = makeStyles(theme => ({
             paddingTop: '6%',
             marginLeft: '13%'
         }
+        ,
+        SuccessPaper:{
+            display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'wrap',
+            alignContent: 'center',
+            verticalAlign: 'center',
+            marginTop:'15%'
+        }
     }
 ))
 
