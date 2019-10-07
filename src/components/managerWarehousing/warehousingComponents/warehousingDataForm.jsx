@@ -59,7 +59,7 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
         props.findTTNbyNumber(formState.ttnNumber, dndIsShown)
     }
     
-    const {ttnNumber, ttnDate, managerInitials, operatorName, ttnIsExists} = formState  
+    const {ttnNumber, ttnDate, managerInitials, operatorName, ttnIsExists} = formState
     
     return (
         <Container component="main" maxWidth="xs">

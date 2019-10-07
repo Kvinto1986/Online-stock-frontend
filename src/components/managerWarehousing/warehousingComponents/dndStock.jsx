@@ -5,7 +5,7 @@ import { Box, Typography, InputLabel, Select, MenuItem, Input, Container, Circul
 import { connect } from "react-redux"
 import arow from "../../../resources/images/play-button.png"
 import { setActiveWarehousingStockData } from "../../../actions/warehousingActions"
-import WarehousingDetails from "./warehousingDetails/warehousingDetails"
+import WarehousingDetailsForm from "./warehousingDetails/warehousingDetailsForm"
 
 const DndStock = props => {
 
@@ -42,14 +42,14 @@ const DndStock = props => {
         })
     }
     
-    const setCurrentHendleCargoUnit = (name, amount, dimension, size, id) => {
-
+    const setCurrentHendleCargoUnit = (name, amount, dimension, size, id, ttnId) => {
         const personalCargoUnitData = {
             name,
             amount,
             dimension,
             size,
-            id
+            id,
+            ttnId
         }
         
         setState({...state, activeDnDCargoUnit: personalCargoUnitData})
@@ -72,7 +72,7 @@ const DndStock = props => {
     }
 
     const changeActiveData = (newCargoState, newAreaState) => {
-
+        
         let newCargoElementsState = [];
         [...state.cargoElements].forEach(element => {
             if(element.id === newCargoState.id) {
@@ -86,8 +86,8 @@ const DndStock = props => {
         let newWarehouseAreasState = [];
         [...state.chosenWarehouse.areas].forEach((unit, i) => {
             if((i + 1) === newAreaState.index) {
-                const { area, type, index, storedCargo } = newAreaState
-                newWarehouseAreasState.push({area, type, index, storedCargo: [...unit.storedCargo, storedCargo]})
+                const { area, type, index, storedCargo, id, ttnId } = newAreaState
+                newWarehouseAreasState.push({area, type, index, id, ttnId, storedCargo: [...unit.storedCargo, storedCargo]})
             } else {
                 newWarehouseAreasState.push(unit)
             }
@@ -136,6 +136,7 @@ const DndStock = props => {
                         setCurrentHendleCargoUnit={setCurrentHendleCargoUnit}
                         dimension={dimension} 
                         id={product.id}
+                        ttnId={props.ttnData.id}
                         spinerIndex={spinerIndex}
                     />
                 )
@@ -212,7 +213,7 @@ const DndStock = props => {
                     </Box>
                 </div>
                 <div style={{width: "100%"}}>
-                    <WarehousingDetails 
+                    <WarehousingDetailsForm 
                         cargoDetails={state.cargoDetails} 
                         areaData={state.activeArea} 
                         changeActiveData={changeActiveData}
@@ -227,6 +228,7 @@ const mapStateToProps = (state) => ({
     errors: state.errors,
     ttnProductsData: state.TTN.products,
     warehousingActiveStock: state.warehousingActiveStock,
+    ttnData: state.TTN,
 })
 export default connect(mapStateToProps, {
     setActiveWarehousingStockData
