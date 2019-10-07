@@ -1,47 +1,47 @@
-import React, {useState} from 'react';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Slider from '@material-ui/core/Slider';
-import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-import AreaCard from './warehouseCard'
-import {registerWarehouse} from '../../actions/warehouseAction';
+import React, {useState} from "react";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Grid from "@material-ui/core/Grid";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Slider from "@material-ui/core/Slider";
+import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
+import AreaCard from "./warehouseCard"
+import {registerWarehouse} from "../../actions/warehouseAction";
 
-import Swal from 'sweetalert2/dist/sweetalert2.js'
+import Swal from "sweetalert2/dist/sweetalert2.js"
 
-import 'sweetalert2/src/sweetalert2.scss'
+import "sweetalert2/src/sweetalert2.scss"
 
-import useStyles from './warehousePageStyles'
-import warehouseImage from '../../resources/images/warehouse-icon-png-8.jpg'
+import useStyles from "./warehousePageStyles"
+import warehouseImage from "../../resources/images/warehouse-icon-png-8.jpg"
 import {connect} from "react-redux";
 
 const WarehouseForm = (props) => {
     const classes = useStyles();
 
     const [values, setValues] = useState({
-        name: '',
-        license: '',
+        name: "",
+        license: "",
         type: false,
-        totalArea: '',
+        totalArea: "",
     });
 
     const reset = () => {
 
         setValues({
-            ...values, role: 'companyAdmin',
-            name: '',
-            license: '',
+            ...values, role: "companyAdmin",
+            name: "",
+            license: "",
             type: false,
-            totalArea: ''
+            totalArea: ""
         });
 
         setTotalArea(10);
@@ -51,9 +51,9 @@ const WarehouseForm = (props) => {
         setCurrentArea(10);
 
         Swal.fire({
-            type: 'success',
-            title: 'Congratulations!',
-            text: 'Warehouse successfully created !',
+            type: "success",
+            title: "Congratulations!",
+            text: "Warehouse successfully created !",
             allowOutsideClick: false
         }).then(()=>{
             window.location.reload()
@@ -103,6 +103,8 @@ const WarehouseForm = (props) => {
 
     const handleDeleteArea = (index, area) => {
 
+        console.log(index)
+        console.log( area)
         const array = [...list];
 
         array.splice(index, 1);
@@ -127,12 +129,10 @@ const WarehouseForm = (props) => {
             license: values.license,
             totalArea: originalArea,
             areas: list,
-            company:props.auth.user.company
+            storedCargo: []
         };
 
         props.registerWarehouse(warehouse,reset,unlock);
-
-
     };
 
     const handleChange = (event, newValue) => {
@@ -156,10 +156,10 @@ const WarehouseForm = (props) => {
                                     label="Warehouse name"
                                     name="name"
                                     disabled={addArea}
-                                    value={values}
+                                    value={values.name}
                                     onChange={handleInputChange}
-                                    validators={['required', 'minStringLength:2', 'maxStringLength:30']}
-                                    errorMessages={['this field is required', 'the value must be at least 2 characters', 'the value must be no more than 30 characters']}
+                                    validators={["required", "minStringLength:2", "maxStringLength:30"]}
+                                    errorMessages={["this field is required", "the value must be at least 2 characters", "the value must be no more than 30 characters"]}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -168,15 +168,15 @@ const WarehouseForm = (props) => {
                                     fullWidth
                                     label="Warehouse license number"
                                     name="license"
-                                    type='number'
+                                    type="number"
                                     disabled={addArea}
                                     value={values.license}
                                     onChange={handleInputChange}
-                                    validators={['required', 'minStringLength:15', 'maxStringLength:15']}
-                                    errorMessages={['this field is required', 'the value must be 15 characters', 'the value must be 15 characters']}
+                                    validators={["required", "minStringLength:15", "maxStringLength:15"]}
+                                    errorMessages={["this field is required", "the value must be 15 characters", "the value must be 15 characters"]}
                                 />
                             </Grid>
-                            <span style={{color: 'red'}}>{props.errors.license}</span>
+                            <span style={{color: "red"}}>{props.errors.license}</span>
                             <Grid item xs={12}>
                                 <Typography gutterBottom>
                                     Warehouse total area (m<sup>2</sup>)
@@ -194,7 +194,7 @@ const WarehouseForm = (props) => {
                                     max={1000}
                                     disabled={addArea}
                                 />
-                                <span style={{color: 'red'}}>{props.errors.area}</span>
+                                <span style={{color: "red"}}>{props.errors.area}</span>
                             </Grid>
                             <Button
                                 type="submit"
@@ -225,13 +225,13 @@ const WarehouseForm = (props) => {
                                                 value={values.type}
                                                 onChange={handleInputChange}
                                                 inputProps={{
-                                                    name: 'type',
+                                                    name: "type",
                                                 }}
                                             >
-                                                <MenuItem value='heated'>Heated</MenuItem>
-                                                <MenuItem value='unheated'>Unheated</MenuItem>
-                                                <MenuItem value='cooling'>Cooling chamber</MenuItem>
-                                                <MenuItem value='outdoor'>Outdoor</MenuItem>
+                                                <MenuItem value="heated">Heated</MenuItem>
+                                                <MenuItem value="unheated">Unheated</MenuItem>
+                                                <MenuItem value="cooling">Cooling chamber</MenuItem>
+                                                <MenuItem value="outdoor">Outdoor</MenuItem>
                                             </Select>
                                         </FormControl>
                                     </Grid>

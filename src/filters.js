@@ -1,5 +1,6 @@
 
 export const authUserFilter = store => store.auth.user
+export const authUser = store => store.auth.user
 export const senders = store => store.senders
 export const carriers = store => store.carriers
 export const carriersFilter = store => store.carriers
