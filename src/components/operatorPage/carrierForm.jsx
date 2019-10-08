@@ -14,7 +14,7 @@ import 'react-phone-input-2/dist/style.css'
 
 export default (props) => {
     const [carrier, setCarrier] = useState({
-        passport: '',
+        unp: '',
         email: '',
         tel: '',
         country: '',
@@ -62,11 +62,11 @@ export default (props) => {
                                     className='noNumerical'
                                     variant="outlined"
                                     fullWidth
-                                    id="company_passport"
-                                    label="Passport number"
-                                    name="passport"
+                                    id="company_unp"
+                                    label="UNP"
+                                    name="unp"
                                     autoComplete="passport"
-                                    value={carrier.passport}
+                                    value={carrier.unp}
                                     validators={['minNumber:0', 'required']}
                                     errorMessages={['Passport number will be positive', 'This field is required']}
                                     onChange={handleInputChange}

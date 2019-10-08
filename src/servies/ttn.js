@@ -5,7 +5,6 @@ import server from "../serverConfig"
 export const addTtn = info => {
 
     const {
-        date,
         TTNNumber,
         carrier,
         sender,
@@ -13,25 +12,25 @@ export const addTtn = info => {
         driver,
         registrar,
         products,
+        company,
         description
     } = info;
 
-    return axios.post(`${server}api/ttn/addTtn`, {
+    return axios.post(`${server}api/ttns/`, {
         number: TTNNumber,
-        date: date,
         carrier: carrier,
         driver: driver,
         registrar: registrar,
         carNumber: carNumber,
         sender: sender,
         products: products,
-        description: description
+        description: description,
+        company:company
     })
 };
 
 export const findTtn = async (number) => {
-    const{ttnNumber} = number
-    const ttn = await axios.get(`${server}api/ttns/${ttnNumber}`)
+    const ttn = await axios.get(`${server}api/ttns/${number}`)
     return ttn.data
 }
 
