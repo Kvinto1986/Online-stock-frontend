@@ -163,7 +163,7 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    ttnData: state.TTN,
+    ttnData: state.ttn,
     errors: state.errors
 })
 

@@ -226,9 +226,9 @@ const DndStock = props => {
 
 const mapStateToProps = (state) => ({
     errors: state.errors,
-    ttnProductsData: state.TTN.products,
+    ttnProductsData: state.ttn.products,
     warehousingActiveStock: state.warehousingActiveStock,
-    ttnData: state.TTN,
+    ttnData: state.ttn,
 })
 export default connect(mapStateToProps, {
     setActiveWarehousingStockData
