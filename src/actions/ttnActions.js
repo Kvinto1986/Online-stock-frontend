@@ -5,6 +5,7 @@ import {TTN, SET_ERRORS} from './types';
 export const findTTNbyNumber = (number, dndIsShown) => dispatch => {
     axios.get(`${server}api/ttns/${number}`)
     .then(result => {
+
         if (result) {
             dispatch({
                 type: TTN,

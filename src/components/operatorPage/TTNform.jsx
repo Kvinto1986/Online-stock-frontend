@@ -10,23 +10,22 @@ import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import MenuItem from '@material-ui/core/MenuItem'
-import EditIcon from '@material-ui/icons/Edit'
 
 import InputText from '../fields/textField'
 import CargoTable from './cargoTable'
 
-export default ({onSubmit, error, authUser, currentCarrier, currentDriver}) => {
+export default ({onSubmit, error, authUser, currentCarrier, currentDriver, carrierId,driverId}) => {
 
     const [TTN, setTTN] = useState({
         number: '',
         carrier: {
-            unp: currentCarrier.unp,
-            tel: currentCarrier.tel,
-            company: currentCarrier.company
+            unp: currentCarrier[carrierId].id,
+            tel: currentCarrier[carrierId].tel,
+            company: currentCarrier[carrierId].company
         },
         driver: {
-            name: `${currentDriver.name} ${currentDriver.surname}`,
-            license: currentDriver.license
+            name: `${currentDriver[driverId].name} ${currentDriver[driverId].surname}`,
+            license: currentDriver[driverId].id
         },
         registrar: {
             name: `${authUser.firstName} ${authUser.patronymic} ${authUser.lastName}`,
