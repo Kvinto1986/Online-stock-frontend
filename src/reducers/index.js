@@ -10,6 +10,7 @@ import warehousingFlagRegucer from './warehousingFlagRegucer'
 import warehousingActiveStockReducer from './warehousingActiveStockReducer'
 import ttnReducer from './ttnReduser'
 import {normalize} from '../utils/utils'
+
 import {EMPLOYEE, EMPLOYEES,CARRIER,CARRIERS,DRIVER,DRIVERS,TTN,TTNS} from '../actions/types'
 
 
@@ -30,33 +31,17 @@ function createNormalReducer(singular, plural) {
     }
 }
 
-function createBestReducer(singular, plural) {
-    return (store = {}, {type, data}) => {
-        switch (type) {
-            case plural:
-                return data.reduce(normalize, {})
-            case singular:
-                return {...store, data}
-            case `DELETE_${singular}`:
-                const newStore = {...store}
-                delete newStore[data.data.id]
-                return newStore
-            default:
-                return store
-        }
-    }
-}
-
 const employees = createNormalReducer(EMPLOYEE, EMPLOYEES)
-const carriers = createBestReducer(CARRIER,CARRIERS)
-const drivers = createBestReducer(DRIVER,DRIVERS)
-//const ttns = createNormalReducer(TTN,TTNS)
 
+const carriers = createNormalReducer(CARRIER,CARRIERS)
+const drivers = createNormalReducer(DRIVER,DRIVERS)
+const ttns = createNormalReducer(TTN,TTNS)
 
 export default combineReducers({
     employees,
     carriers,
     drivers,
+    ttns,
     ttn:ttnReducer,
     errors: errorReducer,
     auth: authReducer,

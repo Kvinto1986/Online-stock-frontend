@@ -9,7 +9,7 @@ import useStyles from './operatorPageStyles'
 import InputText from '../fields/textField'
 
 
-export default ({onSubmit, error}) => {
+export default ({onSubmit, error, setValue}) => {
 
     const [driver, setDriver] = useState({
         license: '',
@@ -19,6 +19,7 @@ export default ({onSubmit, error}) => {
 
     const handleInputChange = (e) => {
         setDriver({...driver, [e.target.name]: e.target.value})
+        setValue(e.target.value)
     }
 
     const handleSubmit = (e) => {
@@ -52,6 +53,7 @@ export default ({onSubmit, error}) => {
                                     value={driver}
                                     handleChange={setDriver}
                                     helperClass={classes.error}
+                                    onChange={handleInputChange}
                                 />
                             </Grid>
                         </Grid>
@@ -60,7 +62,7 @@ export default ({onSubmit, error}) => {
                                 <InputText
                                     min={2}
                                     max={30}
-                                    pattern = {/^[a-zA-Z]*$/}
+                                    pattern={/^[a-zA-Z]*$/}
                                     variant="outlined"
                                     fullWidth
                                     required
@@ -77,7 +79,7 @@ export default ({onSubmit, error}) => {
                                 <InputText
                                     min={2}
                                     max={30}
-                                    pattern = {/^[a-zA-Z]*$/}
+                                    pattern={/^[a-zA-Z]*$/}
                                     variant="outlined"
                                     fullWidth
                                     required

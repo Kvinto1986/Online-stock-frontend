@@ -20,7 +20,7 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
     const [formState, setFormState] = useState(initialFormState);
 
     useEffect(() => {
-        if(Object.keys(props.ttnData).length > 0) {
+        if(props.ttnData&&Object.keys(props.ttnData).length > 0) {
             const ttnData = props.ttnData
             const { firstName, lastName, patronymic } = props.auth.user
             const managerInitials = `${firstName} ${lastName} ${patronymic}`

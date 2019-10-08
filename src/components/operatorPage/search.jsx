@@ -7,10 +7,8 @@ import SearchIcon from '@material-ui/icons/Search'
 import useStyles from './operatorPageStyles'
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
 
-export default ({search, searchText, error}) => {
+export default ({search, searchText, error,value,setValue}) => {
     const classes = useStyles()
-
-    const [value, setValue] = useState('')
 
     return (
         <Container component="main" className={classes.main} maxWidth="sm">

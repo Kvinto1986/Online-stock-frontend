@@ -16,7 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import InputText from '../fields/textField'
 
 
-export default ({onSubmit, error}) => {
+export default ({onSubmit, error, setValue}) => {
 
     const [carrier, setCarrier] = useState({
         unp: '',
@@ -30,9 +30,14 @@ export default ({onSubmit, error}) => {
         setCarrier({...carrier, [e.target.name]: e.target.value})
     }
 
+    const handleIdChange = (e) => {
+        setValue( e.target.value)
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         onSubmit(carrier)
+
     }
 
     const classes = useStyles()
@@ -61,6 +66,7 @@ export default ({onSubmit, error}) => {
                                     value={carrier}
                                     handleChange={setCarrier}
                                     helperClass={classes.error}
+                                    onChange={handleIdChange}
                                 />
                             </Grid>
                         </Grid>

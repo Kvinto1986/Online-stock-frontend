@@ -12,16 +12,20 @@ import SuccessPage from './successPage'
 
 
 export default ({
-                    activeStep, setActiveStep,searchCarrier, searchCarrierError, createCarrier, createCarrierError,
+                    activeStep, setActiveStep, searchCarrier, searchCarrierError, createCarrier, createCarrierError,
                     searchDriver, searchDriverError, createDriver, createDriverError, createTtn, createTtnError,
-                    currentCarrier,currentDriver,authUser
+                    currentCarrier, currentDriver, authUser, carrierId, setCarrierId, driverId, setDriverId
                 }) => {
 
     const classes = useStyles()
     const steps = getSteps()
 
+    console.log(carrierId)
+    console.log(driverId)
+
     const [carrierFormVisibility, setCarrierFormVisibility] = useState(false)
     const [driverFormVisibility, setDriverFormVisibility] = useState(false)
+
 
     function getSteps() {
         return ['Carrier check', 'Driver check', 'Create TTN']
@@ -35,6 +39,8 @@ export default ({
                         search={searchCarrier}
                         searchText='Search carrier by UNP'
                         error={searchCarrierError.carrier}
+                        value={carrierId}
+                        setValue={setCarrierId}
                     />
                     {searchCarrierError.carrier && (
                         <ExpansionPanel
@@ -43,6 +49,7 @@ export default ({
                             Form={CarrierForm}
                             onSubmit={createCarrier}
                             error={createCarrierError}
+                            setValue={setCarrierId}
                         />
                     )}
                 </Fragment>
@@ -52,6 +59,8 @@ export default ({
                         search={searchDriver}
                         searchText='Search driver by driver license'
                         error={searchDriverError.driver}
+                        value={driverId}
+                        setValue={setDriverId}
                     />
                     {searchDriverError.driver && (
                         <ExpansionPanel
@@ -60,6 +69,7 @@ export default ({
                             Form={DriverForm}
                             onSubmit={createDriver}
                             error={createDriverError}
+                            setValue={setDriverId}
                         />
                     )}
                 </Fragment>
@@ -71,6 +81,8 @@ export default ({
                     onSubmit={createTtn}
                     error={createTtnError}
                     authUser={authUser}
+                    carrierId={carrierId}
+                    driverId={driverId}
                 />
             default:
                 return <SuccessPage
@@ -89,7 +101,7 @@ export default ({
                     </Step>
                 ))}
             </Stepper>
-                {getStepContent(activeStep)}
+            {getStepContent(activeStep)}
         </div>
     )
 }
