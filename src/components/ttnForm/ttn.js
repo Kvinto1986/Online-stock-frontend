@@ -44,16 +44,20 @@ const TtnForm = (props) => {
         carNumber: '',
         description: '',
         products: [],
+        sender: '',
+        carrier: '',
+        company:props.user.company
+
     });
     const[options, setOptions] = useState({
         sender: [],
         carrier: [],
         data: Math.random()
     })
-    const[selectItems, setSelectItems] = useState({
-        sender: '',
-        carrier: '',
-    });
+    //const[selectItems, setSelectItems] = useState({
+     //   sender: '',
+    //    carrier: '',
+   // });
 
     const [values, setValues] = useState({
         type: 'KG',
@@ -79,12 +83,14 @@ const TtnForm = (props) => {
         })();
 
     }, []);
-    const handleChangeSelect = name => event => {
-        setSelectItems({...selectItems, [name]: event.value})
-    };
-    const handleInputChange = name => event => {
-        setTtn({...ttn, [event.target.name]: event.target.value});
+  //  const handleChangeSelect = name => event => {
+     //   setSelectItems({...selectItems, [name]: event.value})
+   // };
+
+   const handleInputChange = name => event => {
+       setTtn({...ttn, [event.target.name]: event.target.value});
     }
+
     function handleDateChange(date) {
         setSelectedDate(date);
     }
@@ -94,12 +100,13 @@ const TtnForm = (props) => {
            "date": selectedDate,
            "TTNNumber": ttn.TTNNumber,
             "driver": ttn.driver,
-            "carrier": selectItems.carrier,
-            "sender": selectItems.sender,
-            "registrar": props.user,
+            "carrier": ttn.carrier,
+            "sender": ttn.sender,
+            "registrar": props.user._id,
             "description": ttn.description,
             "carNumber": ttn.carNumber,
-            "products": ttn.products
+            "products": ttn.products,
+            "company": props.user.company
         }
         addTtn(ttnInfo)
             .then((res) => {props.history.push(props.prevPath)})
@@ -139,12 +146,16 @@ const TtnForm = (props) => {
                         </Grid>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                <Select
-                                    placeholder="Sender"
-                                    name='sender'
-                                    onChange={handleChangeSelect('sender')}
-                                    options={options}
-                                    className={classes.select}
+                                <TextValidator
+                                    type="text"
+                                    className="noNumerical"
+                                    variant="outlined"
+                                    fullWidth
+                                    id="ttnNumber"
+                                    label="Sender"
+                                    name="sender"
+                                    value={ttn.sender}
+                                    onChange={handleInputChange("sender")}
                                 />
                             </Grid>
                         </Grid>
@@ -172,12 +183,15 @@ const TtnForm = (props) => {
 
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Select
-                                placeholder="Carrier"
+                            <TextValidator
+                                type="text"
+                                className="noNumerical"
+                                variant="outlined"
+                                fullWidth
+                                label="Carrier"
                                 name="carrier"
-                                onChange={handleChangeSelect("carrier")}
-                                options={carrierOptions}
-                                className={classes.select}
+                                value={ttn.carrier}
+                                onChange={handleInputChange("carrier")}
                             />
                         </Grid>
 
@@ -299,7 +313,7 @@ const TtnForm = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.auth.user.email,
+    user: state.auth.user,
     prevPath: state.carriersReducer.prevPath
 });
 export default connect(mapStateToProps, {addPrevPath})(TtnForm);
