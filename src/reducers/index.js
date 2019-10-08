@@ -31,6 +31,7 @@ function createNormalReducer(singular, plural) {
 }
 
 const employees = createNormalReducer(EMPLOYEE, EMPLOYEES)
+
 const carriers = createNormalReducer(CARRIER,CARRIERS)
 const drivers = createNormalReducer(DRIVER,DRIVERS)
 const ttns = createNormalReducer(TTN,TTNS)
