@@ -36,7 +36,7 @@ const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
     const handleSubmit = () => {
         const { changeActiveData } = props
         const { productQuantity, productArea } = formState
-
+        
         const newCargoState = {
             ...cargoDetails,
             amount: cargoDetails.amount - productQuantity
@@ -46,7 +46,9 @@ const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
             name: newCargoState.name,
             amount: productQuantity,
             dimension: newCargoState.dimension,
-            size: productArea
+            size: productArea,
+            id: cargoDetails.id,
+            ttnId: cargoDetails.ttnId
         }
 
         const newAreaState = {
@@ -54,7 +56,7 @@ const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
             area: areaData.area - productArea,
             storedCargo: newStoredCargo
         }
-
+        
         changeActiveData(newCargoState, newAreaState)
         setFormState(initialDetailsFormState)
     }
