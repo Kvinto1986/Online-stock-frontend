@@ -22,7 +22,7 @@ export const registerAdmin = (admin, reset) => dispatch => {
 };
 
 export const getStatistic = (date) => dispatch => {
-    axios.post(`${server}api/companyAdmins/getStatistic`, date)
+    axios.post(`${server}api/companyAdminsStatistic/`, date)
         .then(res => {
             dispatch({
                 type: GET_CURRENT_STATISTIC,
@@ -70,7 +70,7 @@ export const getCompaniesList = () => dispatch => {
 };
 
 export const getCompany = (company) => dispatch => {
-    axios.post(`${server}api/admins/getCompany`, company)
+    axios.get(`${server}api/companyAdmins/${company}`)
         .then(res => {
             dispatch({
                 type: GET_CURRENT_COMPANY,
@@ -93,9 +93,8 @@ export const getCompany = (company) => dispatch => {
         });
 };
 
-export const changeStatus = (status,reset) => {
-    axios.post(`${server}api/admins/changeStatus`, status)
+export const changeStatus = (id,data) => {
+    axios.post(`${server}api/companyAdmins/${id}`, data)
         .then(()=> {
-            reset()
         })
 };

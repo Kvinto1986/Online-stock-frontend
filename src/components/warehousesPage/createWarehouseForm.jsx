@@ -128,7 +128,8 @@ const WarehouseForm = (props) => {
             name: values.name,
             license: values.license,
             totalArea: originalArea,
-            areas: list
+            areas: list,
+            company:props.auth.user.company
         };
 
         props.registerWarehouse(warehouse,reset,unlock);
