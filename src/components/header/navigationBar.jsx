@@ -44,8 +44,7 @@ export default ({user}) => {
             }
             if (user.position.includes('operator')) {
                 arr = arr.concat([
-                    {name: 'Search carrier', link: '/searchCarrier'},
-                    {name: 'Create TTN', link: '/addTtn'},
+                    {name: 'TTN registration', link: '/ttnRegister'},
                     {name: 'All carrier', link: '/allCarrier'},
                     {name: 'Check Ttn', link: '/checkTtn'}])
             }

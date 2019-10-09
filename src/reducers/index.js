@@ -8,7 +8,6 @@ import warehouseReduser from './warehouseReduser'
 import carriersReducer from './carriersReducer'
 import warehousingFlagRegucer from './warehousingFlagRegucer'
 import warehousingActiveStockReducer from './warehousingActiveStockReducer'
-import ttnReducer from './ttnReduser'
 import {normalize} from '../utils/utils'
 
 import {EMPLOYEE, EMPLOYEES,CARRIER,CARRIERS,DRIVER,DRIVERS,TTN,TTNS} from '../actions/types'
@@ -42,7 +41,6 @@ export default combineReducers({
     carriers,
     drivers,
     ttns,
-    ttn:ttnReducer,
     errors: errorReducer,
     auth: authReducer,
     adminCompanyStatistic: adminCompanyStatisticReduser,
