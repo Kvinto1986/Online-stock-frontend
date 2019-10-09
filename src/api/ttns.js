@@ -1,3 +1,3 @@
-import createStorelessApi from './storelessApi'
+import createStorelessApi from "./storelessApi"
 
-export const {edit: editTTN} = createStorelessApi(`api/ttn/editTTN`)
+export const {edit: editTTN} = createStorelessApi("api/ttn/editTTN")

@@ -2,30 +2,35 @@ import {useCallback, useState} from 'react'
 import server from '../serverConfig'
 import * as axios from 'axios'
 import {useDispatch, useSelector} from 'react-redux'
+import qs from 'querystring'
 
 export const GET = 'GET'
 export const POST = 'POST'
 export const DELETE = 'DELETE'
 
 
-const apiRequest = (type, url, arg, dispatch, method, data) =>
-    axios({method, url: `${server}api/${url}/${arg}`, data})
+const apiRequest = (type, url, dispatch, method, args, data, params = '') =>
+    axios({method, url: `${server}api/${url}/${args}${params}`, data})
         .then(({data}) => {
             dispatch({type, data})
         })
 
-export const get = (action_type, url) => (url_args = '') => dispatch =>
-    apiRequest(action_type, url, url_args, dispatch, GET)
+export const getAll = (actionType, url) => (params = {}) => dispatch =>
+    apiRequest(actionType, url, dispatch, GET, '', {}, qs.stringify(params))
 
-export const del = (action_type, url) => (url_args = '') => dispatch =>
-    apiRequest(action_type, url, url_args, dispatch, DELETE)
+export const getOne = (actionType, url) => id => dispatch =>
+    apiRequest(actionType, url, dispatch, GET, id)
 
-export const post = (action_type, url) => (data, url_args = '') => dispatch =>
-    apiRequest(action_type, url, url_args, dispatch, POST, data)
+export const del = (actionType, url) => id => dispatch =>
+    apiRequest(actionType, url, dispatch, DELETE, id)
 
-const doNothing = x => x
+export const add = (actionType, url) => data => dispatch =>
+    apiRequest(actionType, url, dispatch, POST, '', data)
 
-export const createApiHook = (request, selector) => (onSuccess = doNothing) => {
+export const edit = (actionType, url) => (data, id) => dispatch =>
+    apiRequest(actionType, url, dispatch, POST, id, data)
+
+export const createApiHook = (request, selector) => onSuccess => {
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
     const data = useSelector(selector)
@@ -34,8 +39,11 @@ export const createApiHook = (request, selector) => (onSuccess = doNothing) => {
             console.log('use callback')
             setLoading(true)
             request(...args)(dispatch)
-                .then(onSuccess)
-                .catch(({response:{data}}) => setErrors(data))
+                .then(x => {
+                    onSuccess(x)
+                    return x
+                })
+                .catch(({response: {data}}) => setErrors(data))
                 .finally(() => setLoading(false))
         },
         [dispatch, onSuccess]
@@ -44,19 +52,17 @@ export const createApiHook = (request, selector) => (onSuccess = doNothing) => {
     return [cb, data, errors, loading]
 }
 
-function ucFirst(str) {
-    return str[0].toUpperCase() + str.slice(1).toLowerCase()
-}
+const ucFirst = str => str[0].toUpperCase() + str.slice(1).toLowerCase()
 
 export function createRestHooks(singular, plural, selector) {
     const url = plural.toLowerCase()
     const singularName = ucFirst(singular)
     const pluralName = ucFirst(plural)
     return {
-        ['useGet' + singularName]: createApiHook(get(singular, url), selector),
-        ['useEdit' + singularName]: createApiHook(post(singular, url), selector),
+        ['useGet' + singularName]: createApiHook(getOne(singular, url), selector),
+        ['useEdit' + singularName]: createApiHook(edit(singular, url), selector),
         ['useDel' + singularName]: createApiHook(del(`DELETE_${singular}`, url), selector),
-        ['useGet' + pluralName]: createApiHook(() => get(plural, url)(), selector),
-        ['useAdd' + singularName]: createApiHook((data) => post(singular, url)(data), selector),
+        ['useGet' + pluralName]: createApiHook(getAll(plural, url), selector),
+        ['useAdd' + singularName]: createApiHook(add(singular, url), selector),
     }
 }
