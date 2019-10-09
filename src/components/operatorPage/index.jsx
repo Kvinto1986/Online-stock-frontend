@@ -1,16 +1,16 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
+import {useSelector} from 'react-redux'
 import StepperPage from './stepperPage'
 import {useGetCarrier, useAddCarrier, useGetDriver, useAddDriver, useAddTtn} from '../../api/apiRequests'
 import {carriersFilter, driversFilter, authUserFilter} from '../../filters'
-import {useSelector} from 'react-redux'
+
 
 export default () => {
     const [activeStep, setActiveStep] = useState(0)
     const [carrierId, setCarrierId] = useState('')
     const [driverId, setDriverId] = useState('')
 
-
-    const handleNext = () => {
+    const handleNextStep = () => {
         setActiveStep(activeStep + 1)
     }
 
@@ -18,11 +18,11 @@ export default () => {
     const currentDriver = useSelector(driversFilter)
     const authUser = useSelector(authUserFilter)
 
-    const [getCarrier, , getCarrierError] = useGetCarrier(handleNext)
-    const [addCarrier, , addCarrierError] = useAddCarrier(handleNext)
-    const [getDriver, , getDriverError] = useGetDriver(handleNext)
-    const [addDriver, , addDriverError] = useAddDriver(handleNext)
-    const [addTtn, , addTtnError] = useAddTtn(handleNext)
+    const [getCarrier, , getCarrierError] = useGetCarrier(handleNextStep)
+    const [addCarrier, , addCarrierError] = useAddCarrier(handleNextStep)
+    const [getDriver, , getDriverError] = useGetDriver(handleNextStep)
+    const [addDriver, , addDriverError] = useAddDriver(handleNextStep)
+    const [addTtn, , addTtnError] = useAddTtn(handleNextStep)
 
     return <StepperPage
         activeStep={activeStep}
