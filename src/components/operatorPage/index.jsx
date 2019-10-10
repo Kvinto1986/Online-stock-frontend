@@ -13,9 +13,9 @@ export default () => {
 
     const authUser = useSelector(authUserFilter)
 
-    const [getCarrier, carrier, getCarrierError] = useGetCarrier(handleNextStep)
+    const [getCarrier, carriers, getCarrierError] = useGetCarrier(handleNextStep)
     const [addCarrier, , addCarrierError] = useAddCarrier(handleNextStep)
-    const [getDriver, driver, getDriverError] = useGetDriver(handleNextStep)
+    const [getDriver, drivers, getDriverError] = useGetDriver(handleNextStep)
     const [addDriver, , addDriverError] = useAddDriver(handleNextStep)
     const [addTtn, , addTtnError] = useAddTtn(handleNextStep)
 
@@ -32,8 +32,8 @@ export default () => {
         createDriverError={addDriverError}
         createTtn={addTtn}
         createTtnError={addTtnError}
-        carrier={carrier}
-        driver={driver}
+        carriers={carriers}
+        drivers={drivers}
         authUser={authUser}
     />
 };

@@ -15,7 +15,7 @@ const steps = ['Carrier check', 'Driver check', 'Create TTN']
 export default ({
                     activeStep, setActiveStep, searchCarrier, searchCarrierError, createCarrier, createCarrierError,
                     searchDriver, searchDriverError, createDriver, createDriverError, createTtn, createTtnError,
-                    carrier, driver, authUser
+                    carriers, drivers, authUser
                 }) => {
 
     const classes = useStyles()
@@ -69,8 +69,8 @@ export default ({
                 </Fragment>
             case 2:
                 return <TTNForm
-                    carrier={carrier}
-                    driver={driver}
+                    carriers={carriers}
+                    drivers={drivers}
                     onSubmit={createTtn}
                     error={createTtnError}
                     authUser={authUser}
