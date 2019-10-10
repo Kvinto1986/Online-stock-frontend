@@ -13,7 +13,7 @@ import SuccessPage from './successPage'
 export default ({
                     activeStep, setActiveStep, searchCarrier, searchCarrierError, createCarrier, createCarrierError,
                     searchDriver, searchDriverError, createDriver, createDriverError, createTtn, createTtnError,
-                    currentCarrier, currentDriver, authUser, carrierId, setCarrierId, driverId, setDriverId
+                    carrier, driver, authUser
                 }) => {
 
     const classes = useStyles()
@@ -21,6 +21,8 @@ export default ({
 
     const [carrierFormVisibility, setCarrierFormVisibility] = useState(false)
     const [driverFormVisibility, setDriverFormVisibility] = useState(false)
+    const [carrierId, setCarrierId] = useState('')
+    const [driverId, setDriverId] = useState('')
 
     function getSteps() {
         return ['Carrier check', 'Driver check', 'Create TTN']
@@ -70,8 +72,8 @@ export default ({
                 </Fragment>
             case 2:
                 return <TTNForm
-                    currentCarrier={currentCarrier}
-                    currentDriver={currentDriver}
+                    carrier={carrier}
+                    driver={driver}
                     onSubmit={createTtn}
                     error={createTtnError}
                     authUser={authUser}

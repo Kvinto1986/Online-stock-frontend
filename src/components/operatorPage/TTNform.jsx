@@ -14,18 +14,18 @@ import MenuItem from '@material-ui/core/MenuItem'
 import InputText from '../fields/textField'
 import CargoTable from './cargoTable'
 
-export default ({onSubmit, error, authUser, currentCarrier, currentDriver, carrierId,driverId}) => {
+export default ({onSubmit, error, authUser, carrier, driver, carrierId, driverId}) => {
 
     const [TTN, setTTN] = useState({
         number: '',
         carrier: {
-            unp: currentCarrier[carrierId].id,
-            tel: currentCarrier[carrierId].tel,
-            company: currentCarrier[carrierId].company
+            unp: carrier[carrierId].id,
+            tel: carrier[carrierId].tel,
+            company: carrier[carrierId].company
         },
         driver: {
-            name: `${currentDriver[driverId].name} ${currentDriver[driverId].surname}`,
-            license: currentDriver[driverId].id
+            name: `${driver[driverId].name} ${driver[driverId].surname}`,
+            license: driver[driverId].id
         },
         registrar: {
             name: `${authUser.firstName} ${authUser.patronymic} ${authUser.lastName}`,
