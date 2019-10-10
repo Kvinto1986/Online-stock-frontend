@@ -4,13 +4,12 @@ import authReducer from './authReducer'
 import adminCompanyStatisticReduser from './adminsCompanyStatisticReduser'
 import companiesListReduser from './companiesListReduser'
 import companyReduser from './companyReduser'
-import warehouseReduser from './warehouseReduser'
 import carriersReducer from './carriersReducer'
 import warehousingFlagRegucer from './warehousingFlagRegucer'
 import warehousingActiveStockReducer from './warehousingActiveStockReducer'
 import {normalize} from '../utils/utils'
 
-import {EMPLOYEE, EMPLOYEES,CARRIER,CARRIERS,DRIVER,DRIVERS,TTN,TTNS} from '../actions/types'
+import {EMPLOYEE, EMPLOYEES,CARRIER,CARRIERS,DRIVER,DRIVERS,TTN,TTNS,WAREHOUSE,WAREHOUSES} from '../actions/types'
 
 
 function createNormalReducer(singular, plural) {
@@ -31,22 +30,22 @@ function createNormalReducer(singular, plural) {
 }
 
 const employees = createNormalReducer(EMPLOYEE, EMPLOYEES)
-
 const carriers = createNormalReducer(CARRIER,CARRIERS)
 const drivers = createNormalReducer(DRIVER,DRIVERS)
 const ttns = createNormalReducer(TTN,TTNS)
+const warehouses = createNormalReducer(WAREHOUSE,WAREHOUSES)
 
 export default combineReducers({
     employees,
     carriers,
     drivers,
     ttns,
+    warehouses,
     errors: errorReducer,
     auth: authReducer,
     adminCompanyStatistic: adminCompanyStatisticReduser,
     companiesList: companiesListReduser,
     currentCompany: companyReduser,
-    warehouses: warehouseReduser,
     carriersReducer: carriersReducer,
     warehousingFlag: warehousingFlagRegucer,
     warehousingActiveStock: warehousingActiveStockReducer

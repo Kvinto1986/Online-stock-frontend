@@ -10,7 +10,6 @@ import Search from './search'
 import ExpansionPanel from './expansionPanel'
 import SuccessPage from './successPage'
 
-
 export default ({
                     activeStep, setActiveStep, searchCarrier, searchCarrierError, createCarrier, createCarrierError,
                     searchDriver, searchDriverError, createDriver, createDriverError, createTtn, createTtnError,
@@ -20,12 +19,8 @@ export default ({
     const classes = useStyles()
     const steps = getSteps()
 
-    console.log(carrierId)
-    console.log(driverId)
-
     const [carrierFormVisibility, setCarrierFormVisibility] = useState(false)
     const [driverFormVisibility, setDriverFormVisibility] = useState(false)
-
 
     function getSteps() {
         return ['Carrier check', 'Driver check', 'Create TTN']
@@ -73,7 +68,6 @@ export default ({
                         />
                     )}
                 </Fragment>
-
             case 2:
                 return <TTNForm
                     currentCarrier={currentCarrier}
