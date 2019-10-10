@@ -69,8 +69,8 @@ export default ({
                 </Fragment>
             case 2:
                 return <TTNForm
-                    carriers={carriers}
-                    drivers={drivers}
+                    carrier={carriers[carrierId]}
+                    driver={drivers[driverId]}
                     onSubmit={createTtn}
                     error={createTtnError}
                     authUser={authUser}
