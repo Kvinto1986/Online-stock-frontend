@@ -10,6 +10,8 @@ import Search from './search'
 import ExpansionPanel from './expansionPanel'
 import SuccessPage from './successPage'
 
+const steps = ['Carrier check', 'Driver check', 'Create TTN']
+
 export default ({
                     activeStep, setActiveStep, searchCarrier, searchCarrierError, createCarrier, createCarrierError,
                     searchDriver, searchDriverError, createDriver, createDriverError, createTtn, createTtnError,
@@ -17,16 +19,11 @@ export default ({
                 }) => {
 
     const classes = useStyles()
-    const steps = getSteps()
 
     const [carrierFormVisibility, setCarrierFormVisibility] = useState(false)
     const [driverFormVisibility, setDriverFormVisibility] = useState(false)
     const [carrierId, setCarrierId] = useState('')
     const [driverId, setDriverId] = useState('')
-
-    function getSteps() {
-        return ['Carrier check', 'Driver check', 'Create TTN']
-    }
 
     function getStepContent(stepIndex) {
         switch (stepIndex) {
@@ -80,15 +77,16 @@ export default ({
                     carrierId={carrierId}
                     driverId={driverId}
                 />
-            default:
+            case 3:
                 return <SuccessPage
                     setActiveStep={setActiveStep}
                 />
+            default:
+                return 'Unknown step'
         }
     }
 
     return (
-
         <div className={classes.root}>
             <Stepper activeStep={activeStep} alternativeLabel>
                 {steps.map(label => (

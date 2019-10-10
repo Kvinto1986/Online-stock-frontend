@@ -4,7 +4,6 @@ import StepperPage from './stepperPage'
 import {useAddCarrier, useAddDriver, useAddTtn, useGetCarrier, useGetDriver} from '../../api/apiRequests'
 import {authUserFilter} from '../../filters'
 
-
 export default () => {
     const [activeStep, setActiveStep] = useState(0)
 
@@ -14,9 +13,9 @@ export default () => {
 
     const authUser = useSelector(authUserFilter)
 
-    const [getCarrier, carriers, getCarrierError] = useGetCarrier(handleNextStep)
+    const [getCarrier, carrier, getCarrierError] = useGetCarrier(handleNextStep)
     const [addCarrier, , addCarrierError] = useAddCarrier(handleNextStep)
-    const [getDriver, drivers, getDriverError] = useGetDriver(handleNextStep)
+    const [getDriver, driver, getDriverError] = useGetDriver(handleNextStep)
     const [addDriver, , addDriverError] = useAddDriver(handleNextStep)
     const [addTtn, , addTtnError] = useAddTtn(handleNextStep)
 
@@ -33,8 +32,8 @@ export default () => {
         createDriverError={addDriverError}
         createTtn={addTtn}
         createTtnError={addTtnError}
-        carriers={carriers}
-        drivers={drivers}
+        carrier={carrier}
+        driver={driver}
         authUser={authUser}
     />
 };

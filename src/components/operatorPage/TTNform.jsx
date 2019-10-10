@@ -51,7 +51,6 @@ export default ({onSubmit, error, authUser, carrier, driver, carrierId, driverId
 
     const handleAddProduct = (e) => {
         e.preventDefault()
-
         setCargo([...cargo, product])
     }
 
