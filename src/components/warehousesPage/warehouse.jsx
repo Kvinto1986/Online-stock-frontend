@@ -81,9 +81,6 @@ export default function NavTabs() {
                 <Form
                 />
             </TabPanel>
-            <TabPanel value={value} index={1}>
-                <List/>
-            </TabPanel>
         </div>
     );
 }

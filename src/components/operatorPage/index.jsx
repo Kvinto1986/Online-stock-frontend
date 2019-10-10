@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {useSelector} from 'react-redux'
 import StepperPage from './stepperPage'
 import {useGetCarrier, useAddCarrier, useGetDriver, useAddDriver, useAddTtn} from '../../api/apiRequests'
-import {carriersFilter, driversFilter, authUserFilter} from '../../filters'
+import {authUserFilter} from '../../filters'
 
 
 export default () => {
@@ -14,13 +14,11 @@ export default () => {
         setActiveStep(activeStep + 1)
     }
 
-    const currentCarrier = useSelector(carriersFilter)
-    const currentDriver = useSelector(driversFilter)
     const authUser = useSelector(authUserFilter)
 
-    const [getCarrier, , getCarrierError] = useGetCarrier(handleNextStep)
+    const [getCarrier,currentCarrier , getCarrierError] = useGetCarrier(handleNextStep)
     const [addCarrier, , addCarrierError] = useAddCarrier(handleNextStep)
-    const [getDriver, , getDriverError] = useGetDriver(handleNextStep)
+    const [getDriver,currentDriver , getDriverError] = useGetDriver(handleNextStep)
     const [addDriver, , addDriverError] = useAddDriver(handleNextStep)
     const [addTtn, , addTtnError] = useAddTtn(handleNextStep)
 

@@ -124,12 +124,13 @@ const WarehouseForm = (props) => {
         e.preventDefault();
 
         const warehouse = {
-            adminId:props.auth.user._id,
+            company:props.auth.user.company,
             name: values.name,
             license: values.license,
             totalArea: originalArea,
             areas: list,
             storedCargo: []
+
         };
 
         props.registerWarehouse(warehouse,reset,unlock);
