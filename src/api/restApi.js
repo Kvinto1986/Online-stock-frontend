@@ -40,7 +40,7 @@ export const createApiHook = (request, selector) => onSuccess => {
             setLoading(true)
             request(...args)(dispatch)
                 .then(x => {
-                    onSuccess(x)
+                    onSuccess && onSuccess(x)
                     return x
                 })
                 .catch(({response: {data}}) => setErrors(data))
