@@ -74,8 +74,6 @@ export default ({
                     onSubmit={createTtn}
                     error={createTtnError}
                     authUser={authUser}
-                    carrierId={carrierId}
-                    driverId={driverId}
                 />
             case 3:
                 return <SuccessPage
