@@ -31,13 +31,12 @@ export default ({onSubmit, error, setValue}) => {
     }
 
     const handleIdChange = (e) => {
-        setValue( e.target.value)
+        setValue(e.target.value)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         onSubmit(carrier)
-
     }
 
     const classes = useStyles()
@@ -88,7 +87,7 @@ export default ({onSubmit, error, setValue}) => {
                             </Grid>
                         </Grid>
                         <Grid container spacing={5}>
-                            <Grid item xs={12} style={{marginBottom:"9%"}}>
+                            <Grid item xs={12} style={{marginBottom: '9%'}}>
                                 <ReactPhoneInput
                                     required
                                     inputClass={classes.tel}

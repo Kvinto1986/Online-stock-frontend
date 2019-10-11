@@ -7,7 +7,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import useStyles from './operatorPageStyles'
 
 
-export default function ({formVisibility, setFormVisibility, Form, onSubmit, error,setValue}) {
+export default function ({formVisibility, setFormVisibility, Form, onSubmit, error, setValue}) {
     const classes = useStyles()
 
     return (

@@ -1,19 +1,18 @@
-import React, {useState} from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import React from 'react'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
 
-import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 import useStyles from './operatorPageStyles'
 
-export default ({cargoList,handleDeleteProduct}) => {
+export default ({cargoList, handleDeleteProduct}) => {
 
-    console.log(cargoList)
-    const classes = useStyles();
+    const classes = useStyles()
 
     return (
         <Table className={classes.table} size="small">
@@ -27,9 +26,9 @@ export default ({cargoList,handleDeleteProduct}) => {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {cargoList.map((elem,index)=>{
-                    return <TableRow key={elem.type+index}>
-                        <TableCell align="center">{index+1}</TableCell>
+                {cargoList.map((elem, index) => {
+                    return <TableRow key={elem.type + index}>
+                        <TableCell align="center">{index + 1}</TableCell>
                         <TableCell align="center">{elem.type}</TableCell>
                         <TableCell align="center">{elem.weight}</TableCell>
                         <TableCell align="center">{elem.boxing}</TableCell>
@@ -37,8 +36,8 @@ export default ({cargoList,handleDeleteProduct}) => {
                             <Button
                                 variant="contained"
                                 color="secondary"
-                                style={{width:'40%',marginLeft:'3%', marginRight:'3%'}}
-                                onClick={()=>handleDeleteProduct(index)}
+                                style={{width: '40%', marginLeft: '3%', marginRight: '3%'}}
+                                onClick={() => handleDeleteProduct(index)}
                             >
                                 Delete
                                 <DeleteIcon style={{marginLeft: '5%'}}/>
