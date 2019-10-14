@@ -12,28 +12,38 @@ import TTNdialog from './controlTTNdialog'
 import modalSwal from './swalModal'
 import moment from 'moment'
 
-export default ({editCurrentTTN, currentTTN, setCurrentTTN, report, setReport, ttnsList, selectedTtn, findTTN}) => {
+export default ({ttn,editCurrentTTN,getTtnError,getTtn}) => {
     const classes = useStyles()
 
-
+    const [report, setReport] = useState('')
     const [confirm, setConfirm] = useState(false)
     const [open, setOpen] = useState(false)
     const [editTTN, setEditTTN] = useState(false)
+    const [ttnId,setTtnId]=useState('')
 
+    const [currentTTN, setRawCurrentTTN] = useState({})
+
+    const setCurrentTTN = obj => {
+        setRawCurrentTTN({...obj, products: [...obj.products.map(x => ({...x}))]})
+    }
+    const findTTN = (ttnId) => {
+        getTtn(ttnId)
+        setReport('')
+    }
 
     const openDialog = (open) => {
         setOpen(open)
-        setCurrentTTN(selectedTtn)
+        setCurrentTTN(ttn[ttnId])
     }
 
     const handleSubmitTTN = () => {
         const reportData = {
-            id: currentTTN._id,
+            id: currentTTN.id,
             products: currentTTN.products,
             report: {report: report, date: moment().format()}
         }
 
-        modalSwal(reportData,editCurrentTTN,open,setOpen)
+        modalSwal(reportData, editCurrentTTN, open, setOpen)
         setEditTTN(true)
     }
 
@@ -48,18 +58,18 @@ export default ({editCurrentTTN, currentTTN, setCurrentTTN, report, setReport, t
     return (
         <Container component="main" maxWidth="xl" className={classes.mainContainer}>
             <CssBaseline/>
-            <Typography component="h2" variant="h4" align="center" color="textPrimary" style={{marginTop: '3%'}}
-                        gutterBottom>
-                Search by TTN number
-            </Typography>
             <TTNsearch
-                ttnsList={ttnsList}
-                findTTN={findTTN}
+                search={findTTN}
+                searchText="Find"
+                value={ttnId}
+                setValue={setTtnId}
+                error={getTtnError.number}
             />
-            {Object.keys(selectedTtn).length !== 0 && (
+
+            {ttn[ttnId] && (
                 <Fragment>
                     <TTNcard
-                        ttn={selectedTtn}
+                        ttn={ttn[ttnId]}
                         open={open}
                         report={report}
                         setReport={setReport}
@@ -81,7 +91,6 @@ export default ({editCurrentTTN, currentTTN, setCurrentTTN, report, setReport, t
                         openDialog={openDialog}
                     />
                 </Fragment>)}
-
         </Container>
 
     )

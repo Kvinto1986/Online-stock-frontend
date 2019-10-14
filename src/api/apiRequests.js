@@ -22,6 +22,9 @@ export const {
 } = createRestHooks(DRIVER, DRIVERS, driversFilter)
 
 export const {
+    useGetTtns,
+    useGetTtn,
+    useEditTtn,
     useAddTtn,
 } = createRestHooks(TTN, TTNS, ttnsFilter)
 
