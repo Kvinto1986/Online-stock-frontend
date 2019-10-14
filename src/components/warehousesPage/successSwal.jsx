@@ -8,5 +8,5 @@ export default (reset,text) => {
         type: 'success',
         showConfirmButton: false,
         timer: 2000
-    }).then(() => reset())
+    }).then(reset)
 }

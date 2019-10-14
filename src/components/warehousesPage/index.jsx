@@ -18,9 +18,9 @@ export default () => {
         successSwal(resetTable, 'Warehouse data has been successfully deleted.')
     }
 
-    const [getWarehouses, warehouses, ,] = useGetWarehouses()
-    const [createWarehouse, , createWarehouseError] = useAddWarehouse(handleResetForm)
-    const [deleteWarehouse, , ,] = useDelWarehouse(handleResetTable)
+    const [getWarehouses, warehouses] = useGetWarehouses()
+    const [createWarehouse,createWarehouseError] = useAddWarehouse(handleResetForm)
+    const [deleteWarehouse] = useDelWarehouse(handleResetTable)
 
     const authUser = useSelector(authUserFilter)
 

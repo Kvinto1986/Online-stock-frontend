@@ -2,7 +2,7 @@ import React, {Fragment} from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {connect} from 'react-redux'
 import AdminRegister from '../components/registerCompanyAdmin/registerCompanyAdmin'
-import Warehouse from '../components/warehousesPage/index'
+import Warehouse from '../components/warehousesPage'
 import UserForm from '../components/registerEmployee/registerEmployeePage'
 import Home from '../components/homePage/homePage'
 import Login from '../components/loginPage/loginPage'
@@ -13,7 +13,7 @@ import Companies from '../components/companiesListPage/companiesList'
 import Carrier from '../components/searchCarrier'
 import Landing from '../components/landingPage/landing'
 
-import AllCarrier from '../components/allCarrier';
+import AllCarrier from '../components/allCarrier'
 import TTNregister from '../components/operatorPage/index'
 
 import DeliveryGoodsFromStock from '../components/deliveryFromStock/deliveryFromStockPage'
