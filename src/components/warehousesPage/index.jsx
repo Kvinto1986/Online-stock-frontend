@@ -20,7 +20,7 @@ export default () => {
 
     const [getWarehouses, warehouses] = useGetWarehouses()
     const [createWarehouse, ,createWarehouseError] = useAddWarehouse(handleResetForm)
-    const [deleteWarehouse, ,] = useDelWarehouse(handleResetTable)
+    const [deleteWarehouse] = useDelWarehouse(handleResetTable)
 
     const authUser = useSelector(authUserFilter)
 
