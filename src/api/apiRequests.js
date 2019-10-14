@@ -26,5 +26,7 @@ export const {
 } = createRestHooks(TTN, TTNS, ttnsFilter)
 
 export const {
+    useAddWarehouse,
+    useDelWarehouse,
     useGetWarehouses,
 } = createRestHooks(WAREHOUSE,WAREHOUSES, warehousesFilter)
