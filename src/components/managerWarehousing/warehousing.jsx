@@ -1,64 +1,53 @@
-import React from "react"
-import WarehousingDataForm from "./warehousingComponents/warehousingDataForm"
-import { DndProvider } from "react-dnd"
-import HTML5Backend from "react-dnd-html5-backend"
-import DndStock from "./warehousingComponents/dndStock"
-import WarehousingSubmitButton from "./warehousingComponents/WarehousingSubmitButton"
-import { useState, useEffect } from "react"
-import { warehousingSubmit } from "../../actions/warehousingActions"     
-import { fetchAvailableStocks } from "../../actions/warehousingActions"
-import { connect } from "react-redux"
-import { warehousingPostData } from "../../actions/warehousingActions"
-import "sweetalert2/src/sweetalert2.scss"
-import Swal from "sweetalert2/dist/sweetalert2.js"
+import WarehousingDataForm from './warehousingComponents/warehousingDataForm'
+import { DndProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+import DndStock from './warehousingComponents/dndStock'
+import WarehousingSubmitButton from './warehousingComponents/WarehousingSubmitButton'
+import React, { useState, useEffect } from 'react'   
+import 'sweetalert2/src/sweetalert2.scss'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
-const Warehousing = props => {
+const initialState = {
+    ttnIsFound: false
+}
 
-    // *** State ***
+const initialWareHousingState = {
+    areasData: [],
+    formData: ''
+}
 
-    const initialState = {
-        ttnIsFound: false
-    }
+const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, currentManager, user}) => {
 
-    const initialWareHousingState = {
-        areasData: [],
-        formData: ""
-    }
-
+    const [curTtn, setCurTtn] = useState(initialState)
     const [state, setState] = useState(initialState)
     const [wareHousingState, setWareHousingState] = useState(initialWareHousingState)
-
-    // *** Variables ***
+    const [submitFlag, setSubmitFlag] = useState(false)
+    const [warehousingActiveStock, setWarehousingActiveStock] = useState(null)
 
     const associativeAreaState = []
-
-    // *** Functions ***
 
     const successWirehousingAletrt = () => {
         Swal
         .fire({
-            title: "Success",
-            text: "Cargo will be plased to stock in close time.",
-            type: "success",
+            title: 'Success',
+            text: 'Cargo will be plased to stock in close time.',
+            type: 'success',
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "OK",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
             allowOutsideClick: false
         })
         .then(() => {
-            props.warehousingSubmit(false)
+            setSubmitFlag(false)
+            // TODO: Remove page reload
             window.location.reload()
         })
     }
 
     useEffect(() => {
-        props.fetchAvailableStocks(props.user)
-    }, [])
-
-    useEffect(() => {
         setTimeout(() => {
-            if(wareHousingState.areasData.length > 0) {
-                if(wareHousingState.areasData.length === props.warehousingActiveStock.areas.length) {
+            if(wareHousingState.areasData.length > 0 && submitFlag) {
+                if(wareHousingState.areasData.length === warehousingActiveStock.areas.length) {
                     finishWarehousing()
                 }
             }
@@ -67,11 +56,15 @@ const Warehousing = props => {
     
     const finishWarehousing = () => {
         const data = {
-            stockData: props.warehousingActiveStock,
+            stockData: warehousingActiveStock,
             wareHousingData: wareHousingState,
         }
-
-        props.warehousingPostData(data, successWirehousingAletrt)
+        
+        makeWarehousing(data, successWirehousingAletrt)
+    }
+    
+    const setCurrentTTN = curTtn => {
+        setCurTtn(curTtn) 
     }
 
     const dndIsShown = value => {
@@ -83,7 +76,6 @@ const Warehousing = props => {
 
     const getEachAreaState = value => {
         associativeAreaState.push(value)
-        
 
         setWareHousingState({
             ...wareHousingState,
@@ -94,43 +86,51 @@ const Warehousing = props => {
     const getFormData = data => {
         setWareHousingState({
             ...wareHousingState,
-            formData: data
+            ttnNumber: data
         })
     }
 
     const showSaveButton = () => {
         setState({...state, isSubmitButtonShowen: true})
     }
+
+    const catchSubmitAction = () => {
+        setSubmitFlag(true)
+    }
+
+    const setSelectedStockState = data => {
+        setWarehousingActiveStock(data)
+    }
         
     return (
         <React.Fragment>
-            <WarehousingDataForm dndIsShown={dndIsShown} getFormData={getFormData} />
+            <WarehousingDataForm 
+                setCurrentTTN={setCurrentTTN}
+                dndIsShown={dndIsShown}
+                getFormData={getFormData} 
+                getTtn={getTtn} 
+                ttnError={ttnError}
+                ttn={ttn}
+                currentManager={user}
+            />
             <DndProvider backend={HTML5Backend}>
                 {state.ttnIsFound && 
                     <DndStock 
-                        warehouses={props.warehouses} 
+                        ttn={curTtn}
+                        warehouses={warehouses} 
                         getEachAreaState={getEachAreaState} 
-                        showSaveButton={showSaveButton} 
+                        showSaveButton={showSaveButton}
+                        setSelectedStockState={setSelectedStockState} 
+                        submitFlag={submitFlag}
                     />
                 }
             </DndProvider>
             <WarehousingSubmitButton 
                 isShowen={state.isSubmitButtonShowen}
-                finishWarehousing={finishWarehousing} 
+                catchSubmitAction={catchSubmitAction}
             />
         </React.Fragment>
     )
 }
 
-const mapStateToProps = (state) => ({
-    warehouses: state.warehouses,
-    warehousingActiveStock: state.warehousingActiveStock,
-    user: state.auth.user,
-    warehousingFlag: state.warehousingFlag,
-})
-
-export default connect(mapStateToProps, {
-    fetchAvailableStocks,
-    warehousingPostData,
-    warehousingSubmit
-})(Warehousing)
+export default Warehousing

@@ -1,4 +1,3 @@
-
 export const authUserFilter = store => store.auth.user
 export const authUser = store => store.auth.user
 export const senders = store => store.senders
@@ -9,4 +8,5 @@ export const ttns = store => store.ttnData
 export const employeesFilter = store => store.employees
 export const ttnsFilter = store => store.ttns
 export const ttnFilter = store => store.TTN
+export const warehouseFilter = store => store.warehouses
 export const company = ({auth}) => auth.user.company

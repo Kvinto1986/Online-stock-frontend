@@ -1,31 +1,32 @@
-import React, { useState, useEffect } from "react"
-import { Typography, Box, Button } from "@material-ui/core"
-import { TextValidator, ValidatorForm } from "react-material-ui-form-validator"
+import React, { useState, useEffect } from 'react'
+import { Typography, Box, Button } from '@material-ui/core'
+import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator'
+const boxImg = require('../../../../resources/images/package-cube-box-for-delivery.png')
+
+const initialDetailsFormState = {
+    productQuantity: '',
+    productArea: ''
+}
 
 const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
-    
-    const initialDetailsFormState = {
-        productQuantity: "",
-        productArea: ""
-    }
 
     const [formState, setFormState] = useState(initialDetailsFormState)
 
     useEffect(() => {
         if(cargoDetails !== null) {
             ValidatorForm.addValidationRule(
-                "isValidCargoAmount", (value) => (value > cargoDetails.amount) ? false : true
+                'isValidCargoAmount', (value) => (value > cargoDetails.amount) ? false : true
             )
             ValidatorForm.addValidationRule(
-                "isValidWarehouseArea", (value) => (value > areaData.area) ? false : true
+                'isValidWarehouseArea', (value) => (value > areaData.freeArea) ? false : true
             )
         }
     }, [cargoDetails])
 
     useEffect(() => {
         return () => {
-            ValidatorForm.removeValidationRule("isValidCargoAmount")
-            ValidatorForm.removeValidationRule("isValidWarehouseArea")
+            ValidatorForm.removeValidationRule('isValidCargoAmount')
+            ValidatorForm.removeValidationRule('isValidWarehouseArea')
         }
     }, [])
 
@@ -40,39 +41,41 @@ const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
         const newCargoState = {
             ...cargoDetails,
             amount: cargoDetails.amount - productQuantity
-        } 
-
-        const newStoredCargo = {
-            name: newCargoState.name,
-            amount: productQuantity,
-            dimension: newCargoState.dimension,
-            size: productArea,
-            id: cargoDetails.id,
-            ttnId: cargoDetails.ttnId
-        }
-
-        const newAreaState = {
-            ...areaData,
-            area: areaData.area - productArea,
-            storedCargo: newStoredCargo
         }
         
+        // TODO: Remove Number type cast in this function
+        const newStoredCargo = {
+            name: newCargoState.name,
+            amount: Number(cargoDetails.amount),
+            dimension: newCargoState.dimension,
+            size: Number(productArea),
+            ttnNumber: cargoDetails.id
+        }
+        
+        
+        const newAreaState = {
+            ...areaData,
+            area: areaData.area,
+            freeArea: areaData.freeArea - Number(productArea),
+            products: newStoredCargo
+        }
+
+            
         changeActiveData(newCargoState, newAreaState)
         setFormState(initialDetailsFormState)
     }
 
-    const boxImg = require("../../../../resources/images/package-cube-box-for-delivery.png")
+    const isAreasAndWarehousesData = (cargoDetails !== null) && (areaData !== null)
 
     return (
         <Box ml={5}>
-            {/* Cargo unit description */}
             <Box mb={4}>
                 <Typography compoment="h1" variant="h5">Cargo unit warehousing details</Typography>
             </Box>
             {
-                ((cargoDetails !== null) && (areaData !== null)) 
+                isAreasAndWarehousesData 
                 ? (
-                    <>
+                    <Box mt={7}>
                         <Box display="flex" alignItems="center">
                             <Typography variant="body1">• Name:</Typography>
                             <Box ml={0.5}>
@@ -85,9 +88,8 @@ const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
                                 <Typography variant="body2">{cargoDetails.amount}{cargoDetails.dimension}</Typography>
                             </Box>
                         </Box>
-                        {/* Details form */}
                         <Box display="flex" alignItems="center">
-                            <div style={{width: "100%"}}>
+                            <div style={{width: '100%'}}>
                                 <ValidatorForm onSubmit={handleSubmit}>
                                     <Box mt={4}>
                                         <TextValidator
@@ -96,8 +98,8 @@ const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
                                             value={formState.productQuantity}
                                             name="productQuantity"
                                             onChange={handleChange}
-                                            validators={["required", "matchRegexp:[0-9]$", "isValidCargoAmount"]}
-                                            errorMessages={["This field is required", "The value must contain only numbers", "Invalid value"]}
+                                            validators={['required', 'matchRegexp:[0-9]$', 'isValidCargoAmount']}
+                                            errorMessages={['This field is required', 'The value must contain only numbers', 'Invalid value']}
                                         />
                                     </Box>
                                     <Box mt={2}>
@@ -107,8 +109,8 @@ const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
                                             value={formState.productArea}
                                             name="productArea"
                                             onChange={handleChange}
-                                            validators={["required", "matchRegexp:[0-9]$", "isValidWarehouseArea"]}
-                                            errorMessages={["This field is required", "The value must contain only numbers", "Invalid value"]}
+                                            validators={['required', 'matchRegexp:[0-9]$', 'isValidWarehouseArea']}
+                                            errorMessages={['This field is required', 'The value must contain only numbers', 'Invalid value']}
                                         />
                                     </Box>
                                     <Box mt={3}>
@@ -117,11 +119,11 @@ const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
                                 </ValidatorForm>
                             </div>
                         </Box>
-                    </>
+                    </Box>
                 )
                 : (
-                    <Box mt={5} display="flex" flexDirection="column" alignItems="center">
-                        <img src={boxImg} style={{opacity: "0.3"}}/>
+                    <Box mt={7} display="flex" flexDirection="column" alignItems="center">
+                        <img src={boxImg} style={{opacity: '0.3'}} alt="boxImage" />
                         <Box mt={2.5}>
                             <Typography variant="h6" gutterBottom align="center">
                                 Drag and drop cargo unit <br />into any area
