@@ -37,9 +37,9 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
     })
 
     const [product, setProduct] = useState({
+        name: '',
+        amount: 0,
         type: '',
-        amount: '',
-        boxing: '',
     })
 
     const [cargo, setCargo] = useState([])
@@ -92,7 +92,7 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
                                     fullWidth
                                     label="TTN number"
                                     required
-                                    name='number'
+                                    name="number"
                                     error={error}
                                     value={TTN}
                                     handleChange={setTTN}
@@ -116,7 +116,7 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
                                     fullWidth
                                     label="Owner information"
                                     required
-                                    name='owner'
+                                    name="owner"
                                     error={error}
                                     value={TTN}
                                     handleChange={setTTN}
@@ -165,7 +165,7 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
                                     fullWidth
                                     label="Number of the car"
                                     required
-                                    name='carNumber'
+                                    name="carNumber"
                                     error={error}
                                     value={TTN}
                                     handleChange={setTTN}
@@ -195,7 +195,7 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
                         <Grid container>
                             <Grid item xl={1} className={classes.gridItem}>
                                 <Typography component="h1" variant="h6" className={classes.TTNhead}>
-                                    Product type:
+                                    Product name:
                                 </Typography>
                             </Grid>
                             <Grid item xl={3}>
@@ -204,9 +204,9 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
                                     max={30}
                                     pattern={/.*/}
                                     fullWidth
-                                    label="product type"
+                                    label="product name"
                                     required
-                                    name='type'
+                                    name="name"
                                     error={error}
                                     value={product}
                                     handleChange={setProduct}
@@ -215,7 +215,7 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
                             </Grid>
                             <Grid item xl={1} className={classes.gridItem}>
                                 <Typography component="h1" variant="h6" className={classes.TTNhead}>
-                                    Weight (kg):
+                                    Amount:
                                 </Typography>
                             </Grid>
                             <Grid item xl={1}>
@@ -226,29 +226,29 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
                                     fullWidth
                                     label="product amount"
                                     required
-                                    name='amount'
+                                    name="amount"
                                     error={error}
                                     value={product}
                                     handleChange={setProduct}
                                     helperClass={classes.error}
                                 />
                             </Grid>
-                            <Grid item xl={1} className={classes.gridItem}>
+                            <Grid item xl={2} className={classes.gridItem}>
                                 <Typography component="h1" variant="h6" className={classes.TTNhead}>
-                                    Boxing:
+                                    Type of packaging:
                                 </Typography>
                             </Grid>
                             <Grid item xl={1}>
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <InputLabel htmlFor="outlined-age-simple">
-                                        Boxing type
+                                        Type of packaging
                                     </InputLabel>
                                     <Select
                                         required
                                         onChange={handleChangeProduct}
-                                        value={product.boxing}
+                                        value={product.type}
                                         inputProps={{
-                                            name: 'boxing',
+                                            name: 'type',
                                         }}
                                     >
                                         <MenuItem value={'Box'}>Box</MenuItem>
@@ -257,7 +257,7 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
                                     </Select>
                                 </FormControl>
                             </Grid>
-                            <Grid item xl={2} className={classes.gridItem}>
+                            <Grid item xl={1} className={classes.gridItem}>
                                 <Button variant="contained" color="primary" style={{marginTop: '5%',}} type="button"
                                         onClick={handleAddProduct}>
                                     Add to current cargo list
@@ -283,7 +283,7 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
                         </Grid>
                         {cargo.length > 0 && (<Grid container>
                             <Grid item xl={12} className={classes.gridItem}>
-                                <Button variant="contained" color="primary" type='submit' style={{marginTop: '5%',}}>
+                                <Button variant="contained" color="primary" type="submit" style={{marginTop: '5%',}}>
                                     Submit
                                 </Button>
                             </Grid>
