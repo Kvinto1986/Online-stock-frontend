@@ -2,7 +2,6 @@ import React, {Fragment, useState} from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import useStyles from './controlTTNstyle'
-import Typography from '@material-ui/core/Typography'
 
 import TTNsearch from './controlTTNsearch'
 import TTNcard from './controlTTNcard'
@@ -12,20 +11,20 @@ import TTNdialog from './controlTTNdialog'
 import modalSwal from './swalModal'
 import moment from 'moment'
 
-export default ({ttn,editCurrentTTN,getTtnError,getTtn}) => {
+export default ({getTtn, getTtnError, editTtn, editTtnError, ttn}) => {
     const classes = useStyles()
 
     const [report, setReport] = useState('')
     const [confirm, setConfirm] = useState(false)
     const [open, setOpen] = useState(false)
     const [editTTN, setEditTTN] = useState(false)
-    const [ttnId,setTtnId]=useState('')
-
     const [currentTTN, setRawCurrentTTN] = useState({})
+    const [ttnId, setTtnId] = useState('')
 
     const setCurrentTTN = obj => {
         setRawCurrentTTN({...obj, products: [...obj.products.map(x => ({...x}))]})
     }
+
     const findTTN = (ttnId) => {
         getTtn(ttnId)
         setReport('')
@@ -43,7 +42,7 @@ export default ({ttn,editCurrentTTN,getTtnError,getTtn}) => {
             report: {report: report, date: moment().format()}
         }
 
-        modalSwal(reportData, editCurrentTTN, open, setOpen)
+        modalSwal(reportData, open, setOpen)
         setEditTTN(true)
     }
 

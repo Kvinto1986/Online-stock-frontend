@@ -38,7 +38,7 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
 
     const [product, setProduct] = useState({
         type: '',
-        weight: '',
+        amount: '',
         boxing: '',
     })
 
@@ -88,7 +88,7 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
                                 <InputText
                                     min={10}
                                     max={15}
-                                    pattern={/^[1-9]*$/}
+                                    pattern={/^[0-9]*$/}
                                     fullWidth
                                     label="TTN number"
                                     required
@@ -222,11 +222,11 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
                                 <InputText
                                     min={1}
                                     max={7}
-                                    pattern={/^[1-9]*$/}
+                                    pattern={/^[0-9]*$/}
                                     fullWidth
-                                    label="product weight"
+                                    label="product amount"
                                     required
-                                    name='weight'
+                                    name='amount'
                                     error={error}
                                     value={product}
                                     handleChange={setProduct}
