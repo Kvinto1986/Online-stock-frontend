@@ -26,14 +26,6 @@ const DndDestenationArea = ({ index, area, freeArea, products, type, isActiveAre
         setState({index, area, freeArea, type, products})
     }, [])
 
-    useEffect(() => {
-        if(submitFlag) {
-            setTimeout(() => {
-                props.getEachAreaState(state)
-            }, 0)
-        }
-    }, [submitFlag])
-
     const dropOnArea = () => {
         const {activeCargoUnit, initActiveCargoAndArea} = props
         initActiveCargoAndArea(activeCargoUnit, state)

@@ -18,7 +18,6 @@ const DndDestenationAreasList = ({chosenWarehouse, activeArea, activeDnDCargoUni
                     products={stockUnit.products}
                     activeCargoUnit={activeDnDCargoUnit}
                     addCargoUnitToRemove={props.addCargoUnitToRemove}
-                    getEachAreaState={props.getEachAreaState}
                     initActiveCargoAndArea={props.initActiveCargoAndArea}
                     key={areaKey} 
                     isActiveArea={isActiveArea}

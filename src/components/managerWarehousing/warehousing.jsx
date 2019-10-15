@@ -24,8 +24,6 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, curren
     const [submitFlag, setSubmitFlag] = useState(false)
     const [warehousingActiveStock, setWarehousingActiveStock] = useState(null)
 
-    const associativeAreaState = []
-
     const successWirehousingAletrt = () => {
         Swal
         .fire({
@@ -45,23 +43,18 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, curren
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            if(wareHousingState.areasData.length > 0 && submitFlag) {
-                if(wareHousingState.areasData.length === warehousingActiveStock.areas.length) {
-                    finishWarehousing()
+        if(wareHousingState.areasData.length > 0 && submitFlag) {
+            if(wareHousingState.areasData.length === warehousingActiveStock.areas.length) {
+                const data = {
+                    stockData: warehousingActiveStock,
+                    wareHousingData: wareHousingState,
                 }
+
+                makeWarehousing(data, successWirehousingAletrt)
             }
-        }, 0)
-    }, [wareHousingState.areasData])
-    
-    const finishWarehousing = () => {
-        const data = {
-            stockData: warehousingActiveStock,
-            wareHousingData: wareHousingState,
         }
-        
-        makeWarehousing(data, successWirehousingAletrt)
-    }
+    }, [wareHousingState.areasData])
+
     
     const setCurrentTTN = curTtn => {
         setCurTtn(curTtn) 
@@ -74,12 +67,10 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, curren
         })
     }
 
-    const getEachAreaState = value => {
-        associativeAreaState.push(value)
-
+    const sendChangedStock = changedStockData => { 
         setWareHousingState({
             ...wareHousingState,
-            areasData: associativeAreaState
+            areasData: changedStockData
         })
     }
 
@@ -117,11 +108,11 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, curren
                 {state.ttnIsFound && 
                     <DndStock 
                         ttn={curTtn}
-                        warehouses={warehouses} 
-                        getEachAreaState={getEachAreaState} 
+                        warehouses={warehouses}
                         showSaveButton={showSaveButton}
                         setSelectedStockState={setSelectedStockState} 
                         submitFlag={submitFlag}
+                        sendChangedStock={sendChangedStock}
                     />
                 }
             </DndProvider>

@@ -5,7 +5,7 @@ import WarehousingDetailsForm from './warehousingDetails/warehousingDetailsForm'
 import DndElementsList from './dndStuff/dndElementsList'
 import DndDestenationAreasList from './dndStuff/dndDestenationAreasList'
 
-const DndStock = ({ttn, warehouses, getEachAreaState, showSaveButton, setSelectedStockState, submitFlag}) => {
+const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelectedStockState, submitFlag}) => {
 
     const initialState = {
         activeDnDCargoUnit: '',
@@ -106,6 +106,13 @@ const DndStock = ({ttn, warehouses, getEachAreaState, showSaveButton, setSelecte
             chosenWarehouse: {...state.chosenWarehouse, areas: newWarehouseAreasState}
         })
     }
+
+    useEffect(() => {
+        if(submitFlag) {
+            sendChangedStock(state.chosenWarehouse.areas)
+        }
+    }, [submitFlag])
+    
     
     return (
         <Container fixed>
@@ -165,7 +172,6 @@ const DndStock = ({ttn, warehouses, getEachAreaState, showSaveButton, setSelecte
                         activeArea={state.activeArea}
                         activeDnDCargoUnit={state.activeDnDCargoUnit}
                         addCargoUnitToRemove={addCargoUnitToRemove}
-                        getEachAreaState={getEachAreaState}
                         initActiveCargoAndArea={initActiveCargoAndArea}
                         submitFlag={submitFlag}
                     />
