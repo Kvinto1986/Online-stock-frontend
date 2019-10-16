@@ -1,9 +1,9 @@
 import WarehousingDataForm from './warehousingComponents/warehousingDataForm'
-import { DndProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd-cjs'
+import HTML5Backend from 'react-dnd-html5-backend-cjs'
 import DndStock from './warehousingComponents/dndStock'
 import WarehousingSubmitButton from './warehousingComponents/WarehousingSubmitButton'
-import React, { useState, useEffect } from 'react'   
+import React, { useState } from 'react'   
 import 'sweetalert2/src/sweetalert2.scss'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
@@ -19,9 +19,8 @@ const initialWareHousingState = {
 const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, currentManager, user}) => {
 
     const [curTtn, setCurTtn] = useState(initialState)
-    const [state, setState] = useState(initialState)
+    const [statusesState, setStatusesState] = useState(initialState)
     const [wareHousingState, setWareHousingState] = useState(initialWareHousingState)
-    const [submitFlag, setSubmitFlag] = useState(false)
     const [warehousingActiveStock, setWarehousingActiveStock] = useState(null)
 
     const successWirehousingAletrt = () => {
@@ -36,33 +35,18 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, curren
             allowOutsideClick: false
         })
         .then(() => {
-            setSubmitFlag(false)
             // TODO: Remove page reload
             window.location.reload()
         })
     }
-
-    useEffect(() => {
-        if(wareHousingState.areasData.length > 0 && submitFlag) {
-            if(wareHousingState.areasData.length === warehousingActiveStock.areas.length) {
-                const data = {
-                    stockData: warehousingActiveStock,
-                    wareHousingData: wareHousingState,
-                }
-
-                makeWarehousing(data, successWirehousingAletrt)
-            }
-        }
-    }, [wareHousingState.areasData])
-
-    
+   
     const setCurrentTTN = curTtn => {
         setCurTtn(curTtn) 
     }
 
     const dndIsShown = value => {
-        setState({
-            ...state,
+        setStatusesState({
+            ...statusesState,
             ttnIsFound: value
         })
     }
@@ -82,15 +66,20 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, curren
     }
 
     const showSaveButton = () => {
-        setState({...state, isSubmitButtonShowen: true})
-    }
-
-    const catchSubmitAction = () => {
-        setSubmitFlag(true)
+        setStatusesState({...statusesState, isSubmitButtonShowen: true})
     }
 
     const setSelectedStockState = data => {
         setWarehousingActiveStock(data)
+    }
+
+    const catchSubmitAction = () => {
+        const data = {
+            stockData: warehousingActiveStock,
+            wareHousingData: wareHousingState,
+        }
+        
+        makeWarehousing(data, successWirehousingAletrt)
     }
         
     return (
@@ -105,19 +94,18 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, curren
                 currentManager={user}
             />
             <DndProvider backend={HTML5Backend}>
-                {state.ttnIsFound && 
+                {statusesState.ttnIsFound && 
                     <DndStock 
                         ttn={curTtn}
                         warehouses={warehouses}
                         showSaveButton={showSaveButton}
-                        setSelectedStockState={setSelectedStockState} 
-                        submitFlag={submitFlag}
+                        setSelectedStockState={setSelectedStockState}
                         sendChangedStock={sendChangedStock}
                     />
                 }
             </DndProvider>
             <WarehousingSubmitButton 
-                isShowen={state.isSubmitButtonShowen}
+                isShowen={statusesState.isSubmitButtonShowen}
                 catchSubmitAction={catchSubmitAction}
             />
         </React.Fragment>

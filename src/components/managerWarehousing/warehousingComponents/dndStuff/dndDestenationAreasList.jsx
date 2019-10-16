@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@material-ui/core'
 import DndDestenationArea from './dndDestenationArea'
 
-const DndDestenationAreasList = ({chosenWarehouse, activeArea, activeDnDCargoUnit, submitFlag, ...props}) => {
+const DndDestenationAreasList = ({chosenWarehouse, activeArea, activeDnDCargoUnit, ...props}) => {
     const dndDestenationAreas = chosenWarehouse && chosenWarehouse.areas.map((stockUnit, index) => {
         const areaIndex = index + 1
         const areaKey = stockUnit.freeArea + stockUnit.type + index
@@ -21,7 +21,6 @@ const DndDestenationAreasList = ({chosenWarehouse, activeArea, activeDnDCargoUni
                     initActiveCargoAndArea={props.initActiveCargoAndArea}
                     key={areaKey} 
                     isActiveArea={isActiveArea}
-                    submitFlag={submitFlag}
                 /> 
             )
         }

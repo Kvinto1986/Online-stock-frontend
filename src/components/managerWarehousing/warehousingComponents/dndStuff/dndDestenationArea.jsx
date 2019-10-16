@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useDrop } from 'react-dnd'
+import { useDrop } from 'react-dnd-cjs'
 import ItemTypes from './ItemTypes'
 import useStyles from '../../warehousingStyles'
 
@@ -10,7 +10,7 @@ const initialState = {
     products: ''
 }
 
-const DndDestenationArea = ({ index, area, freeArea, products, type, isActiveArea, submitFlag, ...props}) => {
+const DndDestenationArea = ({ index, area, freeArea, products, type, isActiveArea, ...props}) => {
     const classes = useStyles()
     const [state, setState] = useState(initialState)
     const [{ canDrop, isOver }, drop] = useDrop({

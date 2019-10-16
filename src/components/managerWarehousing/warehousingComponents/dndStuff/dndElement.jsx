@@ -1,9 +1,9 @@
 import React from 'react'
-import {useDrag} from 'react-dnd'
+import {useDrag} from 'react-dnd-cjs'
 import ItemTypes from './ItemTypes'
 import useStyles from '../../warehousingStyles'
 
-const DndElement = ({ name, amount, dimension, ttnId, setCurrentHendleCargoUnit, id, ...props }) => {
+const DndElement = ({ name, amount, dimension, ttnId, setCurrentHendleCargoUnit, id, spinerIndex }) => {
     const classes = useStyles()
     
     const [{isDragging}, drag] = useDrag({
@@ -20,10 +20,9 @@ const DndElement = ({ name, amount, dimension, ttnId, setCurrentHendleCargoUnit,
     return (
         <div ref={drag} className={classes.dndElement} onDragStart={dragStartHendler}>
             <div>
-                <b>{name}</b> | 
-                <small> {amount}{dimension}</small>
+                <b>{name}</b><small> | {amount} {dimension}</small>
             </div>
-            {props.spinerIndex}
+            {spinerIndex}
         </div>
     )
 }

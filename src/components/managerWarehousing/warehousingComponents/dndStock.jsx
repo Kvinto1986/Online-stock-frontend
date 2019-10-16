@@ -5,7 +5,7 @@ import WarehousingDetailsForm from './warehousingDetails/warehousingDetailsForm'
 import DndElementsList from './dndStuff/dndElementsList'
 import DndDestenationAreasList from './dndStuff/dndDestenationAreasList'
 
-const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelectedStockState, submitFlag}) => {
+const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelectedStockState}) => {
 
     const initialState = {
         activeDnDCargoUnit: '',
@@ -108,10 +108,8 @@ const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelecte
     }
 
     useEffect(() => {
-        if(submitFlag) {
-            sendChangedStock(state.chosenWarehouse.areas)
-        }
-    }, [submitFlag])
+        sendChangedStock(state.chosenWarehouse.areas)
+    }, [state.chosenWarehouse.areas])
     
     
     return (
@@ -173,7 +171,6 @@ const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelecte
                         activeDnDCargoUnit={state.activeDnDCargoUnit}
                         addCargoUnitToRemove={addCargoUnitToRemove}
                         initActiveCargoAndArea={initActiveCargoAndArea}
-                        submitFlag={submitFlag}
                     />
                 </div>
                 <div style={{width: '100%'}}>
