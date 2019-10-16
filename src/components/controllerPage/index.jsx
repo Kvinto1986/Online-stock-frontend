@@ -11,7 +11,7 @@ export default () => {
         () => {
             successSwal(resetKey, 'TTN successfully save')
         },
-        [keyPage, resetKey],
+        [resetKey],
     )
 
     const [getTtn, ttns, getTtnError] = useGetTtn()
