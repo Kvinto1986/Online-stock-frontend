@@ -1,7 +1,5 @@
 import axios from 'axios'
-import {
-    SET_ERRORS,
-} from './types'
+import {SET_ERRORS} from './types'
 import server from '../serverConfig'
 
 export const warehousingPostData = (data, successWirehousingAletrt) => dispatch => { 

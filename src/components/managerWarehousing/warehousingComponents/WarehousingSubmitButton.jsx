@@ -1,22 +1,17 @@
 import React from 'react'
 import { Box, Button, Container } from '@material-ui/core'
 
-const WarehousingSubmitButton = ({isShowen, catchSubmitAction}) => {
-
-    const handleSubmit = () => {
-        catchSubmitAction()
-    }
-
+const WarehousingSubmitButton = ({isShown, catchSubmitAction}) => {
     return (
         <Container maxWidth="sm">
             <Box my={3}>
                 <Button
-                    disabled={!isShowen}
+                    disabled={!isShown}
                     type="submit"
                     fullWidth
                     variant="contained"
                     color="primary"
-                    onClick={handleSubmit}
+                    onClick={catchSubmitAction}
                 >
                     Save warehousing
                 </Button>

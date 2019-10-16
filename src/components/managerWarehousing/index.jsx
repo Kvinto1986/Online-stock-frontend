@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useCallback} from 'react'
 import {useGetTtn, useGetWarehouses, useGetEmployee} from '../../api/apiRequests'
 import Warehousing from './warehousing'
 import {warehousingPostData} from '../../actions/warehousingActions'
@@ -15,7 +15,7 @@ export default () => {
     const [getTtn, ttn, ttnError] = useGetTtn(handleNext)
     const [getEmployee, currentManager] = useGetEmployee(handleNext)
     const [getWarehouses, warehouses] = useGetWarehouses(handleNext)
-    
+
     useEffect(() => {
         getEmployee()
         getWarehouses()

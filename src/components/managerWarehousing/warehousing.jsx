@@ -16,7 +16,7 @@ const initialWareHousingState = {
     formData: ''
 }
 
-const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, currentManager, user}) => {
+const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, user}) => {
 
     const [curTtn, setCurTtn] = useState(initialState)
     const [statusesState, setStatusesState] = useState(initialState)
@@ -66,7 +66,7 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, curren
     }
 
     const showSaveButton = () => {
-        setStatusesState({...statusesState, isSubmitButtonShowen: true})
+        setStatusesState({...statusesState, isSubmitButtonShown: true})
     }
 
     const setSelectedStockState = data => {
@@ -105,7 +105,7 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, curren
                 }
             </DndProvider>
             <WarehousingSubmitButton 
-                isShowen={statusesState.isSubmitButtonShowen}
+                isShown={statusesState.isSubmitButtonShown}
                 catchSubmitAction={catchSubmitAction}
             />
         </React.Fragment>

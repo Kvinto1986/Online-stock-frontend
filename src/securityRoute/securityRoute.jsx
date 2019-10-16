@@ -14,14 +14,14 @@ import Companies from '../components/companiesListPage/companiesList'
 import Carrier from '../components/searchCarrier'
 import Landing from '../components/landingPage/landing'
 
-import AllCarrier from '../components/allCarrier';
-import TtnForm from '../components/ttnForm';
-import AddCarrier from "../components/carrierForm";
+import AllCarrier from '../components/allCarrier'
+import TtnForm from '../components/ttnForm'
+import AddCarrier from '../components/carrierForm'
 import TTNregister from '../components/operatorPage/index'
 
 import DeliveryGoodsFromStock from '../components/deliveryFromStock/deliveryFromStockPage'
 
-import Warehousing from '../components/managerWarehousing/index'
+import Warehousing from '../components/managerWarehousing'
 import Employees from '../components/employeesPage'
 import Employee from '../components/employeePage'
 import ControllerPage from '../components/controllerPage/controlTTN'
