@@ -15,7 +15,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 
 import InputText from '../fields/textField'
 
-
 export default ({onSubmit, error, setValue}) => {
 
     const [carrier, setCarrier] = useState({
@@ -55,7 +54,7 @@ export default ({onSubmit, error, setValue}) => {
                                 <InputText
                                     min={9}
                                     max={9}
-                                    pattern={/^[1-9]*$/}
+                                    pattern={/^[0-9]*$/}
                                     fullWidth
                                     label="UNP"
                                     variant="outlined"
