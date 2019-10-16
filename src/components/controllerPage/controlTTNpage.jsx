@@ -9,14 +9,14 @@ import SubmitButton from './controlTTNsubmit'
 import TTNdialog from './controlTTNdialog'
 import moment from 'moment'
 
-export default ({ttn, getTtn, getTtnError, editTtn}) => {
+export default ({ttns, getTtn, getTtnError, editTtn}) => {
     const classes = useStyles()
 
     const [confirm, setConfirm] = useState(false)
     const [open, setOpen] = useState(false)
     const [report, setReport] = useState('')
     const [ttnId, setTtnId] = useState('')
-
+    
     const [currentTTN, setRawCurrentTTN] = useState({})
 
     const setCurrentTTN = obj => {
@@ -30,24 +30,24 @@ export default ({ttn, getTtn, getTtnError, editTtn}) => {
 
     const openDialog = (open) => {
         setOpen(open)
-        setCurrentTTN(ttn[ttnId])
+        setCurrentTTN(ttns[ttnId])
     }
 
     const handleSubmitTTN = () => {
         const reportData = {
-            status:'checked',
+            status: 'checked',
             products: currentTTN.products,
         }
 
-        if(report.length>0){
-            reportData.reports=[{report: report, date: moment().format()},...ttn[ttnId].reports]
+        if (report.length > 0) {
+            reportData.reports = [{report: report, date: moment().format()}, ...ttns[ttnId].reports]
         }
 
-        editTtn(reportData,ttn[ttnId].id)
+        editTtn(reportData, ttns[ttnId].id)
     }
 
     const handleChangeTTN = (e, id) => {
-        currentTTN.products.map((elem) => {
+        currentTTN.products.forEach((elem) => {
             if (elem.id === id) {
                 elem[e.target.name] = e.target.value
             }
@@ -64,10 +64,10 @@ export default ({ttn, getTtn, getTtnError, editTtn}) => {
                 value={ttnId}
                 setValue={setTtnId}
             />
-            {ttn[ttnId] && (
+            {ttns[ttnId] && (
                 <Fragment>
                     <TTNcard
-                        ttn={ttn[ttnId]}
+                        ttn={ttns[ttnId]}
                         open={open}
                         report={report}
                         setReport={setReport}

@@ -1,5 +1,5 @@
 import React from 'react'
-import СontrolTTNPage from './controlTTNpage'
+import ControlTTNPage from './controlTTNpage'
 import {useGetTtn, useEditTtn} from '../../api/apiRequests'
 import {useReset} from '../../hooks/hook'
 import successSwal from '../warehousesPage/successSwal'
@@ -11,12 +11,12 @@ export default () => {
         successSwal(resetKey, 'TTN successfully save')
     }
 
-    const [getTtn, ttn, getTtnError] = useGetTtn()
-    const [editTtn, ,] = useEditTtn(handleResetForm)
+    const [getTtn, ttns, getTtnError] = useGetTtn()
+    const [editTtn] = useEditTtn(handleResetForm)
 
-    return <СontrolTTNPage
+    return <ControlTTNPage
         key={keyPage}
-        ttn={ttn}
+        ttns={ttns}
         getTtn={getTtn}
         getTtnError={getTtnError}
         editTtn={editTtn}

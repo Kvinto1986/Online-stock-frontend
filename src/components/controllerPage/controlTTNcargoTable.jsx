@@ -31,7 +31,7 @@ export default ({cargo, open, handleChangeTTN}) => {
                         <TableRow key={elem.id}>
                             <TableCell align="center">
                                 <InputBase
-                                    disabled={true}
+                                    disabled
                                     defaultValue={elem.id}
                                 />
                             </TableCell>
@@ -59,7 +59,7 @@ export default ({cargo, open, handleChangeTTN}) => {
                                     defaultValue={elem.type}
                                     name="type"
                                     onChange={handleChange}
-                                    disabled={true}/>
+                                    disabled/>
                             </TableCell>
                         </TableRow>
                     )
