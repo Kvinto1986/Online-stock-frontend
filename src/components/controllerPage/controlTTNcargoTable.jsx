@@ -40,7 +40,7 @@ export default ({cargo, open, handleChangeTTN}) => {
                                     inputProps={{'data-testid': elem.id + '-name'}}
                                     disabled={!open}
                                     defaultValue={elem.name}
-                                    name='name'
+                                    name="name"
                                     onChange={handleChange}
                                 />
                             </TableCell>
@@ -48,7 +48,7 @@ export default ({cargo, open, handleChangeTTN}) => {
                                 <InputBase
                                     data-testid={elem.id + '-amount'}
                                     defaultValue={elem.amount}
-                                    name='amount'
+                                    name="amount"
                                     onChange={handleChange}
                                     disabled={!open}
                                 />
@@ -57,9 +57,9 @@ export default ({cargo, open, handleChangeTTN}) => {
                                 <InputBase
                                     data-testid={elem.id + '-type'}
                                     defaultValue={elem.type}
-                                    name='type'
+                                    name="type"
                                     onChange={handleChange}
-                                    disabled={!open}/>
+                                    disabled={true}/>
                             </TableCell>
                         </TableRow>
                     )
