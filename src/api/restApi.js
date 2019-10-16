@@ -43,7 +43,7 @@ export const createApiHook = (request, selector) => onSuccess => {
                     onSuccess && onSuccess(x)
                     return x
                 })
-                .catch(x => setErrors(x.response.data))
+                .catch(({response: {data}}) => setErrors(data))
                 .finally(() => setLoading(false))
         },
         [dispatch, onSuccess]
