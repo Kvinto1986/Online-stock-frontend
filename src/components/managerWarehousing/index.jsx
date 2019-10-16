@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback} from 'react'
+import React, {useEffect} from 'react'
 import {useGetTtn, useGetWarehouses, useGetEmployee} from '../../api/apiRequests'
 import Warehousing from './warehousing'
 import {warehousingPostData} from '../../actions/warehousingActions'
@@ -10,16 +10,14 @@ export default () => {
     const makeWarehousing = compose(dispatch, warehousingPostData)
     const user = useSelector(state => state.auth.user)
 
-    const handleNext = () => {}
-
-    const [getTtn, ttn, ttnError] = useGetTtn(handleNext)
-    const [getEmployee, currentManager] = useGetEmployee(handleNext)
-    const [getWarehouses, warehouses] = useGetWarehouses(handleNext)
+    const [getTtn, ttn, ttnError] = useGetTtn()
+    const [getEmployee, currentManager] = useGetEmployee()
+    const [getWarehouses, warehouses] = useGetWarehouses()
 
     useEffect(() => {
         getEmployee()
         getWarehouses()
-    }, [])
+    }, [getEmployee, getWarehouses])
     
     return (
         <Warehousing

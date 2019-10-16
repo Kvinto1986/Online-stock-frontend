@@ -16,23 +16,25 @@ const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, tt
 
     const [formState, setFormState] = useState(initialFormState)
     const [listState, setListState] = useState(initialListState)
+    const [ttnStatusErr, setTtnStatusErr] = useState(null)
 
     useEffect(() => {
         if(ttn && Object.keys(ttn).length > 0) {
-            // TODO: Status error handling
-
-            const {firstName, lastName, patronymic} = currentManager
-            const managerInitials = `${firstName} ${lastName} ${patronymic}`
             const currentTtn = ttn[formState.ttnNumber]
 
             setCurrentTTN(currentTtn)
 
-            const date = 
+            if(currentTtn.status === 'checked') {
+
+                const {firstName, lastName, patronymic} = currentManager
+                const managerInitials = `${firstName} ${lastName} ${patronymic}`
+    
+                const date = 
                 new Date(currentTtn.dataOfRegistration).getDate() + '.' +
                 new Date(currentTtn.dataOfRegistration).getMonth() + '.' +
                 new Date(currentTtn.dataOfRegistration).getFullYear()
 
-            if(currentTtn.status === 'checked') {
+                setTtnStatusErr(null)
                 dndIsShown(true)
                 setFormState(initialFormState)
                 setListState({
@@ -45,8 +47,7 @@ const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, tt
                 getFormData(currentTtn.id)
             }
             else {
-                // TODO: Status err handling
-                alert('Invalid TTN status')     
+                setTtnStatusErr('TTN must been checked')     
             }
         }
     }, [ttn])
@@ -88,6 +89,7 @@ const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, tt
                                         value={ttnNumber}
                                     />
                                     {(ttnError.TTN && !operatorName) && <p style={{color: 'red'}}>{ttnError.TTN}</p>}
+                                    {ttnStatusErr && !ttnError.TTN && <p style={{color: 'red'}}>{ttnStatusErr}</p>}
                                 </Box>
                                 <Box mt={2}>
                                     <Button

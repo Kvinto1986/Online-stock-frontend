@@ -27,7 +27,7 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, user})
         Swal
         .fire({
             title: 'Success',
-            text: 'Cargo will be plased to stock in close time.',
+            text: 'Cargo placed to stock.',
             type: 'success',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
