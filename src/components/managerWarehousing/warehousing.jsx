@@ -1,136 +1,113 @@
-import React from "react"
-import WarehousingDataForm from "./warehousingComponents/warehousingDataForm"
-import { DndProvider } from "react-dnd"
-import HTML5Backend from "react-dnd-html5-backend"
-import DndStock from "./warehousingComponents/dndStock"
-import WarehousingSubmitButton from "./warehousingComponents/WarehousingSubmitButton"
-import { useState, useEffect } from "react"
-import { warehousingSubmit } from "../../actions/warehousingActions"     
-import { fetchAvailableStocks } from "../../actions/warehousingActions"
-import { connect } from "react-redux"
-import { warehousingPostData } from "../../actions/warehousingActions"
-import "sweetalert2/src/sweetalert2.scss"
-import Swal from "sweetalert2/dist/sweetalert2.js"
+import WarehousingDataForm from './warehousingComponents/warehousingDataForm'
+import { DndProvider } from 'react-dnd-cjs'
+import HTML5Backend from 'react-dnd-html5-backend-cjs'
+import DndStock from './warehousingComponents/dndStock'
+import WarehousingSubmitButton from './warehousingComponents/WarehousingSubmitButton'
+import React, { useState } from 'react'   
+import 'sweetalert2/src/sweetalert2.scss'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
-const Warehousing = props => {
+const initialState = {
+    ttnIsFound: false
+}
 
-    // *** State ***
+const initialWareHousingState = {
+    areasData: [],
+    formData: ''
+}
 
-    const initialState = {
-        ttnIsFound: false
-    }
+const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, user}) => {
 
-    const initialWareHousingState = {
-        areasData: [],
-        formData: ""
-    }
-
-    const [state, setState] = useState(initialState)
+    const [curTtn, setCurTtn] = useState(null)
+    const [ttnIsFound, seTttnIsFound] = useState(false)
+    const [statusesState, setStatusesState] = useState(initialState)
     const [wareHousingState, setWareHousingState] = useState(initialWareHousingState)
-
-    // *** Variables ***
-
-    const associativeAreaState = []
-
-    // *** Functions ***
+    const [warehousingActiveStock, setWarehousingActiveStock] = useState(null)
 
     const successWirehousingAletrt = () => {
         Swal
         .fire({
-            title: "Success",
-            text: "Cargo will be plased to stock in close time.",
-            type: "success",
+            title: 'Success',
+            text: 'Cargo placed to stock.',
+            type: 'success',
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "OK",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
             allowOutsideClick: false
         })
         .then(() => {
-            props.warehousingSubmit(false)
+            // TODO: Remove page reload
             window.location.reload()
         })
     }
-
-    useEffect(() => {
-        props.fetchAvailableStocks(props.user)
-    }, [])
-
-    useEffect(() => {
-        setTimeout(() => {
-            if(wareHousingState.areasData.length > 0) {
-                if(wareHousingState.areasData.length === props.warehousingActiveStock.areas.length) {
-                    finishWarehousing()
-                }
-            }
-        }, 0)
-    }, [wareHousingState.areasData])
-    
-    const finishWarehousing = () => {
-        const data = {
-            stockData: props.warehousingActiveStock,
-            wareHousingData: wareHousingState,
-        }
-
-        props.warehousingPostData(data, successWirehousingAletrt)
+   
+    const setCurrentTTN = curTtn => {
+        setCurTtn(curTtn) 
     }
 
     const dndIsShown = value => {
-        setState({
-            ...state,
-            ttnIsFound: value
-        })
-    }
-
-    const getEachAreaState = value => {
-        associativeAreaState.push(value)
-        
-
-        setWareHousingState({
-            ...wareHousingState,
-            areasData: associativeAreaState
-        })
+        seTttnIsFound(value)
     }
 
     const getFormData = data => {
         setWareHousingState({
             ...wareHousingState,
-            formData: data
+            ttnNumber: data
+        })
+    }
+
+    const sendChangedStock = changedStockData => { 
+        setWareHousingState({
+            ...wareHousingState,
+            areasData: changedStockData
         })
     }
 
     const showSaveButton = () => {
-        setState({...state, isSubmitButtonShowen: true})
+        setStatusesState({...statusesState, isSubmitButtonShown: true})
     }
+
+    const setSelectedStockState = data => {
+        setWarehousingActiveStock(data)
+    }
+
+    const catchSubmitAction = () => {
+        const data = {
+            stockData: warehousingActiveStock,
+            wareHousingData: wareHousingState,
+        }
         
+        makeWarehousing(data, successWirehousingAletrt)
+    }
+
     return (
         <React.Fragment>
-            <WarehousingDataForm dndIsShown={dndIsShown} getFormData={getFormData} />
+            <WarehousingDataForm 
+                setCurrentTTN={setCurrentTTN}
+                dndIsShown={dndIsShown}
+                getFormData={getFormData} 
+                getTtn={getTtn} 
+                ttnError={ttnError}
+                ttn={ttn}
+                currentManager={user}
+            />
             <DndProvider backend={HTML5Backend}>
-                {state.ttnIsFound && 
+                {ttnIsFound && 
                     <DndStock 
-                        warehouses={props.warehouses} 
-                        getEachAreaState={getEachAreaState} 
-                        showSaveButton={showSaveButton} 
+                        ttn={curTtn}
+                        warehouses={warehouses}
+                        showSaveButton={showSaveButton}
+                        setSelectedStockState={setSelectedStockState}
+                        sendChangedStock={sendChangedStock}
                     />
                 }
             </DndProvider>
             <WarehousingSubmitButton 
-                isShowen={state.isSubmitButtonShowen}
-                finishWarehousing={finishWarehousing} 
+                isShown={statusesState.isSubmitButtonShown}
+                catchSubmitAction={catchSubmitAction}
             />
         </React.Fragment>
     )
 }
 
-const mapStateToProps = (state) => ({
-    warehouses: state.warehouses,
-    warehousingActiveStock: state.warehousingActiveStock,
-    user: state.auth.user,
-    warehousingFlag: state.warehousingFlag,
-})
-
-export default connect(mapStateToProps, {
-    fetchAvailableStocks,
-    warehousingPostData,
-    warehousingSubmit
-})(Warehousing)
+export default Warehousing

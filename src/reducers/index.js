@@ -5,25 +5,8 @@ import adminCompanyStatisticReduser from './adminsCompanyStatisticReduser'
 import companiesListReduser from './companiesListReduser'
 import companyReduser from './companyReduser'
 import carriersReducer from './carriersReducer'
-import warehousingFlagRegucer from './warehousingFlagRegucer'
-import warehousingActiveStockReducer from './warehousingActiveStockReducer'
 import {normalize} from '../utils/utils'
-
-import {
-    CARRIER,
-    CARRIERS,
-    DRIVER,
-    DRIVERS,
-    EMPLOYEE,
-    EMPLOYEES,
-    TTN,
-    TTN_OUT,
-    TTNS,
-    TTNS_OUT,
-    WAREHOUSE,
-    WAREHOUSES
-} from '../actions/types'
-
+import {EMPLOYEE, EMPLOYEES,CARRIER,CARRIERS,DRIVER,DRIVERS,TTN,TTNS,WAREHOUSE,WAREHOUSES} from '../actions/types'
 
 function createNormalReducer(singular, plural) {
     return (store = {}, {type, data}) => {
@@ -50,6 +33,7 @@ const warehouses = createNormalReducer(WAREHOUSE, WAREHOUSES)
 const ttnsOut = createNormalReducer(TTN_OUT, TTNS_OUT)
 
 export default combineReducers({
+    warehouses,
     employees,
     carriers,
     drivers,
@@ -62,6 +46,4 @@ export default combineReducers({
     companiesList: companiesListReduser,
     currentCompany: companyReduser,
     carriersReducer: carriersReducer,
-    warehousingFlag: warehousingFlagRegucer,
-    warehousingActiveStock: warehousingActiveStockReducer
 })

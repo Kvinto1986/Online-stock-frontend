@@ -19,10 +19,10 @@ import SendCargo from '../components/sendCargo'
 
 import DeliveryGoodsFromStock from '../components/deliveryFromStock/deliveryFromStockPage'
 
-import Warehousing from '../components/managerWarehousing/warehousing'
+import Warehousing from '../components/managerWarehousing'
 import Employees from '../components/employeesPage'
 import Employee from '../components/employeePage'
-import ControllerPage from '../components/controllerPage/controlTTN'
+import ControllerPage from '../components/controllerPage'
 import {CheckTtnPage} from '../components/checkTtn/checkTtnPage'
 import EmployeeEditPage from '../components/employeeEditPage'
 

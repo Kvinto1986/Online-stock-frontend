@@ -1,66 +1,70 @@
-import React, { useState, useEffect } from "react"
-import { TextValidator, ValidatorForm } from "react-material-ui-form-validator"
-import { Container, Box, Typography, Grid, Button } from "@material-ui/core"
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
-import DateFnsUtils from "@date-io/date-fns";
-import { findTTNbyNumber } from "../../../actions/ttnActions"
-import { connect } from "react-redux"
+import React, { useState, useEffect } from 'react'
+import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator'
+import { Container, Box, Typography, Grid, Button, List, ListItem, ListItemText } from '@material-ui/core'
 
-const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
+const initialFormState = {
+    ttnNumber: ''
+}
 
-    const initialFormState = {
-        ttnIsExists: null,
-        ttnNumber: "",
-        ttnDate: "",
-        managerInitials: "",
-        operatorName: "",
-        deliveryForStorageDate: ""
-    }
+const initialListState = {
+    ttnDate: '',
+    managerInitials: '',
+    operatorName: '',
+}
 
-    const [formState, setFormState] = useState(initialFormState);
+const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, ttnError, ttn, currentManager}) => {
 
-    useEffect(() => {
-        if(props.ttnData&&Object.keys(props.ttnData).length > 0) {
-            const ttnData = props.ttnData
-            const { firstName, lastName, patronymic } = props.auth.user
-            const managerInitials = `${firstName} ${lastName} ${patronymic}`
-            
-            setFormState({
-                ...formState, 
-                ttnIsExists: true,
-                ttnDate: ttnData.dataOfRegistration, 
-                managerInitials,
-                operatorName: ttnData.sender,
-            })
-
-            getFormData(ttnData, managerInitials)
-        }
-    }, [props.ttnData])
+    const [formState, setFormState] = useState(initialFormState)
+    const [listState, setListState] = useState(initialListState)
+    const [ttnStatusErr, setTtnStatusErr] = useState(null)
 
     useEffect(() => {
-        if (Object.keys(props.errors).length > 0) {
+        if(ttn && Object.keys(ttn).length > 0) {
+            const currentTtn = ttn[formState.ttnNumber]
+
+            setCurrentTTN(currentTtn)
             
-            setFormState({
-                ...formState, 
-                ttnIsExists: false,
-                ttnDate: "", 
-                managerInitials: "",
-                operatorName: "",
-                deliveryForStorageDate: ""
-            })
+            if(currentTtn.status === 'checked') {
+
+                const {firstName, lastName, patronymic} = currentManager
+                const managerInitials = `${firstName} ${lastName} ${patronymic}`
+    
+                const date = 
+                new Date(currentTtn.dataOfRegistration).getDate() + '.' +
+                new Date(currentTtn.dataOfRegistration).getMonth() + '.' +
+                new Date(currentTtn.dataOfRegistration).getFullYear()
+
+                setTtnStatusErr(null)
+                dndIsShown(true)
+                setFormState(initialFormState)
+                setListState({
+                    ...listState, 
+                    ttnDate: date,
+                    managerInitials: managerInitials,
+                    operatorName: currentTtn.owner,
+                })
+    
+                getFormData(currentTtn.id)
+            }
+            else {
+                setTtnStatusErr('TTN must been checked')     
+            }
         }
-    }, [props.errors])
+    }, [ttn])
+
+    useEffect(() => {
+        if (ttnError.TTN) {
+            setListState(initialListState)
+        }
+    }, [ttnError.TTN])
 
     const handleChange = e => {
-        setFormState({ ...formState, [e.target.name]: e.target.value });
-    };
-
-    const findTTN = () => {
-        props.findTTNbyNumber(formState.ttnNumber, dndIsShown)
+        setFormState({...formState, [e.target.name]: e.target.value})
     }
     
-    const {ttnNumber, ttnDate, managerInitials, operatorName, ttnIsExists} = formState
-    
+    const {ttnNumber} = formState
+    const {ttnDate, managerInitials, operatorName} = listState
+
     return (
         <Container component="main" maxWidth="xs">
             <Box mt={5}>
@@ -69,10 +73,10 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
                         Transfer goods to store
                     </Typography>
                 </Box>
-                <ValidatorForm onSubmit={() => {}}>
+                <ValidatorForm onSubmit={() => getTtn(formState.ttnNumber)}>
                     <Grid container>
                         <Grid item xs={12}>
-                            <Box>
+                            <Box mt={1}>
                                 <Box>
                                     <TextValidator
                                         required
@@ -82,91 +86,57 @@ const WarehousingDataForm = ({ dndIsShown, getFormData, ...props}) => {
                                         name="ttnNumber"
                                         autoComplete="ttnNumber"
                                         onChange={handleChange}
-                                        value={ttnNumber || ""}
+                                        value={ttnNumber}
                                     />
-                                    {((ttnIsExists === false) || Object.keys(props.errors).length > 0) && (
-                                        <p style={{color: "red"}}>TTN not found</p>
-                                    )}
+                                    {(ttnError.TTN && !operatorName) && <p style={{color: 'red'}}>{ttnError.TTN}</p>}
+                                    {(ttnStatusErr && !ttnError.TTN) && <p style={{color: 'red'}}>{ttnStatusErr}</p>}
                                 </Box>
                                 <Box mt={2}>
                                     <Button
-                                        type="button"
-                                        onClick={findTTN}
+                                        type="submit"
                                         variant="outlined"
                                     >
                                         Fetch TTN data
                                     </Button>
                                 </Box>
                             </Box>
-                            <Box>
-                                <Box mt={2}>
-                                    <TextValidator
-                                        disabled
-                                        fullWidth
-                                        id="ttnDate"
-                                        label="TTN register date"
-                                        name="ttnDate"
-                                        autoComplete="ttnDate"
-                                        onChange={handleChange}
-                                        value={ttnDate || ""}
-                                    />
-                                </Box>
-                                <Box mt={2}>
-                                    <TextValidator
-                                        disabled
-                                        fullWidth
-                                        id="managerInitials"
-                                        label="Manager initials"
-                                        name="managerInitials"
-                                        autoComplete="managerInitials"
-                                        onChange={handleChange}
-                                        value={managerInitials || ""}
-                                    />
-                                </Box>
-                                <Box mt={2}>
-                                    <TextValidator
-                                        disabled
-                                        fullWidth
-                                        id="operatorName"
-                                        label="TTN operator name"
-                                        name="operatorName"
-                                        autoComplete="operatorName"
-                                        onChange={handleChange}
-                                        value={operatorName || ""}
-                                    />
-                                </Box>
-                                <Box mt={1}>
-                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                        <KeyboardDatePicker
-                                            required
-                                            disabled
-                                            disableToolbar
-                                            variant="inline"
-                                            format="MM/dd/yyyy"
-                                            margin="normal"
-                                            id="date-picker-inline"
-                                            label="Date of goods delivery for storage"
-                                            onChange={handleChange}
-                                            name="deliveryForStorageDate"
-                                            fullWidth
-                                        />
-                                    </MuiPickersUtilsProvider>
-                                </Box>
-                            </Box>
+                            {
+                                (
+                                    ttnDate &&
+                                    managerInitials &&
+                                    operatorName
+                                ) && (
+                                    <Box mt={10}>
+                                        <Box display="flex" justifyContent="center">
+                                            <Typography variant="h6">
+                                                TTN details
+                                            </Typography>
+                                        </Box>
+                                        <List dense>
+                                            <ListItem>
+                                                <ListItemText
+                                                    primary="TTN register date"
+                                                    secondary={ttnDate}
+                                                />
+                                                <ListItemText
+                                                    primary="Manger initials"
+                                                    secondary={managerInitials}
+                                                />
+                                                <ListItemText
+                                                    primary="Sender"
+                                                    secondary={operatorName}
+                                                />
+                                            </ListItem>
+                                        </List>
+                                    </Box>
+                                )
+                            }
                         </Grid>
                     </Grid>
                 </ValidatorForm>
             </Box>
         </Container>
-    );
+    )
 }
 
-const mapStateToProps = (state) => ({
-    auth: state.auth,
-    ttnData: state.ttn,
-    errors: state.errors
-})
-
-export default connect(mapStateToProps, {
-    findTTNbyNumber
-})(WarehousingDataForm)
+export default WarehousingDataForm
