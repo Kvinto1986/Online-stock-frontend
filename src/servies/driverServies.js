@@ -3,18 +3,17 @@ import server from "../serverConfig";
 import {SET_ERRORS} from '../actions/types'
 
 export const addDriver = (driver) => {
-    const{email, name, surnName, drivingLicense} = driver;
+    const{email, name, surnName, driverLicense} = driver;
 
-    axios.post(`${server}api/drivers/addDriver`,  {
+    axios.post(`${server}api/drivers/`,  {
         email:email,
         name: name,
         surname:  surnName,
-        drivingLicense: drivingLicense
+        driverLicense: driverLicense
     })
 };
 
-export const findDriver = (data, history) => dispatch => {
-    const{license} = data;
+export const findDriver = (license, history) => dispatch => {
       axios.get(`${server}api/drivers/${license}`)
           .then((res) => {
              dispatch({

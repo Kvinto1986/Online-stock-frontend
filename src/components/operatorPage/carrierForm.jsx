@@ -15,7 +15,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 
 import InputText from '../fields/textField'
 
-
 export default ({onSubmit, error, setValue}) => {
 
     const [carrier, setCarrier] = useState({
@@ -31,13 +30,12 @@ export default ({onSubmit, error, setValue}) => {
     }
 
     const handleIdChange = (e) => {
-        setValue( e.target.value)
+        setValue(e.target.value)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         onSubmit(carrier)
-
     }
 
     const classes = useStyles()
@@ -56,12 +54,12 @@ export default ({onSubmit, error, setValue}) => {
                                 <InputText
                                     min={9}
                                     max={9}
-                                    pattern={/^[1-9]*$/}
+                                    pattern={/^[0-9]*$/}
                                     fullWidth
                                     label="UNP"
                                     variant="outlined"
                                     required
-                                    name='unp'
+                                    name="unp"
                                     error={error}
                                     value={carrier}
                                     handleChange={setCarrier}
@@ -88,7 +86,7 @@ export default ({onSubmit, error, setValue}) => {
                             </Grid>
                         </Grid>
                         <Grid container spacing={5}>
-                            <Grid item xs={12} style={{marginBottom:"9%"}}>
+                            <Grid item xs={12} style={{marginBottom: '9%'}}>
                                 <ReactPhoneInput
                                     required
                                     inputClass={classes.tel}

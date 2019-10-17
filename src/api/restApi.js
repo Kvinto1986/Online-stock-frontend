@@ -40,7 +40,7 @@ export const createApiHook = (request, selector) => onSuccess => {
             setLoading(true)
             request(...args)(dispatch)
                 .then(x => {
-                    onSuccess(x)
+                    onSuccess && onSuccess(x)
                     return x
                 })
                 .catch(({response: {data}}) => setErrors(data))
@@ -54,10 +54,17 @@ export const createApiHook = (request, selector) => onSuccess => {
 
 const ucFirst = str => str[0].toUpperCase() + str.slice(1).toLowerCase()
 
+const toCamelCase = str => {
+    const split = str.split('_')
+    const modified = split.map(ucFirst)
+    return modified.join('')
+}
+
 export function createRestHooks(singular, plural, selector) {
-    const url = plural.toLowerCase()
-    const singularName = ucFirst(singular)
-    const pluralName = ucFirst(plural)
+    const pluralCamel = toCamelCase(plural)
+    const url = pluralCamel[0].toLowerCase() + pluralCamel.slice(1)
+    const singularName = toCamelCase(singular)
+    const pluralName = toCamelCase(plural)
     return {
         ['useGet' + singularName]: createApiHook(getOne(singular, url), selector),
         ['useEdit' + singularName]: createApiHook(edit(singular, url), selector),

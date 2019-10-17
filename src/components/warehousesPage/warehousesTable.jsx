@@ -1,52 +1,17 @@
-import React, {useEffect} from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-
-import 'sweetalert2/src/sweetalert2.scss'
-
-import {getWarehouses, deleteWarehouse} from '../../actions/warehouseAction'
-
+import React from 'react'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
+import Button from '@material-ui/core/Button'
+import DeleteIcon from '@material-ui/icons/Delete'
 import useStyles from './warehousePageStyles'
-import {connect} from "react-redux";
 
-const WarehousesTable = (props) => {
-    useEffect(() => {
-        props.getWarehouses({id: props.auth.user.id})
-    }, []);
+export default ({deleteWarehouse, warehouses}) => {
 
-    const classes = useStyles();
-
-    const handleDelete = (id) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you want to delete warehouse?",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Accept',
-            allowOutsideClick: false
-        }).then((result) => {
-            if (result.value) {
-                props.deleteWarehouse(id);
-                Swal.fire({
-                    type: 'success',
-                    title: 'Congratulations!',
-                    text: 'Data successfully changed !',
-                    allowOutsideClick: false,
-                    timer: 3000
-                }).then(()=>{props.getWarehouses({id: props.auth.user.id})})
-            }
-        })
-
-    };
+    const classes = useStyles()
 
     return (
         <Paper className={classes.root}>
@@ -61,10 +26,11 @@ const WarehousesTable = (props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.warehouses.map(elem => (
+                    {Object.values(warehouses).map(elem => (
                         <TableRow key={elem.id}>
                             <TableCell align="center">
-                                <Button variant="contained" color="secondary" className={classes.button} onClick={(e)=>handleDelete(elem.id)}>
+                                <Button variant="contained" color="secondary" className={classes.button}
+                                        onClick={() => deleteWarehouse(elem.id)}>
                                     Delete
                                     <DeleteIcon style={{marginLeft: '5%'}}/>
                                 </Button>
@@ -101,13 +67,5 @@ const WarehousesTable = (props) => {
                 </TableBody>
             </Table>
         </Paper>
-    );
-};
-
-const mapStateToProps = (state) => ({
-    auth: state.auth,
-    errors: state.errors,
-    warehouses: state.warehouses
-});
-
-export default connect(mapStateToProps, {getWarehouses, deleteWarehouse})(WarehousesTable)
+    )
+}

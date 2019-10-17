@@ -39,19 +39,19 @@ export default ({ttn, open, report, setReport}) => {
             <Card className={classes.card}>
                 <CardContent>
                     <Typography>
-                        Sender: {ttn.sender}
+                        Owner info: {ttn.owner}
                     </Typography>
                     <Typography>
-                        Carrier: {ttn.carrier}
+                        Carrier info: unp:{ttn.carrier.unp}, phone:{ttn.carrier.tel}, company:{ttn.carrier.company}
                     </Typography>
                     <Typography>
-                        Driver name: {ttn.driver}
+                        Driver info: name:{ttn.driver.name}, driver license №{ttn.driver.license},
                     </Typography>
                     <Typography>
                         Car number: {ttn.carNumber}
                     </Typography>
                     <Typography>
-                        Operator name: {ttn.registrar}
+                        Registrar name: {ttn.registrar.name}
                     </Typography>
                     <Typography>
                         Registration data: {moment(ttn.dataOfRegistration).format('MMMM Do YYYY, h:mm:ss a  ')}
@@ -68,7 +68,7 @@ export default ({ttn, open, report, setReport}) => {
                         cargo={ttn.products}
                         open={open}
                     />
-                    {ttn.description.length > 0 && (
+                    {ttn.description && (
                         <Paper className={classes.description}>
                             <Typography color="textPrimary">
                                 {ttn.description}

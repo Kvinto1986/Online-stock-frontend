@@ -66,6 +66,14 @@ const useStyles = makeStyles(theme => ({
     pos: {
         marginBottom: 12,
     },
-}));
+    tab: {
+        backgroundColor:'#4d6cc9'
+    },
+    error: {
+        marginTop: '3%',
+        marginBottom: '5%',
+        color: 'red',
+    },
+}))
 
 export default useStyles

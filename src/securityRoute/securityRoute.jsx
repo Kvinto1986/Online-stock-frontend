@@ -2,9 +2,8 @@ import React, {Fragment} from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {connect} from 'react-redux'
 import AdminRegister from '../components/registerCompanyAdmin/registerCompanyAdmin'
-import Warehouse from '../components/warehousesPage/warehouse'
+import Warehouse from '../components/warehousesPage'
 import UserForm from '../components/registerEmployee/registerEmployeePage'
-import DriverRegistrer from '../components/registerDrive'
 import Home from '../components/homePage/homePage'
 import Login from '../components/loginPage/loginPage'
 import Report from '../components/mainAdminReport/reportPage'
@@ -15,8 +14,6 @@ import Carrier from '../components/searchCarrier'
 import Landing from '../components/landingPage/landing'
 
 import AllCarrier from '../components/allCarrier'
-import TtnForm from '../components/ttnForm'
-import AddCarrier from '../components/carrierForm'
 import TTNregister from '../components/operatorPage/index'
 
 import DeliveryGoodsFromStock from '../components/deliveryFromStock/deliveryFromStockPage'
@@ -24,7 +21,7 @@ import DeliveryGoodsFromStock from '../components/deliveryFromStock/deliveryFrom
 import Warehousing from '../components/managerWarehousing'
 import Employees from '../components/employeesPage'
 import Employee from '../components/employeePage'
-import ControllerPage from '../components/controllerPage/controlTTN'
+import ControllerPage from '../components/controllerPage'
 import {CheckTtnPage} from '../components/checkTtn/checkTtnPage'
 import EmployeeEditPage from '../components/employeeEditPage'
 
@@ -50,10 +47,7 @@ const SecurityRoute = (props) => {
                                 <Fragment>
                                     <Route exact path="/searchCarrier" component={Carrier}/>
                                     <Route exact path="/ttnRegister" component={TTNregister}/>
-                                    <Route exact path="/driveRegistration" component={DriverRegistrer}/>
                                     <Route exact path="/allCarrier" component={AllCarrier}/>
-                                    <Route exact path="/addCarrier" component={AddCarrier}/>
-                                    <Route exact path="/addTtn" component={TtnForm}/>
                                     <Route exact path="/checkTtn" component={CheckTtnPage}/>
                                 </Fragment>
                             )}

@@ -10,3 +10,5 @@ export const ttnsFilter = store => store.ttns
 export const ttnFilter = store => store.TTN
 export const warehouseFilter = store => store.warehouses
 export const company = ({auth}) => auth.user.company
+export const warehousesFilter = store => store.warehouses
+

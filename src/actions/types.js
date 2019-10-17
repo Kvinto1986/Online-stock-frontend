@@ -32,6 +32,7 @@ export const CARRIERS = 'CARRIERS'
 export const DRIVER = 'DRIVER'
 export const DRIVERS = 'DRIVERS'
 
-//WAREHOUSE
+//WAREHOUSES
 export const WAREHOUSE = 'WAREHOUSE'
 export const WAREHOUSES = 'WAREHOUSES'
+
