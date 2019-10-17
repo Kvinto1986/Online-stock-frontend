@@ -1,25 +1,17 @@
-import React from "react"
-import { Box, Button, Container } from "@material-ui/core"
-import { warehousingSubmit } from "../../../actions/warehousingActions"
-import { connect } from "react-redux"
+import React from 'react'
+import { Box, Button, Container } from '@material-ui/core'
 
-const WarehousingSubmitButton = (props) => {
-
-    const handleSubmit = () => {
-        props.warehousingSubmit(true)
-        // props.finishWarehousing()
-    }
-
+const WarehousingSubmitButton = ({isShown, catchSubmitAction}) => {
     return (
         <Container maxWidth="sm">
             <Box my={3}>
                 <Button
-                    disabled={!props.isShowen}
+                    disabled={!isShown}
                     type="submit"
                     fullWidth
                     variant="contained"
                     color="primary"
-                    onClick={handleSubmit}
+                    onClick={catchSubmitAction}
                 >
                     Save warehousing
                 </Button>
@@ -27,8 +19,5 @@ const WarehousingSubmitButton = (props) => {
         </Container>
     )
 }
-let mapStateToProps
 
-export default connect(mapStateToProps, {
-    warehousingSubmit
-})(WarehousingSubmitButton)
+export default WarehousingSubmitButton
