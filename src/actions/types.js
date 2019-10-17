@@ -36,3 +36,7 @@ export const DRIVERS = 'DRIVERS'
 export const WAREHOUSE = 'WAREHOUSE'
 export const WAREHOUSES = 'WAREHOUSES'
 
+//TTNS_OUT
+export const TTNS_OUT = 'TTNS_OUT'
+export const TTN_OUT = 'TTN_OUT'
+

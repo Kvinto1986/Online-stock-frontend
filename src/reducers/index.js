@@ -26,10 +26,11 @@ function createNormalReducer(singular, plural) {
 }
 
 const employees = createNormalReducer(EMPLOYEE, EMPLOYEES)
-const carriers = createNormalReducer(CARRIER,CARRIERS)
-const drivers = createNormalReducer(DRIVER,DRIVERS)
-const ttns = createNormalReducer(TTN,TTNS)
-const warehouses = createNormalReducer(WAREHOUSE,WAREHOUSES)
+const carriers = createNormalReducer(CARRIER, CARRIERS)
+const drivers = createNormalReducer(DRIVER, DRIVERS)
+const ttns = createNormalReducer(TTN, TTNS)
+const warehouses = createNormalReducer(WAREHOUSE, WAREHOUSES)
+const ttnsOut = createNormalReducer(TTN_OUT, TTNS_OUT)
 
 export default combineReducers({
     warehouses,
@@ -38,6 +39,7 @@ export default combineReducers({
     drivers,
     ttns,
     warehouses,
+    ttnsOut,
     errors: errorReducer,
     auth: authReducer,
     adminCompanyStatistic: adminCompanyStatisticReduser,
