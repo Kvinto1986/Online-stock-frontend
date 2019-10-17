@@ -8,17 +8,17 @@ const initialDetailsFormState = {
     productArea: ''
 }
 
-const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
+const WarehousingDetailsForm = ({cargoDetails, areaData, changeActiveData, ttnNumber}) => {
 
     const [formState, setFormState] = useState(initialDetailsFormState)
 
     useEffect(() => {
         if(cargoDetails !== null) {
             ValidatorForm.addValidationRule(
-                'isValidCargoAmount', (value) => (value > cargoDetails.amount) ? false : true
+                'isValidCargoAmount', (value) => !(Number(value) > Number(cargoDetails.amount))
             )
             ValidatorForm.addValidationRule(
-                'isValidWarehouseArea', (value) => (value > areaData.freeArea) ? false : true
+                'isValidWarehouseArea', (value) => !(Number(value) >  Number(areaData.freeArea))
             )
         }
     }, [cargoDetails])
@@ -35,23 +35,24 @@ const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
     }
 
     const handleSubmit = () => {
-        const { changeActiveData } = props
         const { productQuantity, productArea } = formState
         
         const newCargoState = {
-            ...cargoDetails,
-            amount: cargoDetails.amount - productQuantity
+            name: cargoDetails.name,
+            amount: cargoDetails.amount - productQuantity,
+            type: cargoDetails.type || cargoDetails.dimension,
+            id: cargoDetails.id,
+            ttnNumber: ttnNumber
         }
         
-        // TODO: Remove Number type cast in this function
+        
         const newStoredCargo = {
             name: newCargoState.name,
             amount: Number(cargoDetails.amount),
-            dimension: newCargoState.dimension,
+            dimension: newCargoState.type,
             size: Number(productArea),
-            ttnNumber: cargoDetails.id
+            ttnNumber: ttnNumber
         }
-        
         
         const newAreaState = {
             ...areaData,
@@ -59,8 +60,7 @@ const WarehousingDetailsForm = ({ cargoDetails, areaData, ...props}) => {
             freeArea: areaData.freeArea - Number(productArea),
             products: newStoredCargo
         }
-
-            
+    
         changeActiveData(newCargoState, newAreaState)
         setFormState(initialDetailsFormState)
     }

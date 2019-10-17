@@ -18,7 +18,8 @@ const initialWareHousingState = {
 
 const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, user}) => {
 
-    const [curTtn, setCurTtn] = useState(initialState)
+    const [curTtn, setCurTtn] = useState(null)
+    const [ttnIsFound, seTttnIsFound] = useState(false)
     const [statusesState, setStatusesState] = useState(initialState)
     const [wareHousingState, setWareHousingState] = useState(initialWareHousingState)
     const [warehousingActiveStock, setWarehousingActiveStock] = useState(null)
@@ -45,9 +46,13 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, user})
     }
 
     const dndIsShown = value => {
-        setStatusesState({
-            ...statusesState,
-            ttnIsFound: value
+        seTttnIsFound(value)
+    }
+
+    const getFormData = data => {
+        setWareHousingState({
+            ...wareHousingState,
+            ttnNumber: data
         })
     }
 
@@ -55,13 +60,6 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, user})
         setWareHousingState({
             ...wareHousingState,
             areasData: changedStockData
-        })
-    }
-
-    const getFormData = data => {
-        setWareHousingState({
-            ...wareHousingState,
-            ttnNumber: data
         })
     }
 
@@ -81,7 +79,7 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, user})
         
         makeWarehousing(data, successWirehousingAletrt)
     }
-        
+
     return (
         <React.Fragment>
             <WarehousingDataForm 
@@ -94,7 +92,7 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, user})
                 currentManager={user}
             />
             <DndProvider backend={HTML5Backend}>
-                {statusesState.ttnIsFound && 
+                {ttnIsFound && 
                     <DndStock 
                         ttn={curTtn}
                         warehouses={warehouses}

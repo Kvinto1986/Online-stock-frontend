@@ -10,7 +10,7 @@ const initialState = {
     products: ''
 }
 
-const DndDestenationArea = ({ index, area, freeArea, products, type, isActiveArea, ...props}) => {
+const DndDestenationArea = ({ index, area, freeArea, products, type, isActiveArea, activeCargoUnit, initActiveCargoAndArea}) => {
     const classes = useStyles()
     const [state, setState] = useState(initialState)
     const [{ canDrop, isOver }, drop] = useDrop({
@@ -27,10 +27,8 @@ const DndDestenationArea = ({ index, area, freeArea, products, type, isActiveAre
     }, [])
 
     const dropOnArea = () => {
-        const {activeCargoUnit, initActiveCargoAndArea} = props
         initActiveCargoAndArea(activeCargoUnit, state)
     } 
-
     
     let outline = '1px dashed black'
     let backgroundColor = 'white'

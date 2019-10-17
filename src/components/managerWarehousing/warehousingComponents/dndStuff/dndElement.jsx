@@ -3,7 +3,7 @@ import {useDrag} from 'react-dnd-cjs'
 import ItemTypes from './ItemTypes'
 import useStyles from '../../warehousingStyles'
 
-const DndElement = ({ name, amount, dimension, ttnId, setCurrentHendleCargoUnit, id, spinerIndex }) => {
+const DndElement = ({name, amount, dimension, ttnNumber, id, spiner, setCurrentHendleCargoUnit}) => {
     const classes = useStyles()
     
     const [{isDragging}, drag] = useDrag({
@@ -14,7 +14,7 @@ const DndElement = ({ name, amount, dimension, ttnId, setCurrentHendleCargoUnit,
     })
 
     const dragStartHendler = () => {
-        setCurrentHendleCargoUnit(name, amount, dimension, id, ttnId)
+        setCurrentHendleCargoUnit(name, amount, dimension, id, ttnNumber)
     }
 
     return (
@@ -22,7 +22,7 @@ const DndElement = ({ name, amount, dimension, ttnId, setCurrentHendleCargoUnit,
             <div>
                 <b>{name}</b><small> | {amount} {dimension}</small>
             </div>
-            {spinerIndex}
+            {spiner}
         </div>
     )
 }

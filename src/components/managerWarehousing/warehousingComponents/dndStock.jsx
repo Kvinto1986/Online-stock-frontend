@@ -5,22 +5,22 @@ import WarehousingDetailsForm from './warehousingDetails/warehousingDetailsForm'
 import DndElementsList from './dndStuff/dndElementsList'
 import DndDestenationAreasList from './dndStuff/dndDestenationAreasList'
 
-const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelectedStockState}) => {
+const DndStock = ({ttn, warehouses, showSaveButton, setSelectedStockState, sendChangedStock}) => {
 
     const initialState = {
         activeDnDCargoUnit: '',
-        movedCargoUnits: [],
-        cargoIndex: null,
+        cargoId: null,
         cargoDetails: null,
         activeArea: null,
         movedData: {},
         cargoElements: ttn.products,
+        ttnNumber: ttn.id,
         chosenWarehouse: '',
         chosenWarehouseInitialState: null
     }
     
     const [state, setState] = useState(initialState)
-    
+
     useEffect(() => {
         const isWarehouseStateInitialized = state.chosenWarehouse && state.chosenWarehouseInitialState
 
@@ -29,6 +29,7 @@ const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelecte
             setSelectedStockState({areas, id})
         }
     }, [state.chosenWarehouse.id])
+    
 
     useEffect(() => {
         const unWarehousedCargo = state.cargoElements.filter(unit => unit.amount > 0)
@@ -45,40 +46,31 @@ const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelecte
         })
     }
     
-    const setCurrentHendleCargoUnit = (name, amount, dimension, size, id, ttnId) => {
+    const setCurrentHendleCargoUnit = (name, amount, dimension, id, ttnNumber) => {
         const personalCargoUnitData = {
             name,
             amount,
             dimension,
-            size,
             id,
-            ttnId
+            ttnNumber
         }
         
         setState({...state, activeDnDCargoUnit: personalCargoUnitData})
     }
 
-    const addCargoUnitToRemove = cargoUnitData => {
-        setState({
-            ...state, 
-            movedCargoUnits: [...state.movedCargoUnits, cargoUnitData.id]
-        })
-    }
-
     const initActiveCargoAndArea = (details, areaData) => {
         setState({
             ...state, 
-            cargoIndex: details.size, 
+            cargoId: details.id, 
             cargoDetails: details,
             activeArea: areaData
         })
     }
 
-    const changeActiveData = (newCargoState, newAreaState) => { 
+    const changeActiveData = (newCargoState, newAreaState) => {
         let newCargoElementsState = [];
         [...state.cargoElements].forEach(element => {
-            if(element.id === newCargoState.size) {
-                
+            if(element.id === newCargoState.id) {
                 newCargoElementsState.push({...newCargoState, dimension: element.type})
             } 
             else {
@@ -96,9 +88,10 @@ const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelecte
                 newWarehouseAreasState.push(unit)
             }
         }) 
-
+        
         setState({
             ...state,
+            cargoId: null,
             activeArea: null,
             cargoIndex: null,
             cargoDetails: null,
@@ -106,11 +99,10 @@ const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelecte
             chosenWarehouse: {...state.chosenWarehouse, areas: newWarehouseAreasState}
         })
     }
-
+    
     useEffect(() => {
         sendChangedStock(state.chosenWarehouse.areas)
     }, [state.chosenWarehouse.areas])
-    
     
     return (
         <Container fixed>
@@ -129,9 +121,8 @@ const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelecte
                     </Box>
                     <DndElementsList 
                         elementData={state.cargoElements}
-                        movedCargoUnits={state.movedCargoUnits}
-                        cargoIndex={state.cargoIndex}
-                        ttnId={ttn.id}
+                        cargoId={state.cargoId}
+                        ttnNumber={state.ttnNumber}
                         setCurrentHendleCargoUnit={setCurrentHendleCargoUnit}
                     />
                 </div>
@@ -142,7 +133,7 @@ const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelecte
                             required    
                             fullWidth
                             onChange={handleSelectChange}
-                            value={state.chosenWarehouse}
+                            value={state.chosenWarehouseInitialState || ''}
                             input={<Input name="chosenWarehouse" id="age-helper" />}
                             name="chosenWarehouse"
                         >
@@ -151,7 +142,7 @@ const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelecte
                                 ? (
                                     Object.values(warehouses).map((stock) => {
                                         return (
-                                            <MenuItem key={stock.name + stock.totalArea} value={stock}>
+                                            <MenuItem key={stock.name + stock.totalArea + stock.index} value={stock}>
                                                 {stock.name} (available: {stock.freeArea} m. at {stock.areas.length} areas)
                                             </MenuItem>
                                         )
@@ -168,8 +159,7 @@ const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelecte
                     <DndDestenationAreasList 
                         chosenWarehouse={state.chosenWarehouse}
                         activeArea={state.activeArea}
-                        activeDnDCargoUnit={state.activeDnDCargoUnit}
-                        addCargoUnitToRemove={addCargoUnitToRemove}
+                        activeCargoUnit={state.activeDnDCargoUnit}
                         initActiveCargoAndArea={initActiveCargoAndArea}
                     />
                 </div>
@@ -178,6 +168,7 @@ const DndStock = ({sendChangedStock, ttn, warehouses, showSaveButton, setSelecte
                         cargoDetails={state.cargoDetails} 
                         areaData={state.activeArea} 
                         changeActiveData={changeActiveData}
+                        ttnNumber={state.ttnNumber}
                     />
                 </div>
             </Box>

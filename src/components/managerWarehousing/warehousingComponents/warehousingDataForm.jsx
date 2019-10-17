@@ -23,7 +23,7 @@ const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, tt
             const currentTtn = ttn[formState.ttnNumber]
 
             setCurrentTTN(currentTtn)
-
+            
             if(currentTtn.status === 'checked') {
 
                 const {firstName, lastName, patronymic} = currentManager
@@ -89,7 +89,7 @@ const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, tt
                                         value={ttnNumber}
                                     />
                                     {(ttnError.TTN && !operatorName) && <p style={{color: 'red'}}>{ttnError.TTN}</p>}
-                                    {ttnStatusErr && !ttnError.TTN && <p style={{color: 'red'}}>{ttnStatusErr}</p>}
+                                    {(ttnStatusErr && !ttnError.TTN) && <p style={{color: 'red'}}>{ttnStatusErr}</p>}
                                 </Box>
                                 <Box mt={2}>
                                     <Button
