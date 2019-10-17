@@ -1,13 +1,13 @@
-import React from "react";
-import useStyles from "./registerEmployeeStyles";
-import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
-import RegisterUser from "./registerEmployee";
+import React from 'react'
+import useStyles from './registerEmployeeStyles'
+import Container from '@material-ui/core/Container'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Typography from '@material-ui/core/Typography'
+import RegisterUser from './registerEmployee'
 
 
 export default () => {
-    const classes = useStyles();
+    const classes = useStyles()
 
     return (
         <Container component="main" maxWidth="md">
@@ -20,4 +20,4 @@ export default () => {
             </div>
         </Container>
     )
-};
+}
