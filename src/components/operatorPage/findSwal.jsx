@@ -5,14 +5,14 @@ import 'animate.css'
 export default () => {
     const Toast = Swal.mixin({
         toast: true,
-        position: 'top',
+        position: 'bottom-start',
         showConfirmButton: false,
-        timer: 1500
+        timer: 2000
     })
 
     Toast.fire({
-        background:'#D8EAFC',
+        background:'#1A4492',
         type: 'success',
-        title: 'Data found successfully'
+        html: '<span style="color:white;margin-left:2%">Data saved successfully<span>'
     })
 }
