@@ -11,6 +11,7 @@ export default () => {
     })
 
     Toast.fire({
+        background:'#D8EAFC',
         type: 'success',
         title: 'Data found successfully'
     })
