@@ -16,9 +16,6 @@ import Landing from '../components/landingPage/landing'
 import AllCarrier from '../components/allCarrier'
 import TTNregister from '../components/operatorPage/index'
 import SendCargo from '../components/sendCargo'
-
-import DeliveryGoodsFromStock from '../components/deliveryFromStock/deliveryFromStockPage'
-
 import Warehousing from '../components/managerWarehousing'
 import Employees from '../components/employeesPage'
 import Employee from '../components/employeePage'
@@ -40,7 +37,6 @@ const SecurityRoute = (props) => {
                             <Route exact path="/me" component={EmployeeEditPage}/>
                             {props.auth.user.position.includes('manager') && (
                                 <Fragment>
-                                    <Route exact path="/stockDelivery" component={DeliveryGoodsFromStock}/>
                                     <Route exact path="/warehousing" component={Warehousing}/>
                                     <Route exact path="/outTtnRegister" component={SendCargo}/>
                                 </Fragment>
