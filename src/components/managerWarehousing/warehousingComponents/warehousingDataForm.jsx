@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator'
-import { Container, Box, Typography, Grid, Button, List, ListItem, ListItemText } from '@material-ui/core'
+import React, {useState, useEffect} from 'react'
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
+import {Container, Box, Typography, Grid, Button, List, ListItem, ListItemText} from '@material-ui/core'
 
 const initialFormState = {
     ttnNumber: ''
@@ -19,35 +19,34 @@ const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, tt
     const [ttnStatusErr, setTtnStatusErr] = useState(null)
 
     useEffect(() => {
-        if(ttn && Object.keys(ttn).length > 0) {
+        if (ttn && Object.keys(ttn).length > 0) {
             const currentTtn = ttn[formState.ttnNumber]
 
             setCurrentTTN(currentTtn)
-            
-            if(currentTtn.status === 'checked') {
+
+            if (currentTtn && currentTtn.status === 'checked') {
 
                 const {firstName, lastName, patronymic} = currentManager
                 const managerInitials = `${firstName} ${lastName} ${patronymic}`
-    
-                const date = 
-                new Date(currentTtn.dataOfRegistration).getDate() + '.' +
-                new Date(currentTtn.dataOfRegistration).getMonth() + '.' +
-                new Date(currentTtn.dataOfRegistration).getFullYear()
+
+                const date =
+                    new Date(currentTtn.dataOfRegistration).getDate() + '.' +
+                    new Date(currentTtn.dataOfRegistration).getMonth() + '.' +
+                    new Date(currentTtn.dataOfRegistration).getFullYear()
 
                 setTtnStatusErr(null)
                 dndIsShown(true)
                 setFormState(initialFormState)
                 setListState({
-                    ...listState, 
+                    ...listState,
                     ttnDate: date,
                     managerInitials: managerInitials,
                     operatorName: currentTtn.owner,
                 })
-    
+
                 getFormData(currentTtn.id)
-            }
-            else {
-                setTtnStatusErr('TTN must been checked')     
+            } else {
+                setTtnStatusErr('TTN must been checked')
             }
         }
     }, [ttn])
@@ -61,7 +60,7 @@ const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, tt
     const handleChange = e => {
         setFormState({...formState, [e.target.name]: e.target.value})
     }
-    
+
     const {ttnNumber} = formState
     const {ttnDate, managerInitials, operatorName} = listState
 

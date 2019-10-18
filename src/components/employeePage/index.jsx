@@ -4,6 +4,7 @@ import {Container} from '@material-ui/core'
 import Box from '@material-ui/core/Box'
 
 export default ({match: {params: {id}}}) => {
+
     return (
         <Container>
             <Box m={2}>

@@ -1,9 +1,7 @@
 import React from 'react'
 import RegisterEmployeeForm from '../registerEmployee/registerEmployeeForm'
-import {useEditEmployee} from '../../api/apiRequests'
 
-export default ({employee}) => {
-    const [editEmployee, , errors] = useEditEmployee()
+export default ({editEmployee,employee,errors}) => {
 
     return <RegisterEmployeeForm
         onSubmit={(data) => editEmployee(data, employee.id)}
