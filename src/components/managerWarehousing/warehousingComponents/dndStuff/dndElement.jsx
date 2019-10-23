@@ -1,41 +1,30 @@
-import React from "react"
-import { useDrag } from "react-dnd"
-import ItemTypes from "./ItemTypes"
+import React from 'react'
+import {useDrag} from 'react-dnd-cjs'
+import ItemTypes from './ItemTypes'
+import useStyles from '../../warehousingStyles'
 
-const DndElement = ({ name, amount, dimension, ttnId, size, setCurrentHendleCargoUnit, id, ...props }) => {
-    const [{ isDragging }, drag] = useDrag({
-        item: { name, type: ItemTypes.BOX },
+const DndElement = ({name, amount, dimension, ttnNumber, id, spiner, setCurrentHendleCargoUnit}) => {
+    const classes = useStyles()
+    
+    // isDragging is required on the lib layer
+    const [{isDragging}, drag] = useDrag({
+        item: {name, type: ItemTypes.BOX},
         collect: monitor => ({
             isDragging: monitor.isDragging(),
         }),
     })
 
-    const dragStartHendler = () => {
-        setCurrentHendleCargoUnit(name, amount, dimension, size, id, ttnId)
-    }
-
-    const opacity = isDragging ? 0.4 : 1
-
     return (
-        <div ref={drag} style={{ ...style, opacity }} onDragStart={dragStartHendler}>
+        <div 
+            ref={drag} 
+            className={classes.dndElement} 
+            onDragStart={() => setCurrentHendleCargoUnit(name, amount, dimension, id, ttnNumber)}>
             <div>
-                <b>{name}</b> | 
-                <small> {amount}{dimension}</small>
+                <b>{name}</b><small> | {amount} {dimension}</small>
             </div>
-            {props.spinerIndex}
+            {spiner}
         </div>
     )
 }
 
 export default DndElement
-
-const style = {
-    display: "flex",
-    justifyContent: "space-between",
-    border: "1px solid gray",
-    backgroundColor: "white",
-    padding: "10px 15px",
-    marginRight: "1.5rem",
-    marginBottom: "1.5rem",
-    cursor: "move"
-}

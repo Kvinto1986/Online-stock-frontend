@@ -230,7 +230,7 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
                                 <InputText
                                     min={1}
                                     max={7}
-                                    pattern={/^[1-9]*$/}
+                                    pattern={/^[0-9]*$/}
                                     fullWidth
                                     label="product amount"
                                     required
