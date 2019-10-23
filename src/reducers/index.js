@@ -52,7 +52,6 @@ export default combineReducers({
     carriers,
     drivers,
     ttns,
-    warehouses,
     ttnsOut,
     errors: errorReducer,
     auth: authReducer,

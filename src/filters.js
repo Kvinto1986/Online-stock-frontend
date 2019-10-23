@@ -7,8 +7,6 @@ export const driversFilter = store => store.drivers
 export const ttns = store => store.ttnData
 export const employeesFilter = store => store.employees
 export const ttnsFilter = store => store.ttns
-export const ttnFilter = store => store.TTN
-export const warehouseFilter = store => store.warehouses
 export const company = ({auth}) => auth.user.company
 export const warehousesFilter = store => store.warehouses
 export const ttnsOutFilter = store => store.ttnsOut

@@ -16,7 +16,8 @@ import {
     carriersFilter,
     driversFilter,
     ttnsFilter,
-    warehouseFilter
+    warehousesFilter,
+    ttnsOutFilter
 } from '../filters'
 
 export const {
