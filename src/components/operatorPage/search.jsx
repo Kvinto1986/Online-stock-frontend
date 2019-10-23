@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import Divider from '@material-ui/core/Divider'
@@ -7,7 +7,7 @@ import SearchIcon from '@material-ui/icons/Search'
 import useStyles from './operatorPageStyles'
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
 
-export default ({search, searchText, error,value,setValue}) => {
+export default ({search, searchText, error, value, setValue}) => {
     const classes = useStyles()
 
     return (
@@ -26,13 +26,9 @@ export default ({search, searchText, error,value,setValue}) => {
                         errorMessages={['this field is required']}
                     />
                     <Divider className={classes.divider} orientation="vertical"/>
-
-                        <IconButton className={classes.iconButton} aria-label="search" type="submit">
-
-                            <SearchIcon/>
-
-                        </IconButton>
-
+                    <IconButton className={classes.iconButton} aria-label="search" type="submit">
+                        <SearchIcon/>
+                    </IconButton>
                 </div>
             </ValidatorForm>
             <span className={classes.error}>{error}</span>

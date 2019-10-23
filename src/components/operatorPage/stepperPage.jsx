@@ -10,26 +10,20 @@ import Search from './search'
 import ExpansionPanel from './expansionPanel'
 import SuccessPage from './successPage'
 
+const steps = ['Carrier check', 'Driver check', 'Create TTN']
 
 export default ({
                     activeStep, setActiveStep, searchCarrier, searchCarrierError, createCarrier, createCarrierError,
                     searchDriver, searchDriverError, createDriver, createDriverError, createTtn, createTtnError,
-                    currentCarrier, currentDriver, authUser, carrierId, setCarrierId, driverId, setDriverId
+                    carriers, drivers, authUser
                 }) => {
 
     const classes = useStyles()
-    const steps = getSteps()
-
-    console.log(carrierId)
-    console.log(driverId)
 
     const [carrierFormVisibility, setCarrierFormVisibility] = useState(false)
     const [driverFormVisibility, setDriverFormVisibility] = useState(false)
-
-
-    function getSteps() {
-        return ['Carrier check', 'Driver check', 'Create TTN']
-    }
+    const [carrierId, setCarrierId] = useState('')
+    const [driverId, setDriverId] = useState('')
 
     function getStepContent(stepIndex) {
         switch (stepIndex) {
@@ -73,26 +67,24 @@ export default ({
                         />
                     )}
                 </Fragment>
-
             case 2:
                 return <TTNForm
-                    currentCarrier={currentCarrier}
-                    currentDriver={currentDriver}
+                    carrier={carriers[carrierId]}
+                    driver={drivers[driverId]}
                     onSubmit={createTtn}
                     error={createTtnError}
                     authUser={authUser}
-                    carrierId={carrierId}
-                    driverId={driverId}
                 />
-            default:
+            case 3:
                 return <SuccessPage
                     setActiveStep={setActiveStep}
                 />
+            default:
+                return 'Unknown step'
         }
     }
 
     return (
-
         <div className={classes.root}>
             <Stepper activeStep={activeStep} alternativeLabel>
                 {steps.map(label => (

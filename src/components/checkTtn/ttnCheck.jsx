@@ -8,13 +8,11 @@ import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 export const TtnCheck = ({submit}) => {
     const classes = checkTtnStyle()
-    const[ttn, setTtn] = useState({
-        ttnNumber: ''
-    })
+    const[ttn, setTtn] = useState('')
     const handleTtn = name => (e) => {
-        setTtn({...setTtn, [name]: e.target.value})
+        setTtn(e.target.value)
     }
-    const handleForm = (e) => {
+    const handleForm = () => {
         submit(ttn)
     }
     return (
@@ -27,7 +25,7 @@ export const TtnCheck = ({submit}) => {
                     className={classes.ttn}
                     margin="normal"
                     onChange={handleTtn("ttnNumber")}
-                    value={ttn.ttnNumber}
+                    value={ttn}
                     validators={['required']}
                     errorMessages={['this field is required']}
                 />

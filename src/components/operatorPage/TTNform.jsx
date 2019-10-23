@@ -10,22 +10,23 @@ import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import MenuItem from '@material-ui/core/MenuItem'
+import generator from 'generate-password'
 
 import InputText from '../fields/textField'
 import CargoTable from './cargoTable'
 
-export default ({onSubmit, error, authUser, currentCarrier, currentDriver, carrierId,driverId}) => {
+export default ({onSubmit, error, authUser, carrier, driver}) => {
 
     const [TTN, setTTN] = useState({
         number: '',
         carrier: {
-            unp: currentCarrier[carrierId].id,
-            tel: currentCarrier[carrierId].tel,
-            company: currentCarrier[carrierId].company
+            unp: carrier.id,
+            tel: carrier.tel,
+            company: carrier.company
         },
         driver: {
-            name: `${currentDriver[driverId].name} ${currentDriver[driverId].surname}`,
-            license: currentDriver[driverId].id
+            name: `${driver.name} ${driver.surname}`,
+            license: driver.id
         },
         registrar: {
             name: `${authUser.firstName} ${authUser.patronymic} ${authUser.lastName}`,
@@ -36,14 +37,19 @@ export default ({onSubmit, error, authUser, currentCarrier, currentDriver, carri
         owner: '',
     })
 
-    const [product, setProduct] = useState({
-        type: '',
-        weight: '',
-        boxing: '',
+    const randomId = generator.generate({
+        length: 10,
+        numbers: true
     })
 
     const [cargo, setCargo] = useState([])
 
+    const [product, setProduct] = useState({
+        type: '',
+        amount: '',
+        name: '',
+        id: randomId
+    })
 
     const handleChangeProduct = (e) => {
         setProduct({...product, [e.target.name]: e.target.value})
@@ -52,6 +58,7 @@ export default ({onSubmit, error, authUser, currentCarrier, currentDriver, carri
     const handleAddProduct = (e) => {
         e.preventDefault()
 
+        setProduct({...product, id: randomId})
         setCargo([...cargo, product])
     }
 
@@ -89,11 +96,11 @@ export default ({onSubmit, error, authUser, currentCarrier, currentDriver, carri
                                 <InputText
                                     min={10}
                                     max={15}
-                                    pattern={/^[1-9]*$/}
+                                    pattern={/^[0-9]*$/}
                                     fullWidth
                                     label="TTN number"
                                     required
-                                    name='number'
+                                    name="number"
                                     error={error}
                                     value={TTN}
                                     handleChange={setTTN}
@@ -117,7 +124,7 @@ export default ({onSubmit, error, authUser, currentCarrier, currentDriver, carri
                                     fullWidth
                                     label="Owner information"
                                     required
-                                    name='owner'
+                                    name="owner"
                                     error={error}
                                     value={TTN}
                                     handleChange={setTTN}
@@ -166,7 +173,7 @@ export default ({onSubmit, error, authUser, currentCarrier, currentDriver, carri
                                     fullWidth
                                     label="Number of the car"
                                     required
-                                    name='carNumber'
+                                    name="carNumber"
                                     error={error}
                                     value={TTN}
                                     handleChange={setTTN}
@@ -196,7 +203,7 @@ export default ({onSubmit, error, authUser, currentCarrier, currentDriver, carri
                         <Grid container>
                             <Grid item xl={1} className={classes.gridItem}>
                                 <Typography component="h1" variant="h6" className={classes.TTNhead}>
-                                    Product type:
+                                    Product name:
                                 </Typography>
                             </Grid>
                             <Grid item xl={3}>
@@ -205,9 +212,9 @@ export default ({onSubmit, error, authUser, currentCarrier, currentDriver, carri
                                     max={30}
                                     pattern={/.*/}
                                     fullWidth
-                                    label="product type"
+                                    label="product name"
                                     required
-                                    name='type'
+                                    name="name"
                                     error={error}
                                     value={product}
                                     handleChange={setProduct}
@@ -216,18 +223,18 @@ export default ({onSubmit, error, authUser, currentCarrier, currentDriver, carri
                             </Grid>
                             <Grid item xl={1} className={classes.gridItem}>
                                 <Typography component="h1" variant="h6" className={classes.TTNhead}>
-                                    Weight (kg):
+                                    Amount:
                                 </Typography>
                             </Grid>
                             <Grid item xl={1}>
                                 <InputText
                                     min={1}
                                     max={7}
-                                    pattern={/^[1-9]*$/}
+                                    pattern={/^[0-9]*$/}
                                     fullWidth
-                                    label="product weight"
+                                    label="product amount"
                                     required
-                                    name='weight'
+                                    name="amount"
                                     error={error}
                                     value={product}
                                     handleChange={setProduct}
@@ -236,20 +243,20 @@ export default ({onSubmit, error, authUser, currentCarrier, currentDriver, carri
                             </Grid>
                             <Grid item xl={1} className={classes.gridItem}>
                                 <Typography component="h1" variant="h6" className={classes.TTNhead}>
-                                    Boxing:
+                                    Type of packaging:
                                 </Typography>
                             </Grid>
                             <Grid item xl={1}>
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <InputLabel htmlFor="outlined-age-simple">
-                                        Boxing type
+                                        Type of packaging
                                     </InputLabel>
                                     <Select
                                         required
                                         onChange={handleChangeProduct}
-                                        value={product.boxing}
+                                        value={product.type}
                                         inputProps={{
-                                            name: 'boxing',
+                                            name: 'type',
                                         }}
                                     >
                                         <MenuItem value={'Box'}>Box</MenuItem>
@@ -284,7 +291,7 @@ export default ({onSubmit, error, authUser, currentCarrier, currentDriver, carri
                         </Grid>
                         {cargo.length > 0 && (<Grid container>
                             <Grid item xl={12} className={classes.gridItem}>
-                                <Button variant="contained" color="primary" type='submit' style={{marginTop: '5%',}}>
+                                <Button variant="contained" color="primary" type="submit" style={{marginTop: '5%',}}>
                                     Submit
                                 </Button>
                             </Grid>

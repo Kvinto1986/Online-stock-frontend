@@ -41,7 +41,7 @@ export default function SimpleTable(props) {
                             </TableCell>
                             <TableCell align="right">{row.email}</TableCell>
                             <TableCell align="right">{row.tel}</TableCell>
-                            <TableCell align="right">{row.passport}</TableCell>
+                            <TableCell align="right">{row.unp}</TableCell>
                             <TableCell align="right">{row.country}</TableCell>
                         </TableRow>
                     ))}

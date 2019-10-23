@@ -19,6 +19,7 @@ import {
     warehouseFilter
 } from '../filters'
 
+
 export const {
     useAddEmployee,
     useDelEmployee,
@@ -38,10 +39,13 @@ export const {
 } = createRestHooks(DRIVER, DRIVERS, driversFilter)
 
 export const {
-    useAddTtn,
-    useGetTtn
+    useGetTtn,
+    useEditTtn,
+    useAddTtn
 } = createRestHooks(TTN, TTNS, ttnsFilter)
 
 export const {
-    useGetWarehouses
-} = createRestHooks(WAREHOUSE, WAREHOUSES, warehouseFilter)
+    useAddWarehouse,
+    useDelWarehouse,
+    useGetWarehouses,
+} = createRestHooks(WAREHOUSE,WAREHOUSES, warehousesFilter)

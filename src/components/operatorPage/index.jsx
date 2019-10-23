@@ -1,28 +1,23 @@
 import React, {useState} from 'react'
-import StepperPage from './stepperPage'
-import {useGetCarrier, useAddCarrier, useGetDriver, useAddDriver, useAddTtn} from '../../api/apiRequests'
-import {carriersFilter, driversFilter, authUserFilter} from '../../filters'
 import {useSelector} from 'react-redux'
+import StepperPage from './stepperPage'
+import {useAddCarrier, useAddDriver, useAddTtn, useGetCarrier, useGetDriver} from '../../api/apiRequests'
+import {authUserFilter} from '../../filters'
 
 export default () => {
     const [activeStep, setActiveStep] = useState(0)
-    const [carrierId, setCarrierId] = useState('')
-    const [driverId, setDriverId] = useState('')
 
-
-    const handleNext = () => {
+    const handleNextStep = () => {
         setActiveStep(activeStep + 1)
     }
 
-    const currentCarrier = useSelector(carriersFilter)
-    const currentDriver = useSelector(driversFilter)
     const authUser = useSelector(authUserFilter)
 
-    const [getCarrier, , getCarrierError] = useGetCarrier(handleNext)
-    const [addCarrier, , addCarrierError] = useAddCarrier(handleNext)
-    const [getDriver, , getDriverError] = useGetDriver(handleNext)
-    const [addDriver, , addDriverError] = useAddDriver(handleNext)
-    const [addTtn, , addTtnError] = useAddTtn(handleNext)
+    const [getCarrier, carriers, getCarrierError] = useGetCarrier(handleNextStep)
+    const [addCarrier, , addCarrierError] = useAddCarrier(handleNextStep)
+    const [getDriver, drivers, getDriverError] = useGetDriver(handleNextStep)
+    const [addDriver, , addDriverError] = useAddDriver(handleNextStep)
+    const [addTtn, , addTtnError] = useAddTtn(handleNextStep)
 
     return <StepperPage
         activeStep={activeStep}
@@ -37,12 +32,8 @@ export default () => {
         createDriverError={addDriverError}
         createTtn={addTtn}
         createTtnError={addTtnError}
-        currentCarrier={currentCarrier}
-        currentDriver={currentDriver}
+        carriers={carriers}
+        drivers={drivers}
         authUser={authUser}
-        carrierId={carrierId}
-        setCarrierId={setCarrierId}
-        driverId={driverId}
-        setDriverId={setDriverId}
     />
 };

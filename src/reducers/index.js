@@ -20,7 +20,6 @@ import {
     WAREHOUSES
 } from '../actions/types'
 
-
 function createNormalReducer(singular, plural) {
     return (store = {}, {type, data}) => {
         switch (type) {
@@ -50,6 +49,7 @@ export default combineReducers({
     carriers,
     drivers,
     ttns,
+    warehouses,
     errors: errorReducer,
     auth: authReducer,
     adminCompanyStatistic: adminCompanyStatisticReduser,
