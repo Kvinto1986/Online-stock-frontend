@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator'
+import { ValidatorForm } from 'react-material-ui-form-validator'
 import { Container, Box, Typography, Grid, Button, List, ListItem, ListItemText } from '@material-ui/core'
+import InputText from '../../fields/textField'
+import useStyles from '../warehousingStyles'
+import {useReset} from '../../../hooks/hook'
 
 const initialFormState = {
-    ttnNumber: ''
+    number: ''
 }
 
 const initialListState = {
@@ -12,59 +15,61 @@ const initialListState = {
     operatorName: '',
 }
 
-const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, ttnError, ttn, currentManager}) => {
+const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, ttnError, ttns, currentManager}) => {
 
     const [formState, setFormState] = useState(initialFormState)
     const [listState, setListState] = useState(initialListState)
     const [ttnStatusErr, setTtnStatusErr] = useState(null)
 
-    useEffect(() => {
-        if(ttn && Object.keys(ttn).length > 0) {
-            const currentTtn = ttn[formState.ttnNumber]
+    const classes = useStyles()
 
+    const [key, reset] = useReset()
+
+    useEffect(() => {
+        const currentTtn = ttns[formState.number]
+        
+        if(currentTtn && currentTtn.id === formState.number) {
             setCurrentTTN(currentTtn)
             
             if(currentTtn.status === 'checked') {
-
                 const {firstName, lastName, patronymic} = currentManager
+
                 const managerInitials = `${firstName} ${lastName} ${patronymic}`
-    
-                const date = 
-                new Date(currentTtn.dataOfRegistration).getDate() + '.' +
-                new Date(currentTtn.dataOfRegistration).getMonth() + '.' +
-                new Date(currentTtn.dataOfRegistration).getFullYear()
+                const unformatedDate = new Date(currentTtn.dataOfRegistration)
+                
+                const fornatedDate = 
+                unformatedDate.getDate() + '.' +
+                unformatedDate.getMonth() + '.' +
+                unformatedDate.getFullYear()
 
                 setTtnStatusErr(null)
                 dndIsShown(true)
+                
                 setFormState(initialFormState)
                 setListState({
                     ...listState, 
-                    ttnDate: date,
+                    ttnDate: fornatedDate,
                     managerInitials: managerInitials,
                     operatorName: currentTtn.owner,
                 })
     
                 getFormData(currentTtn.id)
+                reset()
             }
             else {
                 setTtnStatusErr('TTN must been checked')     
             }
         }
-    }, [ttn])
+    }, [currentManager, dndIsShown, formState.number, getFormData, listState, reset, setCurrentTTN, ttns])
 
     useEffect(() => {
         if (ttnError.TTN) {
             setListState(initialListState)
         }
     }, [ttnError.TTN])
-
-    const handleChange = e => {
-        setFormState({...formState, [e.target.name]: e.target.value})
-    }
     
-    const {ttnNumber} = formState
     const {ttnDate, managerInitials, operatorName} = listState
-
+    
     return (
         <Container component="main" maxWidth="xs">
             <Box mt={5}>
@@ -73,23 +78,26 @@ const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, tt
                         Transfer goods to store
                     </Typography>
                 </Box>
-                <ValidatorForm onSubmit={() => getTtn(formState.ttnNumber)}>
+                <ValidatorForm onSubmit={() => getTtn(formState.number)}>
                     <Grid container>
                         <Grid item xs={12}>
-                            <Box mt={1}>
+                            <Box mt={2}>
                                 <Box>
-                                    <TextValidator
-                                        required
+                                    <InputText
+                                        min={10}
+                                        max={11}
+                                        pattern={/^[0-9]*$/}
                                         fullWidth
-                                        id="ttnNumber"
                                         label="TTN number"
-                                        name="ttnNumber"
-                                        autoComplete="ttnNumber"
-                                        onChange={handleChange}
-                                        value={ttnNumber}
+                                        required
+                                        name="number"
+                                        error={ttnError}
+                                        value={formState}
+                                        handleChange={setFormState}
+                                        helperClass={classes.inputError}
+                                        key={key}
                                     />
-                                    {(ttnError.TTN && !operatorName) && <p style={{color: 'red'}}>{ttnError.TTN}</p>}
-                                    {(ttnStatusErr && !ttnError.TTN) && <p style={{color: 'red'}}>{ttnStatusErr}</p>}
+                                    {(ttnStatusErr && !ttnError.TTN) && <small style={{color: 'red'}}>{ttnStatusErr}</small>} 
                                 </Box>
                                 <Box mt={2}>
                                     <Button
@@ -112,7 +120,7 @@ const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, tt
                                                 TTN details
                                             </Typography>
                                         </Box>
-                                        <List dense>
+                                        <List disablePadding>
                                             <ListItem>
                                                 <ListItemText
                                                     primary="TTN register date"

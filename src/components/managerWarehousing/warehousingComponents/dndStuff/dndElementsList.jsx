@@ -4,7 +4,7 @@ import DndElement from './dndElement'
 
 const DndElementsList = ({elementData, cargoId, ttnNumber, setCurrentHendleCargoUnit}) => {
     const dndElements = elementData && elementData.map((product, index) => {
-        const dimension = (product.type) ? product.type : product.dimension
+        const dimension = product.type || product.dimension
         const spiner = (cargoId === product.id) ? <CircularProgress size={20}/> : null
         
         if(product.amount > 0) {

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
     dndElement: {
         display: 'flex',
         justifyContent: 'space-between',
@@ -21,7 +21,13 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center',
         fontSize: '1rem',
         lineHeight: 'normal',
-    }
-}))
+        backgroundColor: props => props.backgroundColor,
+        outline: props => props.outline
+    },
+    inputError: {
+        marginTop: '10px',
+        color: 'red',
+    },
+})
 
 export default useStyles

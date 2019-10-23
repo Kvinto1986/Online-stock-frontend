@@ -1,34 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useDrop } from 'react-dnd-cjs'
 import ItemTypes from './ItemTypes'
 import useStyles from '../../warehousingStyles'
 
-const initialState = {
-    index: '',
-    area: '',
-    type: '',
-    products: ''
-}
-
-const DndDestenationArea = ({ index, area, freeArea, products, type, isActiveArea, activeCargoUnit, initActiveCargoAndArea}) => {
-    const classes = useStyles()
-    const [state, setState] = useState(initialState)
+const DndDestenationArea = ({index, area, freeArea, products, type, isActiveArea, activeCargoUnit, initActiveCargoAndArea}) => {
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: ItemTypes.BOX,
-        drop: () => ({ name: `Type: ${type}` }),
+        drop: () => ({name: `Type: ${type}`}),
         collect: monitor => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),
         }),
     })
-
-    useEffect(() => {
-        setState({index, area, freeArea, type, products})
-    }, [])
-
-    const dropOnArea = () => {
-        initActiveCargoAndArea(activeCargoUnit, state)
-    } 
     
     let outline = '1px dashed black'
     let backgroundColor = 'white'
@@ -44,13 +27,18 @@ const DndDestenationArea = ({ index, area, freeArea, products, type, isActiveAre
     else if (isActiveArea) {
         outline = '2px solid black'
     }
+
+    const classes = useStyles({backgroundColor, outline})
     
     return (
-        <div ref={drop} className={classes.dndArea} style={{backgroundColor, outline}} onDrop={dropOnArea}>
+        <div 
+            ref={drop} 
+            className={classes.dndArea}
+            onDrop={() => initActiveCargoAndArea(activeCargoUnit, {index, area, freeArea, type, products})}>
             <div>
-                <span><b>Area <em>№ {state.index}</em></b></span><br/>
-                <span>Type: <b style={{textDecoration: 'underline'}}>{state.type}</b></span><br/>
-                <span>Free area: {state.freeArea}m</span>
+                <span><b>Area <em>№ {index}</em></b></span><br/>
+                <span>Type: <b style={{textDecoration: 'underline'}}>{type}</b></span><br/>
+                <span>Free area: {freeArea}m</span>
             </div>
         </div>
     )

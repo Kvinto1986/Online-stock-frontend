@@ -1,33 +1,35 @@
 import React, {useEffect} from 'react'
-import {useGetTtn, useGetWarehouses, useGetEmployee} from '../../api/apiRequests'
+import {useGetTtn, useGetWarehouses} from '../../api/apiRequests'
 import Warehousing from './warehousing'
 import {warehousingPostData} from '../../actions/warehousingActions'
 import {useDispatch, useSelector} from 'react-redux'
 import {compose} from 'ramda'
+import {authUser} from '../../filters' 
+import {useReset} from '../../hooks/hook'
 
 export default () => {
     const dispatch = useDispatch()
     const makeWarehousing = compose(dispatch, warehousingPostData)
-    const user = useSelector(state => state.auth.user)
+    const user = useSelector(authUser)
+    const [key, reset] = useReset()
 
-    const [getTtn, ttn, ttnError] = useGetTtn()
-    const [getEmployee, currentManager] = useGetEmployee()
+    const [getTtn, ttns, ttnError] = useGetTtn()
     const [getWarehouses, warehouses] = useGetWarehouses()
 
     useEffect(() => {
-        getEmployee()
         getWarehouses()
-    }, [getEmployee, getWarehouses])
+    }, [getWarehouses])
     
     return (
         <Warehousing
             getTtn={getTtn}
             ttnError={ttnError}
-            ttn={ttn}
+            ttns={ttns}
             warehouses={warehouses}
-            currentManager={currentManager}
             makeWarehousing={makeWarehousing}
             user={user}
+            key={key}
+            reset={reset}
         />
     )
 } 

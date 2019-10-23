@@ -3,7 +3,7 @@ import { DndProvider } from 'react-dnd-cjs'
 import HTML5Backend from 'react-dnd-html5-backend-cjs'
 import DndStock from './warehousingComponents/dndStock'
 import WarehousingSubmitButton from './warehousingComponents/WarehousingSubmitButton'
-import React, { useState } from 'react'   
+import React, { useState, useCallback } from 'react'   
 import 'sweetalert2/src/sweetalert2.scss'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
@@ -16,7 +16,7 @@ const initialWareHousingState = {
     formData: ''
 }
 
-const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, user}) => {
+const Warehousing = ({getTtn, ttnError, ttns, makeWarehousing, warehouses, user, reset}) => {
 
     const [curTtn, setCurTtn] = useState(null)
     const [ttnIsFound, seTttnIsFound] = useState(false)
@@ -35,18 +35,7 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, user})
             confirmButtonText: 'OK',
             allowOutsideClick: false
         })
-        .then(() => {
-            // TODO: Remove page reload
-            window.location.reload()
-        })
-    }
-   
-    const setCurrentTTN = curTtn => {
-        setCurTtn(curTtn) 
-    }
-
-    const dndIsShown = value => {
-        seTttnIsFound(value)
+        .then(reset)
     }
 
     const getFormData = data => {
@@ -56,20 +45,16 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, user})
         })
     }
 
-    const sendChangedStock = changedStockData => { 
+    const sendChangedStockData = changedStockData => { 
         setWareHousingState({
             ...wareHousingState,
             areasData: changedStockData
         })
     }
 
-    const showSaveButton = () => {
+    const showSaveButton = useCallback(() => {
         setStatusesState({...statusesState, isSubmitButtonShown: true})
-    }
-
-    const setSelectedStockState = data => {
-        setWarehousingActiveStock(data)
-    }
+    }, [statusesState])
 
     const catchSubmitAction = () => {
         const data = {
@@ -83,12 +68,12 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, user})
     return (
         <React.Fragment>
             <WarehousingDataForm 
-                setCurrentTTN={setCurrentTTN}
-                dndIsShown={dndIsShown}
+                setCurrentTTN={setCurTtn}
+                dndIsShown={seTttnIsFound}
                 getFormData={getFormData} 
                 getTtn={getTtn} 
                 ttnError={ttnError}
-                ttn={ttn}
+                ttns={ttns}
                 currentManager={user}
             />
             <DndProvider backend={HTML5Backend}>
@@ -97,8 +82,8 @@ const Warehousing = ({getTtn, ttnError, ttn, makeWarehousing, warehouses, user})
                         ttn={curTtn}
                         warehouses={warehouses}
                         showSaveButton={showSaveButton}
-                        setSelectedStockState={setSelectedStockState}
-                        sendChangedStock={sendChangedStock}
+                        setSelectedStockState={setWarehousingActiveStock}
+                        sendChangedStockData={sendChangedStockData}
                     />
                 }
             </DndProvider>

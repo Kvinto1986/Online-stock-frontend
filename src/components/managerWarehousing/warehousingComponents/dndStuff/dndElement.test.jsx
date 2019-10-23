@@ -5,7 +5,6 @@ import DndElement from './dndElement'
 import { DndProvider } from 'react-dnd-cjs'
 import HTML5Backend from 'react-dnd-html5-backend-cjs'
 
-const space = '\u0020'
 const props = {
     name: 'Apples',
     amount: '10',
@@ -24,5 +23,5 @@ it('show an cargo unit', async () => {
     )
 
     getByText('Apples')
-    getByText(`|${space}10${space}Box`)
+    getByText('| 10 Box')
 }) 

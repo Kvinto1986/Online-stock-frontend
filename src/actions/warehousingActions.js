@@ -5,9 +5,7 @@ import server from '../serverConfig'
 export const warehousingPostData = (data, successWirehousingAletrt) => dispatch => { 
     axios
     .post(`${server}api/managers/finishWarehausing`, data)
-    .then(res => {
-        successWirehousingAletrt()
-    })
+    .then(successWirehousingAletrt)
     .catch(err => {
         if (err.response) {
             dispatch({

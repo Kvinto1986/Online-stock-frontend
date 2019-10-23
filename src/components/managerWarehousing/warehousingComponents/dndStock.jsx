@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Box, Typography, InputLabel, Select, MenuItem, Input, Container } from '@material-ui/core'
 import arow from '../../../resources/images/play-button.png'
 import WarehousingDetailsForm from './warehousingDetails/warehousingDetailsForm'
 import DndElementsList from './dndStuff/dndElementsList'
 import DndDestenationAreasList from './dndStuff/dndDestenationAreasList'
 
-const DndStock = ({ttn, warehouses, showSaveButton, setSelectedStockState, sendChangedStock}) => {
+const DndStock = ({ttn, warehouses, showSaveButton, setSelectedStockState, sendChangedStockData}) => {
 
     const initialState = {
         activeDnDCargoUnit: '',
@@ -28,15 +28,7 @@ const DndStock = ({ttn, warehouses, showSaveButton, setSelectedStockState, sendC
             const { areas, id } = state.chosenWarehouse
             setSelectedStockState({areas, id})
         }
-    }, [state.chosenWarehouse.id])
-    
-
-    useEffect(() => {
-        const unWarehousedCargo = state.cargoElements.filter(unit => unit.amount > 0)
-        if (unWarehousedCargo.length === 0) {
-            showSaveButton()
-        }
-    }, [state.cargoElements])
+    }, [setSelectedStockState, state.chosenWarehouse, state.chosenWarehouse.id, state.chosenWarehouseInitialState])
 
     const handleSelectChange = e => {
         setState({
@@ -67,7 +59,15 @@ const DndStock = ({ttn, warehouses, showSaveButton, setSelectedStockState, sendC
         })
     }
 
-    const changeActiveData = (newCargoState, newAreaState) => {
+    const checkToSubmit = cargo => {
+        const unWarehousedCargo = cargo.filter(unit => unit.amount > 0)
+
+        if (unWarehousedCargo.length === 0) {
+            showSaveButton()
+        }
+    }
+
+    const calculateNewCargoState = newCargoState => {
         let newCargoElementsState = [];
         [...state.cargoElements].forEach(element => {
             if(element.id === newCargoState.id) {
@@ -77,7 +77,11 @@ const DndStock = ({ttn, warehouses, showSaveButton, setSelectedStockState, sendC
                 newCargoElementsState.push({...element, dimension: element.type})
             }
         })
-        
+
+        return newCargoElementsState
+    }
+
+    const calculateNewWarehouseState = newAreaState => {
         let newWarehouseAreasState = [];
         [...state.chosenWarehouse.areas].forEach((unit, i) => {
             if((i + 1) === newAreaState.index) {
@@ -88,21 +92,30 @@ const DndStock = ({ttn, warehouses, showSaveButton, setSelectedStockState, sendC
                 newWarehouseAreasState.push(unit)
             }
         }) 
-        
+
+        return newWarehouseAreasState
+    }
+
+    const setWarehousingState = (cargo, warehouse) => {
         setState({
             ...state,
             cargoId: null,
             activeArea: null,
             cargoIndex: null,
             cargoDetails: null,
-            cargoElements: newCargoElementsState,
-            chosenWarehouse: {...state.chosenWarehouse, areas: newWarehouseAreasState}
+            cargoElements: cargo,
+            chosenWarehouse: {...state.chosenWarehouse, areas: warehouse}
         })
     }
-    
-    useEffect(() => {
-        sendChangedStock(state.chosenWarehouse.areas)
-    }, [state.chosenWarehouse.areas])
+
+    const changeActiveData = (newCargoState, newAreaState) => {
+        const updatedCargo = calculateNewCargoState(newCargoState)
+        const updatedWarehouse = calculateNewWarehouseState(newAreaState)
+        
+        setWarehousingState(updatedCargo, updatedWarehouse)
+        sendChangedStockData(state.chosenWarehouse.areas)
+        checkToSubmit(updatedCargo)
+    }
     
     return (
         <Container fixed>
