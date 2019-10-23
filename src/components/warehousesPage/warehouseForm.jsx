@@ -82,14 +82,20 @@ export default ({onSubmit, error, company}) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
+        const areas = list.map((elem, index) => {
+            elem.index = index + 1
+            return elem
+        })
+
         const data = {
             company: warehouse.company,
             name: warehouse.name,
             license: warehouse.license,
             totalArea: originalArea,
-            areas: list,
+            areas: areas,
             freeArea: originalArea
         }
+
 
         onSubmit(data, unlock)
     }
