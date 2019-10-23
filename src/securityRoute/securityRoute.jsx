@@ -39,7 +39,6 @@ const SecurityRoute = (props) => {
                             <Route exact path="/me" component={EmployeeEditPage}/>
                             {props.auth.user.position.includes('manager') && (
                                 <Fragment>
-                                    <Route exact path="/stockDelivery" component={DeliveryGoodsFromStock}/>
                                     <Route exact path="/warehousing" component={Warehousing}/>
                                     <Route exact path="/outTtnRegister" component={SendCargo}/>
                                 </Fragment>
