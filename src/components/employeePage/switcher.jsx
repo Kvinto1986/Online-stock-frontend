@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button'
 import EditEmployee from './editEmployee'
 
 
-export default function Switcher({employee}) {
+export default function Switcher({editEmployee,errors,employee}) {
     const [editing, setEditing] = useState(false)
     const classes = useStyles()
 
@@ -21,7 +21,11 @@ export default function Switcher({employee}) {
             {editing ? 'Show profile' : 'Edit'}
         </Button>
         {editing ?
-            <EditEmployee employee={employee} />
+            <EditEmployee
+                editEmployee={editEmployee}
+                employee={employee}
+                errors={errors
+                }/>
             :
             <Profile employee={employee}/>}
     </Paper>

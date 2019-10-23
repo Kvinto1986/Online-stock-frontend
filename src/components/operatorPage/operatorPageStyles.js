@@ -4,6 +4,8 @@ const useStyles = makeStyles(theme => ({
         root: {
             display: 'flex',
             flexDirection: 'column',
+            width:'90%',
+            marginLeft:'5%'
         },
         formControl: {
             width: '100%',

@@ -2,29 +2,22 @@ import React, {Fragment, useState} from 'react'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
-import {ValidatorForm} from 'react-material-ui-form-validator'
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import useStyles from './operatorPageStyles'
 import InputText from '../fields/textField'
 
 
-export default ({onSubmit, error, setValue}) => {
+export default ({onSubmit, error, id}) => {
 
     const [driver, setDriver] = useState({
-        license: '',
         name: '',
         surname: ''
     })
 
-    const handleInputChange = (e) => {
-        setDriver({...driver, [e.target.name]: e.target.value})
-        setValue(e.target.value)
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        onSubmit(driver)
+    const handleSubmit = () => {
+        onSubmit({license:id,...driver})
     }
 
     const classes = useStyles()
@@ -40,20 +33,14 @@ export default ({onSubmit, error, setValue}) => {
                     <ValidatorForm className={classes.form} onSubmit={handleSubmit}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                <InputText
-                                    min={10}
-                                    max={10}
-                                    pattern={/.*/}
+                                <TextValidator
+                                    disabled
                                     fullWidth
-                                    label="Driver License"
+                                    label="Driver license number"
                                     variant="outlined"
                                     required
-                                    name='license'
-                                    error={error}
-                                    value={driver}
-                                    handleChange={setDriver}
-                                    helperClass={classes.error}
-                                    onChange={handleInputChange}
+                                    name="license"
+                                    value={id}
                                 />
                             </Grid>
                         </Grid>

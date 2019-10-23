@@ -34,6 +34,7 @@ export default ({ttns, getTtn, getTtnError, editTtn}) => {
     }
 
     const handleSubmitTTN = () => {
+        setOpen(false)
         const reportData = {
             status: 'checked',
             products: currentTTN.products,

@@ -27,7 +27,7 @@ export default ({deleteWarehouse, warehouses}) => {
                 </TableHead>
                 <TableBody>
                     {Object.values(warehouses).map(elem => (
-                        <TableRow key={elem.id}>
+                        <TableRow key={elem.id+elem.name}>
                             <TableCell align="center">
                                 <Button variant="contained" color="secondary" className={classes.button}
                                         onClick={() => deleteWarehouse(elem.id)}>

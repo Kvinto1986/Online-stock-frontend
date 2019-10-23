@@ -2,7 +2,7 @@ import React, {Fragment, useState} from 'react'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
-import {ValidatorForm} from 'react-material-ui-form-validator'
+import {ValidatorForm,TextValidator} from 'react-material-ui-form-validator'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import useStyles from './operatorPageStyles'
@@ -15,10 +15,9 @@ import MenuItem from '@material-ui/core/MenuItem'
 
 import InputText from '../fields/textField'
 
-export default ({onSubmit, error, setValue}) => {
+export default ({onSubmit, error, id}) => {
 
     const [carrier, setCarrier] = useState({
-        unp: '',
         email: '',
         tel: '',
         countryCode: '',
@@ -29,13 +28,8 @@ export default ({onSubmit, error, setValue}) => {
         setCarrier({...carrier, [e.target.name]: e.target.value})
     }
 
-    const handleIdChange = (e) => {
-        setValue(e.target.value)
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        onSubmit(carrier)
+    const handleSubmit = () => {
+        onSubmit({unp:id,...carrier})
     }
 
     const classes = useStyles()
@@ -51,20 +45,14 @@ export default ({onSubmit, error, setValue}) => {
                     <ValidatorForm className={classes.form} onSubmit={handleSubmit}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                <InputText
-                                    min={9}
-                                    max={9}
-                                    pattern={/^[0-9]*$/}
+                                <TextValidator
+                                    disabled
                                     fullWidth
-                                    label="UNP"
+                                    label="License number"
                                     variant="outlined"
                                     required
                                     name="unp"
-                                    error={error}
-                                    value={carrier}
-                                    handleChange={setCarrier}
-                                    helperClass={classes.error}
-                                    onChange={handleIdChange}
+                                    value={id}
                                 />
                             </Grid>
                         </Grid>
