@@ -15,10 +15,9 @@ import Landing from '../components/landingPage/landing'
 
 import AllCarrier from '../components/allCarrier'
 import TTNregister from '../components/operatorPage/index'
-
 import DeliveryGoodsFromStock from '../components/deliveryFromStock/deliveryFromStockPage'
 
-import Warehousing from '../components/managerWarehousing/warehousing'
+import Warehousing from '../components/managerWarehousing'
 import Employees from '../components/employeesPage'
 import Employee from '../components/employeePage'
 import ControllerPage from '../components/controllerPage'

@@ -1,6 +1,23 @@
 import {createRestHooks} from './restApi'
-import {EMPLOYEE, EMPLOYEES,CARRIER,CARRIERS,DRIVER,DRIVERS,TTN,TTNS,WAREHOUSE,WAREHOUSES} from '../actions/types'
-import {employeesFilter,carriersFilter,driversFilter,ttnsFilter,warehousesFilter} from '../filters'
+import {
+    EMPLOYEE, 
+    EMPLOYEES,
+    CARRIER,
+    CARRIERS,
+    DRIVER,
+    DRIVERS,
+    TTN,
+    TTNS,
+    WAREHOUSE,
+    WAREHOUSES
+} from '../actions/types'
+import {
+    employeesFilter,
+    carriersFilter,
+    driversFilter,
+    ttnsFilter,
+    warehouseFilter
+} from '../filters'
 
 
 export const {
@@ -24,7 +41,7 @@ export const {
 export const {
     useGetTtn,
     useEditTtn,
-    useAddTtn,
+    useAddTtn
 } = createRestHooks(TTN, TTNS, ttnsFilter)
 
 export const {

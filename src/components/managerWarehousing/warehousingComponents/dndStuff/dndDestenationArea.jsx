@@ -1,81 +1,47 @@
-import React, { useEffect, useState } from "react"
-import { useDrop } from "react-dnd"
-import ItemTypes from "./ItemTypes"
-import { connect } from "react-redux"
+import React from 'react'
+import { useDrop } from 'react-dnd-cjs'
+import ItemTypes from './ItemTypes'
+import useStyles from '../../warehousingStyles'
 
-const DndDestenationArea = ({ index, area, storedCargo, type, addCargoUnitToRemove, getEachAreaState, isActiveArea, ...props}) => {
-    const initialState = {
-        index: "",
-        area: "",
-        type: "",
-        storedCargo: ""
-    }
-
-    const [state, setState] = useState(initialState)
+const DndDestenationArea = ({index, area, freeArea, products, type, isActiveArea, activeCargoUnit, initActiveCargoAndArea}) => {
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: ItemTypes.BOX,
-        drop: () => ({ name: `Type: ${type}` }),
+        drop: () => ({name: `Type: ${type}`}),
         collect: monitor => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),
         }),
     })
-
-    useEffect(() => {
-        setState({index, area, type, storedCargo})
-    }, [])
-
-    useEffect(() => {
-        if(props.warehousingFlag) {
-            setTimeout(() => {getEachAreaState(state)}, 0)
-        }
-    }, [props.warehousingFlag]);
-
-    const dropOnArea = () => {
-        const {activeCargoUnit, initActiveCargoAndArea} = props
-        initActiveCargoAndArea(activeCargoUnit, state)
-    } 
-
-    let outline = "1px dashed black"
-    let backgroundColor = "white"
+    
+    let outline = '1px dashed black'
+    let backgroundColor = 'white'
     const isActive = canDrop && isOver
 
     if (isActive) {
-        backgroundColor = "#f7f8fc"
-        outline = "1px solid black"
+        backgroundColor = '#f7f8fc'
+        outline = '1px solid black'
     } 
     else if (canDrop) {
-        outline = "1px dashed #0014a6"
+        outline = '1px dashed #0014a6'
     } 
     else if (isActiveArea) {
-        outline = "2px solid black"
+        outline = '2px solid black'
     }
+
+    const classes = useStyles({backgroundColor, outline})
     
     return (
-        <div ref={drop} style={{ ...style, backgroundColor, outline }} onDrop={dropOnArea}>
+        <div 
+            ref={drop} 
+            className={classes.dndArea}
+            onDrop={() => initActiveCargoAndArea(activeCargoUnit, {index, area, freeArea, type, products})}>
             <div>
-                <span><b>Area <em>№ {state.index}</em></b></span><br/>
-                <span>Type: <b style={{textDecoration: "underline"}}>{state.type}</b></span><br/>
-                <span>Free area: {state.area}m</span>
+                <span><b>Area <em>№ {index}</em></b></span><br/>
+                <span>Type: <b style={{textDecoration: 'underline'}}>{type}</b></span><br/>
+                <span>Free area: {freeArea}m</span>
             </div>
         </div>
     )
 }
 
-const mapStateToProps = (state) => ({
-    warehousingFlag: state.warehousingFlag,
-});
-
-export default connect(mapStateToProps)(DndDestenationArea)
-
-const style = {
-    height: "5rem",
-    width: "100%",
-    marginBottom: "1.5rem",
-    color: "black",
-    paddingTop: "1rem",
-    paddingBottom: "1rem",
-    textAlign: "center",
-    fontSize: "1rem",
-    lineHeight: "normal",
-}
+export default DndDestenationArea
