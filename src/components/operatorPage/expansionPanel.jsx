@@ -7,7 +7,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import useStyles from './operatorPageStyles'
 
 
-export default function ({formVisibility, setFormVisibility, Form, onSubmit, error, setValue}) {
+export default function ({formVisibility, setFormVisibility, Form, onSubmit, error, id}) {
     const classes = useStyles()
 
     return (
@@ -26,7 +26,7 @@ export default function ({formVisibility, setFormVisibility, Form, onSubmit, err
                     <Form
                         onSubmit={onSubmit}
                         error={error}
-                        setValue={setValue}
+                        id={id}
                     />
                 </ExpansionPanelDetails>
             </ExpansionPanel>

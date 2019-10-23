@@ -82,12 +82,17 @@ export default ({onSubmit, error, company}) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
+        const areasArr = list.map((elem, index) => {
+            elem.index=index+1
+            return elem
+        })
+
         const data = {
             company: warehouse.company,
             name: warehouse.name,
             license: warehouse.license,
             totalArea: originalArea,
-            areas: list,
+            areas: areasArr,
             freeArea: originalArea
         }
 

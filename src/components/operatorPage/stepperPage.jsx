@@ -25,13 +25,14 @@ export default ({
     const [carrierId, setCarrierId] = useState('')
     const [driverId, setDriverId] = useState('')
 
+    console.log(driverId,carrierId)
     function getStepContent(stepIndex) {
         switch (stepIndex) {
             case 0:
                 return <Fragment>
                     <Search
                         search={searchCarrier}
-                        searchText='Search carrier by UNP'
+                        searchText="Search carrier by UNP"
                         error={searchCarrierError.carrier}
                         value={carrierId}
                         setValue={setCarrierId}
@@ -43,7 +44,7 @@ export default ({
                             Form={CarrierForm}
                             onSubmit={createCarrier}
                             error={createCarrierError}
-                            setValue={setCarrierId}
+                            id={carrierId}
                         />
                     )}
                 </Fragment>
@@ -51,7 +52,7 @@ export default ({
                 return <Fragment>
                     <Search
                         search={searchDriver}
-                        searchText='Search driver by driver license'
+                        searchText="Search driver by driver license"
                         error={searchDriverError.driver}
                         value={driverId}
                         setValue={setDriverId}
@@ -63,7 +64,7 @@ export default ({
                             Form={DriverForm}
                             onSubmit={createDriver}
                             error={createDriverError}
-                            setValue={setDriverId}
+                            id={driverId}
                         />
                     )}
                 </Fragment>

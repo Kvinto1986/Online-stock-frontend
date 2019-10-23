@@ -38,4 +38,4 @@ export default () => {
         drivers={drivers}
         authUser={authUser}
     />
-};
+}
