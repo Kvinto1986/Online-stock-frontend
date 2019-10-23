@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Typography from '@material-ui/core/Typography'
 import {ValidatorForm} from 'react-material-ui-form-validator'
 import Grid from '@material-ui/core/Grid'
@@ -9,8 +9,17 @@ import InputText from '../fields/textField'
 import CargoTable from './cargoTable'
 import {TextField} from '@material-ui/core'
 import Box from '@material-ui/core/Box'
+import * as Swal from 'sweetalert2'
 
 export default ({onSubmit, error, authUser, carrier, driver}) => {
+    useEffect(() => {
+        Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: error.error
+        })
+    }, [error])
+
     const [TTN, setTTN] = useState({
         number: '',
         carrier: {

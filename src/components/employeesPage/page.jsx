@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 
 
-export default ({company, employees, delEmployee}) => {
+export default ({company, employees, delEmployee,tableKey}) => {
     const classes = useStyles()
     return (
         <Container component="main" maxWidth="xl">
@@ -24,6 +24,7 @@ export default ({company, employees, delEmployee}) => {
             </Typography>
             <Paper className={classes.form}>
                 <EmployeeTable
+                    key={tableKey}
                     employees={employees}
                     delEmployee={delEmployee}
                 />

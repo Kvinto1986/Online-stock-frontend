@@ -37,7 +37,8 @@ export default ({saveTTN, report, setReport, handleChangeTTN, cargo, open, openD
                             Сlose and clear data
                         </Typography>
                         <Button variant="contained" color="secondary" onClick={() => {
-                            saveTTN(!open)
+                            openDialog(!open)
+                            saveTTN()
                         }}>
                            Finish control and send report
                         </Button>

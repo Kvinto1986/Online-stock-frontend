@@ -8,22 +8,20 @@ import Button from '@material-ui/core/Button'
 import useStyles from './style'
 import moment from 'moment'
 
-import swalModalWindow from './swalModel'
 import Link from '../header/Link'
 
 export default ({employees, delEmployee}) => {
     const classes = useStyles()
-    console.log(employees)
     const CreateTable = () =>
         (Object.values(employees).map(({id, position, lastName, email, dateOfBirth}) =>
-                <TableRow key={id}>
+                <TableRow key={id+email}>
                     <TableCell align="center">
                         <Button
                             variant="contained"
                             color="secondary"
                             data-testid={'delete-' + id}
                             className={classes.button}
-                            onClick={() => swalModalWindow(id, delEmployee)}>
+                            onClick={()=>delEmployee(id)}>
                             Delete
                         </Button>
                     </TableCell>
