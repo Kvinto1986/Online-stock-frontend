@@ -3,11 +3,15 @@ import {useSelector} from 'react-redux'
 import StepperPage from './stepperPage'
 import {useAddCarrier, useAddDriver, useAddTtnOut, useGetCarrier, useGetDriver} from '../../api/apiRequests'
 import {authUserFilter} from '../../filters'
+import findSwal from '../operatorPage/findSwal'
 
 export default () => {
     const [activeStep, setActiveStep] = useState(0)
 
-    const handleNextStep = useCallback(() => setActiveStep(x => x + 1), [setActiveStep])
+    const handleNextStep = useCallback(() => {
+        setActiveStep(x => x + 1)
+        findSwal()
+    }, [setActiveStep])
 
     const authUser = useSelector(authUserFilter)
 
