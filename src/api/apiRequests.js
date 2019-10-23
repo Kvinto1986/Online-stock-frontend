@@ -1,13 +1,13 @@
 import {createRestHooks} from './restApi'
 import {
-    EMPLOYEE, 
-    EMPLOYEES,
     CARRIER,
     CARRIERS,
     DRIVER,
     DRIVERS,
-    TTN,
-    TTNS,
+    EMPLOYEE,
+    EMPLOYEES,
+    TTN, TTN_OUT,
+    TTNS, TTNS_OUT,
     WAREHOUSE,
     WAREHOUSES
 } from '../actions/types'
@@ -18,7 +18,6 @@ import {
     ttnsFilter,
     warehouseFilter
 } from '../filters'
-
 
 export const {
     useAddEmployee,
@@ -48,4 +47,9 @@ export const {
     useAddWarehouse,
     useDelWarehouse,
     useGetWarehouses,
-} = createRestHooks(WAREHOUSE,WAREHOUSES, warehousesFilter)
+} = createRestHooks(WAREHOUSE, WAREHOUSES, warehousesFilter)
+
+export const {
+    useAddTtnOut,
+} = createRestHooks(TTN_OUT, TTNS_OUT, ttnsOutFilter)
+
