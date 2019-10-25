@@ -50,8 +50,6 @@ export default ({onSubmit, error, company}) => {
     }
 
     const handleChangeArea = (value) => {
-        console.log(value);
-        
         setTotalArea(value)
     }
 
@@ -129,13 +127,9 @@ export default ({onSubmit, error, company}) => {
         onSubmit(data, unlock)
     }
 
-    const handleChange = newValue => {
-        console.log(newValue);
+    const handleChange = (e, newValue) => {
         setTotalArea(newValue)
     }
-
-    // console.log(totalArea);
-    
 
     return (
         <Container component="main" maxWidth="xl">
@@ -298,15 +292,17 @@ export default ({onSubmit, error, company}) => {
                         ) : null}
                     </div>
                     <div className={classes.paperList}>
-                        {/* {<img src={warehouseImage} className={classes.icon}/>} */}
                         <MapContainer
                             GPS={mapState.GPS}
                             mapVisibility={mapState.mapVisibility}
                         />
-                        <AreaCard
-                            handleDeleteArea={handleDeleteArea}
-                            list={list}
-                        />
+                        <Box mt={50}>
+                            <AreaCard
+                                handleDeleteArea={handleDeleteArea}
+                                list={list}
+                            />
+                        </Box>
+                            
                     </div>
                 </div>
             </Box>

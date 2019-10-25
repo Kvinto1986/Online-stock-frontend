@@ -1,4 +1,4 @@
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
     '@global': {
@@ -13,10 +13,6 @@ const useStyles = makeStyles(theme => ({
     main: {
         width: '100%',
         display: 'flex',
-        // justifyContent: 'start',
-        // justifyItems: 'start',
-        // alignContent: 'start',
-        // alignItems: 'start',
     },
     paper: {
         width: '50%',
@@ -25,12 +21,12 @@ const useStyles = makeStyles(theme => ({
     },
     paperList: {
         width: '50%',
-        // display: 'flex',
-        // justifyContent: 'start',
+        display: 'flex',
+        justifyContent: 'start',
         // justifyItems: 'start',
         // alignContent: 'center',
         // alignItems: 'center',
-        // flexDirection: 'column',
+        flexDirection: 'column',
     },
     formControl: {
         width: '100%'
