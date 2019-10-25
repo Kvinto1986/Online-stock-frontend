@@ -13,27 +13,24 @@ const useStyles = makeStyles(theme => ({
     main: {
         width: '100%',
         display: 'flex',
-        justifyContent: 'start',
-        justifyItems: 'start',
-        alignContent: 'start',
-        alignItems: 'start',
+        // justifyContent: 'start',
+        // justifyItems: 'start',
+        // alignContent: 'start',
+        // alignItems: 'start',
     },
-
     paper: {
         width: '50%',
         display: 'flex',
         flexDirection: 'column',
     },
-
     paperList: {
-        marginLeft: '5%',
-        display: 'flex',
-        justifyContent: 'start',
-        justifyItems: 'start',
-        alignContent: 'center',
-        alignItems: 'center',
         width: '50%',
-        flexDirection: 'column',
+        // display: 'flex',
+        // justifyContent: 'start',
+        // justifyItems: 'start',
+        // alignContent: 'center',
+        // alignItems: 'center',
+        // flexDirection: 'column',
     },
     formControl: {
         width: '100%'

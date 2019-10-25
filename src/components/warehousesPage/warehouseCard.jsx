@@ -1,15 +1,15 @@
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import CardActions from "@material-ui/core/CardActions";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import React from "react";
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
+import CardActions from '@material-ui/core/CardActions'
+import Button from '@material-ui/core/Button'
+import Card from '@material-ui/core/Card'
+import React from 'react'
 import useStyles from './warehousePageStyles'
 
 
 export default ({list, handleDeleteArea}) => {
-    const classes = useStyles();
+    const classes = useStyles()
 
     if (list.length > 0) {
         const arrList = []
