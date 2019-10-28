@@ -40,3 +40,7 @@ export const WAREHOUSES = 'WAREHOUSES'
 export const TTNS_OUT = 'TTNS_OUT'
 export const TTN_OUT = 'TTN_OUT'
 
+//TTNS_OUT
+export const SERVICE = 'SERVICE'
+export const SERVICES  = 'SERVICES'
+
