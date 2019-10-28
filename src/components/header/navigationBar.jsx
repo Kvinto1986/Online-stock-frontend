@@ -23,6 +23,7 @@ export default ({user}) => {
         case 'mainAdmin':
             return navigation([
                 {name: 'Home', link: '/'},
+                {name: 'Services', link: '/serviceManager'},
                 {name: 'Registration new company ', link: '/newCompanyAdmin'},
                 {name: 'Companies', link: '/companiesList'},
                 {name: 'Reports', link: '/reports'}])
