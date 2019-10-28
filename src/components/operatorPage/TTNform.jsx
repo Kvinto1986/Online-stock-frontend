@@ -75,7 +75,7 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
         e.preventDefault()
         const data = {...TTN}
         data.products = cargo
-        data.service = service
+        data.service = service.value
         onSubmit(data)
     }
 
