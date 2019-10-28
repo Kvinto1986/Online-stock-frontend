@@ -16,7 +16,7 @@ import InputText from '../fields/textField'
 import CargoTable from './cargoTable'
 import Autocomplete from '../fields/autocomplete'
 
-export default ({onSubmit, error, authUser, carrier, driver,services}) => {
+export default ({onSubmit, error, authUser, carrier, driver, services}) => {
 
     const [TTN, setTTN] = useState({
         number: '',
@@ -75,6 +75,7 @@ export default ({onSubmit, error, authUser, carrier, driver,services}) => {
         e.preventDefault()
         const data = {...TTN}
         data.products = cargo
+        data.service = service
         onSubmit(data)
     }
 
@@ -119,13 +120,13 @@ export default ({onSubmit, error, authUser, carrier, driver,services}) => {
                                 </Typography>
                             </Grid>
                             <Grid item xl={4}>
-                            <Autocomplete
-                                list={Object.keys(services)}
-                                unique="Service name"
-                                searchItem="services"
-                                value={service}
-                                setValue={setService}
-                            />
+                                <Autocomplete
+                                    list={Object.keys(services)}
+                                    unique="Service name"
+                                    searchItem="services"
+                                    value={service}
+                                    setValue={setService}
+                                />
                             </Grid>
                             <Grid item xl={1} className={classes.gridItem}>
                                 <Typography component="h1" variant="h6" className={classes.TTNhead}>
