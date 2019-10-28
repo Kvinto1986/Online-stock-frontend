@@ -5,7 +5,7 @@ import ConnectedManager from './connectedManager'
 
 export default () => {
 
-    return <Box component={Paper} m={10}>
+    return <Box component={Paper} m={10} p={2}>
         <ConnectedManager/>
     </Box>
 }
