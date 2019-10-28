@@ -15,32 +15,25 @@ export const addCarrier = (carrier) => {
     })
 };
 
-export const listCarriers = async () => {
-    const allCarriers = await axios.get(`${server}api/carriers`)
-   return allCarriers.data
-};
 
-export const allCarriers = async () => {
-    const listCarrier = await axios.get(`${server}api/carriers/`)
-    return listCarrier.data
-};
 
-export const deleteCarriers = (id, cb, rows) => {
-    const newArr = rows.filter((item) => item._id != id);
-    console.log(id)
-    axios.delete(`${server}api/carriers/${id}`)
+export const deleteCarriers = (unp, cb, rows) => {
+    const newArr = rows.filter((item) => item.id != unp)
+    axios.delete(`${server}api/carriers/${unp}`)
         .then((res) => {
-            cb(newArr);
+            console.log(newArr)
+            cb(newArr)
         })
         .catch((err) => {
             console.error(err)
         })
-};
+}
 
-export const updateCarrier = (rows, inputValue, id, cb) => {
+export const updateCarrier = (rows, inputValue, _id, cb) => {
+    console.log(rows, inputValue, _id, cb)
     let indx;
     let found = rows.find((elem, index) => {
-        if(elem._id === id) {
+        if(elem.id === _id) {
             indx = index;
             return elem
         }
@@ -59,8 +52,8 @@ export const updateCarrier = (rows, inputValue, id, cb) => {
     }
 
     found.isDisabled = false;
-    const{company, countryCode, unp, _id} = found;
-    let newArr = [];
+    const{company, countryCode, unp, id} = found
+    let newArr = []
     for(let i = 0; i < rows.length; i++) {
         if(i === indx) {
             newArr.push(found)
@@ -71,11 +64,11 @@ export const updateCarrier = (rows, inputValue, id, cb) => {
     cb(newArr)
 
     axios.post(`${server}api/carriers/update`, {
-     id:_id,
+     id:id,
      company: company,
      countryCode:countryCode,
      email: email,
-        unp: unp,
+     unp: unp,
      tel: tel
  })
      .then((res) => {console.log(res)})

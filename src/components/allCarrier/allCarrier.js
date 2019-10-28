@@ -1,32 +1,32 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import {useTheme} from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableFooter from '@material-ui/core/TableFooter';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import useStyles from './allCarrierStyle';
-import {allCarriers, deleteCarriers, updateCarrier} from "../../servies/carrierServies";
-import {addPrevPath} from '../../actions/carrierAction';
-import Spinner from '../spinner';
+import React, {useEffect, useState} from 'react'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
+import {useTheme} from '@material-ui/core/styles'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableFooter from '@material-ui/core/TableFooter'
+import TablePagination from '@material-ui/core/TablePagination'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
+import IconButton from '@material-ui/core/IconButton'
+import FirstPageIcon from '@material-ui/icons/FirstPage'
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
+import LastPageIcon from '@material-ui/icons/LastPage'
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
+import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
+import useStyles from './allCarrierStyle'
+import {deleteCarriers, updateCarrier} from "../../servies/carrierServies"
+import { addPrevPath } from '../../actions/carrierAction'
+import Spinner from '../spinner'
 
 function TablePaginationActions(props) {
     const classes = useStyles();
     const theme = useTheme();
-    const {count, page, rowsPerPage, onChangePage} = props;
+    const {count, page, rowsPerPage, onChangePage} = props
 
     function handleFirstPageButtonClick(event) {
         onChangePage(event, 0);
@@ -81,11 +81,11 @@ TablePaginationActions.propTypes = {
     rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData({...rest}) {
-    return {...rest};
-}
 
-function CustomPaginationActionsTable(props) {
+
+
+function CustomPaginationActionsTable({addPrevPath, history, location, allCarriers}) {
+
     const classes = useStyles();
     const [rows, setRows] = useState([]);
     const [page, setPage] = useState(0);
@@ -99,36 +99,34 @@ function CustomPaginationActionsTable(props) {
     }
 
     const handlePrevPath = () => {
-        props.addPrevPath(props.location.pathname);
-        props.history.push("/addCarrier")
+        console.log(history)
+         // addPrevPath(location.pathname);
+         history.push('/addCarrier')
     }
 
     function handleChangeRowsPerPage(event) {
         setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
+        setPage(0)
     }
 
     useEffect(() => {
-        (async () => {
-            const listCarriers = await allCarriers();
-            const fetchArr = [];
-            listCarriers.forEach(item => fetchArr.push((createData(item))));
-            setRows(fetchArr);
-            setLoaded(true)
-        })()
+        const carriers = Object.values(allCarriers)
+        console.log(carriers)
+        setRows(carriers)
+        setLoaded(true)
+        console.log(rows)
+    }, [allCarriers])
 
-    }, []);
-
-    const removeItem = (id) => {
-        deleteCarriers(id, setRows, rows)
-    };
+    const removeItem = (unp) => {
+        deleteCarriers(unp, setRows, rows)
+    }
 
     const handleEdit = (id) => {
         rows.forEach((item, indx) => {
             rows[indx].isDisabled = false;
         });
         let found = rows.find((elem, index) => {
-            return elem._id === id
+            return elem.id === id
         });
         found.isDisabled = true
         setRows([...rows])
@@ -166,9 +164,10 @@ function CustomPaginationActionsTable(props) {
                                 <TableCell align="right"></TableCell>
                             </TableRow>
                             {!loaded
-                                ? <Spinner/>
+
+                                ?  <Spinner/>
                                 : rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                                    <TableRow key={row._id}>
+                                    <TableRow key={row.id}>
                                         <TableCell component="th" scope="row">
                                             {
                                                 row.isDisabled
@@ -202,13 +201,13 @@ function CustomPaginationActionsTable(props) {
                                                     : <span>{row.tel}</span>
                                             }
                                         </TableCell>
-                                        <TableCell align="right">
+                                        <TableCell  align="right">
                                             {row.isDisabled
                                                 ? <Fab
                                                     color="primary"
                                                     aria-label="add"
                                                     className={classes.add_btn}
-                                                    onClick={ (e) => {handleNewCarrier(row._id)} }
+                                                    onClick={ (e) => {handleNewCarrier(row.id)} }
                                                 >
                                                     <AddIcon/>
                                                 </Fab>
@@ -218,7 +217,7 @@ function CustomPaginationActionsTable(props) {
                                                     aria-label="edit"
                                                     className={classes.fab}
                                                     onClick={() => {
-                                                        handleEdit(row._id)
+                                                        handleEdit(row.id)
                                                     }}
                                                 >
                                                     <EditIcon/>
@@ -228,7 +227,7 @@ function CustomPaginationActionsTable(props) {
 
                                             <Fab
                                                 id={row.id}
-                                                onClick={() => {removeItem(row._id)} }
+                                                onClick={() => {removeItem(row.id)} }
                                                 aria-label="delete"
                                                 className={classes.fab}
                                             >
@@ -269,4 +268,4 @@ function CustomPaginationActionsTable(props) {
     );
 }
 
-export default connect(null, {addPrevPath})(CustomPaginationActionsTable)
+export default connect((state) => ({}), {addPrevPath})(CustomPaginationActionsTable)
