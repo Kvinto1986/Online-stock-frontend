@@ -23,9 +23,6 @@ const useStyles = makeStyles(theme => ({
         width: '50%',
         display: 'flex',
         justifyContent: 'start',
-        // justifyItems: 'start',
-        // alignContent: 'center',
-        // alignItems: 'center',
         flexDirection: 'column',
     },
     formControl: {
@@ -67,6 +64,9 @@ const useStyles = makeStyles(theme => ({
         marginBottom: '5%',
         color: 'red',
     },
+    h5: {
+        color: '#3f51b5'
+    }
 }))
 
 export default useStyles
