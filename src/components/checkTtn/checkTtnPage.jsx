@@ -1,40 +1,24 @@
-import React, {Fragment, useEffect, useState} from 'react'
-import {TtnCheck} from "./ttnCheck";
-import {findTtn} from '../../servies/ttn';
-import TtnTable from './ttnTabale'
+import React, {useState} from 'react'
+import Search from '../operatorPage/search'
+import TtnInfo from './Tabale'
 
-export const CheckTtnPage = () => {
-    const[rows, setRows] = useState([])
-    const[err, setErr] = useState(true)
+export default ({searchTtn, ttns, getTtnError, editTtn, editTtnError, deleteTtn, deleteTtnError}) => {
 
-    function createData( number, status, dataOfRegistration, carrier, carNumber, driver, sender) {
-        return { status, number, dataOfRegistration, carrier, carNumber, driver, sender };
-    }
+    const [ttnId, setTtnId] = useState('')
 
-    const f = async (ttnNumber) => {
-        let ttn = await findTtn(ttnNumber)
-        const{number, status,  dataOfRegistration, carrier, carNumber, driver, sender} = ttn
-        setRows([createData(status, number, dataOfRegistration, carrier, carNumber, driver, sender) ])
-        if(!!ttn) {
-            setErr(false )
-        }
-    }
-
-    return(
-        <Fragment>
-            <TtnCheck
-                submit={f}
-            />
-            {!err
-                ?
-                <TtnTable
-                    rows = {rows}
-                />
-                : null
-            }
-
-        </Fragment>
-
+    return (
+        <div>
+        <Search
+            search={searchTtn}
+            searchText="Search TTN by number"
+            error={getTtnError.number}
+            value={ttnId}
+            setValue={setTtnId}
+        />
+        <TtnInfo
+            rows={ttns[ttnId]}
+        />
+        </div>
 
     )
 }

@@ -9,7 +9,6 @@ import TTNForm from './TTNform'
 import Search from './search'
 import ExpansionPanel from './expansionPanel'
 import SuccessPage from './successPage'
-import Autocomplete from '../fields/autocomplete'
 
 const steps = ['Carrier check', 'Driver check', 'Create TTN']
 

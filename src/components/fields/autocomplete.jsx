@@ -48,16 +48,7 @@ export default ({list, unique, searchItem, value, setValue}) => {
     const classes = useStyles()
     const theme = useTheme()
 
-    const optionsMenu = list.map(elem => {
-        return {
-            value: elem,
-            label: elem,
-        }
-    })
-
-    const handleChangeSingle = val => {
-        setValue(val)
-    }
+    const optionsMenu = list.map(elem => ({value: elem, label: elem}))
 
     const selectStyles = {
         input: base => ({
@@ -70,7 +61,6 @@ export default ({list, unique, searchItem, value, setValue}) => {
     }
 
     return (
-        <div className={classes.root}>
                 <Select
                     classes={classes}
                     styles={selectStyles}
@@ -86,8 +76,7 @@ export default ({list, unique, searchItem, value, setValue}) => {
                     options={optionsMenu}
                     components={components}
                     value={value}
-                    onChange={handleChangeSingle}
+                    onChange={setValue}
                 />
-        </div>
     )
 }
