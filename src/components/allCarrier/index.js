@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import CarriersPage from './carriersPage'
+import AllCarriers from './allCarrier'
 import {useGetCarriers, useEditCarrier, useDelCarrier, useDelEmployee} from '../../api/apiRequests'
 
 export default () => {
@@ -11,13 +11,13 @@ export default () => {
 
   useEffect(() => {
     getCarriers()
-  },[])
+  }, [])
   return (
-      <CarriersPage
-        delCarrier={delCarrier}
-        editCarrier={editCarrier}
-        allCarriers={carriers}
-      />
-    )
+    <AllCarriers
+      delCarrier={delCarrier}
+      editCarrier={editCarrier}
+      allCarriers={Object.values(carriers)}
+    />
+  )
 }
 
