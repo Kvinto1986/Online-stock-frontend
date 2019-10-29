@@ -37,6 +37,8 @@ export const {
     useGetCarrier,
     useGetCarriers,
     useAddCarrier,
+    useEditCarrier,
+    useDelCarrier,
 } = createRestHooks(CARRIER, CARRIERS, carriersFilter)
 
 export const {

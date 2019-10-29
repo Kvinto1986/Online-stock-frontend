@@ -22,6 +22,8 @@ import useStyles from './allCarrierStyle'
 import {deleteCarriers, updateCarrier} from "../../servies/carrierServies"
 import { addPrevPath } from '../../actions/carrierAction'
 import Spinner from '../spinner'
+import axios from 'axios'
+import server from '../../serverConfig'
 
 function TablePaginationActions(props) {
     const classes = useStyles();
@@ -81,10 +83,7 @@ TablePaginationActions.propTypes = {
     rowsPerPage: PropTypes.number.isRequired,
 };
 
-
-
-
-function CustomPaginationActionsTable({addPrevPath, history, location, allCarriers}) {
+function CustomPaginationActionsTable({editCarrier, delCarrier, allCarriers}) {
 
     const classes = useStyles();
     const [rows, setRows] = useState([]);
@@ -98,12 +97,6 @@ function CustomPaginationActionsTable({addPrevPath, history, location, allCarrie
         setPage(newPage);
     }
 
-    const handlePrevPath = () => {
-        console.log(history)
-         // addPrevPath(location.pathname);
-         history.push('/addCarrier')
-    }
-
     function handleChangeRowsPerPage(event) {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0)
@@ -111,14 +104,14 @@ function CustomPaginationActionsTable({addPrevPath, history, location, allCarrie
 
     useEffect(() => {
         const carriers = Object.values(allCarriers)
-        console.log(carriers)
         setRows(carriers)
         setLoaded(true)
-        console.log(rows)
     }, [allCarriers])
 
     const removeItem = (unp) => {
-        deleteCarriers(unp, setRows, rows)
+        const newArr = rows.filter((item) => item.id != unp)
+        setRows(newArr)
+        delCarrier(unp)
     }
 
     const handleEdit = (id) => {
@@ -136,23 +129,56 @@ function CustomPaginationActionsTable({addPrevPath, history, location, allCarrie
         setInputValue({...inputValue, [e.target.name]: e.target.value})
     }
 
-    const handleNewCarrier = (id) => {
-        updateCarrier(rows, inputValue, id, setRows)
+    const searchFoundElem = (rows, _unp) =>{
+        let indx;
+        let found = rows.find((elem, index) => {
+            if(elem.id === _unp) {
+                indx = index;
+                return elem
+            }
+        })
+
+        const{carrier, email, tel} = inputValue;
+        if (!!carrier) {
+            found.company = carrier
+        }
+
+        if(!!email) {
+            found.email = email
+        }
+
+        if(!!tel) {
+            found.tel = tel
+        }
+
+        found.isDisabled = false;
+        const{company, countryCode, unp, id} = found
+        let newArr = []
+        for(let i = 0; i < rows.length; i++) {
+            if(i === indx) {
+                newArr.push(found)
+            } else {
+                newArr.push(rows[i])
+            }
+        }
+        setRows(newArr)
+        return  {
+            id:id,
+            company: company,
+            countryCode:countryCode,
+            email: email,
+            unp: unp,
+            tel: tel
+        }
+    }
+
+    const handleNewCarrier = (unp) => {
+        const foundElem = searchFoundElem(rows, unp)
+        editCarrier(foundElem)
     }
 
     return (
         <>
-            <div className={classes.add_carrier}>
-                <span>Add new carrier</span>
-                <Fab
-                    color="primary"
-                    aria-label="add"
-                    className={classes.add_btn}
-                    onClick={handlePrevPath}
-                >
-                    <AddIcon/>
-                </Fab>
-            </div>
             <Paper className={classes.root}>
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table}>
@@ -268,4 +294,4 @@ function CustomPaginationActionsTable({addPrevPath, history, location, allCarrie
     );
 }
 
-export default connect((state) => ({}), {addPrevPath})(CustomPaginationActionsTable)
+export default connect(null, {addPrevPath})(CustomPaginationActionsTable)
