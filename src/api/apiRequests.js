@@ -14,8 +14,6 @@ import {
     TTNS_OUT,
     WAREHOUSE,
     WAREHOUSES,
-    SERVICE,
-    SERVICES
 } from '../actions/types'
 import {
     carriersFilter,
@@ -24,8 +22,7 @@ import {
     servicesFilter,
     ttnsFilter,
     warehousesFilter,
-    ttnsOutFilter,
-    servicesFilter
+    ttnsOutFilter
 } from '../filters'
 
 export const {
