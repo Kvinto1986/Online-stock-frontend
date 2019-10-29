@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react'
 import CarriersPage from './carriersPage'
-import { useGetCarriers } from '../../api/apiRequests'
+import {useGetCarriers, useEditCarrier, useDelCarrier, useDelEmployee} from '../../api/apiRequests'
 
-export default (props) => {
+export default () => {
 
   const [getCarriers, carriers, getCarriersError] = useGetCarriers()
+  const [delCarrier] = useDelCarrier()
+  const [editCarrier] = useEditCarrier()
 
 
   useEffect(() => {
@@ -12,7 +14,8 @@ export default (props) => {
   },[])
   return (
       <CarriersPage
-        history={props.history}
+        delCarrier={delCarrier}
+        editCarrier={editCarrier}
         allCarriers={carriers}
       />
     )

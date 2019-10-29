@@ -27,10 +27,12 @@ export const deleteCarriers = (unp, cb, rows) => {
         .catch((err) => {
             console.error(err)
         })
+
+
 }
 
 export const updateCarrier = (rows, inputValue, _id, cb) => {
-    console.log(rows, inputValue, _id, cb)
+
     let indx;
     let found = rows.find((elem, index) => {
         if(elem.id === _id) {

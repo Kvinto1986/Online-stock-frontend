@@ -1,12 +1,13 @@
 import React from 'react'
 import AllCarriers from './allCarrier'
 
-const CarriersPage = ({allCarriers, history}) => {
+const CarriersPage = ({allCarriers,  delCarrier, editCarrier}) => {
 
   return (
     <div>
         <AllCarriers
-          history={history}
+          delCarrier={delCarrier}
+          editCarrier={editCarrier}
           allCarriers={allCarriers}  />
     </div>
   )
