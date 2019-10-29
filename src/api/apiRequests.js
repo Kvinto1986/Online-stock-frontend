@@ -6,17 +6,22 @@ import {
     DRIVERS,
     EMPLOYEE,
     EMPLOYEES,
-    TTN, TTN_OUT,
-    TTNS, TTNS_OUT,
+    SERVICE,
+    SERVICES,
+    TTN,
+    TTN_OUT,
+    TTNS,
+    TTNS_OUT,
     WAREHOUSE,
     WAREHOUSES,
     SERVICE,
     SERVICES
 } from '../actions/types'
 import {
-    employeesFilter,
     carriersFilter,
     driversFilter,
+    employeesFilter,
+    servicesFilter,
     ttnsFilter,
     warehousesFilter,
     ttnsOutFilter,
@@ -58,6 +63,8 @@ export const {
 } = createRestHooks(TTN_OUT, TTNS_OUT, ttnsOutFilter)
 
 export const {
+    useAddService,
+    useDelService,
     useGetServices,
 } = createRestHooks(SERVICE, SERVICES, servicesFilter)
 

@@ -14,6 +14,8 @@ import {
     DRIVERS,
     EMPLOYEE,
     EMPLOYEES,
+    SERVICE,
+    SERVICES,
     TTN,
     TTN_OUT,
     TTNS,

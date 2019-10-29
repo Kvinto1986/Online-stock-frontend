@@ -23,6 +23,7 @@ import Employee from '../components/employeePage'
 import ControllerPage from '../components/controllerPage'
 import CheckTtn from '../components/checkTtn'
 import EmployeeEditPage from '../components/employeeEditPage'
+import ServicesManager from '../components/servicesManager'
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
@@ -66,6 +67,7 @@ const SecurityRoute = (props) => {
                     <div>
                         <Header/>
                         <Switch>
+                            <Route exact path="/serviceManager" component={ServicesManager}/>
                             <Route exact path="/newCompanyAdmin" component={AdminRegister}/>
                             <Route exact path="/reports" component={Report}/>
                             <Route exact path="/companiesList" component={Companies}/>
