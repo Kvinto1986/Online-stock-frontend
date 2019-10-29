@@ -13,7 +13,9 @@ import {
     TTNS,
     TTNS_OUT,
     WAREHOUSE,
-    WAREHOUSES
+    WAREHOUSES,
+    SERVICE,
+    SERVICES
 } from '../actions/types'
 import {
     carriersFilter,
@@ -21,8 +23,9 @@ import {
     employeesFilter,
     servicesFilter,
     ttnsFilter,
+    warehousesFilter,
     ttnsOutFilter,
-    warehousesFilter
+    servicesFilter
 } from '../filters'
 
 export const {
@@ -58,7 +61,6 @@ export const {
 export const {
     useAddTtnOut,
 } = createRestHooks(TTN_OUT, TTNS_OUT, ttnsOutFilter)
-
 
 export const {
     useAddService,

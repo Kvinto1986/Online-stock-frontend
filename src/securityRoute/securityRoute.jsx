@@ -16,13 +16,12 @@ import Landing from '../components/landingPage/landing'
 import AllCarrier from '../components/allCarrier'
 import TTNregister from '../components/operatorPage/index'
 import SendCargo from '../components/sendCargo'
-import DeliveryGoodsFromStock from '../components/deliveryFromStock/deliveryFromStockPage'
 
 import Warehousing from '../components/managerWarehousing'
 import Employees from '../components/employeesPage'
 import Employee from '../components/employeePage'
 import ControllerPage from '../components/controllerPage'
-import {CheckTtnPage} from '../components/checkTtn/checkTtnPage'
+import CheckTtn from '../components/checkTtn'
 import EmployeeEditPage from '../components/employeeEditPage'
 import ServicesManager from '../components/servicesManager'
 
@@ -49,7 +48,7 @@ const SecurityRoute = (props) => {
                                     <Route exact path="/searchCarrier" component={Carrier}/>
                                     <Route exact path="/ttnRegister" component={TTNregister}/>
                                     <Route exact path="/allCarrier" component={AllCarrier}/>
-                                    <Route exact path="/checkTtn" component={CheckTtnPage}/>
+                                    <Route exact path="/checkTtn" component={CheckTtn}/>
                                 </Fragment>
                             )}
                             {props.auth.user.position.includes('controller') && (

@@ -21,7 +21,9 @@ import {
     TTNS,
     TTNS_OUT,
     WAREHOUSE,
-    WAREHOUSES
+    WAREHOUSES,
+    SERVICE,
+    SERVICES
 } from '../actions/types'
 
 function createNormalReducer(singular, plural) {

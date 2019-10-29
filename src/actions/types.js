@@ -29,5 +29,6 @@ export const WAREHOUSES = 'WAREHOUSES'
 export const TTNS_OUT = 'TTNS_OUT'
 export const TTN_OUT = 'TTN_OUT'
 
-export const SERVICES = 'SERVICES'
 export const SERVICE = 'SERVICE'
+export const SERVICES  = 'SERVICES'
+

@@ -14,8 +14,9 @@ import generator from 'generate-password'
 
 import InputText from '../fields/textField'
 import CargoTable from './cargoTable'
+import Autocomplete from '../fields/autocomplete'
 
-export default ({onSubmit, error, authUser, carrier, driver}) => {
+export default ({onSubmit, error, authUser, carrier, driver, services}) => {
 
     const [TTN, setTTN] = useState({
         number: '',
@@ -43,6 +44,7 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
     })
 
     const [cargo, setCargo] = useState([])
+    const [service, setService] = useState([])
 
     const [product, setProduct] = useState({
         type: '',
@@ -73,6 +75,7 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
         e.preventDefault()
         const data = {...TTN}
         data.products = cargo
+        data.service = service.value
         onSubmit(data)
     }
 
@@ -113,10 +116,24 @@ export default ({onSubmit, error, authUser, carrier, driver}) => {
                         <Grid container>
                             <Grid item xl={1} className={classes.gridItem}>
                                 <Typography component="h1" variant="h6" className={classes.TTNhead}>
+                                    Service:
+                                </Typography>
+                            </Grid>
+                            <Grid item xl={4}>
+                                <Autocomplete
+                                    list={Object.keys(services)}
+                                    unique="Service name"
+                                    searchItem="services"
+                                    value={service}
+                                    setValue={setService}
+                                />
+                            </Grid>
+                            <Grid item xl={1} className={classes.gridItem}>
+                                <Typography component="h1" variant="h6" className={classes.TTNhead}>
                                     Cargo owner:
                                 </Typography>
                             </Grid>
-                            <Grid item xl={10}>
+                            <Grid item xl={4}>
                                 <InputText
                                     min={2}
                                     max={30}

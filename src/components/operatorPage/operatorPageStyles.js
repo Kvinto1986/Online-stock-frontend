@@ -69,8 +69,9 @@ const useStyles = makeStyles(theme => ({
             marginTop: '5%'
         },
         error: {
-            marginTop: '3%',
+            marginTop: '2%',
             marginBottom: '5%',
+            marginLeft:'1.5%',
             color: 'red',
         },
         heading: {
