@@ -13,7 +13,7 @@ it('details form in action', async () => {
     const setLicenseMock = jest.fn()
     const setAddressMock = jest.fn()
 
-    const Form = ({error={}, ...props}) => {
+    const Form = () => {
         const [name, setName] = useState('')
         const [license, setLicense] = useState('')
         const [address, setAddress] = useState('')
@@ -34,7 +34,7 @@ it('details form in action', async () => {
                             setName(value)
                             setNameMock(value)
                         }}
-                        error={error}
+                        error={{}}
                         helperClass={{}}
                         inputProps={{'data-testid': 'inputName'}}
                     />
@@ -49,7 +49,7 @@ it('details form in action', async () => {
                         label="Warehouse license number"
                         name="license"
                         value={license || ''}
-                        error={error}
+                        error={{}}
                         handleChange={value => {
                             setLicense(value)
                             setLicenseMock(value)
@@ -67,7 +67,7 @@ it('details form in action', async () => {
                             label="Warehouse address"
                             name="address"
                             value={address || ''}
-                            error={error}
+                            error={{}}
                             handleChange={values => {
                                 setAddress(values)
                                 setAddressMock(values)
