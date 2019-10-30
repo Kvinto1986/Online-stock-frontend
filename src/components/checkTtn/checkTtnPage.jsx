@@ -10,7 +10,6 @@ export default ({searchTtn, ttns, getTtnError, deleteTtn}) => {
     console.log(deleteTtn)
 
     return (
-        <div>
             <Search
                 search={searchTtn}
                 searchText="Search TTN by number"
@@ -18,7 +17,5 @@ export default ({searchTtn, ttns, getTtnError, deleteTtn}) => {
                 value={ttnId}
                 setValue={setTtnId}
             />
-        </div>
-
     )
 }
