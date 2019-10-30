@@ -10,7 +10,6 @@ import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import MenuItem from '@material-ui/core/MenuItem'
-import generator from 'generate-password'
 
 import InputText from '../fields/textField'
 import CargoTable from './cargoTable'
@@ -39,11 +38,6 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
         owner: '',
     })
 
-    const randomId = generator.generate({
-        length: 10,
-        numbers: true
-    })
-
     const [cargo, setCargo] = useState([])
     const [service, setService] = useState([])
 
@@ -51,17 +45,14 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
         type: '',
         amount: '',
         name: '',
-        id: randomId
+        id: '',
     })
 
     const handleChangeProduct = (e) => {
         setProduct({...product, [e.target.name]: e.target.value})
     }
 
-    const handleAddProduct = (e) => {
-        e.preventDefault()
-
-        setProduct({...product, id: randomId})
+    const handleAddProduct = () => {
         setCargo([...cargo, product])
     }
 
@@ -97,7 +88,7 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
                         <Grid item xl={4} xs={10}>
                             <InputText
                                 min={10}
-                                max={15}
+                                max={10}
                                 pattern={/^[0-9]*$/}
                                 fullWidth
                                 label="TTN number"
@@ -206,13 +197,28 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
                     <Grid container spacing={3}>
                         <Grid item xl={1} xs={1}>
                         </Grid>
-                        <Grid item xl={4} xs={10}>
+                        <Grid item xl={2} xs={10}>
+                            <InputText
+                                min={10}
+                                max={10}
+                                pattern={/^[0-9]*$/}
+                                fullWidth
+                                label="serial number"
+                                required
+                                name="id"
+                                error={error}
+                                value={product}
+                                handleChange={setProduct}
+                                helperClass={classes.error}
+                            />
+                        </Grid>
+                        <Grid item xl={3} xs={10}>
                             <InputText
                                 min={2}
                                 max={30}
                                 pattern={/.*/}
                                 fullWidth
-                                label="product name"
+                                label="name"
                                 required
                                 name="name"
                                 error={error}
@@ -221,13 +227,13 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
                                 helperClass={classes.error}
                             />
                         </Grid>
-                        <Grid item xl={2} xs={10}>
+                        <Grid item xl={1} xs={10}>
                             <InputText
                                 min={1}
                                 max={7}
                                 pattern={/^[0-9]*$/}
                                 fullWidth
-                                label="product amount"
+                                label="amount"
                                 required
                                 name="amount"
                                 error={error}
@@ -239,7 +245,7 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
                         <Grid item xl={2} xs={10}>
                             <FormControl variant="outlined" className={classes.formControl}>
                                 <InputLabel htmlFor="outlined-age-simple">
-                                    Type of packaging
+                                    type of packaging
                                 </InputLabel>
                                 <Select
                                     required
@@ -281,16 +287,16 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
                         <Grid item xl={1} xs={1}>
                         </Grid>
                     </Grid>
-                        {cargo.length > 0 && (
-                            <Grid container>
-                                <Grid item xl={1} xs={1}>
-                                </Grid>
-                                <Grid item xl={10}>
-                                    <Button variant="contained" color="primary" type="submit" style={{marginTop:'4%'}}>
-                                        Submit
-                                    </Button>
-                                </Grid>
-                            </Grid>)}
+                    {cargo.length > 0 && (
+                        <Grid container>
+                            <Grid item xl={1} xs={1}>
+                            </Grid>
+                            <Grid item xl={10}>
+                                <Button variant="contained" color="primary" type="submit" style={{marginTop:'4%'}}>
+                                    Submit
+                                </Button>
+                            </Grid>
+                        </Grid>)}
 
                 </ValidatorForm>
             </Paper>
