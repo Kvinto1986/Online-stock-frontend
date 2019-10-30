@@ -14,7 +14,7 @@ import useStyles from './allCarrierStyle'
 import Spinner from '../spinner'
 import TablePaginationActions from './paginationTable/'
 
-function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
+function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier, getCarriersError}) {
 
   const classes = useStyles()
   const [rows, setRows] = useState([])
@@ -36,6 +36,7 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
   useEffect(() => {
     setRows(allCarriers)
     setLoaded(true)
+
   }, [allCarriers])
 
   const removeItem = (unp) => () => {
