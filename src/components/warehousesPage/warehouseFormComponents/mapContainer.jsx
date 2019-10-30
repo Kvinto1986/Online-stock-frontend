@@ -2,9 +2,9 @@ import React from 'react'
 import {Map, GoogleApiWrapper, Marker} from 'google-maps-react'
 import {PropTypes} from 'prop-types'
 import {GOOGLE_MAPS_API_KEY} from '../../../constaints'
-import '../map.css'
 import {Container, Box, Typography} from '@material-ui/core'
 import useStyles from '../warehousePageStyles'
+import '../overwrite.css'
 
 const MapContainer = ({mapVisibility, GPS, google}) => {
 

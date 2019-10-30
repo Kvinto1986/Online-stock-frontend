@@ -119,7 +119,7 @@ export default ({onSubmit, error, company}) => {
     const handleChange = (e, newValue) => {
         setTotalArea(newValue)
     }
-    
+
     return (
         <Container component="main" maxWidth="xl">
             <Box mt={7}>
@@ -148,28 +148,34 @@ export default ({onSubmit, error, company}) => {
                             />
                         )}
                         {(addArea && totalArea === 0) && (
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                                onClick={handleSubmit}
-                            >
-                                Create warehouse
-                            </Button>
+                            <Container maxWidth="sm">
+                                <Box mt={10}>
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.submit}
+                                        onClick={handleSubmit}
+                                    >
+                                        Create warehouse
+                                    </Button>
+                                </Box>
+                            </Container>
                         )}
                     </div>
                     <div className={classes.paperList}>
                         <MapContainer mapVisibility={mapState.mapVisibility} GPS={mapState.GPS}/>
-                        <Box mt={77}>
-                            <Container maxWidth="sm">
-                                <AreaCard
-                                    handleDeleteArea={handleDeleteArea}
-                                    list={list}
-                                />
-                            </Container>
-                        </Box>
+                        {list.length > 0 && (
+                            <Box mt={77}>
+                                <Container maxWidth="sm">
+                                    <AreaCard
+                                        handleDeleteArea={handleDeleteArea}
+                                        list={list}
+                                    />
+                                </Container>
+                            </Box>
+                        )}
                     </div>
                 </div>
             </Box>

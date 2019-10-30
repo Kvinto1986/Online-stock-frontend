@@ -20,24 +20,26 @@ const AreaCard = ({list, handleDeleteArea}) => {
                     Created areas
                 </Typography>
             </Box>
-            {list && list.map((listItem, index) => (
-                <Card className={classes.cardArea} key={listItem.type + index}>
-                    <CardActionArea>
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">
-                                Type: <span> {listItem.type}</span>
-                            </Typography>
-                            <Typography gutterBottom variant="h5" component="h2">
-                                Area (m<sup>2</sup>):<span> {listItem.area}</span>
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                    <CardActions>
-                        <Button variant="contained" color="secondary" onClick={() => handleDeleteArea(index, listItem.area)}>
-                            Delete
-                        </Button>
-                    </CardActions>
-                </Card>
+            {list.map((listItem, index) => (
+                <Box key={listItem.type + index}>
+                    <Card className={classes.cardArea}>
+                        <CardActionArea>
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    Type: <span> {listItem.type}</span>
+                                </Typography>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    Area (m<sup>2</sup>):<span> {listItem.area}</span>
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                        <CardActions>
+                            <Button variant="contained" color="secondary" onClick={() => handleDeleteArea(index, listItem.area)}>
+                                Delete
+                            </Button>
+                        </CardActions>
+                    </Card>
+                </Box>
             ))}
         </Box>
     )

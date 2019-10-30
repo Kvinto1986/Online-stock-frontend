@@ -1,3 +1,5 @@
+/* Overwrite the Google Map API's and Material's initial stylesheets  */
+
 div.makeStyles-paperList-118 div {
     position: relative;
     width: 100% !important;

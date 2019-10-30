@@ -37,6 +37,7 @@ const AreasCreator = ({warehouse, totalArea, currentArea, ...props}) => {
                                     inputProps={{
                                         name: 'type',
                                     }}
+                                    data-testid="select"
                                 >
                                     <MenuItem value="heated">Heated</MenuItem>
                                     <MenuItem value="unheated">Unheated</MenuItem>
@@ -62,6 +63,7 @@ const AreasCreator = ({warehouse, totalArea, currentArea, ...props}) => {
                                 marks
                                 min={0}
                                 max={totalArea}
+                                data-testid="slider"
                             />
                         </Grid>
                     </Grid>
