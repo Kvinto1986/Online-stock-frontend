@@ -23,7 +23,12 @@ const useStyles = makeStyles(theme => ({
   },
   add_btn: {
     marginLeft: '10px'
-  }
+  },
+  nav: {
+    flexShrink: 0,
+    color: theme.palette.text.secondary,
+    marginLeft: theme.spacing(2.5),
+  },
 
 }))
 
