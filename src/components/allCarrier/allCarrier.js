@@ -12,9 +12,9 @@ import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import useStyles from './allCarrierStyle'
 import Spinner from '../spinner'
-import TablePaginationActions from './paginationTable/'
+import TablePaginationActions from './tablePagination'
 
-function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier, getCarriersError}) {
+function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
 
   const classes = useStyles()
   const [rows, setRows] = useState([])
@@ -48,9 +48,7 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier, get
   const handleEdit = (id) => () => {
     rows.forEach((item, indx) => rows[indx].isDisabled = false)
 
-    let found = rows.find((elem, index) => {
-      return elem.id === id
-    })
+    let found = rows.find((elem, index) => elem.id === id)
     found.isDisabled = true
     setRows([...rows])
   }
@@ -61,15 +59,10 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier, get
 
   const searchFoundElem = (rows, _unp) => {
     const {carrier, email, tel} = inputValue
-    let indx, found
-    rows.forEach((elem, index) => {
+    let indx, found = null
 
-      if (elem.id === _unp) {
-        indx = index
-        found = elem
-        return
-      }
-    })
+    found = rows.find((elem) => elem.id === _unp)
+    indx = rows.findIndex((elem) => elem.id === _unp)
 
     if (carrier) {
       found.company = carrier
@@ -84,14 +77,11 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier, get
     }
 
     found.isDisabled = false
+
     const {company, countryCode, unp, id} = found
     let newArr = []
     for (let i = 0; i < rows.length; i++) {
-      if (i === indx) {
-        newArr.push(found)
-      } else {
-        newArr.push(rows[i])
-      }
+      (i === indx) ? newArr.push(found) : newArr.push(rows[i])
     }
     setRows(newArr)
     return {id, company, countryCode, email, unp, tel}
@@ -109,20 +99,19 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier, get
           <TableBody>
             <TableRow>
               <TableCell>Carrier</TableCell>
-              <TableCell align="right">Email.</TableCell>
-              <TableCell align="right">Phone</TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell align='right'>Email.</TableCell>
+              <TableCell align='right'>Phone</TableCell>
+              <TableCell align='right'/>
             </TableRow>
             {!loaded
-
               ? <Spinner/>
               : rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                 <TableRow key={row.id}>
-                  <TableCell component="th" scope="row">
+                  <TableCell component='th' scope='row'>
                     {
                       row.isDisabled
                         ? <input
-                          type="text"
+                          type='text'
                           name='carrier'
                           placeholder={row.company}
                           onChange={handelEditInput}
@@ -130,35 +119,35 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier, get
                         : <span>{row.company}</span>
                     }
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align='right'>
                     {
                       row.isDisabled
                         ? <input
-                          type="text"
+                          type='text'
                           name='email'
                           placeholder={row.email}
                           onChange={handelEditInput}/>
                         : <span>{row.email}</span>
                     }
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align='right'>
                     {
                       row.isDisabled
                         ? <input
-                          type="number"
+                          type='number'
                           name='tel'
                           placeholder={row.tel}
                           onChange={handelEditInput}
-                          className="noNumerical"
+                          className='noNumerical'
                         />
                         : <span>{row.tel}</span>
                     }
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align='right'>
                     {row.isDisabled
                       ? <Fab
-                        color="primary"
-                        aria-label="add"
+                        color='primary'
+                        aria-label='add'
                         className={classes.add_btn}
                         onClick={handleNewCarrier(row.id)}
                       >
@@ -166,8 +155,8 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier, get
                       </Fab>
 
                       : <Fab
-                        color="secondary"
-                        aria-label="edit"
+                        color='secondary'
+                        aria-label='edit'
                         className={classes.fab}
                         onClick={handleEdit(row.id)}
                       >
@@ -179,7 +168,7 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier, get
                     <Fab
                       id={row.id}
                       onClick={removeItem(row.id)}
-                      aria-label="delete"
+                      aria-label='delete'
                       className={classes.fab}
                     >
                       <DeleteIcon/>
@@ -202,10 +191,6 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier, get
                 count={rows.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
-                SelectProps={{
-                  inputProps: {'aria-label': 'rows per page'},
-                  native: true,
-                }}
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}

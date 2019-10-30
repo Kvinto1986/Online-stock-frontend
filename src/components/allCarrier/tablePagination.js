@@ -1,16 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {useTheme} from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
 import FirstPageIcon from '@material-ui/icons/FirstPage'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import LastPageIcon from '@material-ui/icons/LastPage'
-import useStyles from './paginationTableStyles'
+import useStyles from './allCarrierStyle'
 
 function TablePaginationActions(props) {
   const classes = useStyles()
-  const theme = useTheme()
   const {count, page, rowsPerPage, onChangePage} = props
 
   function handleFirstPageButtonClick(event) {
@@ -34,26 +32,26 @@ function TablePaginationActions(props) {
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
-        aria-label="first page"
+        aria-label='first page'
       >
-        {theme.direction === 'rtl' ? <LastPageIcon/> : <FirstPageIcon/>}
+        <FirstPageIcon/>
       </IconButton>
-      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
-        {theme.direction === 'rtl' ? <KeyboardArrowRight/> : <KeyboardArrowLeft/>}
+      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label='previous page'>
+        <KeyboardArrowLeft/>
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page"
+        aria-label='next page'
       >
-        {theme.direction === 'rtl' ? <KeyboardArrowLeft/> : <KeyboardArrowRight/>}
+        <KeyboardArrowRight/>
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page"
+        aria-label='last page'
       >
-        {theme.direction === 'rtl' ? <FirstPageIcon/> : <LastPageIcon/>}
+        <LastPageIcon/>
       </IconButton>
     </div>
   )
@@ -66,10 +64,4 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 }
 
-TablePaginationActions.propTypes = {
-  count: PropTypes.number.isRequired,
-  onChangePage: PropTypes.func.isRequired,
-  page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired,
-}
 export default TablePaginationActions
