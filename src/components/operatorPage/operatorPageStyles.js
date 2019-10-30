@@ -103,8 +103,10 @@ const useStyles = makeStyles(theme => ({
             flexDirection: 'row',
             flexWrap: 'wrap',
             alignContent: 'center',
+            justifyContent: 'center',
             verticalAlign: 'center',
-            marginBottom: '15%'
+            marginBottom: '3%',
+            marginTop:'3%'
         },
         TTNhead: {
             paddingTop: '12%'
