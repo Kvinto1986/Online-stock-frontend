@@ -81,6 +81,7 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
     }
 
     const classes = useStyles()
+    const serricesArray = Object.keys(services)
 
     return (
         <Container component="main" maxWidth="xl">
@@ -118,7 +119,7 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
                         </Grid>
                         <Grid item xl={4} xs={10}>
                             <Autocomplete
-                                list={Object.keys(services)}
+                                list={serricesArray}
                                 searchItem="services"
                                 setValue={setService}
                             />
