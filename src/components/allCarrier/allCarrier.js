@@ -104,78 +104,81 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
               <TableCell align='right'/>
             </TableRow>
             {!loaded
-              ? <Spinner/>
-              : rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell component='th' scope='row'>
-                    {
-                      row.isDisabled
-                        ? <input
-                          type='text'
-                          name='carrier'
-                          placeholder={row.company}
-                          onChange={handelEditInput}
-                        />
-                        : <span>{row.company}</span>
-                    }
-                  </TableCell>
-                  <TableCell align='right'>
-                    {
-                      row.isDisabled
-                        ? <input
-                          type='text'
-                          name='email'
-                          placeholder={row.email}
-                          onChange={handelEditInput}/>
-                        : <span>{row.email}</span>
-                    }
-                  </TableCell>
-                  <TableCell align='right'>
-                    {
-                      row.isDisabled
-                        ? <input
-                          type='number'
-                          name='tel'
-                          placeholder={row.tel}
-                          onChange={handelEditInput}
-                          className='noNumerical'
-                        />
-                        : <span>{row.tel}</span>
-                    }
-                  </TableCell>
-                  <TableCell align='right'>
-                    {row.isDisabled
-                      ? <Fab
-                        color='primary'
-                        aria-label='add'
-                        className={classes.add_btn}
-                        onClick={handleNewCarrier(row.id)}
-                      >
-                        <AddIcon/>
-                      </Fab>
+              ? <Spinner />
+              : rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                const {id, company, email, tel} = row
+                return (
+                  <TableRow key={id}>
+                    <TableCell component='th' scope='row'>
+                      {
+                        row.isDisabled
+                          ? <input
+                            type='text'
+                            name='carrier'
+                            placeholder={company}
+                            onChange={handelEditInput}
+                          />
+                          : <span>{company}</span>
+                      }
+                    </TableCell>
+                    <TableCell align='right'>
+                      {
+                        row.isDisabled
+                          ? <input
+                            type='text'
+                            name='email'
+                            placeholder={email}
+                            onChange={handelEditInput}/>
+                          : <span>{email}</span>
+                      }
+                    </TableCell>
+                    <TableCell align='right'>
+                      {
+                        row.isDisabled
+                          ? <input
+                            type='number'
+                            name='tel'
+                            placeholder={tel}
+                            onChange={handelEditInput}
+                            className='noNumerical'
+                          />
+                          : <span>{tel}</span>
+                      }
+                    </TableCell>
+                    <TableCell align='right'>
+                      {row.isDisabled
+                        ? <Fab
+                          color='primary'
+                          aria-label='add'
+                          className={classes.add_btn}
+                          onClick={handleNewCarrier(id)}
+                        >
+                          <AddIcon/>
+                        </Fab>
 
-                      : <Fab
-                        color='secondary'
-                        aria-label='edit'
+                        : <Fab
+                          color='secondary'
+                          aria-label='edit'
+                          className={classes.fab}
+                          onClick={handleEdit(id)}
+                        >
+                          <EditIcon/>
+                        </Fab>
+
+                      }
+
+                      <Fab
+                        id={row.id}
+                        onClick={removeItem(id)}
+                        aria-label='delete'
                         className={classes.fab}
-                        onClick={handleEdit(row.id)}
                       >
-                        <EditIcon/>
+                        <DeleteIcon/>
                       </Fab>
-
-                    }
-
-                    <Fab
-                      id={row.id}
-                      onClick={removeItem(row.id)}
-                      aria-label='delete'
-                      className={classes.fab}
-                    >
-                      <DeleteIcon/>
-                    </Fab>
-                  </TableCell>
-                </TableRow>
-              ))
+                    </TableCell>
+                  </TableRow>
+                )
+              })
             }
             {emptyRows > 0 && (
               <TableRow style={{height: 35 * emptyRows}}>
