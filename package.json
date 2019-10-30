@@ -52,7 +52,8 @@
     "redux-thunk": "^2.3.0",
     "renderer": "^0.1.5",
     "slick-carousel": "^1.8.1",
-    "sweetalert2": "^8.13.6"
+    "sweetalert2": "^8.13.6",
+    "@material-ui/lab": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
