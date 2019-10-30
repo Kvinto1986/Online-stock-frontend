@@ -5,16 +5,12 @@ import CheckPage from './checkTtnPage'
 export default () => {
 
     const [getTtn,ttns, getTtnError] = useGetTtn()
-    const [editTtn, , editTtnError] = useEditTtn()
-    const [deleteTtn, , deleteTtnError] = useEditTtn()
+    const [deleteTtn] = useEditTtn()
 
     return <CheckPage
         searchTtn={getTtn}
         ttns={ttns}
         getTtnError={getTtnError}
-        editTtn={editTtn}
-        editTtnError={editTtnError}
         deleteTtn={deleteTtn}
-        deleteTtnError={deleteTtnError}
     />
 }
