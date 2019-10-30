@@ -30,7 +30,7 @@ export default ({cargoList, handleDeleteProduct}) => {
             <TableBody>
                 {cargoList.map((elem, index) => {
                     return <TableRow key={elem.type + index}>
-                        <TableCell align="center">{index + 1}</TableCell>
+                        <TableCell align="center">{elem.id}</TableCell>
                         <TableCell align="center">{elem.name}</TableCell>
                         <TableCell align="center">{elem.amount}</TableCell>
                         <TableCell align="center">{elem.type}</TableCell>
