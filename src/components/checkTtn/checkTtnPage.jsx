@@ -5,6 +5,10 @@ export default ({searchTtn, ttns, getTtnError, deleteTtn}) => {
 
     const [ttnId, setTtnId] = useState('')
 
+    //ABOUT! Look! Already used! Is it so important!
+    console.log(ttns)
+    console.log(deleteTtn)
+
     return (
         <div>
             <Search
