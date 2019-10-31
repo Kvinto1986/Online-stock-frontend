@@ -13,7 +13,7 @@ export default () => {
     const user = useSelector(authUser)
     const [key, reset] = useReset()
 
-    const [getTtn, ttns, ttnError] = useGetTtn(alert('шо'))
+    const [getTtn, ttns, ttnError] = useGetTtn()
     const [getWarehouses, warehouses] = useGetWarehouses()
 
     useEffect(() => {
