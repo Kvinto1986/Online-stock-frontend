@@ -6,6 +6,7 @@ import jwt_decode from 'jwt-decode'
 import setAuthToken from './setAuthToken'
 import {setCurrentUser} from './actions/authenticationAction'
 import SecurityRoute from './securityRoute/securityRoute'
+import './App.css'
 
 if (localStorage.jwtToken) {
     setAuthToken(localStorage.jwtToken)

@@ -27,11 +27,8 @@ import ServicesManager from '../components/servicesManager'
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
-
         switch (props.auth.user.role) {
-
             case 'employee':
-
                 return (
                     <div>
                         <Header/>
@@ -61,7 +58,6 @@ const SecurityRoute = (props) => {
                         <Footer/>
                     </div>
                 )
-
             case 'mainAdmin':
                 return (
                     <div>
@@ -91,10 +87,8 @@ const SecurityRoute = (props) => {
                     </div>
                 )
             default:
-
                 return <Redirect to={{pathname: '/'}}/>
         }
-
     } else {
         return (
             <div>
