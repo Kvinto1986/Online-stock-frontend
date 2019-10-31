@@ -1,16 +1,16 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import Link from "../header/Link";
+import React from 'react'
+import AppBar from '@material-ui/core/AppBar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
+import Link from '../header/Link'
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 import useStyles from './landingStyles'
 
@@ -22,7 +22,7 @@ import slide4 from '../../resources/images/slide4.jpg'
 import slide5 from '../../resources/images/slide5.jpg'
 
 export default function Landing() {
-    const classes = useStyles();
+    const classes = useStyles()
 
     const settings = {
         dots: true,
@@ -30,7 +30,7 @@ export default function Landing() {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1
-    };
+    }
 
     return (
         <React.Fragment>
@@ -40,9 +40,9 @@ export default function Landing() {
                     <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
                         Company name
                     </Typography>
-                        <Link variant="button" color="primary" to='/login' className={classes.link}>
+                        <Link variant="button" color="primary" to="/login" className={classes.link}>
                             <Button  color="primary" variant="outlined" className={classes.link}>
-                            Login
+                                Login
                             </Button>
                         </Link>
                 </Toolbar>
@@ -84,5 +84,5 @@ export default function Landing() {
                 </Box>
             </Container>
         </React.Fragment>
-    );
+    )
 }
