@@ -6,8 +6,9 @@ import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import useStyles from './registerCompanyAdminStyles'
 import Form from './registerCompanyAdminForm'
+import Box from '@material-ui/core/Box'
 
-export default ({onSubmit,errors}) => {
+export default ({onSubmit, errors, keyReset}) => {
     const classes = useStyles()
 
     return (
@@ -17,15 +18,18 @@ export default ({onSubmit,errors}) => {
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon/>
                 </Avatar>
-                <Typography component="h1" variant="h5">
-                    New company admin form
-                </Typography>
+                <Box m={3}>
+                    <Typography component="h1" variant="h5">
+                        Crate new company admin
+                    </Typography>
+                </Box>
                 <Form
                     onSubmit={onSubmit}
                     errors={errors}
+                    key={keyReset}
                 />
             </div>
         </Container>
     )
-};
+}
 

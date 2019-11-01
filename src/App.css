@@ -1,33 +1,23 @@
-.App {
-  text-align: center;
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+} 
+
+header {
+  background: #3e42a1 !important;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+header .MuiTypography-root {
+  color: #EBF1F9 !important;
+  letter-spacing: 1px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+header .MuiTypography-root h6 {
+  font-size: 14px;
 }
 
-.App-link {
-  color: #61dafb;
+* {
+  font-family: BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
