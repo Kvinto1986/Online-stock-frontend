@@ -67,11 +67,12 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
         e.preventDefault()
         const data = {...TTN}
         data.products = cargo
-        data.service = service.value
+        data.service = service
         onSubmit(data)
     }
 
     const classes = useStyles()
+    const servicesArray = Object.keys(services)
 
     return (
         <Container component="main" maxWidth="xl">
@@ -109,10 +110,8 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
                         </Grid>
                         <Grid item xl={4} xs={10}>
                             <Autocomplete
-                                list={Object.keys(services)}
-                                unique="Service name"
+                                list={servicesArray}
                                 searchItem="services"
-                                value={service}
                                 setValue={setService}
                             />
                         </Grid>
@@ -292,7 +291,7 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
                             <Grid item xl={1} xs={1}>
                             </Grid>
                             <Grid item xl={10}>
-                                <Button variant="contained" color="primary" type="submit" style={{marginTop:'4%'}}>
+                                <Button variant="contained" color="primary" type="submit" style={{marginTop: '4%'}}>
                                     Submit
                                 </Button>
                             </Grid>
