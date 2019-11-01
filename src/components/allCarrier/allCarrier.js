@@ -14,6 +14,8 @@ import useStyles from './allCarrierStyle'
 import Spinner from '../spinner'
 import TablePaginationActions from './tablePagination'
 
+
+
 function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
 
   const classes = useStyles()
@@ -41,8 +43,8 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
 
   const removeItem = (unp) => () => {
     const newArr = rows.filter((item) => item.id !== unp)
-    setRows(newArr)
     delCarrier(unp)
+    setRows(newArr)
   }
 
   const handleEdit = (id) => () => {
@@ -63,17 +65,20 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
 
     found = rows.find((elem) => elem.id === _unp)
     indx = rows.findIndex((elem) => elem.id === _unp)
-
+    let newObj = {}
     if (carrier) {
-      found.company = carrier
+      found.company = carrier;
+      newObj.company = carrier;
     }
 
     if (email) {
-      found.email = email
+      found.email = email;
+      newObj.email = email;
     }
 
     if (tel) {
       found.tel = tel
+      newObj.tel = tel
     }
 
     found.isDisabled = false
@@ -84,12 +89,12 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
       (i === indx) ? newArr.push(found) : newArr.push(rows[i])
     }
     setRows(newArr)
-    return {id, company, countryCode, email, unp, tel}
+    return newObj
   }
 
   const handleNewCarrier = (unp) => () => {
     const foundElem = searchFoundElem(rows, unp)
-    editCarrier(foundElem)
+    editCarrier(foundElem, unp)
   }
 
   return (
