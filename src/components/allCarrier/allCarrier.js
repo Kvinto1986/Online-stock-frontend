@@ -13,7 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import useStyles from './allCarrierStyle'
 import Spinner from '../spinner'
 import TablePaginationActions from './tablePagination'
-
+import TableCellComponent from './tableCell'
 
 
 function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
@@ -26,6 +26,7 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
   const [inputValue, setInputValue] = useState({})
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
 
+
   function handleChangePage(event, newPage) {
     setPage(newPage)
   }
@@ -36,6 +37,7 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
   }
 
   useEffect(() => {
+
     setRows(allCarriers)
     setLoaded(true)
 
@@ -67,13 +69,13 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
     indx = rows.findIndex((elem) => elem.id === _unp)
     let newObj = {}
     if (carrier) {
-      found.company = carrier;
-      newObj.company = carrier;
+      found.company = carrier
+      newObj.company = carrier
     }
 
     if (email) {
-      found.email = email;
-      newObj.email = email;
+      found.email = email
+      newObj.email = email
     }
 
     if (tel) {
@@ -96,7 +98,11 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
     const foundElem = searchFoundElem(rows, unp)
     editCarrier(foundElem, unp)
   }
-
+  const tableCells = [
+    {type: 'text', name: 'carrier', typeComponent: 'th', scope: 'row', action: handelEditInput},
+    {type: 'text', name: 'email', float: 'right', action: handelEditInput},
+    {type: 'number', name: 'tel', float: 'right', action: handelEditInput},
+  ]
   return (
     <Paper className={classes.root}>
       <div className={classes.tableWrapper}>
@@ -109,47 +115,29 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
               <TableCell align='right'/>
             </TableRow>
             {!loaded
-              ? <Spinner />
-              : rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+              ? <Spinner/>
+              : rows.map((row) => {
                 const {id, company, email, tel} = row
                 return (
                   <TableRow key={id}>
-                    <TableCell component='th' scope='row'>
-                      {
-                        row.isDisabled
-                          ? <input
-                            type='text'
-                            name='carrier'
-                            placeholder={company}
-                            onChange={handelEditInput}
-                          />
-                          : <span>{company}</span>
-                      }
-                    </TableCell>
-                    <TableCell align='right'>
-                      {
-                        row.isDisabled
-                          ? <input
-                            type='text'
-                            name='email'
-                            placeholder={email}
-                            onChange={handelEditInput}/>
-                          : <span>{email}</span>
-                      }
-                    </TableCell>
-                    <TableCell align='right'>
-                      {
-                        row.isDisabled
-                          ? <input
-                            type='number'
-                            name='tel'
-                            placeholder={tel}
-                            onChange={handelEditInput}
-                            className='noNumerical'
-                          />
-                          : <span>{tel}</span>
-                      }
-                    </TableCell>
+                    {
+                      tableCells.map((item) => {
+                        console.log(item)
+
+                        return <TableCellComponent
+                          row={row}
+                          typeParam={item.type}
+                          nameParam={item.name}
+                          actionParam={item.action}
+                          componentType={item.typeComponent}
+                          scope={item.scope}
+                          align={item.float}
+                          placeholderEmail={email}
+                          placeholderTel={tel}
+                          placeholderTelCarrier={company}
+                        />
+                      })
+                    }
                     <TableCell align='right'>
                       {row.isDisabled
                         ? <Fab
@@ -160,18 +148,16 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
                         >
                           <AddIcon/>
                         </Fab>
-
                         : <Fab
-                          color='secondary'
-                          aria-label='edit'
-                          className={classes.fab}
-                          onClick={handleEdit(id)}
+                            color='secondary'
+                            aria-label='edit'
+                            className={classes.fab}
+                            onClick={handleEdit(id)}
                         >
                           <EditIcon/>
                         </Fab>
 
                       }
-
                       <Fab
                         id={row.id}
                         onClick={removeItem(id)}
