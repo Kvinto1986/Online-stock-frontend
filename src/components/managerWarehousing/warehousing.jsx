@@ -46,7 +46,7 @@ const Warehousing = ({getTtn, ttnError, ttns, makeWarehousing, warehouses, user,
             stockData: warehousingActiveStock,
             wareHousingData: wareHousingState,
         }
-        
+
         makeWarehousing(data, successSwal(reset, 'New warehouse successfully registered.'))
     }
 
