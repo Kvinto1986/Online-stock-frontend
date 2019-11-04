@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end'
   },
   add_btn: {
-    marginLeft: '10px'
+    marginRight: '20px'
   },
   nav: {
     flexShrink: 0,

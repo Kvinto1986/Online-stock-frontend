@@ -6,15 +6,10 @@ import TableFooter from '@material-ui/core/TableFooter'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import Fab from '@material-ui/core/Fab'
-import AddIcon from '@material-ui/icons/Add'
-import EditIcon from '@material-ui/icons/Edit'
-import DeleteIcon from '@material-ui/icons/Delete'
 import useStyles from './allCarrierStyle'
 import Spinner from '../spinner'
 import TablePaginationActions from './tablePagination'
-import TableCellComponent from './tableCell'
-
+import TableRowsComponent from './tableRows'
 
 function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
 
@@ -85,7 +80,6 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
 
     found.isDisabled = false
 
-    const {company, countryCode, unp, id} = found
     let newArr = []
     for (let i = 0; i < rows.length; i++) {
       (i === indx) ? newArr.push(found) : newArr.push(rows[i])
@@ -103,72 +97,33 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
     {type: 'text', name: 'email', float: 'right', action: handelEditInput},
     {type: 'number', name: 'tel', float: 'right', action: handelEditInput},
   ]
+  const thHead = [
+    {id:1, label: 'Carrier'},
+    {id:2, label: 'Email', float: 'right'},
+    {id:3, label: 'Phone', float: 'right'},
+    {id:4, float: 'right'},
+  ]
   return (
     <Paper className={classes.root}>
       <div className={classes.tableWrapper}>
         <Table className={classes.table}>
           <TableBody>
             <TableRow>
-              <TableCell>Carrier</TableCell>
-              <TableCell align='right'>Email.</TableCell>
-              <TableCell align='right'>Phone</TableCell>
-              <TableCell align='right'/>
+              {
+                thHead.map((item) => <TableCell key={item.id} align={item.float}> {item.label} </TableCell>)
+              }
             </TableRow>
             {!loaded
               ? <Spinner/>
               : rows.map((row) => {
-                const {id, company, email, tel} = row
-                return (
-                  <TableRow key={id}>
-                    {
-                      tableCells.map((item) => {
-                        console.log(item)
-
-                        return <TableCellComponent
-                          row={row}
-                          typeParam={item.type}
-                          nameParam={item.name}
-                          actionParam={item.action}
-                          componentType={item.typeComponent}
-                          scope={item.scope}
-                          align={item.float}
-                          placeholderEmail={email}
-                          placeholderTel={tel}
-                          placeholderTelCarrier={company}
-                        />
-                      })
-                    }
-                    <TableCell align='right'>
-                      {row.isDisabled
-                        ? <Fab
-                          color='primary'
-                          aria-label='add'
-                          className={classes.add_btn}
-                          onClick={handleNewCarrier(id)}
-                        >
-                          <AddIcon/>
-                        </Fab>
-                        : <Fab
-                            color='secondary'
-                            aria-label='edit'
-                            className={classes.fab}
-                            onClick={handleEdit(id)}
-                        >
-                          <EditIcon/>
-                        </Fab>
-
-                      }
-                      <Fab
-                        id={row.id}
-                        onClick={removeItem(id)}
-                        aria-label='delete'
-                        className={classes.fab}
-                      >
-                        <DeleteIcon/>
-                      </Fab>
-                    </TableCell>
-                  </TableRow>
-                )
+                return <TableRowsComponent
+                  key={row.id}
+                  tableCells={tableCells}
+                  row={row}
+                  handleNewCarrier={handleNewCarrier}
+                  handleEdit={handleEdit}
+                  removeItem={removeItem}
+                />
               })
             }
             {emptyRows > 0 && (
