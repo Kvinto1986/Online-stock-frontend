@@ -86,13 +86,12 @@ const DndStock = ({ttn, warehouses, showSaveButton, setSelectedStockState, sendC
         [...state.chosenWarehouse.areas].forEach((unit, i) => {
             if((i + 1) === newAreaState.index) {
                 const { area, freeArea, type, index, products} = newAreaState
-                
                 newWarehouseAreasState.push({area, freeArea, type, index, products: [...unit.products, products]})
             } else {
                 newWarehouseAreasState.push(unit)
             }
         }) 
-
+        
         return newWarehouseAreasState
     }
 
@@ -113,7 +112,7 @@ const DndStock = ({ttn, warehouses, showSaveButton, setSelectedStockState, sendC
         const updatedWarehouse = calculateNewWarehouseState(newAreaState)
         
         setWarehousingState(updatedCargo, updatedWarehouse)
-        sendChangedStockData(state.chosenWarehouse.areas)
+        sendChangedStockData(updatedWarehouse)
         checkToSubmit(updatedCargo)
     }
     

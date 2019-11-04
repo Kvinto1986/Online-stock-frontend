@@ -30,7 +30,7 @@ const Warehousing = ({getTtn, ttnError, ttns, makeWarehousing, warehouses, user,
         })
     }
 
-    const sendChangedStockData = changedStockData => { 
+    const sendChangedStockData = changedStockData => {
         setWareHousingState({
             ...wareHousingState,
             areasData: changedStockData
