@@ -26,6 +26,9 @@ export default ({cargo}) => {
         setPage(0)
     }
 
+    const rowsCount = page * rowsPerPage
+    const allRowsCount = page * rowsPerPage + rowsPerPage
+
     return (
         <div>
             <Table>
@@ -43,9 +46,9 @@ export default ({cargo}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {cargo.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row,index) => {
+                    {cargo.slice(rowsCount, allRowsCount).map(row => {
                         return (
-                            <TableRow hover role="checkbox" tabIndex={-1} key={row.id+row.name+index}>
+                            <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                 {columns.map(column => {
                                     return (
                                         <TableCell key={column.id} align={column.align}>

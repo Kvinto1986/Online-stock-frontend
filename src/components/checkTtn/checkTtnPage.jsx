@@ -19,8 +19,6 @@ export default ({searchTtn, ttns, getTtnError, deleteTtn}) => {
                 ttn={ttns[ttnId]}
                 onDelete={deleteTtn}
             />)}
-
         </div>
-
     )
 }
