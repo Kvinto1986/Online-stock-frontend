@@ -41,7 +41,7 @@ export default ({ttns, getTtn, getTtnError, editTtn}) => {
         }
 
         if (report.length > 0) {
-            reportData.reports = [{report: report, date: moment().format()}, ...ttns[ttnId].reports]
+            reportData.report = {report: report, date: moment().format()}
         }
 
         editTtn(reportData, ttns[ttnId].id)

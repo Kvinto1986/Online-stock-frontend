@@ -112,8 +112,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "latest",
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^9.1.4",
-    "@testing-library/dom": "latest"
+    "react-virtualized": "^9.21.1"
   }
 }
