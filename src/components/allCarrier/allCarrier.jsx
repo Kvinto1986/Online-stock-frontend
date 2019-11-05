@@ -39,9 +39,7 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
   }, [allCarriers])
 
   const removeItem = (unp) => () => {
-    const newArr = rows.filter((item) => item.id !== unp)
     delCarrier(unp)
-    setRows(newArr)
   }
 
   const handleEdit = (id) => () => {
