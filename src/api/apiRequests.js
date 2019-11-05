@@ -49,7 +49,8 @@ export const {
 export const {
     useGetTtn,
     useEditTtn,
-    useAddTtn
+    useAddTtn,
+    useDelTtn,
 } = createRestHooks(TTN, TTNS, ttnsFilter)
 
 export const {
