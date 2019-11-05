@@ -4,18 +4,19 @@ import {useGetCarriers, useEditCarrier, useDelCarrier} from '../../api/apiReques
 
 export default () => {
 
-  const [getCarriers, carriers] = useGetCarriers()
-  const [delCarrier] = useDelCarrier()
-  const [editCarrier] = useEditCarrier()
+    const [getCarriers, carriers] = useGetCarriers()
+    const [delCarrier] = useDelCarrier()
+    const [editCarrier] = useEditCarrier()
 
-  useEffect(() => {
-    getCarriers()
-  }, [])
-  return (
-    <AllCarriers
-      delCarrier={delCarrier}
-      editCarrier={editCarrier}
-      allCarriers={Object.values(carriers)}
-    />
-  )
+    useEffect(() => {
+        getCarriers()
+    }, [])
+
+    return (
+        <AllCarriers
+            delCarrier={delCarrier}
+            editCarrier={editCarrier}
+            allCarriers={Object.values(carriers)}
+        />
+    )
 }

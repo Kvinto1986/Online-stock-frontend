@@ -15,7 +15,7 @@ const steps = ['Carrier check', 'Driver check', 'Create TTN']
 export default ({
                     activeStep, setActiveStep, searchCarrier, searchCarrierError, createCarrier, createCarrierError,
                     searchDriver, searchDriverError, createDriver, createDriverError, createTtn, createTtnError,
-                    carriers, drivers, authUser
+                    carriers, drivers, authUser, services
                 }) => {
 
     const classes = useStyles()
@@ -74,6 +74,7 @@ export default ({
                     onSubmit={createTtn}
                     error={createTtnError}
                     authUser={authUser}
+                    services={services}
                 />
             case 3:
                 return <SuccessPage

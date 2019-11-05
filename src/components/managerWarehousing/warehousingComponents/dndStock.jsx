@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Typography, InputLabel, Select, MenuItem, Input, Container } from '@material-ui/core'
 import arow from '../../../resources/images/play-button.png'
 import WarehousingDetailsForm from './warehousingDetails/warehousingDetailsForm'
@@ -71,10 +71,10 @@ const DndStock = ({ttn, warehouses, showSaveButton, setSelectedStockState, sendC
         let newCargoElementsState = [];
         [...state.cargoElements].forEach(element => {
             if(element.id === newCargoState.id) {
-                newCargoElementsState.push({...newCargoState, dimension: element.type})
+                newCargoElementsState.push({...newCargoState, dimension: element.type, id: element.id})
             } 
             else {
-                newCargoElementsState.push({...element, dimension: element.type})
+                newCargoElementsState.push({...element, dimension: element.type, id: element.id})
             }
         })
 
@@ -86,13 +86,12 @@ const DndStock = ({ttn, warehouses, showSaveButton, setSelectedStockState, sendC
         [...state.chosenWarehouse.areas].forEach((unit, i) => {
             if((i + 1) === newAreaState.index) {
                 const { area, freeArea, type, index, products} = newAreaState
-                
                 newWarehouseAreasState.push({area, freeArea, type, index, products: [...unit.products, products]})
             } else {
                 newWarehouseAreasState.push(unit)
             }
         }) 
-
+        
         return newWarehouseAreasState
     }
 
@@ -113,7 +112,7 @@ const DndStock = ({ttn, warehouses, showSaveButton, setSelectedStockState, sendC
         const updatedWarehouse = calculateNewWarehouseState(newAreaState)
         
         setWarehousingState(updatedCargo, updatedWarehouse)
-        sendChangedStockData(state.chosenWarehouse.areas)
+        sendChangedStockData(updatedWarehouse)
         checkToSubmit(updatedCargo)
     }
     
