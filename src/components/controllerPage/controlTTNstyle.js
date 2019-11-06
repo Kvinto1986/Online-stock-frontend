@@ -6,6 +6,12 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: theme.palette.common.white,
         },
     },
+    stepNumber: {
+        fontWeight: '600 !important',
+        padding: '25px 0',
+        textAlign: 'center',
+        opacity: '0.5'
+    },
     formName: {
         marginBottom: theme.spacing(3),
     },

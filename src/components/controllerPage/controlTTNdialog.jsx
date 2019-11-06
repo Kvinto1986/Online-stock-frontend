@@ -1,60 +1,96 @@
-import React from 'react'
-import Button from '@material-ui/core/Button'
+import React, {useState} from 'react'
 import Dialog from '@material-ui/core/Dialog'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Slide from '@material-ui/core/Slide'
-import Paper from '@material-ui/core/Paper'
 import useStyles from './controlTTNstyle'
-import CloseIcon from '@material-ui/icons/Close'
-import TTNtable from './controlTTNcargoTable'
-
-import TextField from '@material-ui/core/TextField'
-import IconButton from '@material-ui/core/IconButton'
+import {Box, Container} from '@material-ui/core'
+import TopBar from './reportComponents/topBar'
+import ReportReason from './reportComponents/reportReason'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />
 })
 
+const selectOptionsData = [
+    {key: 1, value: 'Lost'},
+    {key: 2, value: 'Damaged'},
+    {key: 3, value: 'Other...'}
+]
+
+const initalStepsState = {
+    first: {
+        isComplete: false,
+        data: null 
+    },
+    second: {
+        isComplete: false 
+    },
+    third: {
+        isComplete: false 
+    }
+}
+
 export default ({saveTTN, report, setReport, handleChangeTTN, cargo, open, openDialog}) => {
     const classes = useStyles()
+    const [stapsState, setStepsState] = useState(initalStepsState)
 
+    const finishStep = (step, data) => {
+        setStepsState({...stapsState, [step]: {
+            isComplete: true,
+            data: data
+        }})
+    }
+    
     return (
         <div>
             <Dialog fullScreen open={open} onClose={() => {
                 openDialog(!open)
             }} TransitionComponent={Transition}>
+                <TopBar
+                    saveTTN={saveTTN}
+                    open={open}
+                    openDialog={openDialog}
+                />
+                <ReportReason
+                    finishStep={finishStep}
+                    selectOptionsData={selectOptionsData}
+                />
+                {
+                    stapsState.first.isComplete && (
+                        // {/* ReportEdit */}
+                        <Box>
+                        <Box>
+                            <Typography component="h1" variant="h3" className={classes.stepNumber}>2. REPORT EDIT</Typography>
+                        </Box>
+                        <Container component="main" maxWidth="xl">
+                            <Box>
 
-                <AppBar className={classes.appBar}>
-                    <Toolbar>
-                        <IconButton edge="start" color="inherit" onClick={() => {
-                            openDialog(!open)
-                        }} aria-label="close">
-                            <CloseIcon/>
-                        </IconButton>
-                        <Typography variant="h6" className={classes.title}>
-                            Сlose and clear data
-                        </Typography>
-                        <Button variant="contained" color="secondary" onClick={() => {
-                            openDialog(!open)
-                            saveTTN()
-                        }}>
-                           Finish control and send report
-                        </Button>
-                    </Toolbar>
-                </AppBar>
-                <Typography component="h2" variant="h4" align="center" color="textPrimary" style={{marginTop: '3%'}}
-                            gutterBottom>
-                    Edit cargo and create report
-                </Typography>
-                <Paper className={classes.dialogPaper}>
+                            </Box>
+                        </Container>
+                        </Box>
+                    )
+                }
+                
+                {/* AdditionForm */}
+                <Box>
+                    <Box>
+                        <Typography component="h1" variant="h3" className={classes.stepNumber}>3. ADDITION</Typography>
+                    </Box>
+                    <Container component="main" maxWidth="xl">
+                        <Box>
+                            
+                        </Box>
+                    </Container>
+                </Box>
+                {/* ReportButton */}
+
+                {/* <Paper className={classes.dialogPaper}>
                     <TTNtable
                         handleChangeTTN={handleChangeTTN}
                         cargo={cargo}
                         open={open}/>
-                </Paper>
-                <Paper className={classes.dialogPaper}>
+                </Paper> */}
+                {/* <Paper className={classes.dialogPaper}>
                     <Typography component="h2" variant="h6" align="center" color="textPrimary" style={{marginTop: '3%'}}
                                 gutterBottom>
                         Write a report
@@ -69,9 +105,7 @@ export default ({saveTTN, report, setReport, handleChangeTTN, cargo, open, openD
                         defaultValue={report}
                         autoFocus={open}
                     />
-                </Paper>
-
-
+                </Paper> */}
             </Dialog>
         </div>
     )

@@ -59,11 +59,11 @@ export default ({ttn, open, report, setReport}) => {
 
                 </CardContent>
             </Card>
+            <Typography component="h1" variant="h6" align="center" color="textPrimary">
+                Cargo
+            </Typography>
             <Card className={classes.card}>
                 <CardContent>
-                    <Typography component="h1" variant="h6" align="center" color="textPrimary">
-                        Cargo
-                    </Typography>
                     <Table
                         cargo={ttn.products}
                         open={open}
@@ -75,7 +75,6 @@ export default ({ttn, open, report, setReport}) => {
                             </Typography>
                         </Paper>)}
                 </CardContent>
-
             </Card>
             {report.length > 0 && (
                 <Fragment>
@@ -90,7 +89,6 @@ export default ({ttn, open, report, setReport}) => {
                                 </IconButton>
                             </Toolbar>
                         </AppBar>
-
                         <DialogContent dividers>
                             <Typography gutterBottom>
                                 {report}

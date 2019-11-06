@@ -11,7 +11,7 @@ import Spinner from '../spinner'
 import TablePaginationActions from './tablePagination'
 import TableRowsComponent from './tableRows'
 
-function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
+export default function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
   const classes = useStyles()
   const [rows, setRows] = useState([])
   const [page, setPage] = useState(0)
@@ -19,7 +19,6 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
   const [loaded, setLoaded] = useState(false)
   const [inputValue, setInputValue] = useState({})
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
-
 
   function handleChangePage(event, newPage) {
     setPage(newPage)
@@ -53,6 +52,11 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
     setInputValue({...inputValue, [e.target.name]: e.target.value})
   }
 
+    useEffect(() => {
+        setRows(allCarriers)
+        setLoaded(true)
+    }, [allCarriers])
+
   const searchFoundElem = (rows, _unp) => {
     const {carrier, email, tel} = inputValue
     let indx, found = null
@@ -69,13 +73,6 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
         setRowsPerPage(parseInt(event.target.value, 10))
         setPage(0)
     }
-
-    useEffect(() => {
-
-        setRows(allCarriers)
-        setLoaded(true)
-
-    }, [allCarriers])
 
     const removeItem = (unp) => () => {
         const newArr = rows.filter((item) => item.id !== unp)
@@ -190,6 +187,4 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
             </div>
         </Paper>
     )
-}
-
-export default CustomPaginationActionsTable
+}}
