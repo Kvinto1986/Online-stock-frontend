@@ -80,6 +80,7 @@ const SearchCarrier = (props) => {
                 <Typography component="h1" variant="h5">
                     Search Driver
                 </Typography>
+
                 <ValidatorForm className={classes.form} noValidate onSubmit={handleSubmitDriver}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>

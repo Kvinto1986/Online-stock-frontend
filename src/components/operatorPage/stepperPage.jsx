@@ -30,11 +30,13 @@ export default ({
             case 0:
                 return <Fragment>
                     <Search
+                        formVisibility={carrierFormVisibility}
                         search={searchCarrier}
                         searchText="Search carrier by UNP"
                         error={searchCarrierError.carrier}
                         value={carrierId}
                         setValue={setCarrierId}
+                        setFormVisibility={setCarrierFormVisibility}
                     />
                     {searchCarrierError.carrier && (
                         <ExpansionPanel
@@ -44,6 +46,7 @@ export default ({
                             onSubmit={createCarrier}
                             error={createCarrierError}
                             id={carrierId}
+                            value={carrierId}
                         />
                     )}
                 </Fragment>

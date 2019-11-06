@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
             display: 'flex',
             flexDirection: 'column',
             width:'90%',
-            marginLeft:'5%'
+            marginLeft:'5%',
         },
         formControl: {
             width: '100%',
@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
             display: 'flex',
             flexDirection: 'column',
             width: '40%',
-            marginLeft: '30%'
+            marginLeft: '30%',
         },
         rootPaper: {
             display: 'flex',
@@ -88,7 +88,6 @@ const useStyles = makeStyles(theme => ({
             background: 'none !important',
             border: '1px solid #D4CDCD !important',
         },
-
         paperTTN: {
             marginTop: '2%',
         },
@@ -110,7 +109,6 @@ const useStyles = makeStyles(theme => ({
         },
         TTNhead: {
             paddingTop: '12%'
-
         },
         gridItem: {
             marginLeft: '3%'
@@ -130,6 +128,14 @@ const useStyles = makeStyles(theme => ({
             alignContent: 'center',
             verticalAlign: 'center',
             marginTop:'15%'
+        },
+        validBtn: {
+            border: '1px solid black',
+            margin: theme.spacing(1),
+        },
+        wrap: {
+          padding: '8px 24px 24px',
+          boxSizing: 'border-box'
         }
     }
 ))
