@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import Dialog from '@material-ui/core/Dialog'
-import Typography from '@material-ui/core/Typography'
 import Slide from '@material-ui/core/Slide'
-import useStyles from './controlTTNstyle'
-import {Box, Container} from '@material-ui/core'
 import TopBar from './reportComponents/topBar'
 import ReportReason from './reportComponents/reportReason'
+import ReportEdit from './reportComponents/reportEdit'
+import Addition from './reportComponents/addition'
+import { Button } from '@material-ui/core'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />
@@ -31,7 +31,6 @@ const initalStepsState = {
 }
 
 export default ({saveTTN, report, setReport, handleChangeTTN, cargo, open, openDialog}) => {
-    const classes = useStyles()
     const [stapsState, setStepsState] = useState(initalStepsState)
 
     const finishStep = (step, data) => {
@@ -56,56 +55,31 @@ export default ({saveTTN, report, setReport, handleChangeTTN, cargo, open, openD
                     selectOptionsData={selectOptionsData}
                 />
                 {
-                    stapsState.first.isComplete && (
-                        // {/* ReportEdit */}
-                        <Box>
-                        <Box>
-                            <Typography component="h1" variant="h3" className={classes.stepNumber}>2. REPORT EDIT</Typography>
-                        </Box>
-                        <Container component="main" maxWidth="xl">
-                            <Box>
-
-                            </Box>
-                        </Container>
-                        </Box>
-                    )
-                }
-                
-                {/* AdditionForm */}
-                <Box>
-                    <Box>
-                        <Typography component="h1" variant="h3" className={classes.stepNumber}>3. ADDITION</Typography>
-                    </Box>
-                    <Container component="main" maxWidth="xl">
-                        <Box>
-                            
-                        </Box>
-                    </Container>
-                </Box>
-                {/* ReportButton */}
-
-                {/* <Paper className={classes.dialogPaper}>
-                    <TTNtable
-                        handleChangeTTN={handleChangeTTN}
+                    stapsState.first.isComplete &&
+                    <ReportEdit 
                         cargo={cargo}
-                        open={open}/>
-                </Paper> */}
-                {/* <Paper className={classes.dialogPaper}>
-                    <Typography component="h2" variant="h6" align="center" color="textPrimary" style={{marginTop: '3%'}}
-                                gutterBottom>
-                        Write a report
-                    </Typography>
-                    <TextField
-                        label="Report"
-                        multiline
-                        rowsMax="7"
-                        style={{marginTop: '3%', width: '80%', marginLeft: '10%', marginBottom: '5%'}}
-                        margin="normal"
-                        onChange={(e) => setReport(e.target.value)}
-                        defaultValue={report}
-                        autoFocus={open}
+                        open={open}
+                        handleChangeTTN={handleChangeTTN}
+                        report={report}
+                        setReport={setReport}
                     />
-                </Paper> */}
+                }
+                {
+                    stapsState.second.isComplete && 
+                    <Addition
+                        setReport={setReport}
+                        report={report}
+                        open={open}
+                    />
+                }
+                {
+                    stapsState.third.isComplete && 
+                    <Button
+                        type="button"
+                    >
+                        Create report
+                    </Button>
+                }
             </Dialog>
         </div>
     )

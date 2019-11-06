@@ -24,9 +24,7 @@ export default ({cargo, open, handleChangeTTN}) => {
             </TableHead>
             <TableBody>
                 {cargo.map((elem) => {
-
                     const handleChange = (e) => handleChangeTTN(e, elem.id)
-
                     return (
                         <TableRow key={elem.id}>
                             <TableCell align="center">

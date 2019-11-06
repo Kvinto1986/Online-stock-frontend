@@ -60,6 +60,7 @@ const useStyles = makeStyles(theme => ({
     },
     table: {
         marginTop: theme.spacing(5),
+        width: '100%'
     },
     description: {
         marginTop: theme.spacing(5),
