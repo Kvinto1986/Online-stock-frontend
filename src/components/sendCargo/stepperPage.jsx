@@ -30,6 +30,8 @@ export default ({
             case 0:
                 return <Fragment>
                     <Search
+                        formVisibility={carrierFormVisibility}
+                        setFormVisibility={setCarrierFormVisibility}
                         search={searchCarrier}
                         searchText="Search carrier by UNP"
                         error={searchCarrierError.carrier}
@@ -50,6 +52,8 @@ export default ({
             case 1:
                 return <Fragment>
                     <Search
+                        formVisibility={driverFormVisibility}
+                        setFormVisibility={setDriverFormVisibility}
                         search={searchDriver}
                         searchText="Search driver by driver license"
                         error={searchDriverError.driver}

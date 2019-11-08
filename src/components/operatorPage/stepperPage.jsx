@@ -31,12 +31,13 @@ export default ({
                 return <Fragment>
                     <Search
                         formVisibility={carrierFormVisibility}
+                        setFormVisibility={setCarrierFormVisibility}
                         search={searchCarrier}
                         searchText="Search carrier by UNP"
                         error={searchCarrierError.carrier}
                         value={carrierId}
                         setValue={setCarrierId}
-                        setFormVisibility={setCarrierFormVisibility}
+
                     />
                     {searchCarrierError.carrier && (
                         <ExpansionPanel
@@ -81,6 +82,7 @@ export default ({
                     error={createTtnError}
                     authUser={authUser}
                     services={services}
+
                 />
             case 3:
                 return <SuccessPage
