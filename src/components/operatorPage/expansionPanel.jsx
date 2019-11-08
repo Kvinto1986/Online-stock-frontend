@@ -1,8 +1,6 @@
 import React from 'react'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import useStyles from './operatorPageStyles'
-import Search from './search'
-
 
 export default function ({formVisibility, Form, onSubmit, error, id, value}) {
   const classes = useStyles()
@@ -12,7 +10,7 @@ export default function ({formVisibility, Form, onSubmit, error, id, value}) {
       <ExpansionPanel>
         <div className={formVisibility ?  classes.wrap : null }>
           {
-            formVisibility &&  value.length
+            formVisibility
               ? <Form
                 onSubmit={onSubmit}
                 error={error}

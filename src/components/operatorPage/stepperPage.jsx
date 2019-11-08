@@ -53,6 +53,8 @@ export default ({
             case 1:
                 return <Fragment>
                     <Search
+                        formVisibility={driverFormVisibility}
+                        setFormVisibility={setDriverFormVisibility}
                         search={searchDriver}
                         searchText="Search driver by driver license"
                         error={searchDriverError.driver}
@@ -61,6 +63,7 @@ export default ({
                     />
                     {searchDriverError.driver && (
                         <ExpansionPanel
+                            value={driverId}
                             formVisibility={driverFormVisibility}
                             setFormVisibility={setDriverFormVisibility}
                             Form={DriverForm}

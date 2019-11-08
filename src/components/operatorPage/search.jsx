@@ -6,10 +6,11 @@ import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
 import useStyles from './operatorPageStyles'
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
-import Button from '@material-ui/core/Button'
+import ErrorBtn from './errorBtn'
 
-export default ({search, searchText, error, value, setValue, setFormVisibility, formVisibility}) => {
+export default ({search, searchText, error, value, setValue, setFormVisibility}) => {
   const classes = useStyles()
+
   const handleReset = () => {
     setValue('')
     setFormVisibility(false)
@@ -39,11 +40,7 @@ export default ({search, searchText, error, value, setValue, setFormVisibility, 
       </ValidatorForm>
       <div className={classes.error}>{error}</div>
       {error
-        ? <React.Fragment>
-          <Button color='primary' className={classes.validBtn} onClick={() => setFormVisibility(true)}>Yes, I
-            want</Button>
-          <Button color='secondary' className={classes.validBtn} onClick={handleReset}>Yes, it was mistake</Button>
-        </React.Fragment>
+        ? <ErrorBtn error={error} handleReset={handleReset} setFormVisibility={setFormVisibility} />
         : null
       }
     </Container>
