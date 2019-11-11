@@ -4,8 +4,8 @@ import Slide from '@material-ui/core/Slide'
 import TopBar from './reportComponents/topBar'
 import ReportReason from './reportComponents/reportReason'
 import ReportEdit from './reportComponents/reportEdit'
-import Addition from './reportComponents/addition'
-import { Button } from '@material-ui/core'
+import ReportList from './reportComponents/reportList'
+import {Button, Box} from '@material-ui/core'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />
@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const selectOptionsData = [
     {key: 1, value: 'Lost'},
     {key: 2, value: 'Damaged'},
-    {key: 3, value: 'Other...'}
+    {key: 3, value: 'Not found'}
 ]
 
 const initalStepsState = {
@@ -30,18 +30,33 @@ const initalStepsState = {
     }
 }
 
-export default ({saveTTN, report, setReport, handleChangeTTN, cargo, open, openDialog}) => {
+export default ({
+    saveTTN, 
+    handleChangeTTN, 
+    currentTTN, 
+    initialCargo, 
+    cargo, 
+    open, 
+    openDialog, 
+    setReportType, 
+    cargoReportType, 
+    markCargoAsUnfound,
+    setCheckedCargo
+}) => {
     const [stapsState, setStepsState] = useState(initalStepsState)
 
     const finishStep = (step, data) => {
-        setStepsState({...stapsState, [step]: {
-            isComplete: true,
-            data: data
-        }})
+        setStepsState({
+            ...stapsState, 
+            [step]: {
+                isComplete: true,
+                data: data
+            }
+        })
     }
     
     return (
-        <div>
+        <Box>
             <Dialog fullScreen open={open} onClose={() => {
                 openDialog(!open)
             }} TransitionComponent={Transition}>
@@ -53,34 +68,42 @@ export default ({saveTTN, report, setReport, handleChangeTTN, cargo, open, openD
                 <ReportReason
                     finishStep={finishStep}
                     selectOptionsData={selectOptionsData}
+                    setReportType={setReportType}
                 />
                 {
-                    stapsState.first.isComplete &&
-                    <ReportEdit 
-                        cargo={cargo}
-                        open={open}
-                        handleChangeTTN={handleChangeTTN}
-                        report={report}
-                        setReport={setReport}
-                    />
+                    stapsState.first.isComplete && (
+                        <ReportEdit 
+                            initialCargo={initialCargo}
+                            cargo={cargo}
+                            reportReason={stapsState.first.data.reportReason}
+                            handleChangeTTN={handleChangeTTN}
+                            finishStep={finishStep}
+                            setCheckedCargo={setCheckedCargo}
+                        />
+                    )
                 }
                 {
-                    stapsState.second.isComplete && 
-                    <Addition
-                        setReport={setReport}
-                        report={report}
-                        open={open}
-                    />
-                }
-                {
-                    stapsState.third.isComplete && 
-                    <Button
-                        type="button"
-                    >
-                        Create report
-                    </Button>
+                    stapsState.second.isComplete && (
+                        <>
+                            <ReportList
+                                initialCargo={initialCargo}
+                                cargo={cargo}
+                                cargoReportType={cargoReportType}
+                                reportReason={stapsState.first.data.reportReason}
+                                currentTTN={currentTTN}
+                                markCargoAsUnfound={markCargoAsUnfound}
+                            />
+                            <Box mt={5}>
+                                <Button
+                                    type="button"
+                                >
+                                    Create report
+                                </Button>
+                            </Box>
+                        </>
+                    )
                 }
             </Dialog>
-        </div>
+        </Box>
     )
 }

@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
         marginLeft: theme.spacing(2),
         flex: 1,
     },
+    paper: {
+        padding: '25px'
+    },
     dialogPaper: {
         width: '50%',
         marginTop: '2%',
@@ -65,8 +68,15 @@ const useStyles = makeStyles(theme => ({
     description: {
         marginTop: theme.spacing(5),
         padding: theme.spacing(5, 5, 5, 5),
+    },
+    ul: {
+        paddingTop: '0',
+        paddingBottom: '0',
+    },
+    listItem: {
+        paddingTop: '0',
+        paddingBottom: '0',
     }
-
 }))
 
 export default useStyles

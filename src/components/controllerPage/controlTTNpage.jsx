@@ -9,17 +9,20 @@ import SubmitButton from './controlTTNsubmit'
 import TTNdialog from './controlTTNdialog'
 import moment from 'moment'
 
-export default ({ttns, getTtn, getTtnError, editTtn}) => {
+export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
     const classes = useStyles()
 
     const [confirm, setConfirm] = useState(false)
     const [open, setOpen] = useState(false)
     const [report, setReport] = useState('')
     const [ttnId, setTtnId] = useState('')
+    const [finalCargo, setFinalCargo] = useState([])
     
+    const [initialCurrentTTN, setInitialRawCurrentTTN] = useState({})
     const [currentTTN, setRawCurrentTTN] = useState({})
 
     const setCurrentTTN = obj => {
+        setInitialRawCurrentTTN({...obj, products: [...obj.products.map(x => ({...x}))]})
         setRawCurrentTTN({...obj, products: [...obj.products.map(x => ({...x}))]})
     }
 
@@ -50,9 +53,37 @@ export default ({ttns, getTtn, getTtnError, editTtn}) => {
     const handleChangeTTN = (e, id) => {
         currentTTN.products.forEach((elem) => {
             if (elem.id === id) {
+                //TODO: SetState
                 elem[e.target.name] = e.target.value
+                elem.checked = true
             }
         })
+    }
+
+    const setCheckedCargo = index => {
+        currentTTN.products.forEach((elem) => {
+            if(index === elem.id) {
+                //TODO: SetState
+                elem.checked = true
+            }
+        })
+    }
+    
+    const setReportType = type => {
+        const {id, email, firstName, lastName, patronymic} = user
+        setRawCurrentTTN({
+            ...currentTTN, 
+            report: type, 
+            controller: {
+                id: id,
+                email: email,
+                initials: `${firstName} ${lastName} ${patronymic}`
+            }
+        })
+    }
+
+    const markCargoAsUnfound = newCargoState => {
+        setFinalCargo(newCargoState)
     }
 
     return (
@@ -82,13 +113,17 @@ export default ({ttns, getTtn, getTtnError, editTtn}) => {
                     />
                     <TTNdialog
                         saveTTN={handleSubmitTTN}
-                        report={report}
-                        setReport={setReport}
                         handleChangeTTN={handleChangeTTN}
+                        initialCargo={initialCurrentTTN.products}
                         cargo={currentTTN.products}
+                        cargoReportType={currentTTN.report}
+                        currentTTN={currentTTN}
                         open={open}
                         openDialog={openDialog}
-                    />
+                        setReportType={setReportType}
+                        markCargoAsUnfound={markCargoAsUnfound}
+                        setCheckedCargo={setCheckedCargo}
+                   />
                 </Fragment>)}
 
         </Container>
