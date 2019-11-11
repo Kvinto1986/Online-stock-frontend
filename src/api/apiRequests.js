@@ -67,5 +67,6 @@ export const {
     useAddService,
     useDelService,
     useGetServices,
+    useEditService,
 } = createRestHooks(SERVICE, SERVICES, servicesFilter)
 
