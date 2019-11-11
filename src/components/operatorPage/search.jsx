@@ -6,18 +6,12 @@ import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
 import useStyles from './operatorPageStyles'
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
-import ErrorBtn from './errorBtn'
 
-export default ({search, searchText, error, value, setValue, setFormVisibility}) => {
+export default ({search, searchText, error, value, setValue}) => {
   const classes = useStyles()
 
-  const handleReset = () => {
-    setValue('')
-    setFormVisibility(false)
-  }
   return (
     <Container component="main" className={classes.main} maxWidth="sm">
-
       <Typography variant="h5" align="center" color="textSecondary" component="p" className={classes.main}>
         {searchText}
       </Typography>
@@ -39,10 +33,6 @@ export default ({search, searchText, error, value, setValue, setFormVisibility})
         </div>
       </ValidatorForm>
       <div className={classes.error}>{error}</div>
-      {error
-        ? <ErrorBtn error={error} handleReset={handleReset} setFormVisibility={setFormVisibility} />
-        : null
-      }
     </Container>
   )
 }

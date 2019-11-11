@@ -134,7 +134,7 @@ const useStyles = makeStyles(theme => ({
             margin: theme.spacing(1),
         },
         wrap: {
-          padding: '8px 24px 24px',
+          padding: '5%',
           boxSizing: 'border-box'
         }
     }

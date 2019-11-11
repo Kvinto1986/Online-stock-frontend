@@ -46,6 +46,7 @@ export default ({
                             onSubmit={createCarrier}
                             error={createCarrierError}
                             id={carrierId}
+                            setValue={setCarrierId}
                         />
                     )}
                 </Fragment>
@@ -68,6 +69,7 @@ export default ({
                             onSubmit={createDriver}
                             error={createDriverError}
                             id={driverId}
+                            setValue={setDriverId}
                         />
                     )}
                 </Fragment>
