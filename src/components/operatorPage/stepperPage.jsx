@@ -44,6 +44,8 @@ export default ({
                             onSubmit={createCarrier}
                             error={createCarrierError}
                             id={carrierId}
+                            setValue={setCarrierId}
+                            value={carrierId}
                         />
                     )}
                 </Fragment>
@@ -58,6 +60,8 @@ export default ({
                     />
                     {searchDriverError.driver && (
                         <ExpansionPanel
+                            setValue={setDriverId}
+                            value={driverId}
                             formVisibility={driverFormVisibility}
                             setFormVisibility={setDriverFormVisibility}
                             Form={DriverForm}
@@ -75,6 +79,7 @@ export default ({
                     error={createTtnError}
                     authUser={authUser}
                     services={services}
+
                 />
             case 3:
                 return <SuccessPage
