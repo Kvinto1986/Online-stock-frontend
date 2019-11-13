@@ -21,7 +21,9 @@ import {
     TTNS,
     TTNS_OUT,
     WAREHOUSE,
-    WAREHOUSES
+    WAREHOUSES,
+    TTN_ORDER,
+    TTN_ORDERS
 } from '../actions/types'
 
 function createNormalReducer(singular, plural) {
@@ -48,6 +50,7 @@ const ttns = createNormalReducer(TTN, TTNS)
 const warehouses = createNormalReducer(WAREHOUSE, WAREHOUSES)
 const ttnsOut = createNormalReducer(TTN_OUT, TTNS_OUT)
 const services = createNormalReducer(SERVICE, SERVICES)
+const ttnsOrder = createNormalReducer(TTN_ORDER, TTN_ORDERS)
 
 export default combineReducers({
     warehouses,
@@ -57,6 +60,7 @@ export default combineReducers({
     ttns,
     ttnsOut,
     services,
+    ttnsOrder,
     errors: errorReducer,
     auth: authReducer,
     adminCompanyStatistic: adminCompanyStatisticReduser,

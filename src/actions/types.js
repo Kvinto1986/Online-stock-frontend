@@ -32,3 +32,6 @@ export const TTN_OUT = 'TTN_OUT'
 export const SERVICE = 'SERVICE'
 export const SERVICES  = 'SERVICES'
 
+export const TTN_ORDERS = 'TTN_ORDERS'
+export const TTN_ORDER  = 'TTN_ORDER'
+
