@@ -8,8 +8,8 @@ const ReportEdit = ({initialCargo, cargo, reportReason, handleChangeTTN, finishS
     const classes = useStyles()
     const [isAllSelected, selectAll] = useState(false)
     return (
-        <Box mt={25}>
-            <Box>
+        <Box mt={25} mb={10}>
+            <Box mb={5}>
                 <Typography component="h1" variant="h3" className={classes.stepNumber}>REPORT EDIT</Typography>
             </Box>
             <Container fixed>
@@ -27,13 +27,18 @@ const ReportEdit = ({initialCargo, cargo, reportReason, handleChangeTTN, finishS
                         selectAll={selectAll}
                     />
                 </Box>
-                <Box>
-                    <Button
-                        type="button"
-                        onClick={() => finishStep('second', {cargo, initialCargo})}
-                    >
-                        Edit
-                    </Button>
+                <Box mt={5}>
+                    <a href="#yak1">
+                        <Button
+                            type="button"
+                            onClick={() => finishStep('second', {cargo, initialCargo})}
+                            variant="contained" 
+                            size="medium"
+                            color="primary"
+                        >
+                            Edit
+                        </Button>
+                    </a>
                 </Box>
             </Container>
         </Box>

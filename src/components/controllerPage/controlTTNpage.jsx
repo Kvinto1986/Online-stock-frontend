@@ -60,12 +60,16 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
         })
     }
 
-    const setCheckedCargo = index => {
+    const setCheckedCargo = (data, all) => {
         currentTTN.products.forEach((elem) => {
-            if(index === elem.id) {
+            if(all) {
                 //TODO: SetState
-                elem.checked = true
+                elem.checked = all.value
             }
+            else if(data.index === elem.id) {
+                //TODO: SetState
+                elem.checked = data.checked
+            } 
         })
     }
     

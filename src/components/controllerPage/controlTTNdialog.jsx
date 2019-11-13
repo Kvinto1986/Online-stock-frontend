@@ -61,7 +61,6 @@ export default ({
                 openDialog(!open)
             }} TransitionComponent={Transition}>
                 <TopBar
-                    saveTTN={saveTTN}
                     open={open}
                     openDialog={openDialog}
                 />
@@ -84,7 +83,7 @@ export default ({
                 }
                 {
                     stapsState.second.isComplete && (
-                        <>
+                        <Box>
                             <ReportList
                                 initialCargo={initialCargo}
                                 cargo={cargo}
@@ -93,14 +92,23 @@ export default ({
                                 currentTTN={currentTTN}
                                 markCargoAsUnfound={markCargoAsUnfound}
                             />
-                            <Box mt={5}>
-                                <Button
-                                    type="button"
-                                >
-                                    Create report
-                                </Button>
+                            <Box mb={15} display="flex" justifyContent="center">
+                                <Box>
+                                    <Button 
+                                        variant="contained" 
+                                        color="secondary" 
+                                        size="large"
+                                        onClick={() => {
+                                            openDialog(!open)
+                                            saveTTN()
+                                        }}
+                                    >
+                                        Finish report
+                                    </Button>
+                                </Box>
+                                
                             </Box>
-                        </>
+                        </Box>
                     )
                 }
             </Dialog>

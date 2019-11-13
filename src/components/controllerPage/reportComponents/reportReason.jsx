@@ -14,10 +14,11 @@ const ReportReason = ({finishStep, selectOptionsData, setReportType}) => {
         setReportReason(reasonNumber)
         setReportType(reportType[reasonNumber-1])
     }
+    
     return (
         <Box>
             <Container maxWidth="sm">
-                <Box>
+                <Box mb={5}>
                     <Typography component="h1" variant="h3" className={classes.stepNumber}>REPORT REASON</Typography>
                 </Box>
                 <Box>
@@ -44,8 +45,13 @@ const ReportReason = ({finishStep, selectOptionsData, setReportType}) => {
                             </Select>
                         </FormControl>
                         <Box mt={4}>
-                            <Button type="submit">
-                                Submit
+                            <Button 
+                                type="submit" 
+                                variant="contained" 
+                                size="medium"
+                                color="primary"
+                            >
+                                Save
                             </Button>
                         </Box>
                     </ValidatorForm>
