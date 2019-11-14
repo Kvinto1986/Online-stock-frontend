@@ -66,6 +66,9 @@ const useStyles = makeStyles(theme => ({
     },
     h5: {
         color: '#3f51b5'
+    },
+    dark: {
+        color:'black'
     }
 }))
 

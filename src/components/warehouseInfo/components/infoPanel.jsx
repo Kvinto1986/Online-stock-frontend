@@ -3,13 +3,14 @@ import Grid from '@material-ui/core/Grid'
 import {makeStyles} from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import List from './list'
+import MapContainer from '../../warehousesPage/warehouseFormComponents/mapContainer'
 
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
     },
     paper: {
-        minHeight: 500,
+        height: 600,
         width: 500,
         padding: 20
     },
@@ -41,6 +42,15 @@ const InfoPanel = ({data}) => {
                               <p><b>Address:</b> {address}</p>
                               <p><b>Total Area:</b> {totalArea}</p>
                           </div>
+                              <MapContainer
+                                    google={''}
+                                    GPS={data.GPS}
+                                    mapVisibility={true}
+                                    theme={'dark'}
+                                    zoom={15}
+                                    mapHeight={200}
+                                    withTitle={false}
+                              />
                       </Paper>
                   </Grid>
                   <Grid item>
