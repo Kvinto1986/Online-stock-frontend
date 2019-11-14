@@ -56,7 +56,8 @@ export const {
 export const {
     useAddWarehouse,
     useDelWarehouse,
-    useGetWarehouses,
+    useGetWarehouse,
+    useGetWarehouses
 } = createRestHooks(WAREHOUSE, WAREHOUSES, warehousesFilter)
 
 export const {
