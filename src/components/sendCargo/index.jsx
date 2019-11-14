@@ -10,7 +10,7 @@ import {
     useGetTtnOrder
 } from '../../api/apiRequests'
 import {authUserFilter} from '../../filters'
-import findSwal from '../operatorPage/findSwal'
+import findSwal from '../swal/findSwal'
 
 
 export default () => {

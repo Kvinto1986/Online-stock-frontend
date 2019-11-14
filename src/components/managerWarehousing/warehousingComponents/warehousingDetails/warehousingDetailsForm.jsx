@@ -48,6 +48,7 @@ const WarehousingDetailsForm = ({cargoDetails, areaData, changeActiveData, ttnNu
         const newStoredCargo = {
             name: newCargoState.name,
             amount: Number(productQuantity),
+            availableAmount: Number(productQuantity),
             dimension: newCargoState.type,
             size: Number(productArea),
             ttnNumber: ttnNumber,
