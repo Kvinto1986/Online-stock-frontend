@@ -18,20 +18,22 @@ const MapContainer = ({mapVisibility, GPS, google}) => {
                     Warehouse location
                 </Typography>
             </Box>
-            <Map
-                google={google}
-                zoom={5}
-                initialCenter={GPS}
-                style={{height: '400px'}}
-            >
-                <Marker
-                    name="warehousingAddress"
-                    position={{
-                        lat: GPS.lat,
-                        lng: GPS.lng
-                    }}
-                />
-            </Map>
+            <div className="sellerMap">
+                <Map
+                    google={google}
+                    zoom={5}
+                    initialCenter={GPS}
+                    style={{height: '400px'}}
+                >
+                    <Marker
+                        name="warehousingAddress"
+                        position={{
+                            lat: GPS.lat,
+                            lng: GPS.lng
+                        }}
+                    />
+                </Map>
+            </div>
         </Container>
     )
 }
@@ -43,6 +45,6 @@ MapContainer.propTypes = {
 }
 
 export default GoogleApiWrapper({
-    apiKey: GOOGLE_MAPS_API_KEY, 
+    apiKey: GOOGLE_MAPS_API_KEY,
     libraries: ['places']
 })(MapContainer)
