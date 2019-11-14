@@ -30,6 +30,8 @@ export default ({
             case 0:
                 return <Fragment>
                     <Search
+                        formVisibility={carrierFormVisibility}
+                        setFormVisibility={setCarrierFormVisibility}
                         search={searchCarrier}
                         searchText="Search carrier by UNP"
                         error={searchCarrierError.carrier}
@@ -44,12 +46,15 @@ export default ({
                             onSubmit={createCarrier}
                             error={createCarrierError}
                             id={carrierId}
+                            setValue={setCarrierId}
                         />
                     )}
                 </Fragment>
             case 1:
                 return <Fragment>
                     <Search
+                        formVisibility={driverFormVisibility}
+                        setFormVisibility={setDriverFormVisibility}
                         search={searchDriver}
                         searchText="Search driver by driver license"
                         error={searchDriverError.driver}
@@ -64,6 +69,7 @@ export default ({
                             onSubmit={createDriver}
                             error={createDriverError}
                             id={driverId}
+                            setValue={setDriverId}
                         />
                     )}
                 </Fragment>

@@ -9,18 +9,20 @@ import Button from '@material-ui/core/Button'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import useStyles from './operatorPageStyles'
+import {Paper} from '@material-ui/core'
 
 export default ({cargoList, handleDeleteProduct}) => {
 
     const classes = useStyles()
 
     return (
+        <Paper>
         <Table className={classes.table} size="small">
             <TableHead>
                 <TableRow>
                     <TableCell align="center">Number</TableCell>
                     <TableCell align="center">Type</TableCell>
-                    <TableCell align="center">Weight</TableCell>
+                    <TableCell align="center">Amount</TableCell>
                     <TableCell align="center">Boxing</TableCell>
                     <TableCell align="center">Action</TableCell>
                 </TableRow>
@@ -28,10 +30,10 @@ export default ({cargoList, handleDeleteProduct}) => {
             <TableBody>
                 {cargoList.map((elem, index) => {
                     return <TableRow key={elem.type + index}>
-                        <TableCell align="center">{index + 1}</TableCell>
+                        <TableCell align="center">{elem.id}</TableCell>
+                        <TableCell align="center">{elem.name}</TableCell>
+                        <TableCell align="center">{elem.amount}</TableCell>
                         <TableCell align="center">{elem.type}</TableCell>
-                        <TableCell align="center">{elem.weight}</TableCell>
-                        <TableCell align="center">{elem.boxing}</TableCell>
                         <TableCell align="center">
                             <Button
                                 variant="contained"
@@ -40,12 +42,13 @@ export default ({cargoList, handleDeleteProduct}) => {
                                 onClick={() => handleDeleteProduct(index)}
                             >
                                 Delete
-                                <DeleteIcon style={{marginLeft: '5%'}}/>
+                                <DeleteIcon style={{marginLeft: '10%'}}/>
                             </Button>
                         </TableCell>
                     </TableRow>
                 })}
             </TableBody>
         </Table>
+        </Paper>
     )
 }

@@ -77,15 +77,17 @@ export default ({onSubmit, errors}) => {
                     < span style={{color: 'red'}}>{errors.password}</span>
                 )}
             </Box>
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-            >
-                Create account
-            </Button>
+            <Box mt={5}>
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                >
+                    Create account
+                </Button>
+            </Box>
         </ValidatorForm>
     )
-};
+}

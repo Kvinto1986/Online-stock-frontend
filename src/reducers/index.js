@@ -14,6 +14,8 @@ import {
     DRIVERS,
     EMPLOYEE,
     EMPLOYEES,
+    SERVICE,
+    SERVICES,
     TTN,
     TTN_OUT,
     TTNS,
@@ -45,6 +47,7 @@ const drivers = createNormalReducer(DRIVER, DRIVERS)
 const ttns = createNormalReducer(TTN, TTNS)
 const warehouses = createNormalReducer(WAREHOUSE, WAREHOUSES)
 const ttnsOut = createNormalReducer(TTN_OUT, TTNS_OUT)
+const services = createNormalReducer(SERVICE, SERVICES)
 
 export default combineReducers({
     warehouses,
@@ -53,6 +56,7 @@ export default combineReducers({
     drivers,
     ttns,
     ttnsOut,
+    services,
     errors: errorReducer,
     auth: authReducer,
     adminCompanyStatistic: adminCompanyStatisticReduser,

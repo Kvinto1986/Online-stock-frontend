@@ -1,4 +1,5 @@
 import {makeStyles} from "@material-ui/core";
+import { letterSpacing, fontSize } from "@material-ui/system";
 
 const useStyles = makeStyles(theme => ({
     '@global': {
@@ -17,13 +18,17 @@ const useStyles = makeStyles(theme => ({
         borderBottom: `1px solid ${theme.palette.divider}`,
     },
     toolbar: {
-        flexWrap: 'wrap',
+        flexWrap: 'wrap'
     },
     toolbarTitle: {
         flexGrow: 1,
     },
     link: {
         margin: theme.spacing(1, 1.5),
+        borderColor: '#EBF1F9',
+        color: '#EBF1F9',
+        letterSpacing: '1.5px',
+        fontSize: 12
     },
     heroContent: {
         padding: theme.spacing(8, 0, 6),

@@ -55,7 +55,8 @@
     "redux-thunk": "^2.3.0",
     "renderer": "^0.1.5",
     "slick-carousel": "^1.8.1",
-    "sweetalert2": "^8.13.6"
+    "sweetalert2": "^8.13.6",
+    "@material-ui/lab": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -114,8 +115,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "latest",
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^9.1.4",
-    "@testing-library/dom": "latest"
+    "react-virtualized": "^9.21.1"
   }
 }
