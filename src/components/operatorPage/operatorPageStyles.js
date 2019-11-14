@@ -11,6 +11,9 @@ const useStyles = makeStyles(theme => ({
             width: '100%',
             marginBottom: '10%',
         },
+        table:{
+            marginTop:'2%',
+        },
         rootExpansion: {
             marginTop: '2%',
             display: 'flex',

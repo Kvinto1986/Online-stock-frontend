@@ -104,7 +104,6 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
                         <Grid item xl={4} xs={1}>
                         </Grid>
                     </Grid>
-
                     <Grid container spacing={3}>
                         <Grid item xl={1} xs={1}>
                         </Grid>
