@@ -1,0 +1,10 @@
+/* Overwrite the Google Map API's and Material's initial stylesheets  */
+
+div.makeStyles-paperList-118 div {
+    position: relative;
+    width: 100% !important;
+}
+
+div.MuiPaper-root.MuiPaper-elevation1.MuiCard-root.makeStyles-cardArea-123.MuiPaper-rounded {
+    margin-left: 0;
+}
