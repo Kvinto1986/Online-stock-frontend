@@ -8,7 +8,7 @@ import useStyles from './warehousePageStyles'
 import {geocodeByAddress, getLatLng} from 'react-places-autocomplete'
 import WarehouseDetailsForm from './warehouseFormComponents/warehouseDetailsForm'
 import AreasCreator from './warehouseFormComponents/areasCreator'
-import MapContainer from './warehouseFormComponents/mapContainer' 
+import MapContainer from './warehouseFormComponents/mapContainer'
 
 const initialMapState = {
     mapVisibility: false,
@@ -82,16 +82,16 @@ export default ({onSubmit, error, company}) => {
         const addressName = warehouse.address
 
         setMapState({...mapState, mapVisibility: false})
-        
+
         geocodeByAddress(addressName)
-        .then(results => getLatLng(results[0]))
-        .then(latLng => {
-            setMapState({
-                ...mapState, 
-                GPS: latLng, 
-                mapVisibility: true
-            })   
-        })
+          .then(results => getLatLng(results[0]))
+          .then(latLng => {
+              setMapState({
+                  ...mapState,
+                  GPS: latLng,
+                  mapVisibility: true
+              })
+          })
     }
 
     const handleSubmit = (e) => {
@@ -121,64 +121,68 @@ export default ({onSubmit, error, company}) => {
     }
 
     return (
-        <Container component="main" maxWidth="xl">
-            <Box mt={7}>
-                <CssBaseline/>
-                <div className={classes.main}>
-                    <div className={classes.paper}>
-                        <WarehouseDetailsForm
-                            warehouse={warehouse}
-                            totalArea={totalArea}
-                            error={error}
-                            handleChangeArea={handleChangeArea}
-                            handleChangeAddArea={handleChangeAddArea}
-                            onSelectLocation={onSelectLocation}
-                            addArea={addArea}
-                            setWarehouse={setWarehouse}
-                            handleChange={handleChange}
+      <Container component="main" maxWidth="xl">
+          <Box mt={7}>
+              <CssBaseline/>
+              <div className={classes.main}>
+                  <div className={classes.paper}>
+                      <WarehouseDetailsForm
+                        warehouse={warehouse}
+                        totalArea={totalArea}
+                        error={error}
+                        handleChangeArea={handleChangeArea}
+                        handleChangeAddArea={handleChangeAddArea}
+                        onSelectLocation={onSelectLocation}
+                        addArea={addArea}
+                        setWarehouse={setWarehouse}
+                        handleChange={handleChange}
+                      />
+                      {addArea && (
+                        <AreasCreator
+                          warehouse={warehouse}
+                          totalArea={totalArea}
+                          currentArea={currentArea}
+                          handleInputChange={handleInputChange}
+                          handleChangeCurrentArea={handleChangeCurrentArea}
+                          handleAddArea={handleAddArea}
                         />
-                        {addArea && (
-                            <AreasCreator 
-                                warehouse={warehouse}
-                                totalArea={totalArea}
-                                currentArea={currentArea}
-                                handleInputChange={handleInputChange}
-                                handleChangeCurrentArea={handleChangeCurrentArea}
-                                handleAddArea={handleAddArea}
-                            />
-                        )}
-                        {(addArea && totalArea === 0) && (
-                            <Container maxWidth="sm">
-                                <Box mt={10}>
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        color="primary"
-                                        className={classes.submit}
-                                        onClick={handleSubmit}
-                                    >
-                                        Create warehouse
-                                    </Button>
-                                </Box>
-                            </Container>
-                        )}
-                    </div>
-                    <div className={classes.paperList}>
-                        <MapContainer mapVisibility={mapState.mapVisibility} GPS={mapState.GPS}/>
-                        {list.length > 0 && (
-                            <Box mt={77}>
-                                <Container maxWidth="sm">
-                                    <AreaCard
-                                        handleDeleteArea={handleDeleteArea}
-                                        list={list}
-                                    />
-                                </Container>
+                      )}
+                      {(addArea && totalArea === 0) && (
+                        <Container maxWidth="sm">
+                            <Box mt={10}>
+                                <Button
+                                  type="submit"
+                                  fullWidth
+                                  variant="contained"
+                                  color="primary"
+                                  className={classes.submit}
+                                  onClick={handleSubmit}
+                                >
+                                    Create warehouse
+                                </Button>
                             </Box>
-                        )}
-                    </div>
-                </div>
-            </Box>
-        </Container>
+                        </Container>
+                      )}
+                  </div>
+                  <div className={classes.paperList}>
+                      <MapContainer
+                        mapVisibility={mapState.mapVisibility}
+                        GPS={mapState.GPS}
+                        zoom={15}
+                        mapHeight={200}/>
+                      {list.length > 0 && (
+                        <Box mt={77}>
+                            <Container maxWidth="sm">
+                                <AreaCard
+                                  handleDeleteArea={handleDeleteArea}
+                                  list={list}
+                                />
+                            </Container>
+                        </Box>
+                      )}
+                  </div>
+              </div>
+          </Box>
+      </Container>
     )
 }

@@ -6,7 +6,7 @@ import {Container, Box, Typography} from '@material-ui/core'
 import useStyles from '../warehousePageStyles'
 import '../overwrite.css'
 
-const MapContainer = ({mapVisibility, GPS, google}) => {
+const MapContainer = ({mapVisibility, GPS, google, theme, zoom, mapHeight, withTitle}) => {
 
     const classes = useStyles()
 
@@ -14,16 +14,16 @@ const MapContainer = ({mapVisibility, GPS, google}) => {
         mapVisibility &&
         <Container maxWidth="sm">
             <Box mb={5}>
-                <Typography component="h1" variant="h5" className={classes.h5}>
+                {withTitle && (<Typography component="h1" variant="h5" className={theme ? `classes.${theme}` : classes.h5 }>
                     Warehouse location
-                </Typography>
+                </Typography>)}
             </Box>
             <div className="sellerMap">
                 <Map
                     google={google}
-                    zoom={5}
+                    zoom={zoom}
                     initialCenter={GPS}
-                    style={{height: '400px'}}
+                    style={{height:`${mapHeight}px`}}
                 >
                     <Marker
                         name="warehousingAddress"

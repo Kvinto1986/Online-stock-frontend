@@ -37,7 +37,8 @@ export default ({user}) => {
             if (user.position.includes('manager')) {
                 arr = arr.concat([
                     {name: 'Out TTN registration', link: '/outTtnRegister'},
-                    {name: 'Warehousing', link: '/warehousing'}
+                    {name: 'Warehousing', link: '/warehousing'},
+                    {name: 'Warehouses Info', link: '/warehausesInfo'}
                 ])
             }
             if (user.position.includes('operator')) {

@@ -23,6 +23,7 @@ import ControllerPage from '../components/controllerPage'
 import CheckTtn from '../components/checkTtn'
 import EmployeeEditPage from '../components/employeeEditPage'
 import ServicesManager from '../components/servicesManager'
+import WarehouseInfo from '../components/warehouseInfo'
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
@@ -37,6 +38,7 @@ const SecurityRoute = (props) => {
                                 <Fragment>
                                     <Route exact path="/warehousing" component={Warehousing}/>
                                     <Route exact path="/outTtnRegister" component={SendCargo}/>
+                                    <Route exact path="/warehausesInfo" component={WarehouseInfo}/>
                                 </Fragment>
                             )}
                             {props.auth.user.position.includes('operator') && (
