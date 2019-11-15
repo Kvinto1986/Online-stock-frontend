@@ -11,7 +11,6 @@ import Spinner from '../spinner'
 import TablePaginationActions from './tablePagination'
 import TableRowsComponent from './tableRows'
 
-
 function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
     const classes = useStyles()
     const [rows, setRows] = useState([])
@@ -30,6 +29,13 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
         setRowsPerPage(parseInt(event.target.value, 10))
         setPage(0)
     }
+
+    useEffect(() => {
+
+        setRows(allCarriers)
+        setLoaded(true)
+
+    }, [allCarriers])
 
     const removeItem = (unp) => () => {
         delCarrier(unp)
@@ -148,4 +154,5 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
             </div>
         </Paper>
     )
-}}
+}
+export default CustomPaginationActionsTable
