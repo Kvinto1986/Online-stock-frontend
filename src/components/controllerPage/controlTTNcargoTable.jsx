@@ -53,9 +53,9 @@ export default ({cargo, open, handleChangeTTN}) => {
                             </TableCell>
                             <TableCell align="center">
                                 <InputBase
-                                    data-testid={elem.id + '-type'}
-                                    defaultValue={elem.type}
-                                    name="type"
+                                    data-testid={elem.id + '-package'}
+                                    defaultValue={elem.package}
+                                    name="package"
                                     onChange={handleChange}
                                     disabled/>
                             </TableCell>

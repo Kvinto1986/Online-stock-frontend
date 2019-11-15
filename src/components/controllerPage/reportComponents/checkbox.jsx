@@ -4,7 +4,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 
 export default ({checks, initChecks, unitName, handleCheckboxChange, id}) => {
     useEffect(() => {
-        initChecks(unitName)
+        initChecks(unitName, id)
     }, [])
     
     return (

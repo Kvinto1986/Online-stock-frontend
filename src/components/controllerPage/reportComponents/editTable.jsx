@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import Typography from '@material-ui/core/Typography'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
@@ -11,13 +10,13 @@ import Button from '@material-ui/core/Button'
 import CheckboxControll from './checkbox'
 import Modal from './dmgDescriptModal'
 
-export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSelected, selectAll}) => {
+export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSelected, selectAll, getEditData}) => {
     const classes = useStyles()
     const [checks, setChecks] = useState({})
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [dmgDescription, setDmgDescription] = useState({})
     const [modal, setModal] = useState()
-  
+
     const handleOpen = (name) => {
         setModal(name)
         setIsModalOpen(true)
@@ -31,7 +30,7 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
     // Checkbox handler 
     const handleCheckboxChange = name => event => {
         setChecks({...checks, [name]: event.target.checked})
-        setCheckedCargo({index: event.target.value, checked:event.target.checked}, null)
+        setCheckedCargo({index: event.target.value, checked: event.target.checked}, null)
         
         !event.target.checked && 
         setDmgDescription({...dmgDescription, [name]: ''})
@@ -62,12 +61,14 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
     }, [isAllSelected])
 
     let arrChecks  = {},
-        arrDmgData = {}
+        arrDmgData = []
     
     // Get each checkbox name, after initializate the initial checks's state
-    const initChecks = unitName => {
+    const initChecks = (unitName, id) => {
         arrChecks  = {...arrChecks,  [unitName]: false}
-        arrDmgData = {...arrDmgData, [unitName]: ''}
+
+        const initialDmgData = {[unitName]: '', cargoId: id}
+        arrDmgData = [...arrDmgData, initialDmgData]
 
         if (Object.values(arrChecks).length === cargo.length) {
             setChecks(arrChecks)
@@ -75,6 +76,7 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
         }
     }
     
+
     return (
         <>
             <Table stickyHeader className={classes.table} size="small">
@@ -85,13 +87,16 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                         <TableCell align="left">Name</TableCell>
                         <TableCell align="left">Amount</TableCell>
                         <TableCell align="left">Type</TableCell>
-                        {reportReason === 2 && <TableCell align="left">DMG Details</TableCell>}
+                        {reportReason.reasonNumber === 2 && <TableCell align="left">DMG Details</TableCell>}
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {cargo.map((elem, index) => {
                         const handleChange = (e) => handleChangeTTN(e, elem.id)
                         const unitName = `checked${index}`
+                        const dmgDetails = dmgDescription[unitName] 
+                            ? dmgDescription[unitName].substring(0, 15)+'...' 
+                            : '-'
                         
                         return (
                             <TableRow key={elem.id} selected={checks[unitName]} className={classes.tableUnit} >
@@ -118,7 +123,7 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                                 </TableCell>
                                 {
                                     // Lost
-                                    reportReason === 1 && (
+                                    reportReason.reasonNumber === 1 && (
                                         <TableCell align="center">
                                             <InputBase
                                                 data-testid={elem.id + '-amount'}
@@ -132,7 +137,7 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                                 }
                                 {
                                     // Damaged
-                                    reportReason === 2 && (
+                                    reportReason.reasonNumber === 2 && (
                                         <TableCell align="center">
                                             <InputBase
                                                 defaultValue={elem.amount}
@@ -144,7 +149,7 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                                 }
                                 {
                                     // Not found
-                                    reportReason === 3 && (
+                                    reportReason.reasonNumber === 3 && (
                                         <TableCell align="center">
                                             <InputBase
                                                 defaultValue={elem.amount}
@@ -155,20 +160,19 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                                 }
                                 <TableCell align="center">
                                     <InputBase
-                                        data-testid={elem.id + '-type'}
-                                        defaultValue={elem.type}
-                                        name="type"
+                                        data-testid={elem.id + '-package'}
+                                        defaultValue={elem.package}
+                                        name="package"
                                         onChange={handleChange}
                                         disabled
                                     />
                                 </TableCell>
                                 {
                                     // Damaged
-                                    reportReason === 2 && (
+                                    reportReason.reasonNumber === 2 && (
                                         <TableCell align="center">
                                             <InputBase
-                                                defaultValue=""
-                                                value={`${dmgDescription[unitName] && dmgDescription[unitName].substring(0, 15)+'...'}`}
+                                                value={dmgDetails}
                                                 name="dmgDetails"
                                                 disabled
                                             />
@@ -201,6 +205,7 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                 setDmgDescription={setDmgDescription}
                 actualDescription={dmgDescription[modal]}
                 rowName={modal}
+                getEditData={getEditData}
             />
         </>
     )

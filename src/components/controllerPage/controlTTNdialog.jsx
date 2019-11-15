@@ -23,7 +23,8 @@ const initalStepsState = {
         data: null 
     },
     second: {
-        isComplete: false 
+        isComplete: false,
+        data: null
     },
     third: {
         isComplete: false 
@@ -37,11 +38,10 @@ export default ({
     initialCargo, 
     cargo, 
     open, 
-    openDialog, 
-    setReportType, 
-    cargoReportType, 
+    openDialog,
     markCargoAsUnfound,
-    setCheckedCargo
+    setCheckedCargo,
+    controller
 }) => {
     const [stapsState, setStepsState] = useState(initalStepsState)
 
@@ -67,50 +67,45 @@ export default ({
                 <ReportReason
                     finishStep={finishStep}
                     selectOptionsData={selectOptionsData}
-                    setReportType={setReportType}
                 />
-                {
-                    stapsState.first.isComplete && (
-                        <ReportEdit 
+                {stapsState.first.isComplete && (
+                    <ReportEdit 
+                        initialCargo={initialCargo}
+                        cargo={cargo}
+                        reportReason={stapsState.first.data}
+                        handleChangeTTN={handleChangeTTN}
+                        finishStep={finishStep}
+                        setCheckedCargo={setCheckedCargo}
+                    />
+                )}
+                {stapsState.second.isComplete && (
+                    <Box>
+                        <ReportList
                             initialCargo={initialCargo}
                             cargo={cargo}
-                            reportReason={stapsState.first.data.reportReason}
-                            handleChangeTTN={handleChangeTTN}
-                            finishStep={finishStep}
-                            setCheckedCargo={setCheckedCargo}
+                            reportReason={stapsState.first.data}
+                            currentTTN={currentTTN}
+                            markCargoAsUnfound={markCargoAsUnfound}
+                            controller={controller}
                         />
-                    )
-                }
-                {
-                    stapsState.second.isComplete && (
-                        <Box>
-                            <ReportList
-                                initialCargo={initialCargo}
-                                cargo={cargo}
-                                cargoReportType={cargoReportType}
-                                reportReason={stapsState.first.data.reportReason}
-                                currentTTN={currentTTN}
-                                markCargoAsUnfound={markCargoAsUnfound}
-                            />
-                            <Box mb={15} display="flex" justifyContent="center">
-                                <Box>
-                                    <Button 
-                                        variant="contained" 
-                                        color="secondary" 
-                                        size="large"
-                                        onClick={() => {
-                                            openDialog(!open)
-                                            saveTTN()
-                                        }}
-                                    >
-                                        Finish report
-                                    </Button>
-                                </Box>
-                                
+                        <Box mb={15} display="flex" justifyContent="center">
+                            <Box>
+                                <Button 
+                                    variant="contained" 
+                                    color="primary" 
+                                    size="large"
+                                    onClick={() => {
+                                        openDialog(!open)
+                                        saveTTN(true, stapsState.first.data, stapsState.second.data)
+                                    }}
+                                >
+                                    Finish report
+                                </Button>
                             </Box>
+                            
                         </Box>
-                    )
-                }
+                    </Box>
+                )}
             </Dialog>
         </Box>
     )

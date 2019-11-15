@@ -2,19 +2,22 @@ import React, {useEffect} from 'react'
 import {Box, Typography, Paper, List, ListItem, ListItemText, Container} from '@material-ui/core'
 import useStyles from '../controlTTNstyle'
 
-const ReportList = ({initialCargo, cargo, cargoReportType='', reportReason, currentTTN, markCargoAsUnfound}) => {
+const ReportList = ({initialCargo, cargo, reportReason, currentTTN, markCargoAsUnfound, controller}) => {
     const classes = useStyles()
     const reportedCargo   = cargo.filter(unit => unit.checked === true)
-    const unReportedCargo = cargo.filter(unit => unit.checked !== true)
+    const unReportedCargo = cargo.filter(unit => unit.checked === false)
     const {name, license} = currentTTN.driver
-
+    
     let lostSumm = 0 
     reportedCargo.forEach((elem, index) => {
         lostSumm += initialCargo[index].amount-elem.amount
     })
 
+    const {reasonNumber, reasonType} = reportReason
+    const listStyle = (reasonNumber !== 1) && classes.reportList
+    
     useEffect(() => {
-        switch (reportReason) {
+        switch (reasonNumber) {
             case 1: {
                 markCargoAsUnfound(reportedCargo)
                 break
@@ -50,22 +53,22 @@ const ReportList = ({initialCargo, cargo, cargoReportType='', reportReason, curr
                             style={{marginTop: '3%'}}
                             gutterBottom
                         >
-                            {cargoReportType} report
+                            {reasonType} report
                         </Typography>
                     </Box>
                     <Box display="flex" justifyContent="space-between">
-                        <Box display="flex" flexDirection="column">
+                        <Box display="flex" flexDirection="column" className={listStyle}>
                             <Box>
                                 <Typography>
-                                    <b>Controler: </b> {currentTTN.controller.initials}
+                                    <b>Controler: </b> {controller}
                                 </Typography>
                             </Box>
                             <Box mt={2}>
                                 <Typography>
                                     {
-                                        reportReason !== 3
-                                        ? `${cargoReportType} cargo in ${reportedCargo.length} of ${cargo.length} different product units`
-                                        : `${cargoReportType} ${reportedCargo.length} of ${cargo.length} cargo units`
+                                        reasonNumber !== 3
+                                        ? `${reasonType} cargo in ${reportedCargo.length} of ${cargo.length} different product units`
+                                        : `${reasonType} ${reportedCargo.length} of ${cargo.length} cargo units`
                                     }
                                 </Typography>
                             </Box>
@@ -77,7 +80,7 @@ const ReportList = ({initialCargo, cargo, cargoReportType='', reportReason, curr
                             </Box>
                             {/* Lost */}
                             {
-                                reportReason === 1 && (
+                                reasonNumber === 1 && (
                                     <Box mt={7} alignSelf="self-end" style={{width: '100%'}}>
                                         <hr/>
                                         <Typography>
@@ -88,7 +91,7 @@ const ReportList = ({initialCargo, cargo, cargoReportType='', reportReason, curr
                             }
                         </Box>
                         {/* Lost */}
-                        {reportReason === 1 && (
+                        {reasonNumber === 1 && (
                             <Box className={classes.lostList}>
                                 <List className={classes.ul}>
                                     {reportedCargo.map((elem, i) => (

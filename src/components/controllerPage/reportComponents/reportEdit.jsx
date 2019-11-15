@@ -7,6 +7,12 @@ import FastPanel from './fastPanel'
 const ReportEdit = ({initialCargo, cargo, reportReason, handleChangeTTN, finishStep, setCheckedCargo}) => {
     const classes = useStyles()
     const [isAllSelected, selectAll] = useState(false)
+    const [editData, setEditData] = useState()
+
+    const getEditData = data => {
+        setEditData({...editData, data})
+    }
+    
     return (
         <Box mt={25} mb={10}>
             <Box mb={5}>
@@ -25,13 +31,14 @@ const ReportEdit = ({initialCargo, cargo, reportReason, handleChangeTTN, finishS
                         setCheckedCargo={setCheckedCargo}
                         isAllSelected={isAllSelected}
                         selectAll={selectAll}
+                        getEditData={getEditData}
                     />
                 </Box>
                 <Box mt={5}>
                     <a href="#yak1">
                         <Button
                             type="button"
-                            onClick={() => finishStep('second', {cargo, initialCargo})}
+                            onClick={() => finishStep('second', {cargo, editData})}
                             variant="contained" 
                             size="medium"
                             color="primary"

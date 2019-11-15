@@ -38,7 +38,7 @@ export default ({saveTTN, confirm, setConfirm, open, setOpen}) => {
                 color="primary"
                 className={classes.submit}
                 disabled={!confirm}
-                onClick={saveTTN}
+                onClick={() => saveTTN(false)}
                 data-testid={'submitButton'}
             >
                 Finish control

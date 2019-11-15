@@ -3,16 +3,17 @@ import {Box, Typography, Container, FormControl, Input, InputLabel, Select, Menu
 import useStyles from '../controlTTNstyle'
 import {ValidatorForm} from 'react-material-ui-form-validator'
 
-const ReportReason = ({finishStep, selectOptionsData, setReportType}) => {
+const ReportReason = ({finishStep, selectOptionsData}) => {
     const classes = useStyles()
-    const [reportReason, setReportReason] = useState('')
+    const [reson, setReason] = useState({})
 
     let reportType = []
 
     const hendleSelectChange = e => {
         const reasonNumber = e.target.value
-        setReportReason(reasonNumber)
-        setReportType(reportType[reasonNumber-1])
+        const reasonType = reportType[reasonNumber-1]
+        
+        setReason({reasonNumber, reasonType})
     }
     
     return (
@@ -22,17 +23,17 @@ const ReportReason = ({finishStep, selectOptionsData, setReportType}) => {
                     <Typography component="h1" variant="h3" className={classes.stepNumber}>REPORT REASON</Typography>
                 </Box>
                 <Box>
-                    <ValidatorForm onSubmit={() => finishStep('first', {reportReason})}>
+                    <ValidatorForm onSubmit={() => finishStep('first', reson)}>
                         <FormControl fullWidth>
                             <InputLabel htmlFor="grouped-select">Reason</InputLabel>
                             <Select
                                 required
                                 fullWidth
-                                value={reportReason}
+                                value={reson.reasonNumber || ''}
                                 onChange={hendleSelectChange}
                                 input={<Input name="reason" id="age-helper" />}
                                 name="reason"
-                                autoComplete="reportReason"
+                                autoComplete="reasonNumber"
                             >
                                 {selectOptionsData.map(option => {
                                     reportType.push(option.value)

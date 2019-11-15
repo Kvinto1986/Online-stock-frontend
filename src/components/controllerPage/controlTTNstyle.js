@@ -113,6 +113,11 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'center', 
         flexDirection: 'column'
+    },
+    reportList: {
+        textAlign: 'center', 
+        width: '100%',
+        marginBottom: '20px'
     }
 }))
 
