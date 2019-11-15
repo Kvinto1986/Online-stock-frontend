@@ -9,7 +9,7 @@ const WarehouseInfo = ({searchWarehouse, warehouseErr, warehouse}) => {
       <React.Fragment>
           <Search
             search={searchWarehouse}
-            searchText="Search carrier by License"
+            searchText="Search warehouse by License"
             error={warehouseErr.warehouse}
             value={warehouseId}
             setValue={setWarehouseId}

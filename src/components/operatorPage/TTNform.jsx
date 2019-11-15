@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {Fragment, useState} from 'react'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
@@ -16,10 +16,10 @@ import CargoTable from './cargoTable'
 import Autocomplete from '../fields/autocomplete'
 import Paper from '@material-ui/core/Paper'
 
-export default ({onSubmit, error, authUser, carrier, driver, services}) => {
+export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services, orders}) => {
 
     const [TTN, setTTN] = useState({
-        number: '',
+        number: ttnNumber,
         carrier: {
             unp: carrier.id,
             tel: carrier.tel,
@@ -31,7 +31,7 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
         },
         registrar: {
             name: `${authUser.firstName} ${authUser.patronymic} ${authUser.lastName}`,
-            id: authUser.id
+            email: authUser.email
         },
         carNumber: '',
         warehouseCompany: authUser.company,
@@ -39,10 +39,10 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
     })
 
     const [cargo, setCargo] = useState([])
-    const [service, setService] = useState([])
+    const [service, setService] = useState('')
 
     const [product, setProduct] = useState({
-        type: '',
+        package: '',
         amount: '',
         name: '',
         id: '',
@@ -66,7 +66,11 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const data = {...TTN}
-        data.products = cargo
+        if (orders[TTN.number]) {
+            data.products = orders[TTN.number].cargo
+        } else {
+            data.products = cargo
+        }
         data.service = service
         onSubmit(data)
     }
@@ -94,6 +98,7 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
                                 fullWidth
                                 label="TTN number"
                                 required
+                                disabled={orders[TTN.number]}
                                 name="number"
                                 error={error}
                                 value={TTN}
@@ -183,118 +188,133 @@ export default ({onSubmit, error, authUser, carrier, driver, services}) => {
                             />
                         </Grid>
                     </Grid>
+                    {!orders[TTN.number] && (
+                        <Fragment>
+                            <Grid container spacing={3}>
+                                <Grid item xl={12} style={{marginTop: '3%', marginBottom: '1%'}}>
+                                    <Typography component="h1" variant="h5" style={{textAlign: 'center'}}>
+                                        Add product to cargo:
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={3}>
+                                <Grid item xl={1} xs={1}>
+                                </Grid>
+                                <Grid item xl={2} xs={10}>
+                                    <InputText
+                                        min={10}
+                                        max={10}
+                                        pattern={/^[0-9]*$/}
+                                        fullWidth
+                                        label="serial number"
+                                        required
+                                        name="id"
+                                        error={error}
+                                        value={product}
+                                        handleChange={setProduct}
+                                        helperClass={classes.error}
+                                    />
+                                </Grid>
+                                <Grid item xl={3} xs={10}>
+                                    <InputText
+                                        min={2}
+                                        max={30}
+                                        pattern={/.*/}
+                                        fullWidth
+                                        label="name"
+                                        required
+                                        name="name"
+                                        error={error}
+                                        value={product}
+                                        handleChange={setProduct}
+                                        helperClass={classes.error}
+                                    />
+                                </Grid>
+                                <Grid item xl={1} xs={10}>
+                                    <InputText
+                                        min={1}
+                                        max={7}
+                                        pattern={/^[0-9]*$/}
+                                        fullWidth
+                                        label="amount"
+                                        required
+                                        name="amount"
+                                        error={error}
+                                        value={product}
+                                        handleChange={setProduct}
+                                        helperClass={classes.error}
+                                    />
+                                </Grid>
+                                <Grid item xl={2} xs={10}>
+                                    <FormControl className={classes.formControl}>
+                                        <InputLabel>
+                                            Type of packaging
+                                        </InputLabel>
+                                        <Select
+                                            required
+                                            onChange={handleChangeProduct}
+                                            value={product.package}
+                                            inputProps={{
+                                                name: 'package',
+                                            }}
+                                        >
+                                            <MenuItem value={'box'}>box</MenuItem>
+                                            <MenuItem value={'without packaging'}>without packaging</MenuItem>
+                                            <MenuItem value={'container'}>container</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xl={3}>
+                                    <Button variant="contained" color="primary" style={{marginTop: '5%',}} type="button"
+                                            onClick={handleAddProduct}>
+                                        Add to current cargo list
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Fragment>
+                    )}
 
 
-                    <Grid container spacing={3}>
-                        <Grid item xl={12} style={{marginTop: '3%', marginBottom: '1%'}}>
-                            <Typography component="h1" variant="h5" style={{textAlign: 'center'}}>
-                                Add product to cargo:
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container spacing={3}>
-                        <Grid item xl={1} xs={1}>
-                        </Grid>
-                        <Grid item xl={2} xs={10}>
-                            <InputText
-                                min={10}
-                                max={10}
-                                pattern={/^[0-9]*$/}
-                                fullWidth
-                                label="serial number"
-                                required
-                                name="id"
-                                error={error}
-                                value={product}
-                                handleChange={setProduct}
-                                helperClass={classes.error}
-                            />
-                        </Grid>
-                        <Grid item xl={3} xs={10}>
-                            <InputText
-                                min={2}
-                                max={30}
-                                pattern={/.*/}
-                                fullWidth
-                                label="name"
-                                required
-                                name="name"
-                                error={error}
-                                value={product}
-                                handleChange={setProduct}
-                                helperClass={classes.error}
-                            />
-                        </Grid>
-                        <Grid item xl={1} xs={10}>
-                            <InputText
-                                min={1}
-                                max={7}
-                                pattern={/^[0-9]*$/}
-                                fullWidth
-                                label="amount"
-                                required
-                                name="amount"
-                                error={error}
-                                value={product}
-                                handleChange={setProduct}
-                                helperClass={classes.error}
-                            />
-                        </Grid>
-                        <Grid item xl={2} xs={10}>
-                            <FormControl variant="outlined" className={classes.formControl}>
-                                <InputLabel htmlFor="outlined-age-simple">
-                                    type of packaging
-                                </InputLabel>
-                                <Select
-                                    required
-                                    onChange={handleChangeProduct}
-                                    value={product.type}
-                                    inputProps={{
-                                        name: 'type',
-                                    }}
-                                >
-                                    <MenuItem value={'Box'}>Box</MenuItem>
-                                    <MenuItem value={'Without packaging'}>Without packaging</MenuItem>
-                                    <MenuItem value={'Container'}>Container</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xl={3}>
-                            <Button variant="contained" color="primary" style={{marginTop: '5%',}} type="button"
-                                    onClick={handleAddProduct}>
-                                Add to current cargo list
-                            </Button>
-                        </Grid>
-                    </Grid>
-                    <Grid container>
-                        <Grid item xl={12} style={{marginTop: '3%', marginBottom: '2%'}}>
-                            <Typography component="h1" variant="h5" style={{textAlign: 'center'}}>
-                                Cargo table:
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container>
-                        <Grid item xl={1}>
-                        </Grid>
-                        <Grid item xl={10} xs={10}>
-                            <CargoTable
-                                cargoList={cargo}
-                                handleDeleteProduct={handleDeleteProduct}
-                            />
-                        </Grid>
-                        <Grid item xl={1} xs={1}>
-                        </Grid>
-                    </Grid>
-                    {cargo.length > 0 && (
-                        <Grid container>
-                            <Grid item xl={1} xs={1}>
+                    {orders[TTN.number] || cargo.length > 0 ? (
+                        <Fragment>
+                            <Grid container>
+                                <Grid item xl={12} style={{marginTop: '3%', marginBottom: '2%'}}>
+                                    <Typography component="h1" variant="h5" style={{textAlign: 'center'}}>
+                                        Cargo table:
+                                    </Typography>
+                                </Grid>
                             </Grid>
-                            <Grid item xl={10}>
-                                <Button variant="contained" color="primary" type="submit" style={{marginTop: '4%'}}>
-                                    Submit
-                                </Button>
+                            <Grid container>
+                                <Grid item xl={1}>
+                                </Grid>
+                                <Grid item xl={10} xs={10}>
+                                    {orders[TTN.number] ? (
+                                        <CargoTable
+                                            cargoList={Object.values(orders[TTN.number].cargo)}
+                                            handleDeleteProduct={handleDeleteProduct}
+                                            offButton={true}
+                                        />
+                                    ) : <CargoTable
+                                        cargoList={cargo}
+                                        handleDeleteProduct={handleDeleteProduct}
+                                        offButton={false}
+                                    />}
+                                </Grid>
+                                <Grid item xl={1} xs={1}>
+                                </Grid>
                             </Grid>
-                        </Grid>)}
+
+                            <Grid container>
+                                <Grid item xl={1} xs={1}>
+                                </Grid>
+                                <Grid item xl={10}>
+                                    <Button variant="contained" color="primary" type="submit"
+                                            style={{marginTop: '4%'}}>
+                                        Submit
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Fragment>) : null}
 
                 </ValidatorForm>
             </Paper>
