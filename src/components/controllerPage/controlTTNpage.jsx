@@ -129,7 +129,7 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
             report,
             status: 'checked',
             products: updatedCargo,
-            controller: name,
+            controller: userName,
             initialProducts: initialCurrentTTN.products
         }
 
