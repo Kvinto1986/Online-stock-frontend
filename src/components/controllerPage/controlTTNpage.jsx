@@ -5,21 +5,26 @@ import useStyles from './controlTTNstyle'
 import TTNsearch from './controlTTNsearch'
 import TTNcard from './controlTTNcard'
 import SubmitButton from './controlTTNsubmit'
-
 import TTNdialog from './controlTTNdialog'
 import moment from 'moment'
 
-export default ({ttns, getTtn, getTtnError, editTtn}) => {
+export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
     const classes = useStyles()
 
     const [confirm, setConfirm] = useState(false)
     const [open, setOpen] = useState(false)
     const [report, setReport] = useState('')
     const [ttnId, setTtnId] = useState('')
-    
+    // TODO: Delete logic with setFinalCargo
+    const [finalCargo, setFinalCargo] = useState([])
+    const [initialCurrentTTN, setInitialRawCurrentTTN] = useState({})
     const [currentTTN, setRawCurrentTTN] = useState({})
 
+    const {firstName, lastName, patronymic} = user
+    const userName = `${firstName} ${lastName} ${patronymic}`
+
     const setCurrentTTN = obj => {
+        setInitialRawCurrentTTN({...obj, products: [...obj.products.map(x => ({...x}))]})
         setRawCurrentTTN({...obj, products: [...obj.products.map(x => ({...x}))]})
     }
 
@@ -33,11 +38,42 @@ export default ({ttns, getTtn, getTtnError, editTtn}) => {
         setCurrentTTN(ttns[ttnId])
     }
 
-    const handleSubmitTTN = () => {
-        setOpen(false)
+    const handleChangeTTN = (e, id) => {
+        currentTTN.products.forEach((elem) => {
+            if (elem.id === id) {
+                //TODO: SetState
+                elem[e.target.name] = e.target.value
+                elem.checked = true
+
+                if(e.target.name === 'amount') {
+                    elem.availableAmount = e.target.value
+                }
+            }
+        })
+    }
+
+    const setCheckedCargo = (data, all) => {
+        currentTTN.products.forEach((elem) => {
+            if(all) {
+                //TODO: SetState
+                elem.checked = all.value
+            }
+            else if(data.index === elem.id) {
+                //TODO: SetState
+                elem.checked = data.checked
+            } 
+        })
+    }
+
+    const getCheckedCargo= newCargoState => {
+        setFinalCargo(newCargoState)
+    }
+
+    const checkWithoutReport = name => {
         const reportData = {
             status: 'checked',
             products: currentTTN.products,
+            controller: name
         }
 
         if (report.length > 0) {
@@ -47,12 +83,68 @@ export default ({ttns, getTtn, getTtnError, editTtn}) => {
         editTtn(reportData, ttns[ttnId].id)
     }
 
-    const handleChangeTTN = (e, id) => {
-        currentTTN.products.forEach((elem) => {
-            if (elem.id === id) {
-                elem[e.target.name] = e.target.value
+    const checkWithReport = (name, reportSelectDetails, aditionalData) => {
+        const {reasonNumber, reasonType} = reportSelectDetails
+
+        let report = {
+            reasonNumber, 
+            reasonType,
+            date: moment().format()
+        }
+
+        let updatedCargo
+
+        switch (reasonNumber) {
+            // Lost
+            case 1: {
+                updatedCargo = currentTTN.products
+                break
             }
-        })
+            // Damaged
+            case 2: {
+                const {data: dmgData} = aditionalData.editData
+
+                updatedCargo = currentTTN.products.map((product, i) => {
+                    if(product.id === dmgData[i].cargoId) {
+                        const feedback = dmgData[`checked${[i]}`]
+
+                        if(feedback) {
+                            product.dmgFeedback = feedback
+                        }
+                    }
+                    return product
+                })
+                break
+            }
+            // Not found
+            case 3: {
+                updatedCargo = currentTTN.products.filter(product => product.checked !== true)
+                break
+            }
+            default: 
+                break
+        }
+        
+        const reportData = {
+            report,
+            status: 'checked',
+            products: updatedCargo,
+            controller: name,
+            initialProducts: initialCurrentTTN.products
+        }
+
+        editTtn(reportData, ttns[ttnId].id)
+    }
+
+    const handleSubmitTTN = (isReported, reportType, aditionalData) => {
+        if (isReported) {
+            checkWithReport(userName, reportType, aditionalData)
+
+            // Close report page
+            setOpen(false)
+        } else {
+            checkWithoutReport(userName)
+        }
     }
 
     return (
@@ -82,13 +174,16 @@ export default ({ttns, getTtn, getTtnError, editTtn}) => {
                     />
                     <TTNdialog
                         saveTTN={handleSubmitTTN}
-                        report={report}
-                        setReport={setReport}
                         handleChangeTTN={handleChangeTTN}
+                        initialCargo={initialCurrentTTN.products}
                         cargo={currentTTN.products}
+                        currentTTN={currentTTN}
                         open={open}
                         openDialog={openDialog}
-                    />
+                        markCargoAsUnfound={getCheckedCargo}
+                        setCheckedCargo={setCheckedCargo}
+                        controller={userName}
+                   />
                 </Fragment>)}
 
         </Container>

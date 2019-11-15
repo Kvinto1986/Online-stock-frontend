@@ -1,78 +1,112 @@
-import React from 'react'
-import Button from '@material-ui/core/Button'
+import React, {useState} from 'react'
 import Dialog from '@material-ui/core/Dialog'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
 import Slide from '@material-ui/core/Slide'
-import Paper from '@material-ui/core/Paper'
-import useStyles from './controlTTNstyle'
-import CloseIcon from '@material-ui/icons/Close'
-import TTNtable from './controlTTNcargoTable'
-
-import TextField from '@material-ui/core/TextField'
-import IconButton from '@material-ui/core/IconButton'
+import TopBar from './reportComponents/topBar'
+import ReportReason from './reportComponents/reportReason'
+import ReportEdit from './reportComponents/reportEdit'
+import ReportList from './reportComponents/reportList'
+import {Button, Box} from '@material-ui/core'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />
 })
 
-export default ({saveTTN, report, setReport, handleChangeTTN, cargo, open, openDialog}) => {
-    const classes = useStyles()
+const selectOptionsData = [
+    {key: 1, value: 'Lost'},
+    {key: 2, value: 'Damaged'},
+    {key: 3, value: 'Not found'}
+]
 
+const initalStepsState = {
+    first: {
+        isComplete: false,
+        data: null 
+    },
+    second: {
+        isComplete: false,
+        data: null
+    },
+    third: {
+        isComplete: false 
+    }
+}
+
+export default ({
+    saveTTN, 
+    handleChangeTTN, 
+    currentTTN, 
+    initialCargo, 
+    cargo, 
+    open, 
+    openDialog,
+    markCargoAsUnfound,
+    setCheckedCargo,
+    controller
+}) => {
+    const [stapsState, setStepsState] = useState(initalStepsState)
+
+    const finishStep = (step, data) => {
+        setStepsState({
+            ...stapsState, 
+            [step]: {
+                isComplete: true,
+                data: data
+            }
+        })
+    }
+    
     return (
-        <div>
+        <Box>
             <Dialog fullScreen open={open} onClose={() => {
                 openDialog(!open)
             }} TransitionComponent={Transition}>
-
-                <AppBar className={classes.appBar}>
-                    <Toolbar>
-                        <IconButton edge="start" color="inherit" onClick={() => {
-                            openDialog(!open)
-                        }} aria-label="close">
-                            <CloseIcon/>
-                        </IconButton>
-                        <Typography variant="h6" className={classes.title}>
-                            Сlose and clear data
-                        </Typography>
-                        <Button variant="contained" color="secondary" onClick={() => {
-                            openDialog(!open)
-                            saveTTN()
-                        }}>
-                           Finish control and send report
-                        </Button>
-                    </Toolbar>
-                </AppBar>
-                <Typography component="h2" variant="h4" align="center" color="textPrimary" style={{marginTop: '3%'}}
-                            gutterBottom>
-                    Edit cargo and create report
-                </Typography>
-                <Paper className={classes.dialogPaper}>
-                    <TTNtable
-                        handleChangeTTN={handleChangeTTN}
+                <TopBar
+                    open={open}
+                    openDialog={openDialog}
+                />
+                <ReportReason
+                    finishStep={finishStep}
+                    selectOptionsData={selectOptionsData}
+                />
+                {stapsState.first.isComplete && (
+                    <ReportEdit 
+                        initialCargo={initialCargo}
                         cargo={cargo}
-                        open={open}/>
-                </Paper>
-                <Paper className={classes.dialogPaper}>
-                    <Typography component="h2" variant="h6" align="center" color="textPrimary" style={{marginTop: '3%'}}
-                                gutterBottom>
-                        Write a report
-                    </Typography>
-                    <TextField
-                        label="Report"
-                        multiline
-                        rowsMax="7"
-                        style={{marginTop: '3%', width: '80%', marginLeft: '10%', marginBottom: '5%'}}
-                        margin="normal"
-                        onChange={(e) => setReport(e.target.value)}
-                        defaultValue={report}
-                        autoFocus={open}
+                        reportReason={stapsState.first.data}
+                        handleChangeTTN={handleChangeTTN}
+                        finishStep={finishStep}
+                        setCheckedCargo={setCheckedCargo}
                     />
-                </Paper>
-
-
+                )}
+                {stapsState.second.isComplete && (
+                    <Box>
+                        <ReportList
+                            initialCargo={initialCargo}
+                            cargo={cargo}
+                            reportReason={stapsState.first.data}
+                            currentTTN={currentTTN}
+                            markCargoAsUnfound={markCargoAsUnfound}
+                            controller={controller}
+                        />
+                        <Box mb={15} display="flex" justifyContent="center">
+                            <Box>
+                                <Button 
+                                    variant="contained" 
+                                    color="primary" 
+                                    size="large"
+                                    onClick={() => {
+                                        openDialog(!open)
+                                        saveTTN(true, stapsState.first.data, stapsState.second.data)
+                                    }}
+                                >
+                                    Finish report
+                                </Button>
+                            </Box>
+                            
+                        </Box>
+                    </Box>
+                )}
             </Dialog>
-        </div>
+        </Box>
     )
 }
