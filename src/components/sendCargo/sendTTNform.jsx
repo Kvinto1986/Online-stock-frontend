@@ -34,10 +34,10 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
     })
 
     const [product, setProduct] = useState({
-        number: '',
+        id: '',
         ttnNumber: '',
         name: '',
-        amount: '',
+        amount: 0,
     })
 
     const [cargo, setCargo] = useState([])
@@ -173,7 +173,7 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
                                     fullWidth
                                     label="Serial number"
                                     required
-                                    name="number"
+                                    name="id"
                                     error={error}
                                     value={product}
                                     handleChange={setProduct}
