@@ -11,62 +11,19 @@ import Spinner from '../spinner'
 import TablePaginationActions from './tablePagination'
 import TableRowsComponent from './tableRows'
 
-export default function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
-  const classes = useStyles()
-  const [rows, setRows] = useState([])
-  const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(5)
-  const [loaded, setLoaded] = useState(false)
-  const [inputValue, setInputValue] = useState({})
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
 
-  function handleChangePage(event, newPage) {
-    setPage(newPage)
-  }
+function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
+    const classes = useStyles()
+    const [rows, setRows] = useState([])
+    const [page, setPage] = useState(0)
+    const [rowsPerPage, setRowsPerPage] = useState(5)
+    const [loaded, setLoaded] = useState(false)
+    const [inputValue, setInputValue] = useState({})
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
 
-  function handleChangeRowsPerPage(event) {
-    setRowsPerPage(parseInt(event.target.value, 10))
-    setPage(0)
-  }
 
-  useEffect(() => {
-
-    setRows(allCarriers)
-    setLoaded(true)
-
-  }, [allCarriers])
-
-  const removeItem = (unp) => () => {
-    delCarrier(unp)
-  }
-
-  const handleEdit = (id) => () => {
-    rows.forEach((item, indx) => rows[indx].isDisabled = false)
-
-    let found = rows.find((elem, index) => elem.id === id)
-    found.isDisabled = true
-    setRows([...rows])
-  }
-
-  const handelEditInput = (e) => {
-    setInputValue({...inputValue, [e.target.name]: e.target.value})
-  }
-
-    useEffect(() => {
-        setRows(allCarriers)
-        setLoaded(true)
-    }, [allCarriers])
-
-  const searchFoundElem = (rows, _unp) => {
-    const {carrier, email, tel} = inputValue
-    let indx, found = null
-
-    found = rows.find((elem) => elem.id === _unp)
-    indx = rows.findIndex((elem) => elem.id === _unp)
-    let newObj = {}
-    if (carrier) {
-      found.company = carrier
-      newObj.company = carrier
+    function handleChangePage(event, newPage) {
+        setPage(newPage)
     }
 
     function handleChangeRowsPerPage(event) {
@@ -75,9 +32,13 @@ export default function CustomPaginationActionsTable({allCarriers, delCarrier, e
     }
 
     const removeItem = (unp) => () => {
-        const newArr = rows.filter((item) => item.id !== unp)
         delCarrier(unp)
-        setRows(newArr)
+    }
+
+
+    function handleChangeRowsPerPage(event) {
+        setRowsPerPage(parseInt(event.target.value, 10))
+        setPage(0)
     }
 
     const handleEdit = (id) => () => {

@@ -1,9 +1,17 @@
 import React, {useCallback, useState} from 'react'
 import {useSelector} from 'react-redux'
 import StepperPage from './stepperPage'
-import {useAddCarrier, useAddDriver, useAddTtnOut, useGetCarrier, useGetDriver} from '../../api/apiRequests'
+import {
+    useAddCarrier,
+    useAddDriver,
+    useAddTtnOut,
+    useGetCarrier,
+    useGetDriver,
+    useGetTtnOrder
+} from '../../api/apiRequests'
 import {authUserFilter} from '../../filters'
-import findSwal from '../operatorPage/findSwal'
+import findSwal from '../swal/findSwal'
+
 
 export default () => {
     const [activeStep, setActiveStep] = useState(0)
@@ -13,6 +21,11 @@ export default () => {
         findSwal()
     }, [setActiveStep])
 
+    const handleResetForm = (e) => {
+        window.location.reload()
+        setActiveStep(e)
+    }
+
     const authUser = useSelector(authUserFilter)
 
     const [getCarrier, carriers, getCarrierError] = useGetCarrier(handleNextStep)
@@ -20,6 +33,8 @@ export default () => {
     const [getDriver, drivers, getDriverError] = useGetDriver(handleNextStep)
     const [addDriver, , addDriverError] = useAddDriver(handleNextStep)
     const [addOutTtn, , errorAddOutTtn] = useAddTtnOut(handleNextStep)
+    const [getOrderTtn, orders, errorGetOrderTtn] = useGetTtnOrder(handleNextStep)
+
 
     return <StepperPage
         activeStep={activeStep}
@@ -37,5 +52,9 @@ export default () => {
         carriers={carriers}
         drivers={drivers}
         authUser={authUser}
+        searchOrder={getOrderTtn}
+        searchOrderError={errorGetOrderTtn}
+        orders={orders}
+        handleResetForm={handleResetForm}
     />
 }

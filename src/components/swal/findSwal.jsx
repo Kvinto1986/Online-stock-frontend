@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
-import 'animate.css'
+import '../../../node_modules/animate.css/animate.css'
 
 export default () => {
     const Toast = Swal.mixin({

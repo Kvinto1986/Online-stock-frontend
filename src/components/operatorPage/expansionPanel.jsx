@@ -1,35 +1,31 @@
 import React from 'react'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import Typography from '@material-ui/core/Typography'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import useStyles from './operatorPageStyles'
+import ErrorBtn from './errorBtn'
 
+export default function ({formVisibility, Form, onSubmit, error, id, value, setFormVisibility, setValue}) {
+  const classes = useStyles()
 
-export default function ({formVisibility, setFormVisibility, Form, onSubmit, error, id}) {
-    const classes = useStyles()
-
-    return (
-        <div className={classes.rootExpansion}>
-            <ExpansionPanel>
-                <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon/>}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                    onClick={() => setFormVisibility(!formVisibility)}
-                >
-                    <Typography
-                        className={classes.heading}>{!formVisibility ? ('Open form') : 'Close form'}</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    <Form
-                        onSubmit={onSubmit}
-                        error={error}
-                        id={id}
-                    />
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+  const handleReset = () => {
+    setValue('')
+    setFormVisibility(false)
+  }
+  return (
+    <div className={classes.rootExpansion}>
+      <ErrorBtn error={error} handleReset={handleReset} setFormVisibility={setFormVisibility} />
+      <ExpansionPanel>
+        <div className={formVisibility ?  classes.wrap : null }>
+          {
+            formVisibility && (
+              <Form
+                onSubmit={onSubmit}
+                error={error}
+                id={id}
+              />
+            )
+          }
         </div>
-    )
+      </ExpansionPanel>
+    </div>
+  )
 }

@@ -149,7 +149,7 @@ export default ({onSubmit, errors, initial = initialForm}) => {
                         required
                         fullWidth
                         name="email"
-                        label="E-mail"
+                        label="Email"
                         type="text"
                         value={form.email}
                         onChange={handleInputChange}

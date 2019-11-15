@@ -10,7 +10,7 @@ import {
     useGetServices
 } from '../../api/apiRequests'
 import {authUserFilter} from '../../filters'
-import findSwal from './findSwal'
+import findSwal from '../swal/findSwal'
 
 export default () => {
     const [activeStep, setActiveStep] = useState(0)

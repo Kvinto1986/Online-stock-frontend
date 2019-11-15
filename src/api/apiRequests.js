@@ -14,6 +14,8 @@ import {
     TTNS_OUT,
     WAREHOUSE,
     WAREHOUSES,
+    TTN_ORDER,
+    TTN_ORDERS
 } from '../actions/types'
 import {
     carriersFilter,
@@ -22,7 +24,8 @@ import {
     servicesFilter,
     ttnsFilter,
     warehousesFilter,
-    ttnsOutFilter
+    ttnsOutFilter,
+    ttnsOrderFilter
 } from '../filters'
 
 export const {
@@ -56,7 +59,8 @@ export const {
 export const {
     useAddWarehouse,
     useDelWarehouse,
-    useGetWarehouses,
+    useGetWarehouse,
+    useGetWarehouses
 } = createRestHooks(WAREHOUSE, WAREHOUSES, warehousesFilter)
 
 export const {
@@ -64,8 +68,13 @@ export const {
 } = createRestHooks(TTN_OUT, TTNS_OUT, ttnsOutFilter)
 
 export const {
+    useGetTtnOrder,
+} = createRestHooks(TTN_ORDER, TTN_ORDERS, ttnsOrderFilter)
+
+export const {
     useAddService,
     useDelService,
     useGetServices,
+    useEditService,
 } = createRestHooks(SERVICE, SERVICES, servicesFilter)
 
