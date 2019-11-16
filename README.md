@@ -1,1 +1,1 @@
-# https://warehouse-online.herokuapp.com/companiesList
+# https://warehouse-online.herokuapp.com
