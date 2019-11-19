@@ -10,8 +10,8 @@ import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import MenuItem from '@material-ui/core/MenuItem'
-
 import InputText from '../fields/textField'
+import Container from '@material-ui/core/Container'
 
 export default ({onSubmit, error, id}) => {
 
@@ -33,8 +33,8 @@ export default ({onSubmit, error, id}) => {
     const classes = useStyles()
 
     return (
-        <div style={{marginTop: '2%'}}>
-            <Typography component="h1" variant="h5" style={{textAlign: 'center', marginBottom: '5%'}}>
+        <Container component="main" maxWidth="sm">
+            <Typography component="h1" variant="h5" style={{textAlign: 'center', marginBottom: '5%',marginTop:'5%'}}>
                 Register new Carrier
             </Typography>
             <ValidatorForm className={classes.form} onSubmit={handleSubmit}>
@@ -44,7 +44,6 @@ export default ({onSubmit, error, id}) => {
                             disabled
                             fullWidth
                             label="License number"
-                            variant="outlined"
                             required
                             name="unp"
                             value={id}
@@ -54,7 +53,6 @@ export default ({onSubmit, error, id}) => {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <InputText
-                            variant="outlined"
                             pattern={/.*/}
                             fullWidth
                             required
@@ -69,7 +67,7 @@ export default ({onSubmit, error, id}) => {
                     </Grid>
                 </Grid>
                 <Grid container spacing={5}>
-                    <Grid item xs={12} style={{marginBottom: '9%'}}>
+                    <Grid item xs={12}>
                         <ReactPhoneInput
                             required
                             inputClass={classes.tel}
@@ -86,7 +84,6 @@ export default ({onSubmit, error, id}) => {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <InputText
-                            variant="outlined"
                             pattern={/.*/}
                             fullWidth
                             label="Company"
@@ -101,7 +98,7 @@ export default ({onSubmit, error, id}) => {
                 </Grid>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <FormControl variant="outlined" className={classes.formControl}>
+                        <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="outlined-age-simple">
                                 Country code
                             </InputLabel>
@@ -130,6 +127,7 @@ export default ({onSubmit, error, id}) => {
                     Submit
                 </Button>
             </ValidatorForm>
-        </div>
+
+        </Container>
     )
 }

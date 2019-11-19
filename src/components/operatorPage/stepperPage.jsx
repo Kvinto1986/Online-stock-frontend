@@ -47,8 +47,6 @@ export default ({
                             onSubmit={createCarrier}
                             error={createCarrierError}
                             id={carrierId}
-                            setValue={setCarrierId}
-                            value={carrierId}
                         />
                     )}
                 </Fragment>
