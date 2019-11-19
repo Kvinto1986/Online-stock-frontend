@@ -10,6 +10,13 @@ import Button from '@material-ui/core/Button'
 import CheckboxControll from './checkbox'
 import Modal from './dmgDescriptModal'
 
+const activeAmountStyles = {
+    borderBottom: '1px solid #3e42a1', 
+    paddingLeft: '5px', 
+    color: '#3e42a1',
+    fontWeight: 600
+}
+
 export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSelected, selectAll, getEditData}) => {
     const classes = useStyles()
     const [checks, setChecks] = useState({})
@@ -76,6 +83,7 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
         }
     }
     
+    
 
     return (
         <>
@@ -94,6 +102,7 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                     {cargo.map((elem, index) => {
                         const handleChange = (e) => handleChangeTTN(e, elem.id)
                         const unitName = `checked${index}`
+                        const changableAmountStyles = checks[unitName] ? activeAmountStyles : {}
                         const dmgDetails = dmgDescription[unitName] 
                             ? dmgDescription[unitName].substring(0, 15)+'...' 
                             : '-'
@@ -107,18 +116,21 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                                         unitName={unitName}
                                         handleCheckboxChange={handleCheckboxChange}
                                         id={elem.id}
+                                        fullWidth
                                     />
                                 </TableCell>
                                 <TableCell align="center">
                                     <InputBase
                                         disabled
                                         defaultValue={elem.id}
+                                        fullWidth
                                     />
                                 </TableCell>
                                 <TableCell align="center">
                                     <InputBase
                                         disabled
                                         defaultValue={elem.name}
+                                        fullWidth
                                     />
                                 </TableCell>
                                 {
@@ -131,6 +143,8 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                                                 name="amount"
                                                 onChange={handleChange}
                                                 disabled={!checks[unitName]}
+                                                style={changableAmountStyles}
+                                                fullWidth
                                             />
                                         </TableCell>
                                     )
@@ -143,6 +157,7 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                                                 defaultValue={elem.amount}
                                                 disabled
                                                 autoFocus={true}
+                                                fullWidth
                                             />
                                         </TableCell>
                                     )
@@ -154,6 +169,7 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                                             <InputBase
                                                 defaultValue={elem.amount}
                                                 disabled
+                                                fullWidth
                                             />
                                         </TableCell>
                                     )
@@ -165,6 +181,7 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                                         name="package"
                                         onChange={handleChange}
                                         disabled
+                                        fullWidth
                                     />
                                 </TableCell>
                                 {
