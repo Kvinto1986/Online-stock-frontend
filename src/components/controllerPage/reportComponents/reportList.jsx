@@ -9,7 +9,7 @@ const ReportList = ({initialCargo, cargo, reportReason, currentTTN, markCargoAsU
     const {name, license} = currentTTN.driver
     
     let lostSumm = 0 
-    reportedCargo.forEach((elem, index) => {
+    cargo.forEach((elem, index) => {
         lostSumm += initialCargo[index].amount-elem.amount
     })
 
@@ -94,8 +94,8 @@ const ReportList = ({initialCargo, cargo, reportReason, currentTTN, markCargoAsU
                         {reasonNumber === 1 && (
                             <Box className={classes.lostList}>
                                 <List className={classes.ul}>
-                                    {reportedCargo.map((elem, i) => (
-                                        elem.amount !== initialCargo[i].amount && (
+                                    {cargo.map((elem, i) => (
+                                        ((elem.amount !== initialCargo[i].amount) && elem.checked) && (
                                             <ListItem key={elem.id} className={classes.listItem}>
                                                 <ListItemText 
                                                     primary={`${elem.name} (-${initialCargo[i].amount-elem.amount} units)`} 
