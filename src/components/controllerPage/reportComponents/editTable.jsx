@@ -17,12 +17,13 @@ const activeAmountStyles = {
     fontWeight: 600
 }
 
-export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSelected, selectAll, getEditData}) => {
+export default ({cargo, initialCargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSelected, selectAll, getEditData}) => {
     const classes = useStyles()
     const [checks, setChecks] = useState({})
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [dmgDescription, setDmgDescription] = useState({})
     const [modal, setModal] = useState()
+    const [amountErr, setAmountErr] = useState({})
 
     const handleOpen = (name) => {
         setModal(name)
@@ -82,8 +83,6 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
             setDmgDescription(arrDmgData)
         }
     }
-    
-    
 
     return (
         <>
@@ -101,6 +100,16 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                 <TableBody>
                     {cargo.map((elem, index) => {
                         const handleChange = (e) => handleChangeTTN(e, elem.id)
+                        const checkNum = e => {
+                            const val = e.target.value
+                            
+                            if(val > 0 && val < initialCargo[index].amount) {
+                                setAmountErr({[elem.id]: ''})
+                                handleChange(e)
+                            } else {
+                                setAmountErr({[elem.id]: 'Invalid amount value'})
+                            }
+                        }
                         const unitName = `checked${index}`
                         const changableAmountStyles = checks[unitName] ? activeAmountStyles : {}
                         const dmgDetails = dmgDescription[unitName] 
@@ -141,11 +150,12 @@ export default ({cargo, reportReason, handleChangeTTN, setCheckedCargo, isAllSel
                                                 data-testid={elem.id + '-amount'}
                                                 defaultValue={elem.amount}
                                                 name="amount"
-                                                onChange={handleChange}
+                                                onChange={checkNum}
                                                 disabled={!checks[unitName]}
                                                 style={changableAmountStyles}
                                                 fullWidth
                                             />
+                                            {amountErr[elem.id] && <p style={{color: 'red'}}>{amountErr[elem.id]}</p>}
                                         </TableCell>
                                     )
                                 }

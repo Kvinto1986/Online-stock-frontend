@@ -26,6 +26,7 @@ const ReportEdit = ({initialCargo, cargo, reportReason, handleChangeTTN, finishS
                     />
                     <EditTable
                         cargo={cargo}
+                        initialCargo={initialCargo}
                         reportReason={reportReason}
                         handleChangeTTN={handleChangeTTN}
                         setCheckedCargo={setCheckedCargo}
