@@ -155,5 +155,4 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
         </Paper>
     )
 }
-
 export default CustomPaginationActionsTable

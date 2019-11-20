@@ -17,7 +17,7 @@ const steps = ['Carrier check', 'Driver check', 'Check order', 'Create TTN']
 export default ({
                     activeStep, setActiveStep, searchCarrier, searchCarrierError, createCarrier, createCarrierError,
                     searchDriver, searchDriverError, createDriver, createDriverError, createTtn, createTtnError,
-                    carriers, drivers, authUser, searchOrder, searchOrderError, orders,handleResetForm
+                    carriers, drivers, authUser, searchOrder, searchOrderError, orders, handleResetForm
                 }) => {
 
     const classes = useStyles()
@@ -85,11 +85,11 @@ export default ({
                         <Grid container spacing={3}>
                             <Grid item xl={4} xs={1}>
                             </Grid>
-                        <Button variant="outlined" color="primary" type="button"
-                                style={{marginLeft: '2%'}}
-                                onClick={()=>setActiveStep(x => x + 1)}>
-                            Create custom TTN order
-                        </Button>
+                            <Button variant="outlined" color="primary" type="button"
+                                    style={{marginLeft: '2%'}}
+                                    onClick={() => setActiveStep(x => x + 1)}>
+                                Create custom TTN order
+                            </Button>
                         </Grid>
                     )}
                 </Fragment>

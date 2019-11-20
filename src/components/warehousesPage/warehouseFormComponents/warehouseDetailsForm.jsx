@@ -33,8 +33,8 @@ export default ({warehouse, totalArea, error, ...props}) => {
                 </Grid>
                 <Grid item xs={12}>
                     <InputText
-                        min={15}
-                        max={15}
+                        min={10}
+                        max={10}
                         pattern={/^[0-9]*$/}
                         required
                         fullWidth

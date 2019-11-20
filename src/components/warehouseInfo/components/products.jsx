@@ -100,7 +100,7 @@ const Products = ({products}) => {
             nodeId={`sub_sub${i}`}
             labelText={product.name}
             labelIcon={Archive}
-            labelInfo={`amount: ${product.amount} (${product.dimension}) / size: ${product.size}`}
+            labelInfo={`amount: ${product.amount} (${product.package}) / size: ${product.size}`}
             color="#1a73e8"
             bgColor="#e8f0fe"
           />

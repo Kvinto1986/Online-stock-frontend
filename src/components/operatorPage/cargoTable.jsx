@@ -11,7 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import useStyles from './operatorPageStyles'
 import {Paper} from '@material-ui/core'
 
-export default ({cargoList, handleDeleteProduct}) => {
+export default ({cargoList, handleDeleteProduct,offButton}) => {
 
     const classes = useStyles()
 
@@ -33,11 +33,12 @@ export default ({cargoList, handleDeleteProduct}) => {
                         <TableCell align="center">{elem.id}</TableCell>
                         <TableCell align="center">{elem.name}</TableCell>
                         <TableCell align="center">{elem.amount}</TableCell>
-                        <TableCell align="center">{elem.type}</TableCell>
+                        <TableCell align="center">{elem.package}</TableCell>
                         <TableCell align="center">
                             <Button
                                 variant="contained"
                                 color="secondary"
+                                disabled={offButton}
                                 style={{width: '40%', marginLeft: '3%', marginRight: '3%'}}
                                 onClick={() => handleDeleteProduct(index)}
                             >

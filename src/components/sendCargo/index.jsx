@@ -7,7 +7,7 @@ import {
     useAddTtnOut,
     useGetCarrier,
     useGetDriver,
-    useGetTtnOrder
+    useGetTtnExportOrder
 } from '../../api/apiRequests'
 import {authUserFilter} from '../../filters'
 import findSwal from '../swal/findSwal'
@@ -33,7 +33,7 @@ export default () => {
     const [getDriver, drivers, getDriverError] = useGetDriver(handleNextStep)
     const [addDriver, , addDriverError] = useAddDriver(handleNextStep)
     const [addOutTtn, , errorAddOutTtn] = useAddTtnOut(handleNextStep)
-    const [getOrderTtn, orders, errorGetOrderTtn] = useGetTtnOrder(handleNextStep)
+    const [getOrderTtn, orders, errorGetOrderTtn] = useGetTtnExportOrder(handleNextStep)
 
 
     return <StepperPage

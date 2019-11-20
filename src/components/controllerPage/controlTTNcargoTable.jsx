@@ -24,9 +24,7 @@ export default ({cargo, open, handleChangeTTN}) => {
             </TableHead>
             <TableBody>
                 {cargo.map((elem) => {
-
                     const handleChange = (e) => handleChangeTTN(e, elem.id)
-
                     return (
                         <TableRow key={elem.id}>
                             <TableCell align="center">
@@ -55,9 +53,9 @@ export default ({cargo, open, handleChangeTTN}) => {
                             </TableCell>
                             <TableCell align="center">
                                 <InputBase
-                                    data-testid={elem.id + '-type'}
-                                    defaultValue={elem.type}
-                                    name="type"
+                                    data-testid={elem.id + '-package'}
+                                    defaultValue={elem.package}
+                                    name="package"
                                     onChange={handleChange}
                                     disabled/>
                             </TableCell>

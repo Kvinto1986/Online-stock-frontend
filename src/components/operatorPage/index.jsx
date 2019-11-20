@@ -7,7 +7,8 @@ import {
     useAddTtn,
     useGetCarrier,
     useGetDriver,
-    useGetServices
+    useGetServices,
+    useGetTtnImportOrder
 } from '../../api/apiRequests'
 import {authUserFilter} from '../../filters'
 import findSwal from '../swal/findSwal'
@@ -20,6 +21,11 @@ export default () => {
         findSwal()
     }
 
+    const handleResetForm = (e) => {
+        window.location.reload()
+        setActiveStep(e)
+    }
+
     const authUser = useSelector(authUserFilter)
 
     const [getCarrier, carriers, getCarrierError] = useGetCarrier(handleNextStep)
@@ -28,6 +34,7 @@ export default () => {
     const [addDriver, , addDriverError] = useAddDriver(handleNextStep)
     const [addTtn, , addTtnError] = useAddTtn(handleNextStep)
     const [getServices, services] = useGetServices()
+    const [getOrderTtn, orders, errorGetOrderTtn] = useGetTtnImportOrder(handleNextStep)
 
     useEffect(() => {
         getServices()
@@ -50,5 +57,9 @@ export default () => {
         drivers={drivers}
         authUser={authUser}
         services={services}
+        searchOrder={getOrderTtn}
+        searchOrderError={errorGetOrderTtn}
+        orders={orders}
+        handleResetForm={handleResetForm}
     />
 }

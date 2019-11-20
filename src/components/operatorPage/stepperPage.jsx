@@ -9,13 +9,15 @@ import TTNForm from './TTNform'
 import Search from './search'
 import ExpansionPanel from './expansionPanel'
 import SuccessPage from './successPage'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
-const steps = ['Carrier check', 'Driver check', 'Create TTN']
+const steps = ['Carrier check', 'Driver check', 'Check order', 'Create TTN']
 
 export default ({
                     activeStep, setActiveStep, searchCarrier, searchCarrierError, createCarrier, createCarrierError,
                     searchDriver, searchDriverError, createDriver, createDriverError, createTtn, createTtnError,
-                    carriers, drivers, authUser, services
+                    carriers, drivers, authUser, services, searchOrder, searchOrderError, orders, handleResetForm,
                 }) => {
 
     const classes = useStyles()
@@ -24,6 +26,7 @@ export default ({
     const [driverFormVisibility, setDriverFormVisibility] = useState(false)
     const [carrierId, setCarrierId] = useState('')
     const [driverId, setDriverId] = useState('')
+    const [ttnId, setTtnId] = useState('')
 
     function getStepContent(stepIndex) {
         switch (stepIndex) {
@@ -72,18 +75,40 @@ export default ({
                     )}
                 </Fragment>
             case 2:
+                return <Fragment>
+                    <Search
+                        search={searchOrder}
+                        searchText="Search order by TTN number"
+                        error={searchOrderError.order}
+                        value={ttnId}
+                        setValue={setTtnId}
+                    />
+                    {searchOrderError.order && (
+                        <Grid container spacing={3}>
+                            <Grid item xl={4} xs={1}>
+                            </Grid>
+                            <Button variant="outlined" color="primary" type="button"
+                                    style={{marginLeft: '2%'}}
+                                    onClick={() => setActiveStep(x => x + 1)}>
+                                Create custom TTN order
+                            </Button>
+                        </Grid>
+                    )}
+                </Fragment>
+            case 3:
                 return <TTNForm
+                    ttnNumber={ttnId}
                     carrier={carriers[carrierId]}
                     driver={drivers[driverId]}
                     onSubmit={createTtn}
                     error={createTtnError}
                     authUser={authUser}
                     services={services}
-
+                    orders={orders}
                 />
-            case 3:
+            case 4:
                 return <SuccessPage
-                    setActiveStep={setActiveStep}
+                    reset={handleResetForm}
                 />
             default:
                 return 'Unknown step'

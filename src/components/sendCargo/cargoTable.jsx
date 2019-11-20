@@ -11,9 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import useStyles from '../operatorPage/operatorPageStyles'
 
 export default ({cargoList, handleDeleteProduct,offButton}) => {
-console.log(cargoList)
     const classes = useStyles()
-
     return (
         <Table className={classes.table} size="small">
             <TableHead>
@@ -21,7 +19,7 @@ console.log(cargoList)
                     <TableCell align="center">Number</TableCell>
                     <TableCell align="center">Serial</TableCell>
                     <TableCell align="center">From TTN</TableCell>
-                    <TableCell align="center">Type</TableCell>
+                    <TableCell align="center">Name</TableCell>
                     <TableCell align="center">Amount</TableCell>
                     <TableCell align="center">Action</TableCell>
                 </TableRow>
@@ -30,7 +28,7 @@ console.log(cargoList)
                 {cargoList.map((elem, index) => {
                     return <TableRow key={elem.name + elem.ttnNumber}>
                         <TableCell align="center">{index + 1}</TableCell>
-                        <TableCell align="center">{elem.number}</TableCell>
+                        <TableCell align="center">{elem.id}</TableCell>
                         <TableCell align="center">{elem.ttnNumber}</TableCell>
                         <TableCell align="center">{elem.name}</TableCell>
                         <TableCell align="center">{elem.amount}</TableCell>
