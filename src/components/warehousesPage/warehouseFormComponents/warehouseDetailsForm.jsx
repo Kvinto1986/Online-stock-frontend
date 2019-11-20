@@ -1,11 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Container, Typography, Grid, Box, Button, Slider} from '@material-ui/core'
 import {ValidatorForm} from 'react-material-ui-form-validator'
 import InputText from '../../fields/textField'
 import useStyles from '../warehousePageStyles'
+import LoadAvatar from '../../common/loadAvatar/loadAvatar'
 
 export default ({warehouse, totalArea, error, ...props}) => {
-    
+
     const classes = useStyles()
 
     return (
@@ -87,6 +88,7 @@ export default ({warehouse, totalArea, error, ...props}) => {
                         max={1000}
                         disabled={props.addArea}
                     />
+                    <LoadAvatar handleUpldChange={props.handleUpldChange} avatarUrl={props.avatarUrl} avatar={props.avatar}/>
                     <Button
                         type="submit"
                         fullWidth

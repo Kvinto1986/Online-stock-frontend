@@ -8,6 +8,7 @@
     "@material-ui/lab": "latest",
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.2.1",
+    "@material-ui/lab": "latest",
     "@material-ui/pickers": "^3.2.2",
     "@material-ui/styles": "^4.3.0",
     "animate.css": "^3.7.2",
@@ -19,6 +20,7 @@
     "date-format": "^2.1.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "firebase": "^7.4.0",
     "generate-password": "^1.4.2",
     "google-maps-react": "^2.0.2",
     "history": "^4.9.0",
@@ -56,7 +58,8 @@
     "redux-thunk": "^2.3.0",
     "renderer": "^0.1.5",
     "slick-carousel": "^1.8.1",
-    "sweetalert2": "^8.13.6"
+    "sweetalert2": "^8.13.6",
+    "use-state-with-callback": "^1.0.18"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -9,6 +9,8 @@ import {geocodeByAddress, getLatLng} from 'react-places-autocomplete'
 import WarehouseDetailsForm from './warehouseFormComponents/warehouseDetailsForm'
 import AreasCreator from './warehouseFormComponents/areasCreator'
 import MapContainer from './warehouseFormComponents/mapContainer'
+import useStateWithCallback from 'use-state-with-callback'
+import {storage} from '../../fireBaseConfig'
 
 const initialMapState = {
     mapVisibility: false,
@@ -33,7 +35,13 @@ export default ({onSubmit, error, company}) => {
     const [addArea, setAddArea] = useState(false)
     const [currentArea, setCurrentArea] = useState(10)
     const [mapState, setMapState] = useState(initialMapState)
-
+    const [avatarUrl, setAvatarUrl] = useState('https://cdn.pixabay.com/photo/2014/04/03/00/38/house-308936_960_720.png')
+    const [avatar, setAvatar] = useStateWithCallback(false, avatar => {
+        if(avatar) {
+            handleUpl()
+            setAvatar(false)
+        }
+    })
     const handleInputChange = (e) => {
         setWarehouse({...warehouse, [e.target.name]: e.target.value})
     }
@@ -110,7 +118,8 @@ export default ({onSubmit, error, company}) => {
             areas: areas,
             freeArea: originalArea,
             address: warehouse.address,
-            GPS: mapState.GPS
+            GPS: mapState.GPS,
+            buildImg: avatarUrl
         }
 
         onSubmit(data, unlock)
@@ -120,6 +129,32 @@ export default ({onSubmit, error, company}) => {
         setTotalArea(newValue)
     }
 
+
+
+    const handleUpldChange = e => {
+        if (e.target.files[0]) {
+            setAvatar(e.target.files[0])
+        }
+
+    }
+
+    const handleUpl = () => {
+        const uploadTask = storage.ref(`build/${avatar.name}`).put(avatar)
+        uploadTask.on(
+          'state_changed',
+          snapshot => {},
+          err => { console.error(err)},
+          () => {
+              storage
+                .ref(`build`)
+                .child(avatar.name)
+                .getDownloadURL()
+                .then(url => {
+                    setAvatarUrl(url)
+                })
+          }
+        )
+    }
     return (
       <Container component="main" maxWidth="xl">
           <Box mt={7}>
@@ -136,6 +171,9 @@ export default ({onSubmit, error, company}) => {
                         addArea={addArea}
                         setWarehouse={setWarehouse}
                         handleChange={handleChange}
+                        handleUpldChange={handleUpldChange}
+                        avatarUrl={avatarUrl}
+                        avatar={avatar}
                       />
                       {addArea && (
                         <AreasCreator
