@@ -16,7 +16,7 @@ import CargoTable from './cargoTable'
 import Autocomplete from '../fields/autocomplete'
 import Paper from '@material-ui/core/Paper'
 
-export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services, orders}) => {
+export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services, order}) => {
 
     const [TTN, setTTN] = useState({
         number: ttnNumber,
@@ -66,8 +66,8 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
     const handleSubmit = (e) => {
         e.preventDefault()
         const data = {...TTN}
-        if (orders[TTN.number]) {
-            data.products = orders[TTN.number].cargo
+        if (order) {
+            data.products = order.cargo
         } else {
             data.products = cargo
         }
@@ -98,7 +98,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                 fullWidth
                                 label="TTN number"
                                 required
-                                disabled={orders[TTN.number]}
+                                disabled={order}
                                 name="number"
                                 error={error}
                                 value={TTN}
@@ -113,16 +113,30 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                         <Grid item xl={1} xs={1}>
                         </Grid>
                         <Grid item xl={4} xs={10}>
-                            <Autocomplete
+                            {order ? (
+                                <TextValidator
+                                    fullWidth
+                                    disabled={true}
+                                    value={`${order.service}`}
+                                    label="Service name"
+                                />
+                            ) : <Autocomplete
                                 list={servicesArray}
                                 searchItem="services"
                                 setValue={setService}
-                            />
+                            />}
                         </Grid>
                         <Grid item xl={1} xs={1}>
                         </Grid>
                         <Grid item xl={5} xs={10}>
-                            <InputText
+                            {order ? (
+                                <TextValidator
+                                    fullWidth
+                                    disabled={true}
+                                    value={`${order.ownerInfo}`}
+                                    label="Owner information"
+                                />
+                            ) : <InputText
                                 min={2}
                                 max={30}
                                 pattern={/.*/}
@@ -134,7 +148,8 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                 value={TTN}
                                 handleChange={setTTN}
                                 helperClass={classes.error}
-                            />
+                            />}
+
                         </Grid>
                         <Grid item xl={1} xs={1}>
                         </Grid>
@@ -145,6 +160,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                         </Grid>
                         <Grid item xl={10} xs={10}>
                             <TextValidator
+                                style={{marginTop: '3%'}}
                                 fullWidth
                                 disabled={true}
                                 value={`UNP №  ${TTN.carrier.unp}, phone number:  ${TTN.carrier.tel}, company name: ${TTN.carrier.company}`}
@@ -165,7 +181,12 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                             />
                         </Grid>
                         <Grid item xl={3} xs={10}>
-                            <InputText
+                            {order ? (<TextValidator
+                                fullWidth
+                                disabled={true}
+                                label="Number of the car"
+                                value={`${order.carNumber}`}
+                            />) : <InputText
                                 min={6}
                                 max={10}
                                 pattern={/.*/}
@@ -177,7 +198,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                 value={TTN}
                                 handleChange={setTTN}
                                 helperClass={classes.error}
-                            />
+                            />}
                         </Grid>
                         <Grid item xl={3} xs={10}>
                             <TextValidator
@@ -188,7 +209,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                             />
                         </Grid>
                     </Grid>
-                    {!orders[TTN.number] && (
+                    {!order && (
                         <Fragment>
                             <Grid container spacing={3}>
                                 <Grid item xl={12} style={{marginTop: '3%', marginBottom: '1%'}}>
@@ -275,22 +296,15 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                     )}
 
 
-                    {orders[TTN.number] || cargo.length > 0 ? (
+                    {order || cargo.length > 0 ? (
                         <Fragment>
-                            <Grid container>
-                                <Grid item xl={12} style={{marginTop: '3%', marginBottom: '2%'}}>
-                                    <Typography component="h1" variant="h5" style={{textAlign: 'center'}}>
-                                        Cargo table:
-                                    </Typography>
-                                </Grid>
-                            </Grid>
                             <Grid container>
                                 <Grid item xl={1}>
                                 </Grid>
                                 <Grid item xl={10} xs={10}>
-                                    {orders[TTN.number] ? (
+                                    {order ? (
                                         <CargoTable
-                                            cargoList={Object.values(orders[TTN.number].cargo)}
+                                            cargoList={Object.values(order.cargo)}
                                             handleDeleteProduct={handleDeleteProduct}
                                             offButton={true}
                                         />

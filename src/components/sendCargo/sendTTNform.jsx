@@ -1,6 +1,6 @@
 import React, {Fragment, useState} from 'react'
 import Typography from '@material-ui/core/Typography'
-import {ValidatorForm} from 'react-material-ui-form-validator'
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
 import Grid from '@material-ui/core/Grid'
 import useStyles from '../operatorPage/operatorPageStyles'
 import Button from '@material-ui/core/Button'
@@ -12,7 +12,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
 
-export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders}) => {
+export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, order}) => {
     const [TTN, setTTN] = useState({
         number: ttnNumber,
         carrier: {
@@ -37,7 +37,7 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
         id: '',
         ttnNumber: '',
         name: '',
-        amount: 0,
+        amount: '',
     })
 
     const [cargo, setCargo] = useState([])
@@ -52,8 +52,8 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
     }
 
     const handleSubmit = () => {
-        if (orders[TTN.number]) {
-            TTN.products = orders[TTN.number].cargo
+        if (order) {
+            TTN.products = order.cargo
         } else TTN.products = cargo
 
         const {number, carrier, carNumber, driver, warehouseCompany, owner, products, registrar} = TTN
@@ -64,7 +64,11 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
     const classes = useStyles()
     return <Container component="main" maxWidth="xl">
         <CssBaseline/>
-        <Paper style={{marginTop: '7%'}}>
+        <Paper>
+            <Typography variant="h4" component="h4" color="textSecondary"
+                        style={{width: '100%', textAlign: 'center', marginTop: '3%', marginBottom: '3%'}}>
+                International waybill № {TTN.number}
+            </Typography>
             <ValidatorForm onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                     <Grid item xl={4} xs={1}>
@@ -79,7 +83,7 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
                             required
                             name="number"
                             error={error}
-                            disabled={orders[TTN.number]}
+                            disabled={order}
                             value={TTN}
                             handleChange={setTTN}
                             helperClass={classes.error}
@@ -95,7 +99,7 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
                         <TextField
                             disabled
                             fullWidth
-                            label="Owner information"
+                            label="Carrier information"
                             value={`UNP №  ${TTN.carrier.unp}, phone number:  ${TTN.carrier.tel}, company name: ${TTN.carrier.company}`}
                         />
                     </Grid>
@@ -121,23 +125,28 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
                         />
                     </Grid>
                     <Grid item xl={3} xs={10}>
-                        <InputText
+                        {order ? (<TextValidator
+                            fullWidth
+                            disabled={true}
+                            label="Number of the car"
+                            value={`${order.carNumber}`}
+                        />) : <InputText
                             min={6}
                             max={10}
                             pattern={/.*/}
                             fullWidth
-                            label="Car number"
+                            label="Number of the car"
                             required
                             name="carNumber"
                             error={error}
                             value={TTN}
                             handleChange={setTTN}
                             helperClass={classes.error}
-                        />
+                        />}
                     </Grid>
                 </Grid>
 
-                {!orders[TTN.number] && (
+                {!order && (
                     <Fragment>
                         <Grid container>
                             <Grid item xl={1} xs={1}>
@@ -214,7 +223,7 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
                                 <Button variant="contained" color="primary" type="button"
                                         style={{marginLeft: '5%'}}
                                         onClick={handleAddProduct}
-                                        disabled={orders[TTN.number]}>
+                                        disabled={order}>
                                     Add to current cargo list
                                 </Button>
                             </Grid>
@@ -222,22 +231,15 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
                     </Fragment>
                 )}
 
-                {orders[TTN.number] || cargo.length > 0 ? (
+                {order || cargo.length > 0 ? (
                     <Fragment>
                         <Grid container spacing={3}>
                             <Grid item xl={1} xs={1}>
                             </Grid>
-                            <Typography component="h1" variant="h5" style={{marginLeft: '1%'}}>
-                                Cargo table:
-                            </Typography>
-                        </Grid>
-                        <Grid container spacing={3}>
-                            <Grid item xl={1} xs={1}>
-                            </Grid>
                             <Grid item xl={10} xs={10}>
-                                {orders[TTN.number] ? (
+                                {order ? (
                                     <CargoTable
-                                        cargoList={Object.values(orders[TTN.number].cargo)}
+                                        cargoList={Object.values(order.cargo)}
                                         handleDeleteProduct={handleDeleteProduct}
                                         offButton={true}
                                     />
@@ -260,7 +262,7 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
                 <Grid container spacing={3}>
                     <Grid item xl={1} xs={1}>
                     </Grid>
-                    <Grid item xl={3} xs={10}>
+                    <Grid item xl={3} xs={10} style={{marginTop:'-3%'}}>
                         <Button variant="contained" color="primary" type="submit">
                             Submit
                         </Button>
