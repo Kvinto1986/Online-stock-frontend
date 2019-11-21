@@ -101,7 +101,7 @@ export default ({
                     onSubmit={createTtn}
                     error={createTtnError}
                     authUser={authUser}
-                    orders={orders}
+                    order={orders[ttnId]}
                 />
             case 4:
                 return <SuccessPage

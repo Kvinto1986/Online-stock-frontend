@@ -104,7 +104,7 @@ export default ({
                     error={createTtnError}
                     authUser={authUser}
                     services={services}
-                    orders={orders}
+                    order={orders[ttnId]}
                 />
             case 4:
                 return <SuccessPage

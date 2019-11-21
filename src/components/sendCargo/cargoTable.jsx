@@ -9,12 +9,20 @@ import Button from '@material-ui/core/Button'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import useStyles from '../operatorPage/operatorPageStyles'
+import Typography from '@material-ui/core/Typography'
+import {Paper} from '@material-ui/core'
 
 export default ({cargoList, handleDeleteProduct,offButton}) => {
     const classes = useStyles()
     return (
+        <Paper>
         <Table className={classes.table} size="small">
             <TableHead>
+                <TableRow>
+                    <TableCell colSpan={6} align="center"><Typography color="textSecondary" component="h1" variant="h5" style={{textAlign: 'center'}}>
+                        Cargo table
+                    </Typography></TableCell>
+                </TableRow>
                 <TableRow>
                     <TableCell align="center">Number</TableCell>
                     <TableCell align="center">Serial</TableCell>
@@ -48,5 +56,6 @@ export default ({cargoList, handleDeleteProduct,offButton}) => {
                 })}
             </TableBody>
         </Table>
+        </Paper>
     )
 }

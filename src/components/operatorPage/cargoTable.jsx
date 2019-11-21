@@ -10,46 +10,52 @@ import DeleteIcon from '@material-ui/icons/Delete'
 
 import useStyles from './operatorPageStyles'
 import {Paper} from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
 
-export default ({cargoList, handleDeleteProduct,offButton}) => {
+export default ({cargoList, handleDeleteProduct, offButton}) => {
 
     const classes = useStyles()
 
     return (
         <Paper>
-        <Table className={classes.table} size="small">
-            <TableHead>
-                <TableRow>
-                    <TableCell align="center">Number</TableCell>
-                    <TableCell align="center">Type</TableCell>
-                    <TableCell align="center">Amount</TableCell>
-                    <TableCell align="center">Boxing</TableCell>
-                    <TableCell align="center">Action</TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {cargoList.map((elem, index) => {
-                    return <TableRow key={elem.type + index}>
-                        <TableCell align="center">{elem.id}</TableCell>
-                        <TableCell align="center">{elem.name}</TableCell>
-                        <TableCell align="center">{elem.amount}</TableCell>
-                        <TableCell align="center">{elem.package}</TableCell>
-                        <TableCell align="center">
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                disabled={offButton}
-                                style={{width: '40%', marginLeft: '3%', marginRight: '3%'}}
-                                onClick={() => handleDeleteProduct(index)}
-                            >
-                                Delete
-                                <DeleteIcon style={{marginLeft: '10%'}}/>
-                            </Button>
-                        </TableCell>
+            <Table className={classes.table} size="small">
+                <TableHead>
+                    <TableRow>
+                        <TableCell colSpan={5} align="center"><Typography color="textSecondary" component="h1" variant="h5" style={{textAlign: 'center'}}>
+                            Cargo table
+                        </Typography></TableCell>
                     </TableRow>
-                })}
-            </TableBody>
-        </Table>
+                    <TableRow>
+                        <TableCell align="center">Number</TableCell>
+                        <TableCell align="center">Type</TableCell>
+                        <TableCell align="center">Amount</TableCell>
+                        <TableCell align="center">Boxing</TableCell>
+                        <TableCell align="center">Action</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {cargoList.map((elem, index) => {
+                        return <TableRow key={elem.type + index}>
+                            <TableCell align="center">{elem.id}</TableCell>
+                            <TableCell align="center">{elem.name}</TableCell>
+                            <TableCell align="center">{elem.amount}</TableCell>
+                            <TableCell align="center">{elem.package}</TableCell>
+                            <TableCell align="center">
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    disabled={offButton}
+                                    style={{width: '40%', marginLeft: '3%', marginRight: '3%'}}
+                                    onClick={() => handleDeleteProduct(index)}
+                                >
+                                    Delete
+                                    <DeleteIcon style={{marginLeft: '10%'}}/>
+                                </Button>
+                            </TableCell>
+                        </TableRow>
+                    })}
+                </TableBody>
+            </Table>
         </Paper>
     )
 }
