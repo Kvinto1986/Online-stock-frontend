@@ -37,7 +37,6 @@ export default ({onSubmit, error, id}) => {
                                     disabled
                                     fullWidth
                                     label="Driver license number"
-                                    variant="outlined"
                                     required
                                     name="license"
                                     value={id}
@@ -50,7 +49,6 @@ export default ({onSubmit, error, id}) => {
                                     min={2}
                                     max={30}
                                     pattern={/^[a-zA-Z]*$/}
-                                    variant="outlined"
                                     fullWidth
                                     required
                                     label="Name"
@@ -67,7 +65,6 @@ export default ({onSubmit, error, id}) => {
                                     min={2}
                                     max={30}
                                     pattern={/^[a-zA-Z]*$/}
-                                    variant="outlined"
                                     fullWidth
                                     required
                                     label="Surname"

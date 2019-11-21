@@ -73,7 +73,6 @@ const useStyles = makeStyles(theme => ({
         },
         error: {
             marginTop: '2%',
-            marginBottom: '5%',
             marginLeft:'1.5%',
             color: 'red',
         },
@@ -83,9 +82,7 @@ const useStyles = makeStyles(theme => ({
         },
         tel: {
             width: '100% !important',
-            padding: '7% 10%',
             background: 'none !important',
-            border: '1px solid #D4CDCD !important',
         },
         drop: {
             background: 'none !important',

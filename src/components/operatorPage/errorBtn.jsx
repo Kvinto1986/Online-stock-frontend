@@ -1,16 +1,15 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
-import useStyles from './operatorPageStyles'
+import Container from '@material-ui/core/Container'
 
-const ErrorBtn = ({setFormVisibility, handleReset}) => {
-    const classes = useStyles()
+const ErrorBtn = ({setFormVisibility, formVisibility}) => {
     return (
-        <React.Fragment>
-            <Button color="primary" className={classes.validBtn} onClick={() => setFormVisibility(true)}>
-                Add new</Button>
-            <Button color="secondary" className={classes.validBtn} onClick={handleReset}>
-                Reset form</Button>
-        </React.Fragment>
+        <Container component="main" maxWidth="sm">
+            <Button color="primary" style={{marginLeft: '1.5%', marginBottom:'5%'}} variant="outlined"
+                    onClick={() => setFormVisibility(!formVisibility)}>
+                {formVisibility ? ('Close form') : 'Create new'}
+            </Button>
+        </Container>
     )
 }
 
