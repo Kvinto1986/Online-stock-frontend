@@ -301,8 +301,12 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                     </Button>
                                 </Grid>
                             </Grid>
-                            <Grid item xl={2} xs={10}>
-                                <span style={{color:'red'}}>{idError}</span>
+                            <Grid container>
+                                <Grid item xl={1} xs={1}>
+                                </Grid>
+                                <Grid item xl={2} xs={10}>
+                                    <span style={{color:'red'}}>{idError}</span>
+                                </Grid>
                             </Grid>
                         </Fragment>
                     )}

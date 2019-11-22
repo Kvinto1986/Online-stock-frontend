@@ -41,9 +41,19 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, order}) 
     })
 
     const [cargo, setCargo] = useState([])
+    const [idError, setIdError] = useState('')
 
 
-    const handleAddProduct = () => setCargo([...cargo, product])
+    const handleAddProduct = () => {
+        const serviceIdArr = cargo.map(elem => elem.id)
+
+        if (serviceIdArr.includes(product.id)) {
+            setIdError('Product serial numbers cannot match !')
+        } else {
+            setCargo([...cargo, product])
+            setIdError('')
+        }
+    }
 
     const handleDeleteProduct = index => {
         const array = [...cargo]
@@ -228,8 +238,16 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, order}) 
                                 </Button>
                             </Grid>
                         </Grid>
+                        <Grid container>
+                            <Grid item xl={1} xs={1}>
+                            </Grid>
+                            <Grid item xl={2} xs={10}>
+                                <span style={{color:'red'}}>{idError}</span>
+                            </Grid>
+                        </Grid>
                     </Fragment>
                 )}
+
 
                 {order || cargo.length > 0 ? (
                     <Fragment>
@@ -262,7 +280,7 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, order}) 
                 <Grid container spacing={3}>
                     <Grid item xl={1} xs={1}>
                     </Grid>
-                    <Grid item xl={3} xs={10} style={{marginTop:'-3%'}}>
+                    <Grid item xl={3} xs={10}>
                         <Button variant="contained" color="primary" type="submit">
                             Submit
                         </Button>
