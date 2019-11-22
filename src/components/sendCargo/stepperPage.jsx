@@ -38,6 +38,7 @@ export default ({
                         error={searchCarrierError.carrier}
                         value={carrierId}
                         setValue={setCarrierId}
+                        length={10}
                     />
                     {searchCarrierError.carrier && (
                         <ExpansionPanel
@@ -59,6 +60,7 @@ export default ({
                         error={searchDriverError.driver}
                         value={driverId}
                         setValue={setDriverId}
+                        length={10}
                     />
                     {searchDriverError.driver && (
                         <ExpansionPanel
@@ -80,6 +82,7 @@ export default ({
                         error={searchOrderError.order}
                         value={ttnId}
                         setValue={setTtnId}
+                        length={10}
                     />
                     {searchOrderError.order && (
                         <Grid container spacing={3}>

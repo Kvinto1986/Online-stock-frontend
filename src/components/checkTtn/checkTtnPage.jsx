@@ -14,6 +14,7 @@ export default ({searchTtn, ttns, getTtnError, deleteTtn}) => {
                 error={getTtnError.number}
                 value={ttnId}
                 setValue={setTtnId}
+                length={10}
             />
             {ttns[ttnId] && (<TtnInfo
                 ttn={ttns[ttnId]}

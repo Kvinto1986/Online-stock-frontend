@@ -2,7 +2,7 @@ import React, {Fragment, useState} from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import useStyles from './controlTTNstyle'
-import TTNsearch from './controlTTNsearch'
+import Search from '../operatorPage/search'
 import TTNcard from './controlTTNcard'
 import SubmitButton from './controlTTNsubmit'
 import TTNdialog from './controlTTNdialog'
@@ -150,12 +150,13 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
     return (
         <Container component="main" maxWidth="xl" className={classes.mainContainer}>
             <CssBaseline/>
-            <TTNsearch
+            <Search
                 search={findTTN}
                 searchText="Search TTN by number"
                 error={getTtnError.number}
                 value={ttnId}
                 setValue={setTtnId}
+                length={10}
             />
             {ttns[ttnId] && (
                 <Fragment>

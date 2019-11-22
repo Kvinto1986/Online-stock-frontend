@@ -21,10 +21,10 @@ export default ({search, searchText, error, value, setValue, length}) => {
           <TextValidator
             value={value}
             className={classes.input}
-            placeholder='Search...'
+            placeholder="Search..."
             onChange={(e) => setValue(e.target.value)}
             validators={['required', `matchRegexp:[0-9]{${length}}` ]}
-            errorMessages={['this field is required']}
+            errorMessages={['this field is required',`${length} characters required`]}
             inputProps={{maxLength: length}}
           />
           <Divider className={classes.divider} orientation="vertical"/>
