@@ -11,7 +11,6 @@ import moment from 'moment'
 import CargoTable from './cargoTable'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Button from '@material-ui/core/Button'
-import ExpansionPanel from './expansionPanel'
 import useStyles from './checkTtnStyles'
 
 export default ({ttn, onDelete}) => {
@@ -127,17 +126,9 @@ export default ({ttn, onDelete}) => {
                             <TableCell align="left" colSpan={4}>
                                 <CargoTable
                                     cargo={ttn.products}
+                                    initialCargo={ttn.initialProducts}
                                 />
                             </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            {ttn.report && (
-                                <TableCell align="left" colSpan={4}>
-                                    <ExpansionPanel
-                                        report={ttn.report}
-                                    />
-                                </TableCell>
-                            )}
                         </TableRow>
                         {ttn.status === 'registred' && (
                             <TableRow>

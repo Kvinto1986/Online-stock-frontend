@@ -14,7 +14,6 @@ export default ({reset}) => {
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
             <div className={classes.SuccessPaper}>
-
                <img src={image} style={{width:'70%',marginLeft:'10%',marginBottom:'15%'}}/>
                 <Typography component="h1" variant="h5" style={{textAlign: 'center', marginBottom: '5%'}}>
                     Congratulations, TTN registration was successful!
