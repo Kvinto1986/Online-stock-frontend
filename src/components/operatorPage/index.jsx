@@ -22,7 +22,6 @@ export default () => {
     }
 
     const handleResetForm = (e) => {
-        window.location.reload()
         setActiveStep(e)
     }
 
