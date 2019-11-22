@@ -1,3 +1,3 @@
-import SearchModal from './searchCarrierModal';
+import SearchModal from './searchCarrierModal'
 
-export default  SearchModal;
+export default  SearchModal

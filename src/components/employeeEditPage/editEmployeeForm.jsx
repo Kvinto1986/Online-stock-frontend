@@ -8,6 +8,8 @@ import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers'
 
 import useStyles from '../registerEmployee/registerEmployeeStyles'
 import TextField from '../fields/textField'
+import {storage} from '../../fireBaseConfig'
+import useStateWithCallback from 'use-state-with-callback'
 
 
 const initialForm = {
@@ -21,18 +23,50 @@ const initialForm = {
     apartment: '',
     password: '',
     passwordAgain: '',
+    avatar: ''
 }
 
 export default ({onSubmit, errors, initial}) => {
+    console.log(initial)
     const [form, setForm] = useState(useMemo(() => ({...initialForm, ...initial}), [initial]))
-
     const [dateOfBirth, setDateOfBirth] = useState('1970-01-01')
     const classes = useStyles()
-
+    const [avatar, setAvatar] = useStateWithCallback(false, avatar => {
+        if(avatar) {
+            handleUpl()
+            setAvatar(false)
+        }
+    })
+    const [avatarUri, setAvatarUri] = useState(false)
     // const handleInputChange = e => setForm({...form, [e.target.name]: e.target.value})
 
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === form.password)
 
+    const handleUpldChange = e => {
+        if (e.target.files[0]) {
+            setAvatar(e.target.files[0])
+            console.log(e.target.files[0])
+        }
+
+    }
+    const handleUpl = () => {
+        console.log('sdsd')
+        const uploadTask = storage.ref(`employes/${avatar.name}`).put(avatar)
+        uploadTask.on(
+          'state_changed',
+          snapshot => {},
+          err => { console.error(err)},
+          () => {
+              storage
+                .ref(`employes`)
+                .child(avatar.name)
+                .getDownloadURL()
+                .then(url => {
+                    setAvatarUri(url)
+                })
+          }
+        )
+    }
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -47,8 +81,10 @@ export default ({onSubmit, errors, initial}) => {
             house: form.house,
             apartment: form.apartment,
             dateOfBirth: dateOfBirth,
+            avatar: avatarUri
+            
         }, form.password ? {password: form.password} : {})
-
+        console.log(employee)
         onSubmit(employee)
     }
 
@@ -56,6 +92,14 @@ export default ({onSubmit, errors, initial}) => {
         <ValidatorForm noValidate onSubmit={handleSubmit} onError={error => {
             debugger
         }}>
+            <Grid container spacing={3}>
+                <Grid item xs={12} sm={4}>
+                    <label>
+                        <img src={avatarUri ? avatarUri : initial.avatar} className={classes.avatar} alt="avatar"/>
+                        <input type="file" className={classes.file} onChange={handleUpldChange}/>
+                    </label>
+                </Grid>
+            </Grid>
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={4}>
                     <TextField

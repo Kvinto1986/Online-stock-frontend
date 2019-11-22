@@ -92,11 +92,11 @@ StyledTreeItem.propTypes = {
     labelText: PropTypes.string.isRequired,
 }
 
-const Products = ({products}) => {
+const Products = ({products, handleData}) => {
     return products.products.map((product, i) => {
         return (
+          <span onClick={() => handleData(product)} key={uid(product)}>
           <StyledTreeItem
-            key={uid(product)}
             nodeId={`sub_sub${i}`}
             labelText={product.name}
             labelIcon={Archive}
@@ -104,6 +104,7 @@ const Products = ({products}) => {
             color="#1a73e8"
             bgColor="#e8f0fe"
           />
+          </span>
         )
     })
 }

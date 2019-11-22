@@ -103,7 +103,7 @@ const useStyles = makeStyles({
     }
 })
 
-export default function List({data}) {
+export default function List({data, handleData}) {
     const classes = useStyles()
     const {address, areas} = data
     return (
@@ -121,8 +121,8 @@ export default function List({data}) {
                 defaultExpandIcon={<ArrowRightIcon/>}
                 defaultEndIcon={<div style={{width: 24}}/>}
               >
-                  <StyledTreeItem nodeId="m2" labelText={'Areas'} labelIcon={Store}>
-                      <Areas areas={areas}/>
+                  <StyledTreeItem nodeId="m2" labelText={'Areas'} labelIcon={Store} >
+                      <Areas areas={areas} handleData={handleData}/>
                   </StyledTreeItem>
               </TreeView>
           </StyledTreeItem>

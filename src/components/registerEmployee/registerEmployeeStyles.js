@@ -33,6 +33,13 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         margin: theme.spacing(4, 0, 0),
     },
+    file: {
+        display: 'none'
+    },
+    avatar: {
+        width: '150px',
+        height: '150px'
+    }
 }));
 
 export default useStyles

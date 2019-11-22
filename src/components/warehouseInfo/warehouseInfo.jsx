@@ -13,7 +13,9 @@ const WarehouseInfo = ({searchWarehouse, warehouseErr, warehouse}) => {
             error={warehouseErr.warehouse}
             value={warehouseId}
             setValue={setWarehouseId}
+            length={10}
           />
+
           {
               warehouse[warehouseId] && (
                 <InfoPanel data={warehouse[warehouseId]}/>

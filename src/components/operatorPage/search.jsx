@@ -7,7 +7,7 @@ import SearchIcon from '@material-ui/icons/Search'
 import useStyles from './operatorPageStyles'
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
 
-export default ({search, searchText, error, value, setValue}) => {
+export default ({search, searchText, error, value, setValue, length}) => {
   const classes = useStyles()
 
   return (
@@ -23,8 +23,9 @@ export default ({search, searchText, error, value, setValue}) => {
             className={classes.input}
             placeholder='Search...'
             onChange={(e) => setValue(e.target.value)}
-            validators={['required']}
+            validators={['required', `matchRegexp:[0-9]{${length}}` ]}
             errorMessages={['this field is required']}
+            inputProps={{maxLength: length}}
           />
           <Divider className={classes.divider} orientation="vertical"/>
           <IconButton className={classes.iconButton} aria-label="search" type="submit">
