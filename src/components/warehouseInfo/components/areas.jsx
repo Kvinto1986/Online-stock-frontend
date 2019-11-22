@@ -94,7 +94,7 @@ StyledTreeItem.propTypes = {
     labelText: PropTypes.string.isRequired,
 }
 
-const Areas = ({areas}) => {
+const Areas = ({areas, handleData}) => {
     return (
       areas.map((area, i) => {
           return (
@@ -107,7 +107,7 @@ const Areas = ({areas}) => {
               color="#1a73e8"
               bgColor="#e8f0fe"
             >
-                <Products products={area}/>
+                <Products products={area} handleData={handleData}/>
             </StyledTreeItem>
           )
       })

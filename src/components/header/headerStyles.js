@@ -19,6 +19,8 @@ const useStyles = makeStyles(theme => ({
     },
     icon: {
         margin: theme.spacing(1),
+        width: "25px",
+
     },
 }))
 
