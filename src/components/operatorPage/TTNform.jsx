@@ -40,6 +40,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
 
     const [cargo, setCargo] = useState([])
     const [service, setService] = useState('')
+    const [idError, setIdError] = useState('')
 
     const [product, setProduct] = useState({
         package: '',
@@ -53,7 +54,15 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
     }
 
     const handleAddProduct = () => {
-        setCargo([...cargo, product])
+
+        const serviceIdArr = cargo.map(elem => elem.id)
+
+        if (serviceIdArr.includes(product.id)) {
+            setIdError('Product serial numbers cannot match !')
+        } else {
+            setCargo([...cargo, product])
+            setIdError('')
+        }
     }
 
     const handleDeleteProduct = (index) => {
@@ -291,6 +300,9 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                         Add to current cargo list
                                     </Button>
                                 </Grid>
+                            </Grid>
+                            <Grid item xl={2} xs={10}>
+                                <span style={{color:'red'}}>{idError}</span>
                             </Grid>
                         </Fragment>
                     )}
