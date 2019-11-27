@@ -6,6 +6,7 @@ import ReportReason from './reportComponents/reportReason'
 import ReportEdit from './reportComponents/reportEdit'
 import ReportList from './reportComponents/reportList'
 import {Button, Box} from '@material-ui/core'
+import {createServiceNowTicket} from '../../servies/serviceNow'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />
@@ -44,6 +45,7 @@ export default ({
     controller
 }) => {
     const [stapsState, setStepsState] = useState(initalStepsState)
+    const [incident, setIncident] = useState('')
 
     const finishStep = (step, data) => {
         setStepsState({
@@ -87,6 +89,7 @@ export default ({
                             currentTTN={currentTTN}
                             markCargoAsUnfound={markCargoAsUnfound}
                             controller={controller}
+                            setIncident={setIncident}
                         />
                         <Box mb={15} display="flex" justifyContent="center">
                             <Box>
@@ -95,14 +98,22 @@ export default ({
                                     color="primary" 
                                     size="large"
                                     onClick={() => {
+                                        const incidentStatus = stapsState.first.data.reasonType
+
+                                        const data = {
+                                            u_servicetype: 'Main',
+                                            u_incidentinfo: incident,
+                                            u_status: incidentStatus
+                                        }
+                                        
                                         openDialog(!open)
-                                        saveTTN(true, stapsState.first.data, stapsState.second.data)
+                                        createServiceNowTicket(data)
+                                        // saveTTN(true, stapsState.first.data, stapsState.second.data)
                                     }}
                                 >
                                     Finish report
                                 </Button>
                             </Box>
-                            
                         </Box>
                     </Box>
                 )}
