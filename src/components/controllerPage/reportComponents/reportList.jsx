@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Box, Typography, Paper, List, ListItem, ListItemText, Container} from '@material-ui/core'
 import useStyles from '../controlTTNstyle'
 
-const ReportList = ({initialCargo, cargo, reportReason, currentTTN, markCargoAsUnfound, controller}) => {
+const ReportList = ({initialCargo, cargo, reportReason, currentTTN, markCargoAsUnfound, controller, setIncident}) => {
     const classes = useStyles()
     const reportedCargo   = cargo.filter(unit => unit.checked === true)
     const unReportedCargo = cargo.filter(unit => unit.checked === false)
@@ -33,7 +33,17 @@ const ReportList = ({initialCargo, cargo, reportReason, currentTTN, markCargoAsU
             default:
                 break
         }
+
+        setIncidentDetails()
     }, [])
+
+    const setIncidentDetails = () => {
+        const details = reasonNumber !== 3
+            ? `${reasonType} cargo in ${reportedCargo.length} of ${cargo.length} different product units`
+            : `${reasonType} ${reportedCargo.length} of ${cargo.length} cargo units`
+        
+        setIncident(details)
+    }
 
     return (
         <Box mt={15} mb={10}>
