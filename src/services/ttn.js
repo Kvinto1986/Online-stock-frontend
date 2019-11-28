@@ -1,5 +1,5 @@
 import axios from "axios"
-import server from "../serverConfig"
+import server from "../config/server-config"
 // import { FETCH_TTN_BY_NUMBER } from "../actions/types"
 
 export const addTtn = info => {

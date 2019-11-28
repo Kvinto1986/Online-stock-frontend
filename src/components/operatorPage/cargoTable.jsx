@@ -13,7 +13,7 @@ import {Paper} from '@material-ui/core'
 
 export default ({cargoList, handleDeleteProduct,offButton}) => {
 
-    const classes = useStyles()
+    const classes = useStyles();
 
     return (
         <Paper>

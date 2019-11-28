@@ -1,5 +1,5 @@
 import createRest from './api'
-import {COMPANY_ADMIN, COMPANY_ADMINS} from '../actions/types'
+import {COMPANY_ADMIN, COMPANY_ADMINS} from '../store/actions/types'
 import createStorelessRest from './storelessApi'
 
 export const {

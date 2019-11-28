@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {GET_CURRENT_STATISTIC, SET_ERRORS, GET_CURRENT_COMPANIES_LIST, GET_CURRENT_COMPANY} from './types';
-import server from '../serverConfig'
+import server from '../../config/server-config'
 
 export const registerAdmin = (admin, reset) => dispatch => {
     axios.post(`${server}api/companyadmins/registration`, admin)

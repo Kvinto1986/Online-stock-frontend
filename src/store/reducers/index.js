@@ -5,7 +5,7 @@ import adminCompanyStatisticReduser from './adminsCompanyStatisticReduser'
 import companiesListReduser from './companiesListReduser'
 import companyReduser from './companyReduser'
 import carriersReducer from './carriersReducer'
-import {normalize} from '../utils/utils'
+import {normalize} from '../../utils/utils'
 
 import {
     CARRIER,

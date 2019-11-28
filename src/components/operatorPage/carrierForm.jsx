@@ -20,17 +20,17 @@ export default ({onSubmit, error, id}) => {
         tel: '',
         countryCode: '',
         company: ''
-    })
+    });
 
     const handleInputChange = (e) => {
         setCarrier({...carrier, [e.target.name]: e.target.value})
-    }
+    };
 
     const handleSubmit = () => {
         onSubmit({unp: id, ...carrier})
-    }
+    };
 
-    const classes = useStyles()
+    const classes = useStyles();
 
     return (
         <div style={{marginTop: '2%'}}>

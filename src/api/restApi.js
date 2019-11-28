@@ -1,5 +1,5 @@
 import {useCallback, useState} from 'react'
-import server from '../serverConfig'
+import server from '../config/server-config'
 import * as axios from 'axios'
 import {useDispatch, useSelector} from 'react-redux'
 import qs from 'querystring'

@@ -8,7 +8,7 @@ import LastPageIcon from '@material-ui/icons/LastPage'
 import useStyles from './allCarrierStyle'
 
 function TablePaginationActions(props) {
-    const classes = useStyles()
+    const classes = useStyles();
     const {count, page, rowsPerPage, onChangePage} = props
 
     function handleFirstPageButtonClick(event) {
@@ -62,6 +62,6 @@ TablePaginationActions.propTypes = {
     onChangePage: PropTypes.func.isRequired,
     page: PropTypes.number.isRequired,
     rowsPerPage: PropTypes.number.isRequired,
-}
+};
 
 export default TablePaginationActions

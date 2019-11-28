@@ -13,7 +13,7 @@ import DataInput from './dataInput'
 import Char from './char'
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getStatistic} from "../../actions/companyAdminAction";
+import {getStatistic} from "../../store/actions/companyAdminAction";
 
 const Report = (props) => {
     const classes = useStyles();
@@ -35,7 +35,7 @@ const Report = (props) => {
 
 
     return (
-        <React.Fragment>
+        <>
             <CssBaseline/>
             <Container component="main" className={classes.heroContent}>
                 <Typography variant="h5" align="center" color="textSecondary" component="p">
@@ -65,7 +65,7 @@ const Report = (props) => {
                     classes={classes}
                 />
             </Container>
-        </React.Fragment>
+        </>
     );
 };
 

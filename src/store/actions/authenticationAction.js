@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {SET_ERRORS, SET_CURRENT_USER} from './types';
 import jwt_decode from 'jwt-decode';
-import setAuthToken from '../setAuthToken'
-import server from '../serverConfig'
+import setAuthToken from '../../utils/setAuthToken'
+import server from '../../config/server-config'
 
 export const setCurrentUser = decoded => {
     return {

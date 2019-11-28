@@ -33,7 +33,7 @@ export default function Landing() {
     }
 
     return (
-        <React.Fragment>
+        <>
             <CssBaseline/>
             <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
@@ -83,6 +83,6 @@ export default function Landing() {
                     </Slider>
                 </Box>
             </Container>
-        </React.Fragment>
+        </>
     )
 }

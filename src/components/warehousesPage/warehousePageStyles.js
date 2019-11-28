@@ -1,11 +1,6 @@
 import {makeStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
-    '@global': {
-        body: {
-            backgroundColor: theme.palette.common.white,
-        },
-    },
     root: {
         width: '100%',
         overflowX: 'auto',

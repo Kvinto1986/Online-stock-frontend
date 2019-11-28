@@ -1,11 +1,6 @@
 import {makeStyles} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
-    '@global': {
-        body: {
-            backgroundColor: theme.palette.common.white,
-        },
-    },
     stepNumber: {
         fontWeight: '600 !important',
         padding: '25px 0',
@@ -28,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     },
     listContainer: {
         display: 'flex',
-        justifyContent: 'center', 
+        justifyContent: 'center',
         alignItems: 'center',
     },
     paper: {
@@ -111,11 +106,11 @@ const useStyles = makeStyles(theme => ({
     modalForm: {
         width: '100%',
         display: 'flex',
-        justifyContent: 'center', 
+        justifyContent: 'center',
         flexDirection: 'column'
     },
     reportList: {
-        textAlign: 'center', 
+        textAlign: 'center',
         width: '100%',
         marginBottom: '20px'
     }

@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react'
 import {useGetTtn, useGetWarehouses} from '../../api/apiRequests'
 import Warehousing from './warehousing'
-import {warehousingPostData} from '../../actions/warehousingActions'
+import {warehousingPostData} from '../../store/actions/warehousingActions'
 import {useDispatch, useSelector} from 'react-redux'
 import {compose} from 'ramda'
-import {authUser} from '../../filters' 
+import {authUser} from '../../store/filters'
 import {useReset} from '../../hooks/hook'
 
 export default () => {
@@ -19,7 +19,7 @@ export default () => {
     useEffect(() => {
         getWarehouses()
     }, [getWarehouses])
-    
+
     return (
         <Warehousing
             getTtn={getTtn}
@@ -32,5 +32,5 @@ export default () => {
             reset={reset}
         />
     )
-} 
+}
 

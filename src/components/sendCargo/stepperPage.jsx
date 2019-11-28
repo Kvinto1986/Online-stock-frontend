@@ -1,18 +1,10 @@
-import React, {Fragment, useState} from 'react'
-import Stepper from '@material-ui/core/Stepper'
-import Step from '@material-ui/core/Step'
-import StepLabel from '@material-ui/core/StepLabel'
-import useStyles from '../operatorPage/operatorPageStyles'
-import CarrierForm from '../operatorPage/carrierForm'
-import DriverForm from '../operatorPage/driverForm'
+import React, {useState} from 'react'
 import SendTTNForm from './sendTTNform'
-import Search from '../operatorPage/search'
-import ExpansionPanel from '../operatorPage/expansionPanel'
 import SuccessPage from '../operatorPage/successPage'
-import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
-
-const steps = ['Carrier check', 'Driver check', 'Check order', 'Create TTN']
+import Stepper from "../Stepper";
+import SearchCarrierStep from "../operatorPage/steps/SearchCarrierStep";
+import SearchDriverStep from "../operatorPage/steps/SearchDriverStep";
+import SearchOrderStep from "../operatorPage/steps/SearchOrderStep";
 
 export default ({
                     activeStep, setActiveStep, searchCarrier, searchCarrierError, createCarrier, createCarrierError,
@@ -20,108 +12,51 @@ export default ({
                     carriers, drivers, authUser, searchOrder, searchOrderError, orders, handleResetForm
                 }) => {
 
-    const classes = useStyles()
-
-    const [carrierFormVisibility, setCarrierFormVisibility] = useState(false)
-    const [driverFormVisibility, setDriverFormVisibility] = useState(false)
-    const [carrierId, setCarrierId] = useState('')
-    const [driverId, setDriverId] = useState('')
-    const [ttnId, setTtnId] = useState('')
-
-    function getStepContent(stepIndex) {
-        switch (stepIndex) {
-            case 0:
-                return <Fragment>
-                    <Search
-                        search={searchCarrier}
-                        searchText="Search carrier by UNP"
-                        error={searchCarrierError.carrier}
-                        value={carrierId}
-                        setValue={setCarrierId}
-                    />
-                    {searchCarrierError.carrier && (
-                        <ExpansionPanel
-                            formVisibility={carrierFormVisibility}
-                            setFormVisibility={setCarrierFormVisibility}
-                            Form={CarrierForm}
-                            onSubmit={createCarrier}
-                            error={createCarrierError}
-                            id={carrierId}
-                            setValue={setCarrierId}
-                        />
-                    )}
-                </Fragment>
-            case 1:
-                return <Fragment>
-                    <Search
-                        search={searchDriver}
-                        searchText="Search driver by driver license"
-                        error={searchDriverError.driver}
-                        value={driverId}
-                        setValue={setDriverId}
-                    />
-                    {searchDriverError.driver && (
-                        <ExpansionPanel
-                            formVisibility={driverFormVisibility}
-                            setFormVisibility={setDriverFormVisibility}
-                            Form={DriverForm}
-                            onSubmit={createDriver}
-                            error={createDriverError}
-                            id={driverId}
-                            setValue={setDriverId}
-                        />
-                    )}
-                </Fragment>
-            case 2:
-                return <Fragment>
-                    <Search
-                        search={searchOrder}
-                        searchText="Search order by TTN number"
-                        error={searchOrderError.order}
-                        value={ttnId}
-                        setValue={setTtnId}
-                    />
-                    {searchOrderError.order && (
-                        <Grid container spacing={3}>
-                            <Grid item xl={4} xs={1}>
-                            </Grid>
-                            <Button variant="outlined" color="primary" type="button"
-                                    style={{marginLeft: '2%'}}
-                                    onClick={() => setActiveStep(x => x + 1)}>
-                                Create custom TTN order
-                            </Button>
-                        </Grid>
-                    )}
-                </Fragment>
-            case 3:
-                return <SendTTNForm
-                    ttnNumber={ttnId}
-                    carrier={carriers[carrierId]}
-                    driver={drivers[driverId]}
-                    onSubmit={createTtn}
-                    error={createTtnError}
-                    authUser={authUser}
-                    orders={orders}
-                />
-            case 4:
-                return <SuccessPage
-                    reset={handleResetForm}
-                />
-            default:
-                return 'Unknown step'
-        }
-    }
+    const [carrierFormVisibility, setCarrierFormVisibility] = useState(false);
+    const [driverFormVisibility, setDriverFormVisibility] = useState(false);
+    const [carrierId, setCarrierId] = useState('');
+    const [driverId, setDriverId] = useState('');
+    const [ttnId, setTtnId] = useState('');
 
     return (
-        <div className={classes.root}>
-            <Stepper activeStep={activeStep} alternativeLabel>
-                {steps.map(label => (
-                    <Step key={label}>
-                        <StepLabel>{label}</StepLabel>
-                    </Step>
-                ))}
-            </Stepper>
-            {getStepContent(activeStep)}
-        </div>
+        <Stepper step={activeStep}>
+            <SearchCarrierStep search={searchCarrier}
+                               searchError={searchCarrierError.carrier}
+                               visibility={carrierFormVisibility}
+                               setVisibility={setCarrierFormVisibility}
+                               onSubmit={createCarrier}
+                               submitError={createCarrierError}
+                               value={carrierId}
+                               setValue={setCarrierId}
+                               stepperLabel="Carrier check"/>
+
+            <SearchDriverStep search={searchDriver}
+                              searchError={searchDriverError.driver}
+                              visibility={driverFormVisibility}
+                              setVisibility={setDriverFormVisibility}
+                              onSubmit={createDriver}
+                              submitError={createDriverError}
+                              value={driverId}
+                              setValue={setDriverId}
+                              stepperLabel="Driver check"/>
+
+            <SearchOrderStep search={searchOrder}
+                             searchValue={ttnId}
+                             setSearchValue={setTtnId}
+                             searchError={searchOrderError.order}
+                             onSubmit={() => setActiveStep(x => ++x)}
+                             stepperLabel="Check order"/>
+
+            <SendTTNForm ttnNumber={ttnId}
+                     carrier={carriers[carrierId]}
+                     driver={drivers[driverId]}
+                     onSubmit={createTtn}
+                     error={createTtnError}
+                     authUser={authUser}
+                     orders={orders}
+                     stepperLabel="Create TTN"/>
+
+            <SuccessPage reset={handleResetForm}/>
+        </Stepper>
     )
 }

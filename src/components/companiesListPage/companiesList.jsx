@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -19,7 +19,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import Moment from 'react-moment';
 
 import 'sweetalert2/src/sweetalert2.scss'
-import {getCompaniesList, getCompany, changeStatus} from '../../actions/companyAdminAction';
+import {getCompaniesList, getCompany, changeStatus} from '../../store/actions/companyAdminAction';
 import Box from '@material-ui/core/Box'
 
 const Companies = (props) => {

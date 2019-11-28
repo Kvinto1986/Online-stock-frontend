@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react'
+import React, {useState} from 'react'
 import useStyles from './controlTTNstyle'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
@@ -77,7 +77,7 @@ export default ({ttn, open, report, setReport}) => {
                 </CardContent>
             </Card>
             {report.length > 0 && (
-                <Fragment>
+                <>
                     <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={openReport}>
                         <AppBar className={classes.appBar}>
                             <Toolbar>
@@ -105,7 +105,7 @@ export default ({ttn, open, report, setReport}) => {
                         onClick={handleOpen}>
                         Read report
                     </Button>
-                </Fragment>)}
+                </>)}
         </Paper>
 
     )

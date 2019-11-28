@@ -9,9 +9,8 @@ import {
     useGetDriver,
     useGetTtnExportOrder
 } from '../../api/apiRequests'
-import {authUserFilter} from '../../filters'
+import {authUserFilter} from '../../store/filters'
 import findSwal from '../swal/findSwal'
-
 
 export default () => {
     const [activeStep, setActiveStep] = useState(0)

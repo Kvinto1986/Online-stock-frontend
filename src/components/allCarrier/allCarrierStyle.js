@@ -29,7 +29,6 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
     marginLeft: theme.spacing(2.5),
   },
-
-}))
+}));
 
 export default useStyles

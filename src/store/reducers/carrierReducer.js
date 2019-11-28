@@ -1,5 +1,5 @@
 import { CARRIER, CARRIERS } from '../actions/types'
-import { normalize } from '../utils/utils'
+import { normalize } from '../../utils/utils'
 
 const initialState = {}
 

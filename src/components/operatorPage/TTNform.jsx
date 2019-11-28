@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react'
+import React, {useState} from 'react'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
@@ -36,47 +36,46 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
         carNumber: '',
         warehouseCompany: authUser.company,
         owner: '',
-    })
+    });
 
-    const [cargo, setCargo] = useState([])
-    const [service, setService] = useState('')
+    const [cargo, setCargo] = useState([]);
+    const [service, setService] = useState('');
 
     const [product, setProduct] = useState({
         package: '',
         amount: '',
         name: '',
         id: '',
-    })
+    });
 
     const handleChangeProduct = (e) => {
-        setProduct({...product, [e.target.name]: e.target.value})
-    }
+        setProduct({...product, [e.target.name]: e.target.value});
+    };
 
     const handleAddProduct = () => {
-        setCargo([...cargo, product])
-    }
+        setCargo([...cargo, product]);
+    };
 
     const handleDeleteProduct = (index) => {
-        const array = [...cargo]
-        array.splice(index, 1)
-        setCargo([...array])
-    }
-
+        const array = [...cargo];
+        array.splice(index, 1);
+        setCargo([...array]);
+    };
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        const data = {...TTN}
+        e.preventDefault();
+        const data = {...TTN};
         if (orders[TTN.number]) {
             data.products = orders[TTN.number].cargo
         } else {
             data.products = cargo
         }
-        data.service = service
+        data.service = service;
         onSubmit(data)
-    }
+    };
 
-    const classes = useStyles()
-    const servicesArray = Object.keys(services)
+    const classes = useStyles();
+    const servicesArray = Object.keys(services);
 
     return (
         <Container component="main" maxWidth="xl">
@@ -189,7 +188,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                         </Grid>
                     </Grid>
                     {!orders[TTN.number] && (
-                        <Fragment>
+                        <>
                             <Grid container spacing={3}>
                                 <Grid item xl={12} style={{marginTop: '3%', marginBottom: '1%'}}>
                                     <Typography component="h1" variant="h5" style={{textAlign: 'center'}}>
@@ -271,12 +270,12 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                     </Button>
                                 </Grid>
                             </Grid>
-                        </Fragment>
+                        </>
                     )}
 
 
                     {orders[TTN.number] || cargo.length > 0 ? (
-                        <Fragment>
+                        <>
                             <Grid container>
                                 <Grid item xl={12} style={{marginTop: '3%', marginBottom: '2%'}}>
                                     <Typography component="h1" variant="h5" style={{textAlign: 'center'}}>
@@ -314,7 +313,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                     </Button>
                                 </Grid>
                             </Grid>
-                        </Fragment>) : null}
+                        </>) : null}
 
                 </ValidatorForm>
             </Paper>

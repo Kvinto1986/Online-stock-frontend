@@ -1,8 +1,8 @@
 import axios from 'axios'
 import {SET_ERRORS} from './types'
-import server from '../serverConfig'
+import server from '../../config/server-config'
 
-export const warehousingPostData = (data, successWirehousingAletrt) => dispatch => { 
+export const warehousingPostData = (data, successWirehousingAletrt) => dispatch => {
     axios
     .post(`${server}api/managers/finishWarehausing`, data)
     .then(successWirehousingAletrt)
@@ -13,5 +13,5 @@ export const warehousingPostData = (data, successWirehousingAletrt) => dispatch 
                 payload: err.response.data
             })
         }
-    })   
-}
+    })
+};

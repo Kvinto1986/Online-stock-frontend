@@ -1,21 +1,22 @@
 import React from 'react'
 import TableCell from '@material-ui/core/TableCell'
-import Fab from '@material-ui/core/Fab'
 import TableRow from '@material-ui/core/TableRow'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import useStyles from './allCarrierStyle'
 import AddIcon from '@material-ui/icons/Add'
+import IconButton from "@material-ui/core/IconButton";
 
 const TableRowsComponent = ({row, tableCells, handleEdit, handleNewCarrier, removeItem}) => {
-    const classes = useStyles()
-    const {id, company, email, tel} = row
+    const classes = useStyles();
+    const {id, company, email, tel} = row;
     return (
         <TableRow>
             {
                 tableCells.map((item) => {
-                    const {typeComponent, float, scope, name, type, action} = item
-                    return <TableCell key={name} component={typeComponent} align={float} scope={scope}>
+                    const {typeComponent, float, scope, name, type, action} = item;
+
+                    return <TableCell key={name}>
                         {
                             row.isDisabled
                                 ? <input
@@ -30,36 +31,31 @@ const TableRowsComponent = ({row, tableCells, handleEdit, handleNewCarrier, remo
                     </TableCell>
                 })
             }
-            <TableCell align="right">
+            <TableCell>
                 {row.isDisabled
-                    ? <Fab
-                        color="primary"
-                        aria-label="add"
-                        className={classes.add_btn}
-                        onClick={handleNewCarrier(id)}
-                    >
-                        <AddIcon/>
-                    </Fab>
-                    : <Fab
-                        aria-label="edit"
-                        className={classes.add_btn}
-                        onClick={handleEdit(id)}
-                    >
-                        <EditIcon/>
-                    </Fab>
+                    ? (
+                        <IconButton onClick={handleNewCarrier(id)}
+                                    aria-label="add">
+                            <AddIcon/>
+                        </IconButton>
+                    ) : (
+                        <IconButton
+                            aria-label="edit"
+                            onClick={handleEdit(id)}>
+                            <EditIcon/>
+                        </IconButton>
+                    )
                 }
-                <Fab
+                <IconButton
                     id={row.id}
-                    onClick={removeItem(id)}
-                    aria-label="delete"
-                    className={classes.fab}
                     color="secondary"
-                >
+                    onClick={removeItem(id)}
+                    aria-label="delete">
                     <DeleteIcon/>
-                </Fab>
+                </IconButton>
             </TableCell>
         </TableRow>
     )
-}
+};
 
 export default TableRowsComponent

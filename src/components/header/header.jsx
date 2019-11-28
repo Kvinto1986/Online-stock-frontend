@@ -1,8 +1,8 @@
 import React, {useCallback} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {logoutUser} from '../../actions/authenticationAction'
+import {logoutUser} from '../../store/actions/authenticationAction'
 import NavigationBar from './headerPage'
-import {authUser} from '../../filters'
+import {authUser} from '../../store/filters'
 
 export default () => {
     const dispatch = useDispatch()

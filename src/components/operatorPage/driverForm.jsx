@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react'
+import React, {useState} from 'react'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
@@ -14,16 +14,16 @@ export default ({onSubmit, error, id}) => {
     const [driver, setDriver] = useState({
         name: '',
         surname: ''
-    })
+    });
 
     const handleSubmit = () => {
-        onSubmit({license:id,...driver})
-    }
+        onSubmit({license:id,...driver});
+    };
 
-    const classes = useStyles()
+    const classes = useStyles();
 
     return (
-        <Fragment>
+        <>
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
                 <div className={classes.paper}>
@@ -90,7 +90,6 @@ export default ({onSubmit, error, id}) => {
                     </ValidatorForm>
                 </div>
             </Container>
-
-        </Fragment>
+        </>
     )
 }

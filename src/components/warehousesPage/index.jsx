@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import {useAddWarehouse, useDelWarehouse, useGetWarehouses} from '../../api/apiRequests'
-import {authUserFilter} from '../../filters'
+import {authUserFilter} from '../../store/filters'
 import WarehousePage from './warehousePage'
 import successSwal from './successSwal'
 import {useReset} from '../../hooks/hook'

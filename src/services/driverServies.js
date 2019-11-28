@@ -1,6 +1,6 @@
 import axios from 'axios';
-import server from "../serverConfig";
-import {SET_ERRORS} from '../actions/types'
+import server from "../config/server-config";
+import {SET_ERRORS} from '../store/actions/types'
 
 export const addDriver = (driver) => {
     const{email, name, surnName, driverLicense} = driver;

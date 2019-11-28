@@ -18,7 +18,7 @@ import {
     TTN_EXPORT_ORDERS,
     TTN_IMPORT_ORDER,
     TTN_IMPORT_ORDERS
-} from '../actions/types'
+} from '../store/actions/types'
 import {
     carriersFilter,
     driversFilter,
@@ -29,7 +29,7 @@ import {
     ttnsOutFilter,
     ttnsExportOrderFilter,
     ttnsImportOrderFilter
-} from '../filters'
+} from '../store/filters'
 
 export const {
     useAddEmployee,

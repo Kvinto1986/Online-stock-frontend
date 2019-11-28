@@ -1,21 +1,12 @@
 import {makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
-    '@global': {
-        body: {
-            backgroundColor: theme.palette.common.white,
-        },
-    },
     formName: {
         marginBottom: theme.spacing(3),
     },
-
-        helperText:{
-
-        color:'red'
-
-        },
-
+    helperText: {
+        color: 'red'
+    },
     paper: {
         marginTop: theme.spacing(5),
         display: 'flex',
@@ -35,4 +26,4 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default useStyles
+export default useStyles;

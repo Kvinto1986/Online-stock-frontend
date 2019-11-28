@@ -1,7 +1,7 @@
 import LoginForm from './loginForm'
 import {useDispatch} from 'react-redux'
 import React, {useCallback, useState} from 'react'
-import {loginUser} from '../../actions/authenticationAction'
+import {loginUser} from '../../store/actions/authenticationAction'
 
 export default () => {
     const dispatch = useDispatch()

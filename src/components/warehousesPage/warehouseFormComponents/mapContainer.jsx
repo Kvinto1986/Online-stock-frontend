@@ -1,7 +1,7 @@
 import React from 'react'
 import {Map, GoogleApiWrapper, Marker} from 'google-maps-react'
 import {PropTypes} from 'prop-types'
-import {GOOGLE_MAPS_API_KEY} from '../../../constaints'
+import {GOOGLE_MAPS_API_KEY} from '../../../config/constaints'
 import {Container, Box, Typography} from '@material-ui/core'
 import useStyles from '../warehousePageStyles'
 import '../overwrite.css'

@@ -10,35 +10,35 @@ import {
     useGetServices,
     useGetTtnImportOrder
 } from '../../api/apiRequests'
-import {authUserFilter} from '../../filters'
+import {authUserFilter} from '../../store/filters'
 import findSwal from '../swal/findSwal'
 
 export default () => {
-    const [activeStep, setActiveStep] = useState(0)
+    const [activeStep, setActiveStep] = useState(0);
 
     const handleNextStep = () => {
-        setActiveStep(activeStep + 1)
-        findSwal()
-    }
+        setActiveStep(activeStep + 1);
+        findSwal();
+    };
 
     const handleResetForm = (e) => {
-        window.location.reload()
-        setActiveStep(e)
-    }
+        window.location.reload();
+        setActiveStep(e);
+    };
 
-    const authUser = useSelector(authUserFilter)
+    const authUser = useSelector(authUserFilter);
 
-    const [getCarrier, carriers, getCarrierError] = useGetCarrier(handleNextStep)
-    const [addCarrier, , addCarrierError] = useAddCarrier(handleNextStep)
-    const [getDriver, drivers, getDriverError] = useGetDriver(handleNextStep)
-    const [addDriver, , addDriverError] = useAddDriver(handleNextStep)
-    const [addTtn, , addTtnError] = useAddTtn(handleNextStep)
-    const [getServices, services] = useGetServices()
-    const [getOrderTtn, orders, errorGetOrderTtn] = useGetTtnImportOrder(handleNextStep)
+    const [getCarrier, carriers, getCarrierError] = useGetCarrier(handleNextStep);
+    const [addCarrier, , addCarrierError] = useAddCarrier(handleNextStep);
+    const [getDriver, drivers, getDriverError] = useGetDriver(handleNextStep);
+    const [addDriver, , addDriverError] = useAddDriver(handleNextStep);
+    const [addTtn, , addTtnError] = useAddTtn(handleNextStep);
+    const [getServices, services] = useGetServices();
+    const [getOrderTtn, orders, errorGetOrderTtn] = useGetTtnImportOrder(handleNextStep);
 
     useEffect(() => {
         getServices()
-    }, [])
+    }, []);
 
     return <StepperPage
         activeStep={activeStep}

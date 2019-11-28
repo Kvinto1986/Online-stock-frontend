@@ -2,7 +2,8 @@ body, html {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-} 
+  background-color: #e0e0e04f;;
+}
 
 header {
   background: #3e42a1 !important;

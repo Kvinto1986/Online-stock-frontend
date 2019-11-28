@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid/index'
 import Button from '@material-ui/core/Button/index'
 import DateFnsUtils from '@date-io/date-fns'
 import FormHelperText from '@material-ui/core/FormHelperText'
-import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
+import {ValidatorForm} from 'react-material-ui-form-validator'
 import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers'
 
 import useStyles from '../registerEmployee/registerEmployeeStyles'

@@ -19,7 +19,7 @@ export default function Home() {
     const classes = useStyles();
 
     return (
-        <React.Fragment>
+        <>
             <CssBaseline />
             <main>
                 <div className={classes.heroContent}>
@@ -39,6 +39,6 @@ export default function Home() {
                     <img src={It} style={{width:'30vw',marginLeft:'18%'}}/>
                 </Container>
             </main>
-        </React.Fragment>
+        </>
     );
 }

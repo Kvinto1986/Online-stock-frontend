@@ -1,4 +1,4 @@
-import server from '../serverConfig'
+import server from '../config/server-config'
 import axios from 'axios'
 import {POST, DELETE} from './api'
 

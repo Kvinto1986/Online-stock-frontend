@@ -4,9 +4,9 @@ import { getAllSenders } from "../../api/senders";
 import { getAllTransporters } from "../../api/transportes";
 import { editTTN } from "../../api/ttns"
 import Form from "./deliveryFromStockForm";
-import { senders, carriers } from "../../filters"
+import { senders, carriers } from "../../store/filters"
 import { useSelector } from "react-redux"
-import { findTtn } from '../../servies/ttn'
+import { findTtn } from '../../services/ttn'
 
 export default () => {
     const [alertMessage, saveAlertMessage] = useState(null)

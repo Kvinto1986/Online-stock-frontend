@@ -3,14 +3,13 @@ import AllCarriers from './allCarrier'
 import {useGetCarriers, useEditCarrier, useDelCarrier} from '../../api/apiRequests'
 
 export default () => {
-
-    const [getCarriers, carriers] = useGetCarriers()
-    const [delCarrier] = useDelCarrier()
-    const [editCarrier] = useEditCarrier()
+    const [getCarriers, carriers] = useGetCarriers();
+    const [delCarrier] = useDelCarrier();
+    const [editCarrier] = useEditCarrier();
 
     useEffect(() => {
         getCarriers()
-    }, [])
+    }, []);
 
     return (
         <AllCarriers

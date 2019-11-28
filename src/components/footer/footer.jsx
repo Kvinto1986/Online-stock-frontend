@@ -2,11 +2,23 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import Box from "@material-ui/core/Box";
 import React from "react";
-import Grid from "@material-ui/core/Grid";
 import {SocialIcon} from "react-social-icons";
-import Container from "@material-ui/core/Container";
+import {makeStyles} from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
 
-import useStyles from '../landingPage/landingStyles'
+const useStyles = makeStyles(theme => ({
+    footer: {
+        backgroundColor: "white",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "16px 24px",
+    },
+    social: {
+        display: "flex",
+        alignItems: "center"
+    }
+}));
 
 const Footer = () => {
 
@@ -14,19 +26,18 @@ const Footer = () => {
 
     return (
 
-        <Container maxWidth="sm" component="footer" className={classes.footer}>
-
-            <Typography component="h5" variant="h5" align="center" color="textPrimary" gutterBottom>
-                Social links
-            </Typography>
-            <Box mt={5}>
-                <Grid container spacing={2} justify="space-evenly">
-                    <SocialIcon url="http://facebook.com" target='_blank'/>
-                    <SocialIcon url="http://twitter.com" target='_blank'/>
-                    <SocialIcon url="https://www.instagram.com" target='_blank'/>
-                </Grid>
+        <Paper className={classes.footer}>
+            <Box className={classes.social}>
+                <Typography variant="h6" component="span" color="textPrimary" gutterBottom>
+                    SOCIAL LINKS
+                </Typography>
+                <Box ml={2}>
+                    <SocialIcon url="http://facebook.com" target='_blank' style={{width: 24, height: 24, marginRight: 8}}/>
+                    <SocialIcon url="http://twitter.com" target='_blank' style={{width: 24, height: 24, marginRight: 8}}/>
+                    <SocialIcon url="https://www.instagram.com" target='_blank' style={{width: 24, height: 24, marginRight: 8}}/>
+                </Box>
             </Box>
-            <Box mt={5}>
+            <Box>
                 <Typography variant="body2" color="textSecondary" align="center">
                     {'Copyright © '}
                     <Link color="inherit" href="https://github.com/Kvinto1986/Online-stock-frontend/">
@@ -35,8 +46,8 @@ const Footer = () => {
                     {new Date().getFullYear()}
                 </Typography>
             </Box>
-        </Container>
+        </Paper>
     )
-}
+};
 
 export default Footer

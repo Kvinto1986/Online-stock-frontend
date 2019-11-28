@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react'
+import React, {useState} from 'react'
 import Typography from '@material-ui/core/Typography'
 import {ValidatorForm} from 'react-material-ui-form-validator'
 import Grid from '@material-ui/core/Grid'
@@ -10,7 +10,6 @@ import CargoTable from './cargoTable'
 import {TextField} from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
-import Paper from '@material-ui/core/Paper'
 
 export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders}) => {
     const [TTN, setTTN] = useState({
@@ -31,40 +30,41 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
         carNumber: '',
         warehouseCompany: authUser.company,
         owner: '',
-    })
+    });
 
     const [product, setProduct] = useState({
         id: '',
         ttnNumber: '',
         name: '',
         amount: 0,
-    })
+    });
 
-    const [cargo, setCargo] = useState([])
+    const [cargo, setCargo] = useState([]);
 
-
-    const handleAddProduct = () => setCargo([...cargo, product])
+    const handleAddProduct = () => setCargo([...cargo, product]);
 
     const handleDeleteProduct = index => {
-        const array = [...cargo]
-        array.splice(index, 1)
-        setCargo(array)
-    }
+        const array = [...cargo];
+        array.splice(index, 1);
+        setCargo(array);
+    };
 
     const handleSubmit = () => {
         if (orders[TTN.number]) {
-            TTN.products = orders[TTN.number].cargo
-        } else TTN.products = cargo
+            TTN.products = orders[TTN.number].cargo;
+        } else {
+            TTN.products = cargo;
+        }
 
-        const {number, carrier, carNumber, driver, warehouseCompany, owner, products, registrar} = TTN
-        onSubmit({number, carrier, carNumber, driver, warehouseCompany, owner, products, registrar})
+        const {number, carrier, carNumber, driver, warehouseCompany, owner, products, registrar} = TTN;
+        onSubmit({number, carrier, carNumber, driver, warehouseCompany, owner, products, registrar});
+    };
 
-    }
+    const classes = useStyles();
 
-    const classes = useStyles()
-    return <Container component="main" maxWidth="xl">
-        <CssBaseline/>
-        <Paper style={{marginTop: '7%'}}>
+    return (
+        <Container component="main" maxWidth="xl">
+            <CssBaseline/>
             <ValidatorForm onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                     <Grid item xl={4} xs={1}>
@@ -138,7 +138,7 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
                 </Grid>
 
                 {!orders[TTN.number] && (
-                    <Fragment>
+                    <>
                         <Grid container>
                             <Grid item xl={1} xs={1}>
                             </Grid>
@@ -219,11 +219,11 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
                                 </Button>
                             </Grid>
                         </Grid>
-                    </Fragment>
+                    </>
                 )}
 
                 {orders[TTN.number] || cargo.length > 0 ? (
-                    <Fragment>
+                    <>
                         <Grid container spacing={3}>
                             <Grid item xl={1} xs={1}>
                             </Grid>
@@ -251,7 +251,7 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
                             <Grid item xl={1} xs={1}>
                             </Grid>
                         </Grid>
-                    </Fragment>) : null}
+                    </>) : null}
                 <Grid container spacing={3}>
                     <Grid item xl={1} xs={1}>
                     </Grid>
@@ -267,6 +267,6 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
                     </Grid>
                 </Grid>
             </ValidatorForm>
-        </Paper>
-    </Container>
+        </Container>
+    )
 }

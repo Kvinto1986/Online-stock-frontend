@@ -1,12 +1,12 @@
 import React from 'react'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {Provider} from 'react-redux'
-import store from './store'
+import store from './store/store'
 import jwt_decode from 'jwt-decode'
-import setAuthToken from './setAuthToken'
-import {setCurrentUser} from './actions/authenticationAction'
-import SecurityRoute from './securityRoute/securityRoute'
+import setAuthToken from './utils/setAuthToken'
+import {setCurrentUser} from './store/actions/authenticationAction'
 import './App.css'
+import RouterView from "./views/RouterView";
 
 if (localStorage.jwtToken) {
     setAuthToken(localStorage.jwtToken)
@@ -18,9 +18,9 @@ const App = () => {
     return (
         <Provider store={store}>
             <Router>
-                 <SecurityRoute/>
+                 <RouterView/>
             </Router>
         </Provider>
     )
-}
+};
 export default App

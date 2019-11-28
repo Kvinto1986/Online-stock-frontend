@@ -2,7 +2,7 @@ import React from 'react'
 import {render} from '@testing-library/react'
 import {Container, Box, Typography} from '@material-ui/core'
 import {Map, GoogleApiWrapper, Marker} from 'google-maps-react'
-import {GOOGLE_MAPS_API_KEY} from '../../../constaints'
+import {GOOGLE_MAPS_API_KEY} from '../../../config/constaints'
 
 it('should map be rendered', async () => {
     const MapContainer = (props) => {
@@ -32,16 +32,16 @@ it('should map be rendered', async () => {
     }
 
     const MapWrapper = GoogleApiWrapper({
-        apiKey: GOOGLE_MAPS_API_KEY, 
+        apiKey: GOOGLE_MAPS_API_KEY,
         libraries: ['places']
     })(MapContainer)
 
     const data = {
-        mapVisibility: true, 
+        mapVisibility: true,
         GPS: {lat: 30, lng: 30}
     }
 
     const {getByText} = render(<MapWrapper {...data}/>)
-    
+
     getByText('Loading...')
 })

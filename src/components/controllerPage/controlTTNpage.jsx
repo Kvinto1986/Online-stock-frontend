@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react'
+import React, {useState} from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import useStyles from './controlTTNstyle'
@@ -61,7 +61,7 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
             else if(data.index === elem.id) {
                 //TODO: SetState
                 elem.checked = data.checked
-            } 
+            }
         })
     }
 
@@ -87,7 +87,7 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
         const {reasonNumber, reasonType} = reportSelectDetails
 
         let report = {
-            reasonNumber, 
+            reasonNumber,
             reasonType,
             date: moment().format()
         }
@@ -121,10 +121,10 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
                 updatedCargo = currentTTN.products.filter(product => product.checked !== true)
                 break
             }
-            default: 
+            default:
                 break
         }
-        
+
         const reportData = {
             report,
             status: 'checked',
@@ -158,7 +158,7 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
                 setValue={setTtnId}
             />
             {ttns[ttnId] && (
-                <Fragment>
+                <>
                     <TTNcard
                         ttn={ttns[ttnId]}
                         open={open}
@@ -184,7 +184,7 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
                         setCheckedCargo={setCheckedCargo}
                         controller={userName}
                    />
-                </Fragment>)}
+                </>)}
 
         </Container>
 

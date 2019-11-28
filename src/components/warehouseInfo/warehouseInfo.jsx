@@ -6,7 +6,7 @@ const WarehouseInfo = ({searchWarehouse, warehouseErr, warehouse}) => {
     const [warehouseId, setWarehouseId] = useState('')
 
     return (
-      <React.Fragment>
+      <>
           <Search
             search={searchWarehouse}
             searchText="Search warehouse by License"
@@ -20,7 +20,7 @@ const WarehouseInfo = ({searchWarehouse, warehouseErr, warehouse}) => {
               )
           }
 
-      </React.Fragment>
+      </>
 
 
     )
