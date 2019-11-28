@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import moment from 'moment'
-import Table from './controlTTNcargoTable'
+import CargoTable from './controlTTNcargoTable'
 import Button from '@material-ui/core/Button'
 import DialogContent from '@material-ui/core/DialogContent'
 import Dialog from '@material-ui/core/Dialog'
@@ -14,6 +14,12 @@ import CloseIcon from '@material-ui/icons/Close'
 import Toolbar from '@material-ui/core/Toolbar'
 import AppBar from '@material-ui/core/AppBar'
 import DeleteIcon from '@material-ui/icons/Delete'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Container from '@material-ui/core/Container'
 
 export default ({ttn, open, report, setReport}) => {
     const classes = useStyles()
@@ -32,50 +38,44 @@ export default ({ttn, open, report, setReport}) => {
     }
 
     return (
-        <Paper className={classes.cardPaper}>
-            <Typography component="h1" variant="h5" align="center" color="textPrimary" data-testid={'number'}style={{marginTop: '2%'}}>
-                TTN #{ttn.number}
-            </Typography>
-            <Card className={classes.card}>
-                <CardContent>
-                    <Typography>
-                        Owner info: {ttn.owner}
-                    </Typography>
-                    <Typography>
-                        Carrier info: unp:{ttn.carrier.unp}, phone:{ttn.carrier.tel}, company:{ttn.carrier.company}
-                    </Typography>
-                    <Typography>
-                        Driver info: name:{ttn.driver.name}, driver license №{ttn.driver.license},
-                    </Typography>
-                    <Typography>
-                        Car number: {ttn.carNumber}
-                    </Typography>
-                    <Typography>
-                        Registrar name: {ttn.registrar.name}
-                    </Typography>
-                    <Typography>
-                        Registration data: {moment(ttn.dataOfRegistration).format('MMMM Do YYYY, h:mm:ss a  ')}
-                    </Typography>
-
-                </CardContent>
-            </Card>
-            <Typography component="h1" variant="h6" align="center" color="textPrimary">
-                Cargo
-            </Typography>
-            <Card className={classes.card}>
-                <CardContent>
-                    <Table
-                        cargo={ttn.products}
-                        open={open}
-                    />
-                    {ttn.description && (
-                        <Paper className={classes.description}>
-                            <Typography color="textPrimary">
-                                {ttn.description}
-                            </Typography>
-                        </Paper>)}
-                </CardContent>
-            </Card>
+        <Container component="main" maxWidth="xl">
+            <Paper>
+                <Table>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell align="center" colSpan={2}> <Typography variant="h5" gutterBottom>
+                                <span className={classes.spanTable}>International waybill № </span> "{ttn.id}"
+                                <span
+                                    className={classes.spanTable}> from </span>
+                                "{moment(ttn.dataOfRegistration).format('MMMM Do YYYY')}"
+                            </Typography></TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell align="left"><b>Owner info:</b></TableCell>
+                            <TableCell align="left">Passport info: {ttn.owner}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell align="left"><b>Carrier info:</b></TableCell>
+                            <TableCell align="left">Company: {ttn.carrier.company}, UNP №{ttn.carrier.unp},
+                                phone: {ttn.carrier.tel} </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell align="left"><b>Driver info:</b></TableCell>
+                            <TableCell align="left">Name: {ttn.driver.name}, driver license №{ttn.driver.license}, car
+                                number: {ttn.carNumber} </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+                <CargoTable
+                    cargo={ttn.products}
+                    open={open}
+                />
+                {ttn.description && (
+                    <Paper className={classes.description}>
+                        <Typography color="textPrimary">
+                            {ttn.description}
+                        </Typography>
+                    </Paper>)}
             {report.length > 0 && (
                 <Fragment>
                     <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={openReport}>
@@ -95,7 +95,8 @@ export default ({ttn, open, report, setReport}) => {
                             </Typography>
                         </DialogContent>
                     </Dialog>
-                    <IconButton onClick={handleDeleteReport} aria-label="close" style={{marginLeft: '5%', marginBottom: '5%'}}>
+                    <IconButton onClick={handleDeleteReport} aria-label="close"
+                                style={{marginLeft: '5%', marginBottom: '5%'}}>
                         <DeleteIcon fontSize="large"/>
                     </IconButton>
                     <Button
@@ -106,7 +107,8 @@ export default ({ttn, open, report, setReport}) => {
                         Read report
                     </Button>
                 </Fragment>)}
-        </Paper>
+</Paper>
+        </Container>
 
     )
 }

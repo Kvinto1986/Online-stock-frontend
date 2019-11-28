@@ -24,6 +24,7 @@ import CheckTtn from '../components/checkTtn'
 import EmployeeEditPage from '../components/employeeEditPage'
 import ServicesManager from '../components/servicesManager'
 import WarehouseInfo from '../components/warehouseInfo'
+import ServiceNow from '../components/serviceNow'
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
@@ -80,6 +81,7 @@ const SecurityRoute = (props) => {
                             <Route exact path="/myWarehouses" component={Warehouse}/>
                             <Route exact path="/createUser" component={UserForm}/>
                             <Route exact path="/employees" component={Employees}/>
+                            <Route exact path="/serviceNow" component={ServiceNow}/>
                             <Route exact path="/employees/:id" component={Employee}/>
                             <Route component={Home}/>
                         </Switch>
