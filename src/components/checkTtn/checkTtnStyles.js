@@ -15,6 +15,13 @@ const useStyles = makeStyles({
         marginLeft: '5%',
         marginTop: '7%',
         marginBottom: '7%',
+    },
+    mainPaper:{
+        marginLeft: '15%',
+        marginTop: '15%',
+        marginBottom: '15%',
+        marginRight: '15%',
+        backgroundColor:'red'
     }
 })
 

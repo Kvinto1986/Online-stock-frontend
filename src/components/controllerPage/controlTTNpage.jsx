@@ -7,6 +7,7 @@ import TTNcard from './controlTTNcard'
 import SubmitButton from './controlTTNsubmit'
 import TTNdialog from './controlTTNdialog'
 import moment from 'moment'
+import Paper from '@material-ui/core/Paper'
 
 export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
     const classes = useStyles()
@@ -14,7 +15,7 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
     const [confirm, setConfirm] = useState(false)
     const [open, setOpen] = useState(false)
     const [report, setReport] = useState('')
-    const [ttnId, setTtnId] = useState('')
+    const [ttnId, setTtnId] = useState('2222222222')
     // TODO: Delete logic with setFinalCargo
     const [finalCargo, setFinalCargo] = useState([])
     const [initialCurrentTTN, setInitialRawCurrentTTN] = useState({})
@@ -148,8 +149,7 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
     }
 
     return (
-        <Container component="main" maxWidth="xl" className={classes.mainContainer}>
-            <CssBaseline/>
+            <>
             <Search
                 search={findTTN}
                 searchText="Search TTN by number"
@@ -186,8 +186,6 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
                         controller={userName}
                    />
                 </Fragment>)}
-
-        </Container>
-
+            </>
     )
 }

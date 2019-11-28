@@ -29,7 +29,8 @@ export default ({user}) => {
                 {name: 'Home', link: '/'},
                 {name: 'Create new employee', link: '/createUser'},
                 {name: 'My warehouses', link: '/myWarehouses'},
-                {name: 'Company employees', link: '/employees'}
+                {name: 'Company employees', link: '/employees'},
+                {name: 'Service Now', link: '/serviceNow'}
             ])
         case 'employee':
             let arr = []

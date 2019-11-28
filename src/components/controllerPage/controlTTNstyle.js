@@ -6,6 +6,9 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: theme.palette.common.white,
         },
     },
+    spanTable: {
+        fontWeight: '600'
+    },
     stepNumber: {
         fontWeight: '600 !important',
         padding: '25px 0',
@@ -118,6 +121,12 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center', 
         width: '100%',
         marginBottom: '20px'
+    },
+    mainPaper:{
+        marginLeft: '3%',
+        marginTop: '3%',
+        height:'95%',
+        marginRight: '3%',
     }
 }))
 

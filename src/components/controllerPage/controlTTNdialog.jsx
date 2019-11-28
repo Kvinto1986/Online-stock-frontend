@@ -108,7 +108,7 @@ export default ({
                                         
                                         openDialog(!open)
                                         createServiceNowTicket(data)
-                                        // saveTTN(true, stapsState.first.data, stapsState.second.data)
+                                        saveTTN(true, stapsState.first.data, stapsState.second.data)
                                     }}
                                 >
                                     Finish report
