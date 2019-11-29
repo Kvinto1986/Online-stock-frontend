@@ -6,6 +6,13 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: theme.palette.common.white,
         },
     },
+    cargoTable: {
+        borderRadius: '10px',
+        border:'1px solid #e0e0e0'
+    },
+    mainTable:{
+        marginTop:'3%',
+    },
     spanTable: {
         fontWeight: '600'
     },
@@ -31,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     },
     listContainer: {
         display: 'flex',
-        justifyContent: 'center', 
+        justifyContent: 'center',
         alignItems: 'center',
     },
     paper: {
@@ -57,7 +64,7 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(5, 5, 5, 5),
     },
     select: {
-        width: '40%',
+        width: '100%',
         marginTop: theme.spacing(5),
     },
     submit: {
@@ -65,7 +72,7 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(4, 0, 0),
     },
     report: {
-        marginLeft:'5%',
+        marginLeft: '5%',
         width: '70%',
         marginBottom: '5%'
     },
@@ -114,18 +121,18 @@ const useStyles = makeStyles(theme => ({
     modalForm: {
         width: '100%',
         display: 'flex',
-        justifyContent: 'center', 
+        justifyContent: 'center',
         flexDirection: 'column'
     },
     reportList: {
-        textAlign: 'center', 
+        textAlign: 'center',
         width: '100%',
         marginBottom: '20px'
     },
-    mainPaper:{
+    mainPaper: {
         marginLeft: '3%',
         marginTop: '3%',
-        height:'95%',
+        height: '95%',
         marginRight: '3%',
     }
 }))

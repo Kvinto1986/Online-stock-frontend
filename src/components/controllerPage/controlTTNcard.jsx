@@ -17,9 +17,8 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import Container from '@material-ui/core/Container'
+import {Container} from '@material-ui/core'
 
 export default ({ttn, open, report, setReport}) => {
     const classes = useStyles()
@@ -38,44 +37,42 @@ export default ({ttn, open, report, setReport}) => {
     }
 
     return (
-        <Container component="main" maxWidth="xl">
-            <Paper>
-                <Table>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell align="center" colSpan={2}> <Typography variant="h5" gutterBottom>
-                                <span className={classes.spanTable}>International waybill № </span> "{ttn.id}"
-                                <span
-                                    className={classes.spanTable}> from </span>
-                                "{moment(ttn.dataOfRegistration).format('MMMM Do YYYY')}"
-                            </Typography></TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align="left"><b>Owner info:</b></TableCell>
-                            <TableCell align="left">Passport info: {ttn.owner}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align="left"><b>Carrier info:</b></TableCell>
-                            <TableCell align="left">Company: {ttn.carrier.company}, UNP №{ttn.carrier.unp},
-                                phone: {ttn.carrier.tel} </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align="left"><b>Driver info:</b></TableCell>
-                            <TableCell align="left">Name: {ttn.driver.name}, driver license №{ttn.driver.license}, car
-                                number: {ttn.carNumber} </TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
-                <CargoTable
-                    cargo={ttn.products}
-                    open={open}
-                />
-                {ttn.description && (
-                    <Paper className={classes.description}>
-                        <Typography color="textPrimary">
-                            {ttn.description}
-                        </Typography>
-                    </Paper>)}
+        <Container className={classes.cargoTable}>
+            <Table className={classes.mainTable}>
+                <TableBody>
+                    <TableRow>
+                        <TableCell align="center" colSpan={2}> <Typography variant="h5" gutterBottom>
+                            <span className={classes.spanTable}>International waybill № </span> "{ttn.id}"
+                            <span
+                                className={classes.spanTable}> from </span>
+                            "{moment(ttn.dataOfRegistration).format('MMMM Do YYYY')}"
+                        </Typography></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell align="left"><b>Owner info:</b></TableCell>
+                        <TableCell align="left">Passport info: {ttn.owner}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell align="left"><b>Carrier info:</b></TableCell>
+                        <TableCell align="left">Company: {ttn.carrier.company}, UNP №{ttn.carrier.unp},
+                            phone: {ttn.carrier.tel} </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell align="left"><b>Driver info:</b></TableCell>
+                        <TableCell align="left">Name: {ttn.driver.name}, driver license №{ttn.driver.license}, car
+                            number: {ttn.carNumber} </TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+            <CargoTable
+                cargo={ttn.products}
+            />
+            {ttn.description && (
+                <Paper className={classes.description}>
+                    <Typography color="textPrimary">
+                        {ttn.description}
+                    </Typography>
+                </Paper>)}
             {report.length > 0 && (
                 <Fragment>
                     <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={openReport}>
@@ -107,7 +104,6 @@ export default ({ttn, open, report, setReport}) => {
                         Read report
                     </Button>
                 </Fragment>)}
-</Paper>
         </Container>
 
     )

@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography'
 export default ({services, setReports, getBy, reports}) => {
 
     const [spinner, setSpinner] = useState(false)
+
     const handleSearchReport = async (service) => {
         setSpinner(true)
         const res = await getBy(service)
@@ -18,9 +19,9 @@ export default ({services, setReports, getBy, reports}) => {
     list.unshift('Main')
 
     return (
-        <Container component="main" maxWidth="md" style={{marginTop:'3%'}}>
+        <Container component="main" maxWidth="md" style={{marginTop: '3%'}}>
             <Typography variant="h5" align="center" color="textSecondary" component="p">
-               Search all reports by service name
+                Search all reports by service name
             </Typography>
             <Autocomplete
                 list={list}

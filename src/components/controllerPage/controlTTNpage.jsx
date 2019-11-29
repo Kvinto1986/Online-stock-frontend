@@ -15,7 +15,7 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
     const [confirm, setConfirm] = useState(false)
     const [open, setOpen] = useState(false)
     const [report, setReport] = useState('')
-    const [ttnId, setTtnId] = useState('2222222222')
+    const [ttnId, setTtnId] = useState('')
     // TODO: Delete logic with setFinalCargo
     const [finalCargo, setFinalCargo] = useState([])
     const [initialCurrentTTN, setInitialRawCurrentTTN] = useState({})
@@ -149,7 +149,7 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
     }
 
     return (
-            <>
+            <Container component="main" maxWidth="md">
             <Search
                 search={findTTN}
                 searchText="Search TTN by number"
@@ -186,6 +186,6 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
                         controller={userName}
                    />
                 </Fragment>)}
-            </>
+            </Container>
     )
 }
