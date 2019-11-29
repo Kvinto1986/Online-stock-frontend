@@ -103,7 +103,7 @@ export default ({cargo, initialCargo, reportReason, handleChangeTTN, setCheckedC
                         const checkNum = e => {
                             const val = e.target.value
                             
-                            if(val > 0 && val < initialCargo[index].amount) {
+                            if(val > 0 && Number.parseInt(val) < initialCargo[index].amount) {
                                 setAmountErr({[elem.id]: ''})
                                 handleChange(e)
                             } else {
