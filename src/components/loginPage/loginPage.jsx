@@ -16,7 +16,7 @@ export default () => {
     const classes = useStyles();
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container maxWidth="xs">
             <CssBaseline/>
             <Box className={classes.paper}>
 

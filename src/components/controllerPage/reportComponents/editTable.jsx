@@ -11,8 +11,8 @@ import CheckboxControll from './checkbox'
 import Modal from './dmgDescriptModal'
 
 const activeAmountStyles = {
-    borderBottom: '1px solid #3e42a1', 
-    paddingLeft: '5px', 
+    borderBottom: '1px solid #3e42a1',
+    paddingLeft: '5px',
     color: '#3e42a1',
     fontWeight: 600
 }
@@ -29,18 +29,18 @@ export default ({cargo, initialCargo, reportReason, handleChangeTTN, setCheckedC
         setModal(name)
         setIsModalOpen(true)
     }
-  
+
     const handleClose = () => {
         setModal()
         setIsModalOpen(false)
     }
 
-    // Checkbox handler 
+    // Checkbox handler
     const handleCheckboxChange = name => event => {
         setChecks({...checks, [name]: event.target.checked})
         setCheckedCargo({index: event.target.value, checked: event.target.checked}, null)
-        
-        !event.target.checked && 
+
+        !event.target.checked &&
         setDmgDescription({...dmgDescription, [name]: ''})
     }
 
@@ -50,7 +50,7 @@ export default ({cargo, initialCargo, reportReason, handleChangeTTN, setCheckedC
             const isEachSelected = Object.values(checks).every(elem => elem === true)
             const isAnySelected  = Object.values(checks).every(elem => elem === false)
 
-            isEachSelected && selectAll(true) 
+            isEachSelected && selectAll(true)
             isAnySelected  && selectAll(false)
         }
     }, [checks])
@@ -62,7 +62,7 @@ export default ({cargo, initialCargo, reportReason, handleChangeTTN, setCheckedC
             for (let prop in checks) {
                 subchecks = {...subchecks, [prop]: isAllSelected}
             }
-            
+
             setChecks(subchecks)
             setCheckedCargo(null, {value: isAllSelected})
         }
@@ -70,7 +70,7 @@ export default ({cargo, initialCargo, reportReason, handleChangeTTN, setCheckedC
 
     let arrChecks  = {},
         arrDmgData = []
-    
+
     // Get each checkbox name, after initializate the initial checks's state
     const initChecks = (unitName, id) => {
         arrChecks  = {...arrChecks,  [unitName]: false}
@@ -102,7 +102,7 @@ export default ({cargo, initialCargo, reportReason, handleChangeTTN, setCheckedC
                         const handleChange = (e) => handleChangeTTN(e, elem.id)
                         const checkNum = e => {
                             const val = e.target.value
-                            
+
                             if(val > 0 && val < initialCargo[index].amount) {
                                 setAmountErr({[elem.id]: ''})
                                 handleChange(e)
@@ -112,14 +112,14 @@ export default ({cargo, initialCargo, reportReason, handleChangeTTN, setCheckedC
                         }
                         const unitName = `checked${index}`
                         const changableAmountStyles = checks[unitName] ? activeAmountStyles : {}
-                        const dmgDetails = dmgDescription[unitName] 
-                            ? dmgDescription[unitName].substring(0, 15)+'...' 
+                        const dmgDetails = dmgDescription[unitName]
+                            ? dmgDescription[unitName].substring(0, 15)+'...'
                             : '-'
-                        
+
                         return (
-                            <TableRow key={elem.id} selected={checks[unitName]} className={classes.tableUnit} >
+                            <TableRow key={elem.id} selected={checks[unitName]}>
                                 <TableCell>
-                                    <CheckboxControll 
+                                    <CheckboxControll
                                         checks={checks}
                                         initChecks={initChecks}
                                         unitName={unitName}
@@ -209,7 +209,7 @@ export default ({cargo, initialCargo, reportReason, handleChangeTTN, setCheckedC
                                             >
                                                 Edit
                                             </Button>
-                                            <Modal 
+                                            <Modal
                                                 isModalOpen={isModalOpen}
                                                 handleClose={handleClose}
                                                 dmgDescription={dmgDescription}
@@ -225,7 +225,7 @@ export default ({cargo, initialCargo, reportReason, handleChangeTTN, setCheckedC
                     })}
                 </TableBody>
             </Table>
-            <Modal 
+            <Modal
                 isModalOpen={isModalOpen}
                 handleClose={handleClose}
                 dmgDescription={dmgDescription}

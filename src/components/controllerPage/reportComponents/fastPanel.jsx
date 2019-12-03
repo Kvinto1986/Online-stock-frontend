@@ -7,7 +7,7 @@ export default ({isAllSelected, selectAll}) => {
         isAllSelected
         ? selectAll(false)
         : selectAll(true)
-    }
+    };
 
     return (
         <Box>

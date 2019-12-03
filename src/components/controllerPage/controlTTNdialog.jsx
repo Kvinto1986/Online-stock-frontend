@@ -9,35 +9,35 @@ import {Button, Box} from '@material-ui/core'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />
-})
+});
 
 const selectOptionsData = [
     {key: 1, value: 'Lost'},
     {key: 2, value: 'Damaged'},
     {key: 3, value: 'Not found'}
-]
+];
 
 const initalStepsState = {
     first: {
         isComplete: false,
-        data: null 
+        data: null
     },
     second: {
         isComplete: false,
         data: null
     },
     third: {
-        isComplete: false 
+        isComplete: false
     }
-}
+};
 
 export default ({
-    saveTTN, 
-    handleChangeTTN, 
-    currentTTN, 
-    initialCargo, 
-    cargo, 
-    open, 
+    saveTTN,
+    handleChangeTTN,
+    currentTTN,
+    initialCargo,
+    cargo,
+    open,
     openDialog,
     markCargoAsUnfound,
     setCheckedCargo,
@@ -47,14 +47,14 @@ export default ({
 
     const finishStep = (step, data) => {
         setStepsState({
-            ...stapsState, 
+            ...stapsState,
             [step]: {
                 isComplete: true,
                 data: data
             }
         })
     }
-    
+
     return (
         <Box>
             <Dialog fullScreen open={open} onClose={() => {
@@ -69,7 +69,7 @@ export default ({
                     selectOptionsData={selectOptionsData}
                 />
                 {stapsState.first.isComplete && (
-                    <ReportEdit 
+                    <ReportEdit
                         initialCargo={initialCargo}
                         cargo={cargo}
                         reportReason={stapsState.first.data}
@@ -90,9 +90,9 @@ export default ({
                         />
                         <Box mb={15} display="flex" justifyContent="center">
                             <Box>
-                                <Button 
-                                    variant="contained" 
-                                    color="primary" 
+                                <Button
+                                    variant="contained"
+                                    color="primary"
                                     size="large"
                                     onClick={() => {
                                         openDialog(!open)
@@ -102,7 +102,7 @@ export default ({
                                     Finish report
                                 </Button>
                             </Box>
-                            
+
                         </Box>
                     </Box>
                 )}

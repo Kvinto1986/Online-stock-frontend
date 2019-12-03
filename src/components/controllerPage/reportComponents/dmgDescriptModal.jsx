@@ -5,15 +5,15 @@ import InputText from '../../fields/textField'
 import { ValidatorForm } from 'react-material-ui-form-validator'
 
 export default ({isModalOpen, handleClose, dmgDescription, setDmgDescription, rowName, actualDescription, getEditData}) => {
-    const classes = useStyles()
-    const [localDmgDescription, setLocalDmgDescription] = useState('')
+    const classes = useStyles();
+    const [localDmgDescription, setLocalDmgDescription] = useState('');
 
     const updateDiscription = () => {
-        setDmgDescription({...dmgDescription, [rowName]: localDmgDescription.data})
-        getEditData({...dmgDescription, [rowName]: localDmgDescription.data})
-        setLocalDmgDescription('')
-        handleClose()
-    }
+        setDmgDescription({...dmgDescription, [rowName]: localDmgDescription.data});
+        getEditData({...dmgDescription, [rowName]: localDmgDescription.data});
+        setLocalDmgDescription('');
+        handleClose();
+    };
 
     return (
         <Modal
@@ -52,9 +52,9 @@ export default ({isModalOpen, handleClose, dmgDescription, setDmgDescription, ro
                         />
                     </Box>
                     <Box display="flex" justifyContent="center" mt={10}>
-                        <Button 
-                            type="submit" 
-                            variant="outlined" 
+                        <Button
+                            type="submit"
+                            variant="outlined"
                             size="medium"
                             color="primary"
                         >

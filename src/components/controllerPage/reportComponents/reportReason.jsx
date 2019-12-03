@@ -4,18 +4,18 @@ import useStyles from '../controlTTNstyle'
 import {ValidatorForm} from 'react-material-ui-form-validator'
 
 const ReportReason = ({finishStep, selectOptionsData}) => {
-    const classes = useStyles()
-    const [reson, setReason] = useState({})
+    const classes = useStyles();
+    const [reason, setReason] = useState({});
 
-    let reportType = []
+    let reportType = [];
 
     const hendleSelectChange = e => {
-        const reasonNumber = e.target.value
-        const reasonType = reportType[reasonNumber-1]
-        
+        const reasonNumber = e.target.value;
+        const reasonType = reportType[reasonNumber-1];
+
         setReason({reasonNumber, reasonType})
-    }
-    
+    };
+
     return (
         <Box>
             <Container maxWidth="sm">
@@ -23,32 +23,32 @@ const ReportReason = ({finishStep, selectOptionsData}) => {
                     <Typography component="h1" variant="h3" className={classes.stepNumber}>REPORT REASON</Typography>
                 </Box>
                 <Box>
-                    <ValidatorForm onSubmit={() => finishStep('first', reson)}>
+                    <ValidatorForm onSubmit={() => finishStep('first', reason)}>
                         <FormControl fullWidth>
                             <InputLabel htmlFor="grouped-select">Reason</InputLabel>
                             <Select
                                 required
                                 fullWidth
-                                value={reson.reasonNumber || ''}
+                                value={reason.reasonNumber || ''}
                                 onChange={hendleSelectChange}
                                 input={<Input name="reason" id="age-helper" />}
                                 name="reason"
                                 autoComplete="reasonNumber"
                             >
                                 {selectOptionsData.map(option => {
-                                    reportType.push(option.value)
+                                    reportType.push(option.value);
                                     return (
                                         <MenuItem key={option.key} value={option.key}>
                                             {option.value}
-                                        </MenuItem> 
+                                        </MenuItem>
                                     )
                                 })}
                             </Select>
                         </FormControl>
                         <Box mt={4}>
-                            <Button 
-                                type="submit" 
-                                variant="contained" 
+                            <Button
+                                type="submit"
+                                variant="contained"
                                 size="medium"
                                 color="primary"
                             >

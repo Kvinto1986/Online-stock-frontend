@@ -1,5 +1,5 @@
 import axios from 'axios';
-import server from "../serverConfig";
+import server from "../../config/server-config";
 import {TTN, SET_ERRORS} from './types';
 
 export const findTTNbyNumber = (number, dndIsShown) => dispatch => {

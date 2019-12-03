@@ -121,7 +121,7 @@ export default ({onSubmit, error, company}) => {
     }
 
     return (
-      <Container component="main" maxWidth="xl">
+      <Container maxWidth="xl">
           <Box mt={7}>
               <CssBaseline/>
               <div className={classes.main}>

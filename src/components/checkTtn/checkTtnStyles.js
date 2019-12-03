@@ -16,6 +16,6 @@ const useStyles = makeStyles({
         marginTop: '7%',
         marginBottom: '7%',
     }
-})
+});
 
 export default useStyles

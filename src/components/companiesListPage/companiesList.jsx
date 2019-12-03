@@ -65,7 +65,7 @@ const Companies = (props) => {
     return (
         <div className={classes.root}>
             <CssBaseline/>
-            <Container component="main" className={classes.main} maxWidth="sm">
+            <Container className={classes.main} maxWidth="sm">
                 <Typography variant="h5" align="center" color="textSecondary" component="p" className={classes.main}>
                     Find company by email or name
                 </Typography>

@@ -27,37 +27,37 @@ const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, tt
 
     useEffect(() => {
         const currentTtn = ttns[formState.number]
-        
+
         if(currentTtn && currentTtn.id === formState.number) {
             setCurrentTTN(currentTtn)
-            
+
             if(currentTtn.status === 'checked') {
                 const {firstName, lastName, patronymic} = currentManager
 
                 const managerInitials = `${firstName} ${lastName} ${patronymic}`
                 const unformatedDate = new Date(currentTtn.dataOfRegistration)
-                
-                const fornatedDate = 
+
+                const fornatedDate =
                 unformatedDate.getDate() + '.' +
                 unformatedDate.getMonth() + '.' +
                 unformatedDate.getFullYear()
 
                 setTtnStatusErr(null)
                 dndIsShown(true)
-                
+
                 setFormState(initialFormState)
                 setListState({
-                    ...listState, 
+                    ...listState,
                     ttnDate: fornatedDate,
                     managerInitials: managerInitials,
                     operatorName: currentTtn.owner,
                 })
-    
+
                 getFormData(currentTtn.id)
                 reset()
             }
             else {
-                setTtnStatusErr('TTN must been checked')     
+                setTtnStatusErr('TTN must been checked')
             }
         }
     }, [currentManager, dndIsShown, formState.number, getFormData, listState, reset, setCurrentTTN, ttns])
@@ -67,11 +67,11 @@ const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, tt
             setListState(initialListState)
         }
     }, [ttnError.TTN])
-    
+
     const {ttnDate, managerInitials, operatorName} = listState
-    
+
     return (
-        <Container component="main" maxWidth="xs">
+        <Container maxWidth="xs">
             <Box mt={5}>
                 <Box>
                     <Typography compoment="h1" variant="h5">
@@ -97,7 +97,7 @@ const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, tt
                                         helperClass={classes.inputError}
                                         key={key}
                                     />
-                                    {(ttnStatusErr && !ttnError.TTN) && <small style={{color: 'red'}}>{ttnStatusErr}</small>} 
+                                    {(ttnStatusErr && !ttnError.TTN) && <small style={{color: 'red'}}>{ttnStatusErr}</small>}
                                 </Box>
                                 <Box mt={2}>
                                     <Button

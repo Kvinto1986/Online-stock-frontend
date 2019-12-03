@@ -11,7 +11,7 @@ export default ({search, searchText, error, value, setValue}) => {
   const classes = useStyles()
 
   return (
-    <Container component="main" className={classes.main} maxWidth="sm">
+    <Container className={classes.main} maxWidth="sm">
       <Typography variant="h5" align="center" color="textSecondary" component="p" className={classes.main}>
         {searchText}
       </Typography>

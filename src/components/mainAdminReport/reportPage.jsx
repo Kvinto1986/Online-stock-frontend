@@ -37,7 +37,7 @@ const Report = (props) => {
     return (
         <>
             <CssBaseline/>
-            <Container component="main" className={classes.heroContent}>
+            <Container className={classes.heroContent}>
                 <Typography variant="h5" align="center" color="textSecondary" component="p">
                     Show report about companies
                 </Typography>

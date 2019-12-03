@@ -25,10 +25,12 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center'
     }
 
-}))
+}));
+
 const InfoPanel = ({data}) => {
-    const classes = useStyles()
-    const {company, totalArea, address} = data
+    const classes = useStyles();
+    const {company, totalArea, address} = data;
+
     return (
       <Grid container className={classes.root} spacing={2}>
           <Grid item xs={12}>

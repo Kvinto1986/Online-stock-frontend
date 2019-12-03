@@ -7,10 +7,6 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center',
         opacity: '0.5'
     },
-    formName: {
-        marginBottom: theme.spacing(3),
-    },
-
     helperText: {
         color: 'red'
     },
@@ -30,11 +26,11 @@ const useStyles = makeStyles(theme => ({
         padding: '15px',
         width: '700px'
     },
-    dialogPaper: {
-        width: '50%',
-        marginTop: '2%',
-        marginLeft: '25%',
-    },
+    // dialogPaper: {
+    //     width: '50%',
+    //     marginTop: '2%',
+    //     marginLeft: '25%',
+    // },
     mainContainer: {
         marginTop: theme.spacing(5),
         display: 'flex',
@@ -114,6 +110,6 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         marginBottom: '20px'
     }
-}))
+}));
 
 export default useStyles

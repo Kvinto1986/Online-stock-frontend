@@ -63,7 +63,7 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, orders})
     const classes = useStyles();
 
     return (
-        <Container component="main" maxWidth="xl">
+        <Container maxWidth="xl">
             <CssBaseline/>
             <ValidatorForm onSubmit={handleSubmit}>
                 <Grid container spacing={3}>

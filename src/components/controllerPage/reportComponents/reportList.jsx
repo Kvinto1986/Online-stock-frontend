@@ -3,37 +3,37 @@ import {Box, Typography, Paper, List, ListItem, ListItemText, Container} from '@
 import useStyles from '../controlTTNstyle'
 
 const ReportList = ({initialCargo, cargo, reportReason, currentTTN, markCargoAsUnfound, controller}) => {
-    const classes = useStyles()
-    const reportedCargo   = cargo.filter(unit => unit.checked === true)
-    const unReportedCargo = cargo.filter(unit => unit.checked === false)
-    const {name, license} = currentTTN.driver
-    
-    let lostSumm = 0 
+    const classes = useStyles();
+    const reportedCargo   = cargo.filter(unit => unit.checked === true);
+    const unReportedCargo = cargo.filter(unit => unit.checked === false);
+    const {name, license} = currentTTN.driver;
+
+    let lostSumm = 0 ;
     cargo.forEach((elem, index) => {
         lostSumm += initialCargo[index].amount-elem.amount
-    })
+    });
 
-    const {reasonNumber, reasonType} = reportReason
-    const listStyle = (reasonNumber !== 1) && classes.reportList
-    
+    const {reasonNumber, reasonType} = reportReason;
+    const listStyle = (reasonNumber !== 1) && classes.reportList;
+
     useEffect(() => {
         switch (reasonNumber) {
             case 1: {
-                markCargoAsUnfound(reportedCargo)
+                markCargoAsUnfound(reportedCargo);
                 break
             }
             case 2: {
-                markCargoAsUnfound(cargo)
+                markCargoAsUnfound(cargo);
                 break
             }
             case 3: {
-                markCargoAsUnfound(unReportedCargo)
+                markCargoAsUnfound(unReportedCargo);
                 break
             }
             default:
                 break
         }
-    }, [])
+    }, []);
 
     return (
         <Box mt={15} mb={10}>
@@ -45,7 +45,7 @@ const ReportList = ({initialCargo, cargo, reportReason, currentTTN, markCargoAsU
             <Container maxWidth="xl" className={classes.listContainer}>
                 <Paper className={classes.paper}>
                     <Box mb={5}>
-                        <Typography 
+                        <Typography
                             component="h2"
                             variant="h6"
                             align="center"
@@ -74,7 +74,7 @@ const ReportList = ({initialCargo, cargo, reportReason, currentTTN, markCargoAsU
                             </Box>
                             <Box mt={2}>
                                 <Typography>
-                                    <b>Driver: </b>{name} 
+                                    <b>Driver: </b>{name}
                                     <small>(license: {license})</small>
                                 </Typography>
                             </Box>
@@ -97,9 +97,9 @@ const ReportList = ({initialCargo, cargo, reportReason, currentTTN, markCargoAsU
                                     {cargo.map((elem, i) => (
                                         ((elem.amount !== initialCargo[i].amount) && elem.checked) && (
                                             <ListItem key={elem.id} className={classes.listItem}>
-                                                <ListItemText 
-                                                    primary={`${elem.name} (-${initialCargo[i].amount-elem.amount} units)`} 
-                                                    secondary={`Final amount: ${elem.amount} / ${initialCargo[i].amount}`} 
+                                                <ListItemText
+                                                    primary={`${elem.name} (-${initialCargo[i].amount-elem.amount} units)`}
+                                                    secondary={`Final amount: ${elem.amount} / ${initialCargo[i].amount}`}
                                                 />
                                             </ListItem>
                                         )

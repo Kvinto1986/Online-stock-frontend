@@ -4,7 +4,8 @@ import CloseIcon from '@material-ui/icons/Close'
 import useStyles from '../controlTTNstyle'
 
 const TopBar = ({open, openDialog}) => {
-    const classes = useStyles()
+    const classes = useStyles();
+
     return (
         <AppBar className={classes.appBar}>
             <Toolbar>

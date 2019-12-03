@@ -24,7 +24,7 @@ export default ({onSubmit, error, id}) => {
 
     return (
         <>
-            <Container component="main" maxWidth="xs">
+            <Container maxWidth="xs">
                 <CssBaseline/>
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h5" style={{textAlign: 'center', marginBottom: '5%'}}>

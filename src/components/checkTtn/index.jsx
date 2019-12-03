@@ -5,17 +5,17 @@ import {useReset} from '../../hooks/hook'
 import successSwal from '../warehousesPage/successSwal'
 
 export default () => {
-    const [keyPage, resetKey] = useReset()
+    const [keyPage, resetKey] = useReset();
 
     const handleResetForm = useCallback(
         () => {
             successSwal(resetKey, 'TTN successfully deleted')
         },
         [resetKey],
-    )
+    );
 
-    const [getTtn, ttns, getTtnError] = useGetTtn()
-    const [deleteTtn] = useDelTtn(handleResetForm)
+    const [getTtn, ttns, getTtnError] = useGetTtn();
+    const [deleteTtn] = useDelTtn(handleResetForm);
 
     return <CheckPage
         key={keyPage}

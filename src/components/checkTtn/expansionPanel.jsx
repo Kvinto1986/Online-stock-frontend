@@ -9,9 +9,7 @@ import moment from 'moment'
 export default ({report}) => {
     return (
         <ExpansionPanel>
-            <ExpansionPanelSummary
-                expandIcon={<ExpandMoreIcon/>}
-            >
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                 <Typography>Open and read report from {moment(report.date).format('MMMM Do YYYY')}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>

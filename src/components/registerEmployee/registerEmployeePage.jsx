@@ -10,7 +10,7 @@ export default () => {
     const classes = useStyles();
 
     return (
-        <Container component="main" maxWidth="md">
+        <Container maxWidth="md">
             <CssBaseline />
             <div className={classes.paper}>
                 <Typography component="h1" variant="h5" className={classes.formName}>

@@ -7,24 +7,24 @@ import successSwal from './successSwal'
 import {useReset} from '../../hooks/hook'
 
 export default () => {
-    const [formKey, resetForm] = useReset()
-    const [tableKey, resetTable] = useReset()
+    const [formKey, resetForm] = useReset();
+    const [tableKey, resetTable] = useReset();
 
     const handleResetForm = () => {
         successSwal(resetForm, 'New warehouse successfully registered.')
-    }
+    };
 
     const handleResetTable = () => {
         successSwal(resetTable, 'Warehouse data has been successfully deleted.')
-    }
+    };
 
-    const [getWarehouses, warehouses] = useGetWarehouses()
-    const [createWarehouse, ,createWarehouseError] = useAddWarehouse(handleResetForm)
-    const [deleteWarehouse] = useDelWarehouse(handleResetTable)
+    const [getWarehouses, warehouses] = useGetWarehouses();
+    const [createWarehouse, ,createWarehouseError] = useAddWarehouse(handleResetForm);
+    const [deleteWarehouse] = useDelWarehouse(handleResetTable);
 
-    const authUser = useSelector(authUserFilter)
+    const authUser = useSelector(authUserFilter);
 
-    useEffect(getWarehouses, [])
+    useEffect(getWarehouses, []);
 
     return <WarehousePage
         formKey={formKey}

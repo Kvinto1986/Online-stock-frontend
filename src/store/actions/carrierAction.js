@@ -1,6 +1,6 @@
 import {SET_ERRORS, PREV_PATH} from "./types";
 import axios from "axios";
-import server from "../serverConfig";
+import server from "../../config/server-config";
 
 export const addPrevPath = (prevPath) => dispatch => {
     dispatch({

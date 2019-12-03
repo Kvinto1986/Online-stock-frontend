@@ -8,9 +8,10 @@ import Typography from '@material-ui/core/Typography'
 
 
 export default ({company, employees, delEmployee,tableKey}) => {
-    const classes = useStyles()
+    const classes = useStyles();
+
     return (
-        <Container component="main" maxWidth="xl">
+        <Container maxWidth="xl">
             <CssBaseline/>
             <Typography
                 component="h2"

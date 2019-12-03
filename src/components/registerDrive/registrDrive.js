@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {addDriver} from '../../servies/driverServies';
+import {addDriver} from '../../services/driverServcies';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -42,7 +42,7 @@ const DriverRegister = (props) => {
     const classes = useStyles();
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container maxWidth="xs">
             <CssBaseline/>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>

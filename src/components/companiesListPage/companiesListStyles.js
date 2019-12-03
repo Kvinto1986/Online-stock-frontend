@@ -15,11 +15,6 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
     },
-    footer: {
-        padding: theme.spacing(2),
-        marginTop: 'auto',
-        backgroundColor: 'white',
-    },
     card: {
         marginTop: theme.spacing(5)
     },
@@ -47,4 +42,4 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default useStyles
+export default useStyles;

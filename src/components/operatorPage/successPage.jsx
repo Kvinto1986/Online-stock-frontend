@@ -11,7 +11,7 @@ export default ({reset}) => {
     const classes = useStyles()
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container maxWidth="xs">
             <CssBaseline/>
             <div className={classes.SuccessPaper}>
 

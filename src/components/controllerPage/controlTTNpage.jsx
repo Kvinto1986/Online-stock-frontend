@@ -148,7 +148,7 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
     }
 
     return (
-        <Container component="main" maxWidth="xl" className={classes.mainContainer}>
+        <Container maxWidth="xl" className={classes.mainContainer}>
             <CssBaseline/>
             <TTNsearch
                 search={findTTN}

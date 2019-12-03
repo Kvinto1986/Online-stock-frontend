@@ -16,24 +16,25 @@ import AppBar from '@material-ui/core/AppBar'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 export default ({ttn, open, report, setReport}) => {
-    const classes = useStyles()
+    const classes = useStyles();
 
-    const [openReport, setOpenReport] = useState(false)
+    const [openReport, setOpenReport] = useState(false);
 
     const handleOpen = () => {
-        setOpenReport(true)
-    }
+        setOpenReport(true);
+    };
     const handleClose = () => {
-        setOpenReport(false)
-    }
+        setOpenReport(false);
+    };
 
     const handleDeleteReport = () => {
-        setReport('')
-    }
+        setReport('');
+    };
 
     return (
         <Paper className={classes.cardPaper}>
-            <Typography component="h1" variant="h5" align="center" color="textPrimary" data-testid={'number'}style={{marginTop: '2%'}}>
+            <Typography component="h1" variant="h5" align="center" color="textPrimary" data-testid={'number'}
+                        style={{marginTop: '2%'}}>
                 TTN #{ttn.number}
             </Typography>
             <Card className={classes.card}>
@@ -76,36 +77,40 @@ export default ({ttn, open, report, setReport}) => {
                         </Paper>)}
                 </CardContent>
             </Card>
-            {report.length > 0 && (
-                <>
-                    <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={openReport}>
-                        <AppBar className={classes.appBar}>
-                            <Toolbar>
-                                <Typography variant="h6" className={classes.title}>
-                                    Report
+            {
+                report.length > 0 && (
+                    <>
+                        <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={openReport}>
+                            <AppBar className={classes.appBar}>
+                                <Toolbar>
+                                    <Typography variant="h6" className={classes.title}>
+                                        Report
+                                    </Typography>
+                                    <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+                                        <CloseIcon/>
+                                    </IconButton>
+                                </Toolbar>
+                            </AppBar>
+                            <DialogContent dividers>
+                                <Typography gutterBottom>
+                                    {report}
                                 </Typography>
-                                <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-                                    <CloseIcon/>
-                                </IconButton>
-                            </Toolbar>
-                        </AppBar>
-                        <DialogContent dividers>
-                            <Typography gutterBottom>
-                                {report}
-                            </Typography>
-                        </DialogContent>
-                    </Dialog>
-                    <IconButton onClick={handleDeleteReport} aria-label="close" style={{marginLeft: '5%', marginBottom: '5%'}}>
-                        <DeleteIcon fontSize="large"/>
-                    </IconButton>
-                    <Button
-                        className={classes.report}
-                        variant="outlined"
-                        color="primary"
-                        onClick={handleOpen}>
-                        Read report
-                    </Button>
-                </>)}
+                            </DialogContent>
+                        </Dialog>
+                        <IconButton onClick={handleDeleteReport} aria-label="close"
+                                    style={{marginLeft: '5%', marginBottom: '5%'}}>
+                            <DeleteIcon fontSize="large"/>
+                        </IconButton>
+                        <Button
+                            className={classes.report}
+                            variant="outlined"
+                            color="primary"
+                            onClick={handleOpen}>
+                            Read report
+                        </Button>
+                    </>
+                )
+            }
         </Paper>
 
     )

@@ -3,12 +3,10 @@ import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
-import useStyles from './allCarrierStyle'
 import AddIcon from '@material-ui/icons/Add'
 import IconButton from "@material-ui/core/IconButton";
 
 const TableRowsComponent = ({row, tableCells, handleEdit, handleNewCarrier, removeItem}) => {
-    const classes = useStyles();
     const {id, company, email, tel} = row;
     return (
         <TableRow>

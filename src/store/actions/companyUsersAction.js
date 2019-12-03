@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {SET_ERRORS} from './types';
-import server from '../serverConfig'
+import server from '../../config/server-config'
 
 export const registerEmployee = (user, reset) => dispatch => {
     axios.post(`${server}api/employee/`, user)

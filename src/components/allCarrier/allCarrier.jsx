@@ -2,26 +2,13 @@ import React, {useEffect, useState} from 'react'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
-import TableFooter from '@material-ui/core/TableFooter'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
 import Spinner from '../spinner'
 import TablePaginationActions from './tablePagination'
 import TableRowsComponent from './tableRows'
 import {TableHead} from "@material-ui/core";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-
-const useStyles = makeStyles(theme => ({
-    wrapper: {
-        height: "100%",
-        display: "flex",
-        flexDirection: "column"
-    },
-    tableWrapper: {
-        flex: 1,
-    },
-    table: {},
-}));
+import useStyles from "./allCarrierStyle";
 
 function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
     const classes = useStyles();

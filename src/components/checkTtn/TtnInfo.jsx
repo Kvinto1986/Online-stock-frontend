@@ -12,16 +12,16 @@ import CargoTable from './cargoTable'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Button from '@material-ui/core/Button'
 import ExpansionPanel from './expansionPanel'
-import useStyles from './checkTtnStyles'
+import useStyles from "./checkTtnStyles";
 
 export default ({ttn, onDelete}) => {
 
-    const classes = useStyles()
+    const classes = useStyles();
 
     return (
-        <Container component="main" maxWidth="xl">
+        <Container maxWidth="xl">
             <Paper className={classes.root}>
-                <Table className={classes.table} aria-label="simple table">
+                <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell align="center" colSpan={4}><Typography variant="h5" gutterBottom>
@@ -64,7 +64,7 @@ export default ({ttn, onDelete}) => {
                                 </Typography>
                             </TableCell>
                             <TableCell className={classes.tableCell} align="center" colSpan={1}>
-                                <Table className={classes.table} aria-label="simple table">
+                                <Table aria-label="simple table">
                                     <TableBody>
                                         <TableRow>
                                             <TableCell>
@@ -93,7 +93,7 @@ export default ({ttn, onDelete}) => {
                                 </Typography>
                             </TableCell>
                             <TableCell align="left" colSpan={1}>
-                                <Table className={classes.table} aria-label="simple table">
+                                <Table aria-label="simple table">
                                     <TableBody>
                                         <TableRow>
                                             <TableCell>
@@ -117,7 +117,7 @@ export default ({ttn, onDelete}) => {
                                 </Table>
                             </TableCell>
                         </TableRow>
-                        <TableRow className={classes.cargoRow}>
+                        <TableRow>
                             <TableCell align="center" colSpan={4}><Typography variant="h5" gutterBottom>
                                 <span className={classes.spanTable}>Cargo list:</span>
                             </Typography>

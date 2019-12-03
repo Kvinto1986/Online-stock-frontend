@@ -50,7 +50,7 @@ export default function Landing() {
             <Box maxWidth="xl">
                 <img src={image} style={{width: '100%'}}/>
             </Box>
-            <Container component="main" className={classes.heroContent}>
+            <Container className={classes.heroContent}>
                 <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
                     Industrial and Commercial Warehousing
                 </Typography>
@@ -62,7 +62,7 @@ export default function Landing() {
                     When possible, incorporating lighting controls is ideal for improving energy efficiency.
                 </Typography>
             </Container>
-            <Container maxWidth="md" component="main" className={classes.heroContent}>
+            <Container maxWidth="md" className={classes.heroContent}>
                 <Box>
                     <Slider {...settings}>
                         <div>

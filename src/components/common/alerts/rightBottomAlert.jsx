@@ -1,11 +1,10 @@
 import React from 'react'
-import useStyles from './alertStyles'
 import succes from '../../../resources/images/checked.png'
+import useStyles from "./alertStyles";
 
 const RightBottomAlert = ({message, status}) => {
+    const classes = useStyles();
 
-    const classes = useStyles()
-    
     return (
         <div className={classes.rightBottomAlertStyle}>
             {status && (
@@ -14,5 +13,6 @@ const RightBottomAlert = ({message, status}) => {
             <span className={classes.textStyle}>{message}</span>
         </div>
     )
-}
-export default RightBottomAlert
+};
+
+export default RightBottomAlert;

@@ -78,7 +78,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
     const servicesArray = Object.keys(services);
 
     return (
-        <Container component="main" maxWidth="xl">
+        <Container maxWidth="xl">
             <CssBaseline/>
             <Paper className={classes.root}>
                 <Typography variant="h4" component="h4" color="textSecondary"
