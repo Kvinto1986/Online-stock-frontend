@@ -4,7 +4,7 @@ import server from '../../config/server-config'
 
 export const warehousingPostData = (data, successWirehousingAletrt) => dispatch => {
     axios
-    .post(`${server}api/managers/finishWarehausing`, data)
+    .post(`${server}api/managers/finishWarehousing`, data)
     .then(successWirehousingAletrt)
     .catch(err => {
         if (err.response) {

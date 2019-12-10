@@ -10,8 +10,8 @@ const CompanyAdminView = () => {
     return (
         <Switch>
             <Route exact path="/myWarehouses" component={Warehouse}/>
-            <Route exact path="/createUser" component={UserForm}/>
             <Route exact path="/employees" component={Employees}/>
+            <Route exact path="/employees/add" component={UserForm}/>
             <Route exact path="/employees/:id" component={Employee}/>
             <Route component={Home}/>
         </Switch>

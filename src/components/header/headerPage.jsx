@@ -1,7 +1,6 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import NavigationBar from './navigationBar'
 import Account from '../../resources/images/user.png'
 import Button from '@material-ui/core/Button'
 import React from 'react'
@@ -19,9 +18,6 @@ export default ({user, logout}) => {
                 <Typography variant="h6" color="primary" noWrap className={classes.toolbarTitle}>
                     • Warehousing •
                 </Typography>
-                <NavigationBar
-                    user={user}
-                />
                 <Box component={Link} href={'/me'} display="flex" alignItems="center">
                     <img src={Account} className={classes.icon}/>
                     <Typography variant="h6" color="inherit" noWrap>

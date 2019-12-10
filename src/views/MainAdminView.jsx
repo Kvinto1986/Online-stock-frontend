@@ -12,7 +12,7 @@ const MainAdminView = () => {
             <Route exact path="/serviceManager" component={ServicesManager}/>
             <Route exact path="/newCompanyAdmin" component={AdminRegister}/>
             <Route exact path="/reports" component={Report}/>
-            <Route exact path="/companiesList" component={Companies}/>
+            <Route exact path="/companies" component={Companies}/>
             <Route component={Home}/>
         </Switch>
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useSelector} from "react-redux";
 import {authUserFilter} from "../store/filters";
 import {COMPANY_ADMIN, EMPLOYEE, MAIN_ADMIN} from "../constants/role.constants";
@@ -7,9 +7,12 @@ import MainAdminView from "./MainAdminView";
 import CompanyAdminView from "./CompanyAdminView";
 import {Redirect} from "react-router-dom";
 import Header from "../components/header/header";
-import Footer from "../components/footer/footer";
 import {makeStyles} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
+import NavigationDrawer from "../components/drawers/NavigationDrawer";
+import Breadcrumbs from "../components/breadcrumbs/Breadcrumbs";
+import Box from "@material-ui/core/Box";
+import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles(theme => ({
     viewContainer: {
@@ -19,14 +22,30 @@ const useStyles = makeStyles(theme => ({
     },
     view: {
         flex: 1,
-        margin: 32,
-        padding: 24,
+        display: "flex",
+    },
+    contentContainer: {
+        flex: 1,
+        display: "flex",
+        flexDirection: "column"
+    },
+    content: {
+        flex: 1,
+        padding: 24
+    },
+    breadcrumbs: {
+        padding: "8px 24px"
     },
 }));
 
 const MainView = () => {
     const user = useSelector(authUserFilter);
     const classes = useStyles();
+    const [links, setLinks] = useState([
+        {route: "/abc1", name: "abc1"},
+        {route: "/abc2", name: "abc2"},
+        {route: "/abc3", name: "abc3"},
+    ]);
 
     const View = () => {
         switch (user.role) {
@@ -42,13 +61,22 @@ const MainView = () => {
     };
 
     return (
-        <div className={classes.viewContainer}>
+        <Box className={classes.viewContainer}>
             <Header/>
-            <Paper className={classes.view}>
-                <View/>
-            </Paper>
-            <Footer/>
-        </div>
+            <Box className={classes.view}>
+                <NavigationDrawer/>
+                <Box className={classes.contentContainer}>
+                    <Box className={classes.breadcrumbs}>
+                        <Breadcrumbs links={links}
+                                     currentView={user.role}/>
+                    </Box>
+                    <Divider/>
+                    <Paper className={classes.content} square="false">
+                        <View/>
+                    </Paper>
+                </Box>
+            </Box>
+        </Box>
     )
 };
 
