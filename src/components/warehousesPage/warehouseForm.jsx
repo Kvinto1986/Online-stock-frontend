@@ -130,14 +130,6 @@ export default ({onSubmit, error, company}) => {
     }
 
 
-
-    const handleUpldChange = e => {
-        if (e.target.files[0]) {
-            setAvatar(e.target.files[0])
-        }
-
-    }
-
     const handleUpl = () => {
         const uploadTask = storage.ref(`build/${avatar.name}`).put(avatar)
         uploadTask.on(
@@ -171,9 +163,9 @@ export default ({onSubmit, error, company}) => {
                         addArea={addArea}
                         setWarehouse={setWarehouse}
                         handleChange={handleChange}
-                        handleUpldChange={handleUpldChange}
                         avatarUrl={avatarUrl}
                         avatar={avatar}
+                        setAvatar={setAvatar}
                       />
                       {addArea && (
                         <AreasCreator
