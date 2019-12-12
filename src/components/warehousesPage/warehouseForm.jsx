@@ -199,7 +199,7 @@ export default ({onSubmit, error, company}) => {
                         mapVisibility={mapState.mapVisibility}
                         GPS={mapState.GPS}
                         zoom={15}
-                        mapHeight={200}/>
+                        mapHeight={400}/>
                       {list.length > 0 && (
                         <Box mt={77}>
                             <Container maxWidth="sm">
