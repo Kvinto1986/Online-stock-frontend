@@ -43,9 +43,10 @@ export default ({onSubmit, errors, initial}) => {
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === form.password)
 
     const handleUpldChange = e => {
+        console.log(e.target.files[0])
         if (e.target.files[0]) {
             setAvatar(e.target.files[0])
-            console.log(e.target.files[0])
+
         }
 
     }

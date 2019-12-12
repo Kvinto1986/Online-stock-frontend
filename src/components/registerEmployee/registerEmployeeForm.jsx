@@ -36,7 +36,6 @@ export default ({onSubmit, errors, initial = initialForm}) => {
          }
     })
     const [avatarUrl, setAvatarUrl] = useState('https://orbisagency.com/wp-content/uploads/2017/08/empty-avatar-300x300.png')
-
     const [dateOfBirth, setDateOfBirth] = useState('1970-01-01')
     const classes = useStyles()
 
@@ -66,12 +65,6 @@ export default ({onSubmit, errors, initial = initialForm}) => {
         }
 
         onSubmit(employee)
-    }
-    const handleUpldChange = e => {
-        if (e.target.files[0]) {
-            setAvatar(e.target.files[0])
-        }
-
     }
 
     const handleUpl = () => {
@@ -251,7 +244,7 @@ export default ({onSubmit, errors, initial = initialForm}) => {
               </Grid>
           </Grid>
           <Grid item xs={12} sm={6}>
-              <LoadAvatar avatarUrl={avatarUrl} handleUpldChange={handleUpldChange} />
+              <LoadAvatar avatarUrl={avatarUrl} setAvatar={setAvatar}/>
           </Grid>
           <Grid item xs={12} sm={12}>
               <Button
