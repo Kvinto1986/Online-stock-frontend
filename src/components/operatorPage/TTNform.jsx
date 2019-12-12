@@ -151,6 +151,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                       <Grid item xl={4} xs={1}>
                       </Grid>
                   </Grid>
+
                   <Grid container spacing={3}>
                       <Grid item xl={1} xs={1}>
                       </Grid>
@@ -197,20 +198,33 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                       </Grid>
                   </Grid>
 
-                  <Grid container spacing={3}>
-                      <Grid item xl={1} xs={1}>
-                      </Grid>
-                      <Grid item xl={10} xs={10}>
+                  <Grid container spacing={3} style={{marginTop: '3%'}}>
+                      <Grid item xl={1} xs={1}></Grid>
+                      <Grid item xl={4} xs={3}>
                           <TextValidator
-                            style={{marginTop: '3%'}}
                             fullWidth
                             disabled={true}
-                            value={`UNP №  ${TTN.carrier.unp}, phone number:  ${TTN.carrier.tel}, company name: ${TTN.carrier.company}`}
-                            label="Carrier information"
+                            label="Carrier UNP"
+                            value={` ${TTN.carrier.unp}`}
+                          />
+                      </Grid>
+                      <Grid item xl={4} xs={3}>
+                          <TextValidator
+                            fullWidth
+                            disabled={true}
+                            label="Phone number"
+                            value={`${TTN.carrier.tel}`}
+                          />
+                      </Grid>
+                      <Grid item xl={4} xs={3}>
+                          <TextValidator
+                            fullWidth
+                            disabled={true}
+                            label="Company Name"
+                            value={`${TTN.carrier.company}`}
                           />
                       </Grid>
                   </Grid>
-
                   <Grid container spacing={3} style={{marginTop: '3%'}}>
                       <Grid item xl={1} xs={1}>
                       </Grid>
