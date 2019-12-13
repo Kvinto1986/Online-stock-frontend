@@ -85,7 +85,6 @@ export default ({onSubmit, errors, initial}) => {
             avatar: avatarUri
             
         }, form.password ? {password: form.password} : {})
-        console.log(employee)
         onSubmit(employee)
     }
 
@@ -236,6 +235,7 @@ export default ({onSubmit, errors, initial}) => {
                     <TextField
                         pattern={/^[-a-zA-Z0-9 /]*$/}
                         fullWidth
+                        required
                         name="apartment"
                         inputProps={{'data-testid': 'apartment'}}
                         value={form}
@@ -250,6 +250,7 @@ export default ({onSubmit, errors, initial}) => {
                 <Grid item xs={12} sm={6}>
                     <TextField
                         fullWidth
+                        required
                         type="password"
                         name="password"
                         inputProps={{'data-testid': 'password'}}
@@ -263,6 +264,7 @@ export default ({onSubmit, errors, initial}) => {
                 <Grid item xs={12} sm={6}>
                     <TextField
                         fullWidth
+                        required
                         type="password"
                         name="passwordAgain"
                         inputProps={{'data-testid': 'passwordAgain'}}
