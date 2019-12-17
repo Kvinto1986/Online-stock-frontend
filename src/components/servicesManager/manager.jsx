@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
 function Manager({services, onCreate, onDelete, errorAdd, editService}) {
-
     return <Container fixed>
         <Form onCreate={onCreate} error={errorAdd}/>
         {services.length > 0 && (
@@ -22,7 +21,6 @@ function Manager({services, onCreate, onDelete, errorAdd, editService}) {
             </Table>
         </Box>
     </Container>
-
 }
 
 export default Manager
