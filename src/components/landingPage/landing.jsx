@@ -38,7 +38,7 @@ export default function Landing() {
             <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-                        Company name
+                        • Warehousing •
                     </Typography>
                         <Link variant="button" color="primary" to="/login" className={classes.link}>
                             <Button  color="primary" variant="outlined" className={classes.link}>
@@ -51,16 +51,15 @@ export default function Landing() {
                 <img src={image} style={{width: '100%'}}/>
             </Box>
             <Container component="main" className={classes.heroContent}>
-                <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                <Typography component="h3" variant="h3" align="center" color="textPrimary" gutterBottom>
                     Industrial and Commercial Warehousing
                 </Typography>
-                <Typography variant="h5" align="center" color="textSecondary" component="p">
-                    Lighting can be the single largest energy cost for commercial and industrial buildings.
-                    LED lighting systems deliver better, sharper, higher-quality lighting and light levels at
-                    a fraction of the energy cost. Performing site inspection audits with follow-up
-                    photometrics to support lighting recommendations is key to proper foot-candles.
-                    When possible, incorporating lighting controls is ideal for improving energy efficiency.
-                </Typography>
+                <Box mt={4}>
+                    <Typography align="center" color="textSecondary" component="p" className={classes.descriptionText}>
+                        We provide the simple UI for your warehouse company employees. <br/>
+                        Easy to manage, to youse
+                    </Typography>
+                </Box>
             </Container>
             <Container maxWidth="md" component="main" className={classes.heroContent}>
                 <Box>

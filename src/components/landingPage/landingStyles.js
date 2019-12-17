@@ -24,14 +24,16 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
     },
     link: {
-        margin: theme.spacing(1, 1.5),
         borderColor: '#EBF1F9',
         color: '#EBF1F9',
         letterSpacing: '1.5px',
         fontSize: 12
     },
     heroContent: {
-        padding: theme.spacing(8, 0, 6),
+        padding: '45px 15px',
+    },
+    descriptionText: {
+        fontSize: '1.5em'
     },
     cardHeader: {
         backgroundColor: theme.palette.grey[200],
@@ -50,8 +52,7 @@ const useStyles = makeStyles(theme => ({
             paddingTop: theme.spacing(6),
             paddingBottom: theme.spacing(6),
         },
-    },
-
-}));
+    }
+}))
 
 export default useStyles

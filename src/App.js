@@ -18,7 +18,7 @@ const App = () => {
     return (
         <Provider store={store}>
             <Router>
-                 <SecurityRoute/>
+                <SecurityRoute/>
             </Router>
         </Provider>
     )

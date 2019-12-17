@@ -1,47 +1,41 @@
-import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
-import React, {useState} from "react";
-import useStyles from "./loginStyles";
-
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
+import Box from '@material-ui/core/Box'
+import Button from '@material-ui/core/Button'
+import React, {useState} from 'react'
+import useStyles from './loginStyles'
 
 export default ({onSubmit, errors}) => {
     const [values, setValues] = useState({
         email: '',
         password: '',
         errors: {}
-    });
+    })
 
     const handleInputChange = (e) => {
         setValues({...values, [e.target.name]: e.target.value})
-    };
-
+    }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         const user = {
             email: values.email,
             password: values.password,
-        };
+        }
 
-        onSubmit(user);
+        onSubmit(user)
+    }
 
-    };
+    const classes = useStyles()
 
-    const classes = useStyles();
-
-    return (<ValidatorForm className={classes.form} noValidate onSubmit={handleSubmit}>
+    return (
+        <ValidatorForm className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextValidator
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Email"
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -65,15 +59,10 @@ export default ({onSubmit, errors}) => {
                 errorMessages={['this field is required']}
                 onChange={handleInputChange}
             />
-            <FormControlLabel
-                control={<Checkbox value="remember" color="primary"/>}
-                label="Remember me"
-            />
             <Box mt={1}>
                 <span style={{color: 'red'}}>{errors.email}</span>
                 <span style={{color: 'red'}}>{errors.password}</span>
             </Box>
-
             <Button
                 type="submit"
                 fullWidth
@@ -83,13 +72,6 @@ export default ({onSubmit, errors}) => {
             >
                 Sign In
             </Button>
-            <Grid container>
-                <Grid item xs>
-                    <Link href="#" variant="body2">
-                        Forgot password?
-                    </Link>
-                </Grid>
-            </Grid>
         </ValidatorForm>
     )
 }
