@@ -37,11 +37,11 @@ const Report = (props) => {
     return (
         <React.Fragment>
             <CssBaseline/>
-            <Container component="main" className={classes.heroContent}>
+            <Container maxWidth="sm" component="main" className={classes.heroContent}>
                 <Typography variant="h5" align="center" color="textSecondary" component="p">
                     Show report about companies
                 </Typography>
-                <Container maxWidth="sm" className={classes.time}>
+                <Container fixed className={classes.time}>
                     <DataInput
                         fromDate={fromDate}
                         handleFromDateChange={setFromDate}

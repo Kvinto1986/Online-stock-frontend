@@ -130,8 +130,6 @@ export default ({onSubmit, error, company}) => {
         setTotalArea(newValue)
     }
 
-
-
     const handleUpldChange = e => {
         if (e.target.files[0]) {
             setAvatar(e.target.files[0])
