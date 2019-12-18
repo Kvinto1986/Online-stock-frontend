@@ -136,7 +136,6 @@ export default ({onSubmit, error, company}) => {
         }
 
     }
-
     const handleUpl = () => {
         const uploadTask = storage.ref(`build/${avatar.name}`).put(avatar)
         uploadTask.on(

@@ -2,7 +2,7 @@ import axios from 'axios'
 // TODO: .env ! IMPORTANT FOR SECURITY !
 
 export const createServiceNowTicket = data => {
-    const options= {
+    const options = {
         url: 'https://dev68689.service-now.com/api/now/v2/table/u_angular',
         method: 'post',
         headers: {
@@ -10,7 +10,7 @@ export const createServiceNowTicket = data => {
             'Content-Type': 'application/json',
         },
         data,
-        auth:{
+        auth: {
             username: 'admin',
             password: 'dsz89BKMzzKJ'
         }
@@ -22,7 +22,7 @@ export const createServiceNowTicket = data => {
 }
 
 export const getBy = serviceName => {
-    const options= {
+    const options = {
         url: `https://dev68689.service-now.com/api/427591/get_one/getBuID/${serviceName}`,
         method: 'get',
         headers: {
@@ -35,7 +35,5 @@ export const getBy = serviceName => {
         }
     }
 
-    axios(options).then(res => {
-        console.log(res.data.result)
-    })
+    return axios(options)
 }

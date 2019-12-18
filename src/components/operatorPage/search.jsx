@@ -15,7 +15,6 @@ export default ({search, searchText, error, value, setValue, length}) => {
       <Typography variant="h5" align="center" color="textSecondary" component="p" className={classes.main}>
         {searchText}
       </Typography>
-
       <ValidatorForm className={classes.form} noValidate onSubmit={() => search(value)}>
         <div className={classes.rootPaper}>
           <TextValidator
