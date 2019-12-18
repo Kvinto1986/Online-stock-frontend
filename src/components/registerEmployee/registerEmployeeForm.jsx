@@ -28,15 +28,19 @@ const initialForm = {
 }
 
 export default ({onSubmit, errors, initial = initialForm}) => {
+
     const [form, setForm] = useState(initial)
     const [avatar, setAvatar] = useStateWithCallback(false, avatar => {
-         if(avatar) {
-             handleUpl()
-             setAvatar(false)
-         }
+        if (avatar) {
+            handleUpl()
+            setAvatar(false)
+        }
     })
     const [avatarUrl, setAvatarUrl] = useState('https://orbisagency.com/wp-content/uploads/2017/08/empty-avatar-300x300.png')
-    const [dateOfBirth, setDateOfBirth] = useState('1970-01-01')
+    const [dateOfBirth, setDateOfBirth] = useState({
+        date: '1970-01-01',
+        changed: false
+    })
     const classes = useStyles()
 
     const handleInputChange = (e) => {
@@ -47,6 +51,13 @@ export default ({onSubmit, errors, initial = initialForm}) => {
         setForm(initial)
     }, [initial])
 
+    const handleChangedDate = (e) => {
+
+        setDateOfBirth({
+            date: e,
+            changed: true
+        })
+    }
     const handleSubmit = (e) => {
         e.preventDefault()
 
@@ -60,9 +71,10 @@ export default ({onSubmit, errors, initial = initialForm}) => {
             house: form.house,
             apartment: form.apartment,
             position: form.position,
-            dateOfBirth: dateOfBirth,
+            dateOfBirth: dateOfBirth.date,
             avatar: avatarUrl
         }
+
 
         onSubmit(employee)
     }
@@ -71,8 +83,11 @@ export default ({onSubmit, errors, initial = initialForm}) => {
         const uploadTask = storage.ref(`employes/${avatar.name}`).put(avatar)
         uploadTask.on(
           'state_changed',
-          snapshot => {},
-          err => { console.error(err)},
+          snapshot => {
+          },
+          err => {
+              console.error(err)
+          },
           () => {
               storage
                 .ref(`employes`)
@@ -136,8 +151,8 @@ export default ({onSubmit, errors, initial = initialForm}) => {
                         required
                         className={classes.formControl}
                         disableFuture
-                        value={dateOfBirth}
-                        onChange={setDateOfBirth}
+                        value={dateOfBirth.date}
+                        onChange={handleChangedDate}
                         name="dateOfBirth"
                         openTo="year"
                         format="dd/MM/yyyy"
@@ -147,13 +162,14 @@ export default ({onSubmit, errors, initial = initialForm}) => {
                         maxDate={new Date('2001-01-01')}
                       />
                   </MuiPickersUtilsProvider>
+                  {(errors && !dateOfBirth.changed) && (
+                    <FormHelperText className={classes.helperText}>{errors.date}</FormHelperText>)}
               </Grid>
               <Grid item xs={12} sm={4}>
                   <FormControl className={classes.formControl} required>
                       <InputLabel>Role</InputLabel>
                       <Select
                         multiple
-
                         name="position"
                         value={form.position}
                         onChange={handleInputChange}
@@ -166,9 +182,11 @@ export default ({onSubmit, errors, initial = initialForm}) => {
 
 
                       </Select>
-                      {errors && (
-                        <FormHelperText className={classes.helperText}>{errors.position}</FormHelperText>)}
+
                   </FormControl>
+                  {(errors && !form.position.length) && (
+                    <FormHelperText className={classes.helperText}>{errors.role}</FormHelperText>)}
+
               </Grid>
 
               <Grid item xs={12} sm={4}>
@@ -221,7 +239,8 @@ export default ({onSubmit, errors, initial = initialForm}) => {
               </Grid>
               <Grid item xs={12} sm={6}>
                   <TextValidator
-                    required
+                    validators={['required']}
+                    errorMessages={['this field is required']}
                     fullWidth
                     name="house"
                     value={form.house}
@@ -238,6 +257,8 @@ export default ({onSubmit, errors, initial = initialForm}) => {
                     value={form.apartment}
                     label="Apartment number"
                     onChange={handleInputChange}
+                    validators={['required']}
+                    errorMessages={['this field is required']}
                   />
                   {errors && (
                     <FormHelperText className={classes.helperText}>{errors.apartment}</FormHelperText>)}
