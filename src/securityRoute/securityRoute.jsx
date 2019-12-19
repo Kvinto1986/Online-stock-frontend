@@ -37,6 +37,7 @@ const SecurityRoute = (props) => {
                         <Box className="content">
                             <Switch>
                                 <Route exact path="/me" component={EmployeeEditPage}/>
+                                <Route component={Home}/>
                                 {props.auth.user.position.includes('manager') && (
                                     <Fragment>
                                         <Route exact path="/warehousing" component={Warehousing}/>
@@ -56,7 +57,6 @@ const SecurityRoute = (props) => {
                                         <Route exact path="/controlTTN" component={ControllerPage}/>
                                     </Fragment>
                                 )}
-                                <Route component={Home}/>
                             </Switch>
                         </Box>
                         <Footer/>
@@ -64,7 +64,7 @@ const SecurityRoute = (props) => {
                 )
             case 'mainAdmin':
                 return (
-                    <div>
+                    <div className="wrapper">
                         <Header/>
                         <Box className="content">
                             <Switch>
@@ -81,7 +81,7 @@ const SecurityRoute = (props) => {
                 )
             case 'companyAdmin':
                 return (
-                    <div>
+                    <div className="wrapper">
                         <Header/>
                         <Box className="content">
                             <Switch>
@@ -102,7 +102,7 @@ const SecurityRoute = (props) => {
         }
     } else {
         return (
-            <div>
+            <div className="wrapper">
                 <Box className="content">
                     <Switch>
                         <Route exact path="/login" component={Login}/>

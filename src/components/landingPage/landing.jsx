@@ -48,7 +48,7 @@ export default function Landing() {
                 </Toolbar>
             </AppBar>
             <Box maxWidth="xl">
-                <img src={image} style={{width: '100%'}}/>
+                <img src={image} style={{width: '100%'}} />
             </Box>
             <Container component="main" className={classes.heroContent}>
                 <Typography component="h3" variant="h3" align="center" color="textPrimary" gutterBottom>

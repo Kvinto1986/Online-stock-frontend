@@ -12,7 +12,6 @@ import {
 import {authUserFilter} from '../../filters'
 import findSwal from '../swal/findSwal'
 
-
 export default () => {
     const [activeStep, setActiveStep] = useState(0)
 
