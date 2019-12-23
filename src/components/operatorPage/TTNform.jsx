@@ -188,7 +188,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                 />}
                             </Grid>
                         </Grid>
-                        <Grid container spacing={3} style={{marginTop: '3%'}}>
+                        <Grid container spacing={3}>
                             <Grid item sm={4} xs={12}>
                                 <TextValidator
                                     fullWidth
@@ -214,7 +214,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                 />
                             </Grid>
                         </Grid>
-                        <Grid container spacing={3} style={{marginTop: '3%'}}>
+                        <Grid container spacing={3}>
                             <Grid item sm={2} xs={12}>
                                 <TextValidator
                                     fullWidth

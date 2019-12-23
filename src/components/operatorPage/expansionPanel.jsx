@@ -9,13 +9,12 @@ export default function ({formVisibility, setFormVisibility, Form, onSubmit, err
         <div className={classes.rootExpansion}>
             <ErrorBtn setFormVisibility={setFormVisibility} formVisibility={formVisibility}/>
             {formVisibility && (
-                    <Form
-                        onSubmit={onSubmit}
-                        error={error}
-                        id={id}
-                    />
-                )}
-
+                <Form
+                    onSubmit={onSubmit}
+                    error={error}
+                    id={id}
+                />
+            )}
         </div>
     )
 }

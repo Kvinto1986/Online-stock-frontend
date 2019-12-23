@@ -10,7 +10,8 @@ export default () => {
     const onSubmit = useCallback(
         user => loginUser(dispatch)(user).catch(({response: {data}}) => {
             setErrors(data)
-        }), [dispatch])
+        }), [dispatch]
+    )
 
     return <LoginForm
         onSubmit={onSubmit}
