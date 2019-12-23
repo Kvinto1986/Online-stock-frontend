@@ -53,7 +53,6 @@ export default ({reports}) => {
                         </TableCell>
                     </TableRow>
                     <TableRow>
-
                         <TableCell align="center">Date of creation</TableCell>
                         <TableCell align="center">Service type</TableCell>
                         <TableCell align="center">Status</TableCell>
@@ -63,8 +62,7 @@ export default ({reports}) => {
                 <TableBody>
                     {reports.slice(rowsCount, allRowsCount).map(row => (
                         <TableRow key={row.sys_id}>
-                            // 11/12/2019
-                            <TableCell align="center">{moment(row.sys_created_on).format('l')}</TableCell>
+                            <TableCell align="center">{moment(row.sys_created_on).format('DD/MM/YYYY')}</TableCell>
                             <TableCell align="center">{row.u_servicetype}</TableCell>
                             <TableCell align="center">{row.u_status}</TableCell>
                             <TableCell align="center"><ReportWindow report={row.u_incidentinfo}/></TableCell>
