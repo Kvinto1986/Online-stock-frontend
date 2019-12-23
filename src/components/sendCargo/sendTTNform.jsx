@@ -81,7 +81,6 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, order}) 
             <Container component="main" maxWidth="xl">
                 <CssBaseline/>
                 <Paper>
-                    <Box mt={3}></Box>
                     <Box display="flex" justifyContent="center" mt={5}>
                         <Typography variant="h5" component="h5" style={{paddingTop: '30px'}}>
                             International waybill № {TTN.number}
