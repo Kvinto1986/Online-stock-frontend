@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
@@ -129,7 +130,12 @@ export default ({onSubmit, error, company}) => {
         setTotalArea(newValue)
     }
 
+    const handleUpldChange = e => {
+        if (e.target.files[0]) {
+            setAvatar(e.target.files[0])
+        }
 
+    }
     const handleUpl = () => {
         const uploadTask = storage.ref(`build/${avatar.name}`).put(avatar)
         uploadTask.on(
@@ -138,7 +144,7 @@ export default ({onSubmit, error, company}) => {
           err => { console.error(err)},
           () => {
               storage
-                .ref(`build`)
+                .ref('build')
                 .child(avatar.name)
                 .getDownloadURL()
                 .then(url => {
@@ -147,70 +153,74 @@ export default ({onSubmit, error, company}) => {
           }
         )
     }
+
     return (
       <Container component="main" maxWidth="xl">
           <Box mt={7}>
               <CssBaseline/>
               <div className={classes.main}>
-                  <div className={classes.paper}>
-                      <WarehouseDetailsForm
-                        warehouse={warehouse}
-                        totalArea={totalArea}
-                        error={error}
-                        handleChangeArea={handleChangeArea}
-                        handleChangeAddArea={handleChangeAddArea}
-                        onSelectLocation={onSelectLocation}
-                        addArea={addArea}
-                        setWarehouse={setWarehouse}
-                        handleChange={handleChange}
-                        avatarUrl={avatarUrl}
-                        avatar={avatar}
-                        setAvatar={setAvatar}
-                      />
-                      {addArea && (
-                        <AreasCreator
-                          warehouse={warehouse}
-                          totalArea={totalArea}
-                          currentArea={currentArea}
-                          handleInputChange={handleInputChange}
-                          handleChangeCurrentArea={handleChangeCurrentArea}
-                          handleAddArea={handleAddArea}
-                        />
-                      )}
-                      {(addArea && totalArea === 0) && (
-                        <Container maxWidth="sm">
-                            <Box mt={10}>
-                                <Button
-                                  type="submit"
-                                  fullWidth
-                                  variant="contained"
-                                  color="primary"
-                                  className={classes.submit}
-                                  onClick={handleSubmit}
-                                >
-                                    Create warehouse
-                                </Button>
-                            </Box>
-                        </Container>
-                      )}
-                  </div>
-                  <div className={classes.paperList}>
-                      <MapContainer
-                        mapVisibility={mapState.mapVisibility}
-                        GPS={mapState.GPS}
-                        zoom={15}
-                        mapHeight={400}/>
-                      {list.length > 0 && (
-                        <Box mt={77}>
-                            <Container maxWidth="sm">
-                                <AreaCard
-                                  handleDeleteArea={handleDeleteArea}
-                                  list={list}
+                  <Grid container spacing={5}>
+                    <Grid item xs={6}>
+                            <MapContainer
+                                mapVisibility={mapState.mapVisibility}
+                                GPS={mapState.GPS}
+                                zoom={15}
+                                mapHeight={200}
+                            />
+                            {list.length > 0 && (
+                                <Box mt={35}>
+                                    <Container maxWidth="sm">
+                                        <AreaCard
+                                            handleDeleteArea={handleDeleteArea}
+                                            list={list}
+                                        />
+                                    </Container>
+                                </Box>
+                            )}
+                        </Grid>
+                        <Grid item sm={6} xs={12}>
+                            <WarehouseDetailsForm
+                                warehouse={warehouse}
+                                totalArea={totalArea}
+                                error={error}
+                                handleChangeArea={handleChangeArea}
+                                handleChangeAddArea={handleChangeAddArea}
+                                onSelectLocation={onSelectLocation}
+                                addArea={addArea}
+                                setWarehouse={setWarehouse}
+                                handleChange={handleChange}
+                                handleUpldChange={handleUpldChange}
+                                avatarUrl={avatarUrl}
+                                avatar={avatar}
+                            />
+                            {addArea && (
+                                <AreasCreator
+                                warehouse={warehouse}
+                                totalArea={totalArea}
+                                currentArea={currentArea}
+                                handleInputChange={handleInputChange}
+                                handleChangeCurrentArea={handleChangeCurrentArea}
+                                handleAddArea={handleAddArea}
                                 />
-                            </Container>
-                        </Box>
-                      )}
-                  </div>
+                            )}
+                            {(addArea && totalArea === 0) && (
+                                <Container maxWidth="sm">
+                                    <Box mt={10}>
+                                        <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.submit}
+                                        onClick={handleSubmit}
+                                        >
+                                            Create warehouse
+                                        </Button>
+                                    </Box>
+                                </Container>
+                            )}
+                        </Grid>
+                  </Grid>
               </div>
           </Box>
       </Container>

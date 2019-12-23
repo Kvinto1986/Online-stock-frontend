@@ -15,10 +15,10 @@ import Button from '@material-ui/core/Button'
 const steps = ['Carrier check', 'Driver check', 'Check order', 'Create TTN']
 
 export default ({
-                    activeStep, setActiveStep, searchCarrier, searchCarrierError, createCarrier, createCarrierError,
-                    searchDriver, searchDriverError, createDriver, createDriverError, createTtn, createTtnError,
-                    carriers, drivers, authUser, services, searchOrder, searchOrderError, orders, handleResetForm,
-                }) => {
+        activeStep, setActiveStep, searchCarrier, searchCarrierError, createCarrier, createCarrierError,
+        searchDriver, searchDriverError, createDriver, createDriverError, createTtn, createTtnError,
+        carriers, drivers, authUser, services, searchOrder, searchOrderError, orders, handleResetForm,
+}) => {
 
     const classes = useStyles()
 

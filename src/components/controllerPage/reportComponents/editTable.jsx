@@ -94,7 +94,12 @@ export default ({cargo, initialCargo, reportReason, handleChangeTTN, setCheckedC
                         <TableCell align="left">Name</TableCell>
                         <TableCell align="left">Amount</TableCell>
                         <TableCell align="left">Type</TableCell>
-                        {reportReason.reasonNumber === 2 && <TableCell align="left">DMG Details</TableCell>}
+                        {reportReason.reasonNumber === 2 && (
+                            <>
+                                <TableCell align="left">DMG Details</TableCell>
+                                <TableCell align="left"></TableCell>
+                            </>
+                        )}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -197,12 +202,15 @@ export default ({cargo, initialCargo, reportReason, handleChangeTTN, setCheckedC
                                 {
                                     // Damaged
                                     reportReason.reasonNumber === 2 && (
+                                        <>
                                         <TableCell align="center">
                                             <InputBase
                                                 value={dmgDetails}
                                                 name="dmgDetails"
                                                 disabled
                                             />
+                                        </TableCell>
+                                        <TableCell>
                                             <Button
                                                 onClick={() => handleOpen(unitName)}
                                                 disabled={!checks[unitName]}
@@ -218,6 +226,7 @@ export default ({cargo, initialCargo, reportReason, handleChangeTTN, setCheckedC
                                                 rowName={modal}
                                             />
                                         </TableCell>
+                                        </>
                                     )
                                 }
                             </TableRow>
