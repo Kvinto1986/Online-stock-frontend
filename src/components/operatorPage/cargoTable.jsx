@@ -5,7 +5,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import useStyles from './operatorPageStyles'
-import {Paper} from '@material-ui/core'
+import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 
 export default ({cargoList, handleDeleteProduct, offButton}) => {
@@ -14,7 +14,7 @@ export default ({cargoList, handleDeleteProduct, offButton}) => {
 
     return (
         <Paper>
-            <Table className={classes.table} size="small">
+            <Table size="small">
                 <TableHead>
                     <TableRow>
                         <TableCell colSpan={5} align="center"><Typography color="textSecondary" component="h1" variant="h5" style={{textAlign: 'center'}}>
