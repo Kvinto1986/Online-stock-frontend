@@ -27,7 +27,6 @@ const initialForm = {
 }
 
 export default ({onSubmit, errors, initial}) => {
-    console.log(initial)
     const [form, setForm] = useState(useMemo(() => ({...initialForm, ...initial}), [initial]))
     const [dateOfBirth, setDateOfBirth] = useState('1970-01-01')
     const classes = useStyles()
@@ -43,12 +42,9 @@ export default ({onSubmit, errors, initial}) => {
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === form.password)
 
     const handleUpldChange = e => {
-        console.log(e.target.files[0])
         if (e.target.files[0]) {
             setAvatar(e.target.files[0])
-
         }
-
     }
     const handleUpl = () => {
         console.log('sdsd')
@@ -59,7 +55,7 @@ export default ({onSubmit, errors, initial}) => {
           err => { console.error(err)},
           () => {
               storage
-                .ref(`employes`)
+                .ref('employes')
                 .child(avatar.name)
                 .getDownloadURL()
                 .then(url => {
@@ -85,14 +81,11 @@ export default ({onSubmit, errors, initial}) => {
             avatar: avatarUri
             
         }, form.password ? {password: form.password} : {})
-        console.log(employee)
         onSubmit(employee)
     }
 
     return (
-        <ValidatorForm noValidate onSubmit={handleSubmit} onError={error => {
-            debugger
-        }}>
+        <ValidatorForm noValidate onSubmit={handleSubmit}>
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={4}>
                     <label>
@@ -236,6 +229,7 @@ export default ({onSubmit, errors, initial}) => {
                     <TextField
                         pattern={/^[-a-zA-Z0-9 /]*$/}
                         fullWidth
+                        required
                         name="apartment"
                         inputProps={{'data-testid': 'apartment'}}
                         value={form}
@@ -250,6 +244,7 @@ export default ({onSubmit, errors, initial}) => {
                 <Grid item xs={12} sm={6}>
                     <TextField
                         fullWidth
+                        required
                         type="password"
                         name="password"
                         inputProps={{'data-testid': 'password'}}
@@ -263,6 +258,7 @@ export default ({onSubmit, errors, initial}) => {
                 <Grid item xs={12} sm={6}>
                     <TextField
                         fullWidth
+                        required
                         type="password"
                         name="passwordAgain"
                         inputProps={{'data-testid': 'passwordAgain'}}
@@ -275,11 +271,11 @@ export default ({onSubmit, errors, initial}) => {
                         errorMessages={['Password does not match']}
                     />
                     {errors && (
-                        <FormHelperText className={classes.helperText}>{errors.password}</FormHelperText>)}
+                        <FormHelperText className={classes.helperText}>{errors.password}</FormHelperText>
+                    )}
                 </Grid>
             </Grid>
-
-            <Grid item xs={12} sm={12}>
+            <Grid item xs={12} sm={2}>
                 <Button
                     type="submit"
                     fullWidth
