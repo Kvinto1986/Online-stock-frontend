@@ -81,15 +81,16 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, order}) 
             <Container component="main" maxWidth="xl">
                 <CssBaseline/>
                 <Paper>
+                    <Box mt={3}></Box>
                     <Box display="flex" justifyContent="center" mt={5}>
-                        <Typography variant="h5" component="h5">
+                        <Typography variant="h5" component="h5" style={{paddingTop: '30px'}}>
                             International waybill № {TTN.number}
                         </Typography>
                     </Box>
                     <Container>
                         <ValidatorForm onSubmit={handleSubmit}>
                             <Grid container spacing={3}>
-                                <Grid item xl={4} xs={12}>
+                                <Grid item sm={6} xs={12}>
                                     <InputText
                                         min={10}
                                         max={15}
@@ -104,6 +105,26 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, order}) 
                                         handleChange={setTTN}
                                         helperClass={classes.error}
                                     />
+                                </Grid>
+                                <Grid item sm={6} xs={12}>
+                                    {order ? (<TextValidator
+                                        fullWidth
+                                        disabled={true}
+                                        label="Number of the car"
+                                        value={`${order.carNumber}`}
+                                    />) : <InputText
+                                        min={6}
+                                        max={10}
+                                        pattern={/.*/}
+                                        fullWidth
+                                        label="Number of the car"
+                                        required
+                                        name="carNumber"
+                                        error={error}
+                                        value={TTN}
+                                        handleChange={setTTN}
+                                        helperClass={classes.error}
+                                    />}
                                 </Grid>
                             </Grid>
                             <Grid container spacing={3}>
@@ -149,35 +170,14 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, order}) 
                                         value={TTN.driver.license}
                                     />
                                 </Grid>
-                                <Grid item xl={12} xs={12}>
-                                    {order ? (<TextValidator
-                                        fullWidth
-                                        disabled={true}
-                                        label="Number of the car"
-                                        value={`${order.carNumber}`}
-                                    />) : <InputText
-                                        min={6}
-                                        max={10}
-                                        pattern={/.*/}
-                                        fullWidth
-                                        label="Number of the car"
-                                        required
-                                        name="carNumber"
-                                        error={error}
-                                        value={TTN}
-                                        handleChange={setTTN}
-                                        helperClass={classes.error}
-                                    />}
-                                </Grid>
                             </Grid>
                             {!order && (
                                 <Fragment>
                                     <Box display="flex" justifyContent="center">
-                                        <Typography variant="h5" component="h5" mt={5} >
+                                        <Typography variant="h5" component="h5" mt={5} style={{paddingTop: '30px'}}>
                                             Add product to cargo:
                                         </Typography>
                                     </Box>
-
                                     <Grid container spacing={3}>
                                         <Grid item xs={12}>
                                             <InputText
@@ -239,7 +239,9 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, order}) 
                                                 helperClass={classes.error}
                                             />
                                         </Grid>
-                                        <Grid item xl={4}>
+                                    </Grid>
+                                    <Grid container>
+                                        <Grid xl={4}>
                                             <Box mb={10}>
                                                 <Button 
                                                     variant="contained" 
