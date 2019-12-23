@@ -11,6 +11,7 @@ import {TextField} from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
+import Box from '@material-ui/core/Box'
 
 export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, order}) => {
     const [TTN, setTTN] = useState({
@@ -75,218 +76,199 @@ export default ({ttnNumber, carrier, driver, onSubmit, error, authUser, order}) 
     return <Container component="main" maxWidth="xl">
         <CssBaseline/>
         <Paper>
-            <Typography variant="h4" component="h4" color="textSecondary"
-                        style={{width: '100%', textAlign: 'center', marginTop: '3%', marginBottom: '3%'}}>
-                International waybill № {TTN.number}
-            </Typography>
-            <ValidatorForm onSubmit={handleSubmit}>
-                <Grid container spacing={3}>
-                    <Grid item xl={4} xs={1}>
+            <Box mt={10}>
+                <Typography variant="h5" component="h5" color="textSecondary"
+                    style={{width: '100%', textAlign: 'center', marginTop: '3%', marginBottom: '3%'}}
+                >
+                    International waybill № {TTN.number}
+                </Typography>
+            </Box>
+            <Container>
+                <ValidatorForm onSubmit={handleSubmit}>
+                    <Grid container spacing={3}>
+                        <Grid item xl={4} xs={12}>
+                            <InputText
+                                min={10}
+                                max={15}
+                                pattern={/^[1-9]*$/}
+                                fullWidth
+                                label="TTN number"
+                                required
+                                name="number"
+                                error={error}
+                                disabled={order}
+                                value={TTN}
+                                handleChange={setTTN}
+                                helperClass={classes.error}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xl={4} xs={10}>
-                        <InputText
-                            min={10}
-                            max={15}
-                            pattern={/^[1-9]*$/}
-                            fullWidth
-                            label="TTN number"
-                            required
-                            name="number"
-                            error={error}
-                            disabled={order}
-                            value={TTN}
-                            handleChange={setTTN}
-                            helperClass={classes.error}
-                        />
-                    </Grid>
-                    <Grid item xl={4} xs={1}>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={3}>
-                    <Grid item xl={1} xs={1}>
-                    </Grid>
-                    <Grid item xl={7} xs={10}>
-                        <TextField
-                            disabled
-                            fullWidth
-                            label="Carrier information"
-                            value={`UNP №  ${TTN.carrier.unp}, phone number:  ${TTN.carrier.tel}, company name: ${TTN.carrier.company}`}
-                        />
-                    </Grid>
-
-                    <Grid item xl={3} xs={10}>
-                        <TextField
-                            fullWidth
-                            disabled
-                            label="Company recipient"
-                            value={TTN.warehouseCompany}
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={3}>
-                    <Grid item xl={1} xs={1}>
-                    </Grid>
-                    <Grid item xl={7} xs={10}>
-                        <TextField
-                            fullWidth
-                            disabled
-                            label="Driver info"
-                            value={`Name: ${TTN.driver.name}, driver license № ${TTN.driver.license}`}
-                        />
-                    </Grid>
-                    <Grid item xl={3} xs={10}>
-                        {order ? (<TextValidator
-                            fullWidth
-                            disabled={true}
-                            label="Number of the car"
-                            value={`${order.carNumber}`}
-                        />) : <InputText
-                            min={6}
-                            max={10}
-                            pattern={/.*/}
-                            fullWidth
-                            label="Number of the car"
-                            required
-                            name="carNumber"
-                            error={error}
-                            value={TTN}
-                            handleChange={setTTN}
-                            helperClass={classes.error}
-                        />}
-                    </Grid>
-                </Grid>
-
-                {!order && (
-                    <Fragment>
-                        <Grid container>
-                            <Grid item xl={1} xs={1}>
-                            </Grid>
-                            <Typography component="h1" variant="h5">
-                                Add product to cargo:
-                            </Typography>
+                    <Grid container spacing={3}>
+                        <Grid item xl={7} xs={12}>
+                            <TextField
+                                disabled
+                                fullWidth
+                                label="Carrier information"
+                                value={`UNP №  ${TTN.carrier.unp}, phone number:  ${TTN.carrier.tel}, company name: ${TTN.carrier.company}`}
+                            />
                         </Grid>
 
-                        <Grid container spacing={3}>
-                            <Grid item xl={1} xs={1}>
-                            </Grid>
-                            <Grid item xl={2} xs={10}>
-                                <InputText
-                                    min={2}
-                                    max={30}
-                                    pattern={/.*/}
-                                    fullWidth
-                                    label="From TTN"
-                                    required
-                                    name="ttnNumber"
-                                    error={error}
-                                    value={product}
-                                    handleChange={setProduct}
-                                    helperClass={classes.error}
-                                />
-                            </Grid>
-                            <Grid item xl={2} xs={10}>
-                                <InputText
-                                    min={2}
-                                    max={30}
-                                    pattern={/.*/}
-                                    fullWidth
-                                    label="Serial number"
-                                    required
-                                    name="id"
-                                    error={error}
-                                    value={product}
-                                    handleChange={setProduct}
-                                    helperClass={classes.error}
-                                />
-                            </Grid>
-                            <Grid item xl={3} xs={10}>
-                                <InputText
-                                    min={2}
-                                    max={30}
-                                    pattern={/.*/}
-                                    fullWidth
-                                    label="Product type"
-                                    required
-                                    name="name"
-                                    error={error}
-                                    value={product}
-                                    handleChange={setProduct}
-                                    helperClass={classes.error}
-                                />
-                            </Grid>
-                            <Grid item xl={1} xs={10}>
-                                <InputText
-                                    min={1}
-                                    max={7}
-                                    pattern={/^[0-9]*$/}
-                                    fullWidth
-                                    label="Amount"
-                                    required
-                                    name="amount"
-                                    error={error}
-                                    value={product}
-                                    handleChange={setProduct}
-                                    helperClass={classes.error}
-                                />
-                            </Grid>
-                            <Grid item xl={3} xs={10}>
-                                <Button variant="contained" color="primary" type="button"
+                        <Grid item xl={3} xs={12}>
+                            <TextField
+                                fullWidth
+                                disabled
+                                label="Company recipient"
+                                value={TTN.warehouseCompany}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={3}>
+                        <Grid item xl={7} xs={12}>
+                            <TextField
+                                fullWidth
+                                disabled
+                                label="Driver info"
+                                value={`Name: ${TTN.driver.name}, driver license № ${TTN.driver.license}`}
+                            />
+                        </Grid>
+                        <Grid item xl={3} xs={12}>
+                            {order ? (<TextValidator
+                                fullWidth
+                                disabled={true}
+                                label="Number of the car"
+                                value={`${order.carNumber}`}
+                            />) : <InputText
+                                min={6}
+                                max={10}
+                                pattern={/.*/}
+                                fullWidth
+                                label="Number of the car"
+                                required
+                                name="carNumber"
+                                error={error}
+                                value={TTN}
+                                handleChange={setTTN}
+                                helperClass={classes.error}
+                            />}
+                        </Grid>
+                    </Grid>
+                    {!order && (
+                        <Fragment>
+                            <Box mt={5} mb={5}>
+                                <Typography component="h5" variant="h5">
+                                    Add product to cargo:
+                                </Typography>
+                            </Box>
+
+                            <Grid container spacing={3}>
+                                <Grid item xl={2} xs={12}>
+                                    <InputText
+                                        min={2}
+                                        max={30}
+                                        pattern={/.*/}
+                                        fullWidth
+                                        label="From TTN"
+                                        required
+                                        name="ttnNumber"
+                                        error={error}
+                                        value={product}
+                                        handleChange={setProduct}
+                                        helperClass={classes.error}
+                                    />
+                                </Grid>
+                                <Grid item xl={2} xs={12}>
+                                    <InputText
+                                        min={2}
+                                        max={30}
+                                        pattern={/.*/}
+                                        fullWidth
+                                        label="Serial number"
+                                        required
+                                        name="id"
+                                        error={error}
+                                        value={product}
+                                        handleChange={setProduct}
+                                        helperClass={classes.error}
+                                    />
+                                </Grid>
+                                <Grid item xl={3} xs={12}>
+                                    <InputText
+                                        min={2}
+                                        max={30}
+                                        pattern={/.*/}
+                                        fullWidth
+                                        label="Product type"
+                                        required
+                                        name="name"
+                                        error={error}
+                                        value={product}
+                                        handleChange={setProduct}
+                                        helperClass={classes.error}
+                                    />
+                                </Grid>
+                                <Grid item xl={1} xs={12}>
+                                    <InputText
+                                        min={1}
+                                        max={7}
+                                        pattern={/^[0-9]*$/}
+                                        fullWidth
+                                        label="Amount"
+                                        required
+                                        name="amount"
+                                        error={error}
+                                        value={product}
+                                        handleChange={setProduct}
+                                        helperClass={classes.error}
+                                    />
+                                </Grid>
+                                <Grid item xl={3} xs={12}>
+                                    <Button variant="contained" color="primary" type="button"
                                         style={{marginLeft: '5%'}}
                                         onClick={handleAddProduct}
-                                        disabled={order}>
-                                    Add to current cargo list
-                                </Button>
+                                        disabled={order}
+                                    >
+                                        Add to current cargo list
+                                    </Button>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid container>
-                            <Grid item xl={1} xs={1}>
+                            <Grid container>
+                                <Grid item xl={2} xs={12}>
+                                    <span style={{color:'red'}}>{idError}</span>
+                                </Grid>
                             </Grid>
-                            <Grid item xl={2} xs={10}>
-                                <span style={{color:'red'}}>{idError}</span>
-                            </Grid>
-                        </Grid>
-                    </Fragment>
-                )}
-
-
-                {order || cargo.length > 0 ? (
-                    <Fragment>
-                        <Grid container spacing={3}>
-                            <Grid item xl={1} xs={1}>
-                            </Grid>
-                            <Grid item xl={10} xs={10}>
-                                {order ? (
-                                    <CargoTable
-                                        cargoList={Object.values(order.cargo)}
+                        </Fragment>
+                    )}
+                    {order || cargo.length > 0 ? (
+                        <Fragment>
+                            <Grid container spacing={3}>
+                                <Grid item xl={10} xs={12}>
+                                    {order ? (
+                                        <CargoTable
+                                            cargoList={Object.values(order.cargo)}
+                                            handleDeleteProduct={handleDeleteProduct}
+                                            offButton={true}
+                                        />
+                                    ) : <CargoTable
+                                        cargoList={cargo}
                                         handleDeleteProduct={handleDeleteProduct}
-                                        offButton={true}
-                                    />
-                                ) : <CargoTable
-                                    cargoList={cargo}
-                                    handleDeleteProduct={handleDeleteProduct}
-                                    offButton={false}
-                                />}
-
+                                        offButton={false}
+                                    />}
+                                </Grid>
                             </Grid>
-                            <Grid item xl={1} xs={1}>
-                            </Grid>
+                        </Fragment>
+                    ) : null}
+                    <Grid container spacing={3}>
+                        <span className={classes.error}>{error.error}</span>
+                    </Grid>
+                    <Grid container spacing={3}>
+                        <Grid item xl={3} xs={12}>
+                            <Button variant="contained" color="primary" type="submit">
+                                Submit
+                            </Button>
                         </Grid>
-                    </Fragment>) : null}
-                <Grid container spacing={3}>
-                    <Grid item xl={1} xs={1}>
                     </Grid>
-                    <span className={classes.error}>{error.error}</span>
-                </Grid>
-                <Grid container spacing={3}>
-                    <Grid item xl={1} xs={1}>
-                    </Grid>
-                    <Grid item xl={3} xs={10}>
-                        <Button variant="contained" color="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Grid>
-                </Grid>
-            </ValidatorForm>
+                </ValidatorForm>
+            </Container>
         </Paper>
     </Container>
 }

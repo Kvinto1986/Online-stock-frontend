@@ -16,6 +16,7 @@ import CargoTable from './cargoTable'
 import Autocomplete from '../fields/autocomplete'
 import Paper from '@material-ui/core/Paper'
 import FormHelperText from '@material-ui/core/FormHelperText'
+import Box from '@material-ui/core/Box'
 
 const options = [
     { value: 'BLR', label: 'BLR' },
@@ -107,7 +108,6 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
             data.products = cargo
         }
         data.service = service
-        console.log(error)
         if(!countryExpl[carNumber.value].pattern.test(data.carNumber)) {
             setPatternError(true)
             return false
@@ -123,293 +123,270 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
     return (
       <Container component="main" maxWidth="xl">
           <CssBaseline/>
-          <Paper className={classes.root}>
-              <Typography variant="h4" component="h4" color="textSecondary"
-                          style={{width: '100%', textAlign: 'center', marginTop: '2%'}}>
-                  International waybill №{TTN.number}
-              </Typography>
-              <ValidatorForm className={classes.TTNform} onSubmit={handleSubmit}>
-                  <Grid container spacing={3}>
-                      <Grid item xl={4} xs={1}>
-                      </Grid>
-                      <Grid item xl={4} xs={10}>
-                          <InputText
-                            min={10}
-                            max={10}
-                            pattern={/^[0-9]*$/}
-                            fullWidth
-                            label="TTN number"
-                            required
-                            disabled={order}
-                            name="number"
-                            error={error}
-                            value={TTN}
-                            handleChange={setTTN}
-                            helperClass={classes.error}
-                          />
-                      </Grid>
-                      <Grid item xl={4} xs={1}>
-                      </Grid>
-                  </Grid>
-
-                  <Grid container spacing={3}>
-                      <Grid item xl={1} xs={1}>
-                      </Grid>
-                      <Grid item xl={4} xs={10}>
-                          {order ? (
-                            <TextValidator
-                              fullWidth
-                              disabled={true}
-                              value={`${order.service}`}
-                              label="Service name"
-                            />
-                          ) : <Autocomplete
-                            list={servicesArray}
-                            searchItem="services"
-                            setValue={setService}
-                          />}
-                      </Grid>
-                      <Grid item xl={1} xs={1}>
-                      </Grid>
-                      <Grid item xl={5} xs={10}>
-                          {order ? (
-                            <TextValidator
-                              fullWidth
-                              disabled={true}
-                              value={`${order.ownerInfo}`}
-                              label="Owner information"
-                            />
-                          ) : <InputText
-                            min={2}
-                            max={30}
-                            pattern={/.*/}
-                            fullWidth
-                            label="Owner information"
-                            required
-                            name="owner"
-                            error={error}
-                            value={TTN}
-                            handleChange={setTTN}
-                            helperClass={classes.error}
-                          />}
-
-                      </Grid>
-                      <Grid item xl={1} xs={1}>
-                      </Grid>
-                  </Grid>
-
-                  <Grid container spacing={3} style={{marginTop: '3%'}}>
-                      <Grid item xl={1} xs={1}></Grid>
-                      <Grid item xl={4} xs={3}>
-                          <TextValidator
-                            fullWidth
-                            disabled={true}
-                            label="Carrier UNP"
-                            value={` ${TTN.carrier.unp}`}
-                          />
-                      </Grid>
-                      <Grid item xl={4} xs={3}>
-                          <TextValidator
-                            fullWidth
-                            disabled={true}
-                            label="Phone number"
-                            value={`${TTN.carrier.tel}`}
-                          />
-                      </Grid>
-                      <Grid item xl={4} xs={3}>
-                          <TextValidator
-                            fullWidth
-                            disabled={true}
-                            label="Company Name"
-                            value={`${TTN.carrier.company}`}
-                          />
-                      </Grid>
-                  </Grid>
-                  <Grid container spacing={3} style={{marginTop: '3%'}}>
-                      <Grid item xl={1} xs={1}>
-                      </Grid>
-                      <Grid item xl={4} xs={10}>
-                          <TextValidator
-                            fullWidth
-                            disabled={true}
-                            label="Driver information"
-                            value={`Name: ${TTN.driver.name}, driver license № ${TTN.driver.license}`}
-                          />
-                      </Grid>
-                      <Grid item xl={3} xs={10}>
-                          {order ? (<TextValidator
-                            fullWidth
-                            disabled={true}
-                            label="Number of the car"
-                            value={`${order.carNumber}`}
-                          />) : <div className={classes.carNumber}>
-                              <SelectCustom
-                                className={classes.carSelect}
-                                onChange={handleChange}
-                                value={carNumber}
-                                options={options}
-                              />
-                              <div className={classes.wrapper}>
-                                  <InputText
-                                    max={countryExpl[carNumber.value].value.length}
-                                    className={classes.numberInpt}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    pattern={/.*/}
-                                    placeholder={countryExpl[carNumber.value].value}
+          <Box mt={5} mb={5}>
+            <Paper className={classes.root}>
+                <Typography 
+                    variant="h4" 
+                    component="h4"
+                    style={{width: '100%', textAlign: 'center', marginTop: '2%'}}
+                >
+                    International waybill №{TTN.number}
+                </Typography>
+                <ValidatorForm className={classes.TTNform} onSubmit={handleSubmit}>
+                    <Container fixed>
+                        <Grid container spacing={3}>
+                            <Grid item sm={4} xs={12}>
+                                <InputText
+                                    min={10}
+                                    max={10}
+                                    pattern={/^[0-9]*$/}
                                     fullWidth
-                                    label="Number of the car"
+                                    label="TTN number"
                                     required
-                                    name="carNumber"
+                                    disabled={order}
+                                    name="number"
                                     error={error}
                                     value={TTN}
                                     handleChange={setTTN}
                                     helperClass={classes.error}
-                                  />
-                                  {patternErr && (<FormHelperText className={classes.error}>check pattern</FormHelperText>)}
-                              </div>
-                          </div>}
-                      </Grid>
-                      <Grid item xl={3} xs={10}>
-                          <TextValidator
-                            fullWidth
-                            disabled={true}
-                            value={TTN.warehouseCompany}
-                            label="Warehouse company"
-                          />
-                      </Grid>
-                  </Grid>
-                  {!order && (
-                    <Fragment>
-                        <Grid container spacing={3}>
-                            <Grid item xl={12} style={{marginTop: '3%', marginBottom: '1%'}}>
-                                <Typography component="h1" variant="h5" style={{textAlign: 'center'}}>
-                                    Add product to cargo:
-                                </Typography>
+                                />
+                            </Grid>
+                            <Grid item sm={4} xs={12}>
+                                {order ? (
+                                    <TextValidator
+                                    fullWidth
+                                    disabled={true}
+                                    value={`${order.service}`}
+                                    label="Service name"
+                                    />
+                                ) : <Autocomplete
+                                    list={servicesArray}
+                                    searchItem="services"
+                                    setValue={setService}
+                                />}
+                            </Grid>
+                            <Grid item sm={4} xs={12}>
+                                {order ? (
+                                    <TextValidator
+                                    fullWidth
+                                    disabled={true}
+                                    value={`${order.ownerInfo}`}
+                                    label="Owner information"
+                                    />
+                                ) : <InputText
+                                    min={2}
+                                    max={30}
+                                    pattern={/.*/}
+                                    fullWidth
+                                    label="Owner information"
+                                    required
+                                    name="owner"
+                                    error={error}
+                                    value={TTN}
+                                    handleChange={setTTN}
+                                    helperClass={classes.error}
+                                />}
                             </Grid>
                         </Grid>
-                        <Grid container spacing={3}>
-                            <Grid item xl={1} xs={1}>
-                            </Grid>
-                            <Grid item xl={2} xs={10}>
-                                <InputText
-                                  min={10}
-                                  max={10}
-                                  pattern={/^[0-9]*$/}
-                                  fullWidth
-                                  label="serial number"
-                                  required
-                                  name="id"
-                                  error={error}
-                                  value={product}
-                                  handleChange={setProduct}
-                                  helperClass={classes.error}
+                        <Grid container spacing={3} style={{marginTop: '3%'}}>
+                            <Grid item sm={4} xs={12}>
+                                <TextValidator
+                                    fullWidth
+                                    disabled={true}
+                                    label="Carrier UNP"
+                                    value={` ${TTN.carrier.unp}`}
                                 />
                             </Grid>
-                            <Grid item xl={3} xs={10}>
-                                <InputText
-                                  min={2}
-                                  max={30}
-                                  pattern={/.*/}
-                                  fullWidth
-                                  label="name"
-                                  required
-                                  name="name"
-                                  error={error}
-                                  value={product}
-                                  handleChange={setProduct}
-                                  helperClass={classes.error}
+                            <Grid item sm={4} xs={12}>
+                                <TextValidator
+                                    fullWidth
+                                    disabled={true}
+                                    label="Phone number"
+                                    value={`${TTN.carrier.tel}`}
                                 />
                             </Grid>
-                            <Grid item xl={1} xs={10}>
-                                <InputText
-                                  min={1}
-                                  max={7}
-                                  pattern={/^[0-9]*$/}
-                                  fullWidth
-                                  label="amount"
-                                  required
-                                  name="amount"
-                                  error={error}
-                                  value={product}
-                                  handleChange={setProduct}
-                                  helperClass={classes.error}
+                            <Grid item sm={4} xs={12}>
+                                <TextValidator
+                                    fullWidth
+                                    disabled={true}
+                                    label="Company Name"
+                                    value={`${TTN.carrier.company}`}
                                 />
                             </Grid>
-                            <Grid item xl={2} xs={10}>
+                        </Grid>
+                        <Grid container spacing={3} style={{marginTop: '3%'}}>
+                            <Grid item sm={2} xs={12}>
+                                <TextValidator
+                                    fullWidth
+                                    disabled={true}
+                                    label="Driver"
+                                    value={`Name: ${TTN.driver.name}`}
+                                />
+                            </Grid>
+                            <Grid item sm={2} xs={12}>
+                                <TextValidator
+                                    fullWidth
+                                    disabled={true}
+                                    label="Driver license"
+                                    value={`Driver license №${TTN.driver.license}`}
+                                />
+                            </Grid>
+                            <Grid item sm={4} xs={12}>
+                                {order ? (<TextValidator
+                                    fullWidth
+                                    disabled={true}
+                                    label="Number of the car"
+                                    value={`${order.carNumber}`}
+                                />) : <div className={classes.carNumber}>
+                                    <SelectCustom
+                                        className={classes.carSelect}
+                                        onChange={handleChange}
+                                        value={carNumber}
+                                        options={options}
+                                    />
+                                    <div className={classes.wrapper}>
+                                        <InputText
+                                            max={countryExpl[carNumber.value].value.length}
+                                            className={classes.numberInpt}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            pattern={/.*/}
+                                            placeholder={countryExpl[carNumber.value].value}
+                                            fullWidth
+                                            label="Number of the car"
+                                            required
+                                            name="carNumber"
+                                            error={error}
+                                            value={TTN}
+                                            handleChange={setTTN}
+                                            helperClass={classes.error}
+                                        />
+                                        {patternErr && (<FormHelperText className={classes.error}>check pattern</FormHelperText>)}
+                                    </div>
+                                </div>}
+                            </Grid>
+                            <Grid item sm={4} xs={12}>
+                                <TextValidator
+                                    fullWidth
+                                    disabled={true}
+                                    value={TTN.warehouseCompany}
+                                    label="Warehouse company"
+                                />
+                            </Grid>
+                        </Grid>
+                        {!order && (
+                            <Container maxWidth="xl">
+                                <Box display="flex" justifyContent="center" mt={10} >
+                                    <Typography component="h4" variant="h4">
+                                        Add product to cargo:
+                                    </Typography>
+                                </Box>
+                                <InputText
+                                min={10}
+                                max={10}
+                                pattern={/^[0-9]*$/}
+                                fullWidth
+                                label="Serial number"
+                                required
+                                name="id"
+                                error={error}
+                                value={product}
+                                handleChange={setProduct}
+                                helperClass={classes.error}
+                                />
+                                <InputText
+                                min={2}
+                                max={30}
+                                pattern={/.*/}
+                                fullWidth
+                                label="Name"
+                                required
+                                name="name"
+                                error={error}
+                                value={product}
+                                handleChange={setProduct}
+                                helperClass={classes.error}
+                                />
+                                <InputText
+                                min={1}
+                                max={7}
+                                pattern={/^[0-9]*$/}
+                                fullWidth
+                                label="Amount"
+                                required
+                                name="amount"
+                                error={error}
+                                value={product}
+                                handleChange={setProduct}
+                                helperClass={classes.error}
+                                />
                                 <FormControl className={classes.formControl}>
                                     <InputLabel>
                                         Type of packaging
                                     </InputLabel>
                                     <Select
-                                      required
-                                      onChange={handleChangeProduct}
-                                      value={product.package}
-                                      inputProps={{
-                                          name: 'package',
-                                      }}
+                                        required
+                                        onChange={handleChangeProduct}
+                                        value={product.package}
+                                        inputProps={{
+                                            name: 'package',
+                                        }}
                                     >
-                                        <MenuItem value={'box'}>box</MenuItem>
-                                        <MenuItem value={'without packaging'}>without packaging</MenuItem>
-                                        <MenuItem value={'container'}>container</MenuItem>
+                                        <MenuItem value={'box'}>Box</MenuItem>
+                                        <MenuItem value={'without packaging'}>Without packaging</MenuItem>
+                                        <MenuItem value={'container'}>Container</MenuItem>
                                     </Select>
                                 </FormControl>
-                            </Grid>
-                            <Grid item xl={3}>
-                                <Button variant="contained" color="primary" style={{marginTop: '5%',}} type="button"
-                                        onClick={handleAddProduct}>
+                                <Button 
+                                    variant="contained" 
+                                    color="primary"
+                                    type="button"
+                                    onClick={handleAddProduct}
+                                >
                                     Add to current cargo list
                                 </Button>
-                            </Grid>
-                        </Grid>
-                        <Grid container>
-                            <Grid item xl={1} xs={1}>
-                            </Grid>
-                            <Grid item xl={2} xs={10}>
-                                <span style={{color: 'red'}}>{idError}</span>
-                            </Grid>
-                        </Grid>
-                    </Fragment>
-                  )}
-
-
-                  {order || cargo.length > 0 ? (
-                    <Fragment>
-                        <Grid container>
-                            <Grid item xl={1}>
-                            </Grid>
-                            <Grid item xl={10} xs={10}>
-                                {order ? (
-                                  <CargoTable
-                                    cargoList={Object.values(order.cargo)}
-                                    handleDeleteProduct={handleDeleteProduct}
-                                    offButton={true}
-                                  />
-                                ) : <CargoTable
-                                  cargoList={cargo}
-                                  handleDeleteProduct={handleDeleteProduct}
-                                  offButton={false}
-                                />}
-                            </Grid>
-                            <Grid item xl={1} xs={1}>
-                            </Grid>
-                        </Grid>
-
-                        <Grid container>
-                            <Grid item xl={1} xs={1}>
-                            </Grid>
-                            <Grid item xl={10}>
-                                <Button variant="contained" color="primary" type="submit"
-                                        style={{marginTop: '4%'}}>
-                                    Submit
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </Fragment>) : null}
-
-              </ValidatorForm>
-          </Paper>
+                                <Grid container>
+                                    <Grid item xs={12}>
+                                        <span style={{color: 'red'}}>{idError}</span>
+                                    </Grid>
+                                </Grid>
+                            </Container>
+                        )}
+                        {order || cargo.length > 0 ? (
+                            <Container maxWidth="xl">
+                                <Box mt={5}>
+                                    <Grid container>
+                                        <Grid item xs={12}>
+                                            {order ? (
+                                            <CargoTable
+                                                cargoList={Object.values(order.cargo)}
+                                                handleDeleteProduct={handleDeleteProduct}
+                                                offButton={true}
+                                            />
+                                            ) : <CargoTable
+                                                cargoList={cargo}
+                                                handleDeleteProduct={handleDeleteProduct}
+                                                offButton={false}
+                                            />}
+                                            <Box mt={5}>
+                                                <Button 
+                                                    variant="contained" 
+                                                    color="primary" 
+                                                    type="submit"
+                                                >
+                                                    Submit
+                                                </Button>
+                                            </Box>
+                                        </Grid>
+                                    </Grid>
+                                </Box>
+                            </Container>
+                        ) : null}
+                    </Container>
+                </ValidatorForm>
+            </Paper>
+          </Box>
       </Container>
     )
 }

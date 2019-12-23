@@ -11,6 +11,7 @@ import ExpansionPanel from './expansionPanel'
 import SuccessPage from './successPage'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
+import Box from '@material-ui/core/Box'
 
 const steps = ['Carrier check', 'Driver check', 'Check order', 'Create TTN']
 
@@ -85,15 +86,16 @@ export default ({
                         length={10}
                     />
                     {searchOrderError.order && (
-                        <Grid container spacing={3}>
-                            <Grid item xl={4} xs={1}>
-                            </Grid>
-                            <Button variant="outlined" color="primary" type="button"
-                                    style={{marginLeft: '2%'}}
-                                    onClick={() => setActiveStep(x => x + 1)}>
+                        <Box display="flex" justifyContent="center" mt={5}>
+                            <Button 
+                                variant="outlined" 
+                                color="primary" 
+                                type="button"
+                                onClick={() => setActiveStep(x => x + 1)}
+                            >
                                 Create custom TTN order
                             </Button>
-                        </Grid>
+                        </Box>
                     )}
                 </Fragment>
             case 3:

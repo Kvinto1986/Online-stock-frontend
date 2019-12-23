@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {connect} from 'react-redux'
 import Box from '@material-ui/core/Box'
@@ -29,6 +29,30 @@ import ServiceNow from '../components/serviceNow'
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
+        let roleRoutes = []
+
+        if(props.auth.user.role === 'employee') {
+            if(props.auth.user.position.includes('manager')) {
+                roleRoutes = [
+                    <Route exact path="/warehousing" component={Warehousing}/>,
+                    <Route exact path="/outTtnRegister" component={SendCargo}/>,
+                    <Route exact path="/warehausesInfo" component={WarehouseInfo}/>
+                ]
+            } 
+            else if(props.auth.user.position.includes('operator')) {
+                roleRoutes = [
+                    <Route exact path="/ttnRegister" component={TTNregister}/>,
+                    <Route exact path="/allCarrier" component={AllCarrier}/>,
+                    <Route exact path="/checkTtn" component={CheckTtn}/>
+                ]
+            } 
+            else if(props.auth.user.position.includes('controller')) {
+                roleRoutes = [
+                    <Route exact path="/controlTTN" component={ControllerPage}/>
+                ]
+            } 
+        }
+
         switch (props.auth.user.role) {
             case 'employee':
                 return (
@@ -37,25 +61,7 @@ const SecurityRoute = (props) => {
                         <Box className="content">
                             <Switch>
                                 <Route exact path="/me" component={EmployeeEditPage}/>
-                                {props.auth.user.position.includes('manager') && (
-                                    <Fragment>
-                                        <Route exact path="/warehousing" component={Warehousing}/>
-                                        <Route exact path="/outTtnRegister" component={SendCargo}/>
-                                        <Route exact path="/warehausesInfo" component={WarehouseInfo}/>
-                                    </Fragment>
-                                )}
-                                {props.auth.user.position.includes('operator') && (
-                                    <Fragment>
-                                        <Route exact path="/ttnRegister" component={TTNregister}/>
-                                        <Route exact path="/allCarrier" component={AllCarrier}/>
-                                        <Route exact path="/checkTtn" component={CheckTtn}/>
-                                    </Fragment>
-                                )}
-                                {props.auth.user.position.includes('controller') && (
-                                    <Fragment>
-                                        <Route exact path="/controlTTN" component={ControllerPage}/>
-                                    </Fragment>
-                                )}
+                                {roleRoutes.map(route => route)}
                                 <Route component={Home}/>
                             </Switch>
                         </Box>
@@ -64,7 +70,7 @@ const SecurityRoute = (props) => {
                 )
             case 'mainAdmin':
                 return (
-                    <div>
+                    <div className="wrapper">
                         <Header/>
                         <Box className="content">
                             <Switch>
@@ -81,7 +87,7 @@ const SecurityRoute = (props) => {
                 )
             case 'companyAdmin':
                 return (
-                    <div>
+                    <div className="wrapper">
                         <Header/>
                         <Box className="content">
                             <Switch>
@@ -102,7 +108,7 @@ const SecurityRoute = (props) => {
         }
     } else {
         return (
-            <div>
+            <div className="wrapper">
                 <Box className="content">
                     <Switch>
                         <Route exact path="/login" component={Login}/>
