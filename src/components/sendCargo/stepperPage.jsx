@@ -10,7 +10,8 @@ import Search from '../operatorPage/search'
 import ExpansionPanel from '../operatorPage/expansionPanel'
 import SuccessPage from '../operatorPage/successPage'
 import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
+import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
 
 const steps = ['Carrier check', 'Driver check', 'Check order', 'Create TTN']
 
@@ -75,7 +76,7 @@ export default ({
                     )}
                 </Fragment>
             case 2:
-                return <Fragment>
+                return <Container component="main" className={classes.main} maxWidth="sm">
                     <Search
                         search={searchOrder}
                         searchText="Search order by TTN number"
@@ -85,17 +86,18 @@ export default ({
                         length={10}
                     />
                     {searchOrderError.order && (
-                        <Grid container spacing={3}>
-                            <Grid item xl={4} xs={1}>
-                            </Grid>
-                            <Button variant="outlined" color="primary" type="button"
-                                    style={{marginLeft: '2%'}}
-                                    onClick={() => setActiveStep(x => x + 1)}>
+                        <Box display="flex" justifyContent="center" mt={5}>
+                            <Button 
+                                variant="outlined" 
+                                color="primary" 
+                                type="button"
+                                onClick={() => setActiveStep(x => x + 1)}
+                            >
                                 Create custom TTN order
                             </Button>
-                        </Grid>
+                        </Box>
                     )}
-                </Fragment>
+                </Container>
             case 3:
                 return <SendTTNForm
                     ttnNumber={ttnId}
