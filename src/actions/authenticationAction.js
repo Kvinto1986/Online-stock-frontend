@@ -11,7 +11,7 @@ export const setCurrentUser = decoded => {
     }
 }
 
-export const loginUser = dispatch => (user) => {
+export const loginUser = dispatch => (user,setErrors) => {
     axios.post(`${server}api/login/`, user)
     .then(res => {
         const {token} = res.data
@@ -19,11 +19,13 @@ export const loginUser = dispatch => (user) => {
         setAuthToken(token)
         const decoded = jwt_decode(token)
         dispatch(setCurrentUser(decoded))
-        dispatch({
-            type: SET_ERRORS,
-            payload: {}
-        })
     })
+        .catch(err=>{
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            })
+        })
 }
 
 export const logoutUser = dispatch => () => {
