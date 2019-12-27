@@ -1,11 +1,22 @@
 import React, {useState} from 'react'
 import FormHelperText from '@material-ui/core/FormHelperText'
+import {Input, InputLabel} from '@material-ui/core'
+import {makeStyles} from "@material-ui/core/styles";
 
-const LoadAvatar = ({avatarUrl, setAvatar,}) => {
+
+const useStyles = makeStyles(theme => ({
+    avatar: {
+        marginLeft:'50%',
+        width: '7%',
+    },
+
+}))
+
+const LoadAvatar = ({avatarUrl, setAvatar}) => {
     const [avatarErr, setAvatarErr] = useState(false)
 
     const handleUpldChange = e => {
-        const formatImg = ['jpg', 'png', 'pdf']
+        const formatImg = ['jpg', 'png','jpeg']
         if (e.target.files[0] && formatImg.includes(e.target.files[0].name.split('.')[1])) {
             setAvatar(e.target.files[0])
             setAvatarErr(false)
@@ -15,13 +26,15 @@ const LoadAvatar = ({avatarUrl, setAvatar,}) => {
 
     }
 
+    const classes = useStyles()
+
     return (
-      <React.Fragment>
-          <input type='file' onChange={handleUpldChange}/>
-          <img src={avatarUrl} alt="avatar" width={50} height={50}/>
-          {avatarErr &&
-          <FormHelperText style={{color: 'red'}}>{avatarErr && 'Format image must be jpg png pdf'}</FormHelperText>}
-      </React.Fragment>
+        <>
+            <InputLabel>You photo (optional)</InputLabel>
+            <Input type='file' onChange={handleUpldChange}/>
+            {avatarErr &&
+            <FormHelperText style={{color: 'red'}}>{avatarErr && 'The file should only be a picture'}</FormHelperText>}
+        </>
     )
 }
 

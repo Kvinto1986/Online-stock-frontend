@@ -14,6 +14,8 @@ import useStyles from './registerEmployeeStyles'
 import {storage} from '../../fireBaseConfig'
 import useStateWithCallback from 'use-state-with-callback'
 import LoadAvatar from '../common/loadAvatar/loadAvatar'
+import Avatar from "@material-ui/core/Avatar";
+import FolderIcon from '@material-ui/icons/AccountBox';
 
 const initialForm = {
     firstName: '',
@@ -36,7 +38,7 @@ export default ({onSubmit, errors, initial = initialForm}) => {
             setAvatar(false)
         }
     })
-    const [avatarUrl, setAvatarUrl] = useState('https://orbisagency.com/wp-content/uploads/2017/08/empty-avatar-300x300.png')
+    const [avatarUrl, setAvatarUrl] = useState('')
     const [dateOfBirth, setDateOfBirth] = useState({
         date: '1970-01-01',
         changed: false
@@ -101,7 +103,7 @@ export default ({onSubmit, errors, initial = initialForm}) => {
     }
 
     return (
-      <ValidatorForm noValidate onSubmit={handleSubmit}>
+      <ValidatorForm noValidate onSubmit={handleSubmit} className={classes.form}>
           <Grid container spacing={3}>
               <Grid item xs={12} sm={4}>
                   <TextValidator
@@ -264,8 +266,15 @@ export default ({onSubmit, errors, initial = initialForm}) => {
                     <FormHelperText className={classes.helperText}>{errors.apartment}</FormHelperText>)}
               </Grid>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid container spacing={3}>
+          <Grid item xs={12} sm={6} style={{marginTop:'3%'}}>
               <LoadAvatar avatarUrl={avatarUrl} setAvatar={setAvatar}/>
+          </Grid>
+          <Grid item xs={12} sm={6} style={{marginTop:'2%'}}>
+              <Avatar color='secondary' variant="square" src={avatarUrl} className={classes.large}>
+                  <FolderIcon />
+              </Avatar>
+          </Grid>
           </Grid>
           <Grid item xs={12} sm={12}>
               <Button

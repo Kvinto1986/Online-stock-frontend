@@ -10,7 +10,7 @@ export default function Home() {
     const classes = useStyles()
 
     return (
-        <Box className={classes.homeWrapp}>
+        <Container maxWidth='xl'>
             <CssBaseline />
             <main>
                 <div className={classes.heroContent}>
@@ -29,13 +29,15 @@ export default function Home() {
                     </Box>
                 </Container>
             </main>
-        </Box>
+        </Container>
     )
 }
 
 const useStyles = makeStyles(theme => ({
-    homeWrapp: {
-        padding: '45px 15px',
+    '@global': {
+        body: {
+            backgroundColor: 'WhiteSmoke',
+        },
     },
     heroContent: {
         padding: theme.spacing(5, 0, 3),
@@ -44,7 +46,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(4),
     },
     welcomeTitle: {
-        fontSize: '2.5em' 
+        fontSize: '2.5em'
     },
     welcomeText: {
         fontSize: '1.5em'
