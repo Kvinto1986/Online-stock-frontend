@@ -6,6 +6,7 @@ import companiesListReduser from './companiesListReduser'
 import companyReduser from './companyReduser'
 import carriersReducer from './carriersReducer'
 import {normalize} from '../utils/utils'
+import taskBarReducer from './taskBarReducer'
 
 import {
     CARRIER,
@@ -71,4 +72,5 @@ export default combineReducers({
     companiesList: companiesListReduser,
     currentCompany: companyReduser,
     carriersReducer: carriersReducer,
+    roleTasks: taskBarReducer,
 })

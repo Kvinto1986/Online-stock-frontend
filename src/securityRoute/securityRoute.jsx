@@ -20,12 +20,14 @@ import SendCargo from '../components/sendCargo'
 import Warehousing from '../components/managerWarehousing'
 import Employees from '../components/employeesPage'
 import Employee from '../components/employeePage'
+import TaskHome from '../components/homePage/taskerHome'
 import ControllerPage from '../components/controllerPage'
 import CheckTtn from '../components/checkTtn'
 import EmployeeEditPage from '../components/employeeEditPage'
 import ServicesManager from '../components/servicesManager'
 import WarehouseInfo from '../components/warehouseInfo'
 import ServiceNow from '../components/serviceNow'
+
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
@@ -48,6 +50,7 @@ const SecurityRoute = (props) => {
             } 
             else if(props.auth.user.position.includes('controller')) {
                 roleRoutes = [
+                    <Route component={TaskHome} />,
                     <Route exact path="/controlTTN" component={ControllerPage}/>
                 ]
             } 

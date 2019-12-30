@@ -1,6 +1,6 @@
-import axios from 'axios';
-import server from "../serverConfig";
-import {TTN, SET_ERRORS} from './types';
+import axios from 'axios'
+import server from "../serverConfig"
+import {TTN, SET_ERRORS} from './types'
 
 export const findTTNbyNumber = (number, dndIsShown) => dispatch => {
     axios.get(`${server}api/ttns/${number}`)
@@ -10,14 +10,14 @@ export const findTTNbyNumber = (number, dndIsShown) => dispatch => {
             dispatch({
                 type: TTN,
                 payload: result.data
-            });
+            })
             dndIsShown(true)
         }
         else {
             dispatch({
                 type: SET_ERRORS,
                 payload: {warehouseTtn: "TTN not found"}
-            });
+            })
             dndIsShown(false)
         }
     })
@@ -25,7 +25,7 @@ export const findTTNbyNumber = (number, dndIsShown) => dispatch => {
         dispatch({
             type: SET_ERRORS,
             payload: {warehouseTtn: "TTN not found"}
-        });
+        })
         dndIsShown(false)
     })
 }
