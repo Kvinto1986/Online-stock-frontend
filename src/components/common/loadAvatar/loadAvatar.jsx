@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-const LoadAvatar = ({avatarUrl, setAvatar}) => {
+const LoadAvatar = ({setAvatar}) => {
     const [avatarErr, setAvatarErr] = useState(false)
 
     const handleUpldChange = e => {
@@ -31,7 +31,7 @@ const LoadAvatar = ({avatarUrl, setAvatar}) => {
     return (
         <>
             <InputLabel>You photo (optional)</InputLabel>
-            <Input type='file' onChange={handleUpldChange}/>
+            <Input type='file' onChange={handleUpldChange} fullWidth/>
             {avatarErr &&
             <FormHelperText style={{color: 'red'}}>{avatarErr && 'The file should only be a picture'}</FormHelperText>}
         </>
