@@ -3,11 +3,12 @@ import {makeStyles} from "@material-ui/core";
 const useStyles = makeStyles(theme => ({
     '@global': {
         body: {
-            backgroundColor: theme.palette.common.white,
+            backgroundColor: 'WhiteSmoke',
         },
     },
     formName: {
         marginBottom: theme.spacing(3),
+        marginTop:theme.spacing(3)
     },
 
         helperText:{
@@ -17,29 +18,29 @@ const useStyles = makeStyles(theme => ({
         },
 
     paper: {
-        marginTop: theme.spacing(5),
+        marginTop: theme.spacing(10),
+        marginBottom: theme.spacing(10),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+
     },
     formControl: {
         width: '100%'
     },
     form: {
-        width: '100%',
-        marginTop: theme.spacing(4),
+        width:'90%',
+        marginBottom: theme.spacing(5),
     },
     submit: {
         width: '100%',
         margin: theme.spacing(4, 0, 0),
     },
-    file: {
-        display: 'none'
+    large: {
+        width: theme.spacing(7),
+        height: theme.spacing(7),
     },
-    avatar: {
-        width: '150px',
-        height: '150px'
-    }
+
 }));
 
 export default useStyles

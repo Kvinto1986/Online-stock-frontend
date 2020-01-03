@@ -22,13 +22,14 @@ export default ({createWarehouse, createWarehouseError, deleteWarehouse, warehou
                 variant="fullWidth"
                 value={value}
                 onChange={handleChange}
-                indicatorColor="secondary"
+                indicatorColor="primary"
+                textColor="primary"
             >
                 <LinkTab label="Create new warehouse" href="/form" {...applyProps(0)} />
                 <LinkTab label="Warehouses list" href="/list" {...applyProps(1)} />
             </Tabs>
         </AppBar>
-        <TabPanel value={value} index={0}>
+        <TabPanel value={value} index={0} className={classes.tabContainer}>
             <Form
                 key={formKey}
                 onSubmit={createWarehouse}

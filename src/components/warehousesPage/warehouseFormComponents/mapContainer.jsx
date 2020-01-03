@@ -23,7 +23,7 @@ const MapContainer = ({mapVisibility, GPS, google, theme, zoom, mapHeight, withT
                     google={google}
                     zoom={zoom}
                     initialCenter={GPS}
-                    style={{height:`${mapHeight}px`}}
+                    style={{height:`${mapHeight}px`, border:'#3e43a1 solid 1px',marginBottom:'5%'}}
                 >
                     <Marker
                         name="warehousingAddress"
