@@ -267,10 +267,10 @@ export default ({onSubmit, errors, initial = initialForm}) => {
               </Grid>
           </Grid>
           <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} style={{marginTop:'3%'}}>
+          <Grid item xs={12} sm={6} >
               <LoadAvatar setAvatar={setAvatar}/>
           </Grid>
-          <Grid item xs={12} sm={6} style={{marginTop:'2%'}}>
+          <Grid item xs={12} sm={6} >
               <Avatar color='secondary' variant="square" src={avatarUrl} className={classes.large}>
                   <FolderIcon />
               </Avatar>

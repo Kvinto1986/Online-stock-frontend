@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
     },
     userInfo: {
-        marginTop: '10%',
+        marginTop: theme.spacing(3),
         borderTop: '2px solid #E8E9E9',
     },
 }));
@@ -44,13 +44,16 @@ export default ({user, logout}) => {
                 </Link></MenuItem>)
         })
 
-        navList.push(<MenuItem key={user.email} className={classes.userInfo}><Link to="/me"
-                                                                                   onClick={handleClose}>{user.email}</Link></MenuItem>)
-        navList.push(<MenuItem key='login'><Button style={{width: '100%'}} color="primary" variant="outlined"
-                                                   size="small" onClick={logout}>
-            Logout
-        </Button></MenuItem>)
-
+        navList.push(<MenuItem key={user.email} className={classes.userInfo}>
+            <Link to="/me" onClick={handleClose}>{user.email}</Link></MenuItem>)
+        navList.push(<MenuItem key='login'>
+            <Button
+                style={{width: '100%'}}
+                color="primary"
+                variant="outlined"
+                size="small" onClick={logout}>
+                Logout
+            </Button></MenuItem>)
         return <>{navList}</>
     }
 
