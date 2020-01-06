@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux'
 import {useAddWarehouse, useDelWarehouse, useGetWarehouses} from '../../api/apiRequests'
 import {authUserFilter} from '../../filters'
 import WarehousePage from './warehousePage'
-import successSwal from './successSwal'
+import successSwal from '../swal/findSwal'
 import {useReset} from '../../hooks/hook'
 
 export default () => {
@@ -11,11 +11,13 @@ export default () => {
     const [tableKey, resetTable] = useReset()
 
     const handleResetForm = () => {
-        successSwal(resetForm, 'New warehouse successfully registered.')
+        resetForm()
+        successSwal()
     }
 
     const handleResetTable = () => {
-        successSwal(resetTable, 'Warehouse data has been successfully deleted.')
+        resetTable()
+        successSwal()
     }
 
     const [getWarehouses, warehouses] = useGetWarehouses()

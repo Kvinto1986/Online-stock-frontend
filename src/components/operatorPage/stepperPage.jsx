@@ -9,7 +9,6 @@ import TTNForm from './TTNform'
 import Search from './search'
 import ExpansionPanel from './expansionPanel'
 import SuccessPage from './successPage'
-import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 
@@ -87,9 +86,9 @@ export default ({
                     />
                     {searchOrderError.order && (
                         <Box display="flex" justifyContent="center" mt={5}>
-                            <Button 
-                                variant="outlined" 
-                                color="primary" 
+                            <Button
+                                variant="outlined"
+                                color="primary"
                                 type="button"
                                 onClick={() => setActiveStep(x => x + 1)}
                             >

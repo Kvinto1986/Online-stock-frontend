@@ -8,16 +8,14 @@ import TableRow from '@material-ui/core/TableRow'
 import DeleteIcon from "@material-ui/icons/Delete";
 import Fab from "@material-ui/core/Fab";
 import Paper from "@material-ui/core/Paper";
-import moment from "moment";
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import TableContainer from "@material-ui/core/TableContainer";
+import Link from "../header/Link";
 
 const columns = [
-    {id: 'id', label: 'License', align: 'left'},
-    {id: 'name', label: 'Name', align: 'left'},
-    {id: 'address', label: 'Address', align: 'center'},
-    {id: 'date', label: 'Registration date', align: 'center'},
-    {id: 'totalArea', label: 'Area', align: 'center'},
+    {id: 'position', label: 'Position', align: 'center'},
+    {id: 'name', label: 'Name', align: 'center'},
+    {id: 'email', label: 'Email', align: 'center'},
 ]
 const useStyles = makeStyles({
     table: {
@@ -25,7 +23,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default ({deleteWarehouse, warehouses}) => {
+export default ({employees, delEmployee}) => {
     const [page, setPage] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(5)
     const handleChangePage = (event, newPage) => {
@@ -61,16 +59,39 @@ export default ({deleteWarehouse, warehouses}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {warehouses.slice(rowsCount, allRowsCount).map(row => {
+                    {employees.slice(rowsCount, allRowsCount).map(row => {
                         return (
                             <TableRow key={row.id}>
                                 {columns.map((column, index) => {
-                                    return (<TableCell key={column.id} align={column.align}>
-                                        {column.id === 'date' ? moment(row[column.id]).format('L') : row[column.id]}
-                                    </TableCell>)
+                                    switch (column.id) {
+                                        case 'position' :
+                                            return (
+                                                <TableCell key={column.id} align={column.align}>
+                                                    {row[column.id].join(', ')}
+                                                </TableCell>
+                                            )
+                                        case 'name' :
+                                            return (
+                                                <TableCell key={column.id} align={column.align}>
+                                                    {`${row.firstName} ${row.patronymic} ${row.lastName}`}
+                                                </TableCell>
+                                            )
+                                        case 'email' :
+                                            return (
+                                                <TableCell key={column.id} align={column.align}>
+                                                    <Link href={'/employees/' + row.id}>
+                                                        {row[column.id]}
+                                                    </Link>
+                                                </TableCell>
+                                            )
+                                        default:
+                                            return (<TableCell key={column.id} align={column.align}>
+                                                {row[column.id]}
+                                            </TableCell>)
+                                    }
                                 })}
                                 <TableCell align="center">
-                                    <Fab color="default" aria-label="add" onClick={() => deleteWarehouse(row.id)}>
+                                    <Fab color="default" onClick={() => delEmployee(row.id)}>
                                         <DeleteIcon/>
                                     </Fab>
                                 </TableCell>
@@ -82,7 +103,7 @@ export default ({deleteWarehouse, warehouses}) => {
             <TablePagination
                 rowsPerPageOptions={[5, 10, 20]}
                 component="div"
-                count={warehouses.length}
+                count={employees.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 backIconButtonProps={{
