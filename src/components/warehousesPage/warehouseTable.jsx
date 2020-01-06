@@ -9,6 +9,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Fab from "@material-ui/core/Fab";
 import Paper from "@material-ui/core/Paper";
 import moment from "moment";
+import { makeStyles } from '@material-ui/core/styles';
+import GridList from "@material-ui/core/GridList";
+import TableContainer from "@material-ui/core/TableContainer";
 
 const columns = [
     {id: 'id', label: 'License', align: 'left'},
@@ -17,6 +20,11 @@ const columns = [
     {id: 'date', label: 'Registration date', align: 'center'},
     {id: 'totalArea', label: 'Area', align: 'center'},
 ]
+const useStyles = makeStyles({
+    table: {
+        minWidth: 700,
+    },
+});
 
 export default ({deleteWarehouse, warehouses}) => {
     const [page, setPage] = useState(0)
@@ -33,9 +41,11 @@ export default ({deleteWarehouse, warehouses}) => {
     const rowsCount = page * rowsPerPage
     const allRowsCount = page * rowsPerPage + rowsPerPage
 
+    const classes = useStyles();
+
     return (
-        <Paper>
-            <Table>
+        <TableContainer component={Paper}>
+            <Table className={classes.table} size="small">
                 <TableHead>
                     <TableRow>
                         {columns.map(column => (
@@ -85,6 +95,6 @@ export default ({deleteWarehouse, warehouses}) => {
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
-        </Paper>
+        </TableContainer>
     )
 }
