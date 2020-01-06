@@ -1,5 +1,5 @@
 import React from 'react'
-import EmployeeTable from './table'
+import EmployeeTable from './employeesTable'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import useStyles from './style'
@@ -25,7 +25,7 @@ export default ({company, employees, delEmployee,tableKey}) => {
             <Paper className={classes.form}>
                 <EmployeeTable
                     key={tableKey}
-                    employees={employees}
+                    employees={Object.values(employees)}
                     delEmployee={delEmployee}
                 />
             </Paper>
