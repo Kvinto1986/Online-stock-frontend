@@ -4,12 +4,16 @@ import Tabs from '@material-ui/core/Tabs'
 import useStyles from './warehousePageStyles'
 import {applyProps, LinkTab, TabPanel} from './warehouseTabsComponents'
 import Form from './warehouseForm'
-import Table from './warehousesTable'
+import Table from './warehouseTable'
 
 export default ({createWarehouse, createWarehouseError, deleteWarehouse, warehouses, authUser, formKey, tableKey}) => {
     const classes = useStyles()
 
     const [value, setValue] = React.useState(0)
+
+    const freeWarehouses=Object.values(warehouses).filter(elem=>{
+        return elem.totalArea===elem.freeArea
+    })
 
     function handleChange(e, newValue) {
         setValue(newValue)
@@ -41,7 +45,7 @@ export default ({createWarehouse, createWarehouseError, deleteWarehouse, warehou
             <Table
                 key={tableKey}
                 deleteWarehouse={deleteWarehouse}
-                warehouses={warehouses}
+                warehouses={freeWarehouses}
             />
         </TabPanel>
     </div>
