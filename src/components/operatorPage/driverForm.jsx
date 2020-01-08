@@ -17,17 +17,17 @@ export default ({onSubmit, error, id}) => {
     })
 
     const handleSubmit = () => {
-        onSubmit({license:id,...driver})
+        onSubmit({license: id, ...driver})
     }
 
     const classes = useStyles()
 
     return (
         <Fragment>
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="xs" className={classes.formCarrier}>
                 <CssBaseline/>
                 <div className={classes.paper}>
-                    <Typography component="h1" variant="h5" style={{textAlign: 'center', marginBottom: '5%'}}>
+                    <Typography component="h1" variant="h5" className={classes.formH1}>
                         Register new Driver
                     </Typography>
                     <ValidatorForm className={classes.form} onSubmit={handleSubmit}>

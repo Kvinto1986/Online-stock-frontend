@@ -119,7 +119,7 @@ export default ({
 
     return (
         <div className={classes.root}>
-            <Stepper activeStep={activeStep} alternativeLabel>
+            <Stepper activeStep={activeStep} alternativeLabel style={{backgroundColor:'whiteSmoke'}}>
                 {steps.map(label => (
                     <Step key={label}>
                         <StepLabel>{label}</StepLabel>
