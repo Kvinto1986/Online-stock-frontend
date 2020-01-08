@@ -91,7 +91,7 @@ export default ({employees, delEmployee}) => {
                                     }
                                 })}
                                 <TableCell align="center">
-                                    <Fab color="default" onClick={() => delEmployee(row.id)}>
+                                    <Fab color="default" size="small" onClick={() => delEmployee(row.id)}>
                                         <DeleteIcon/>
                                     </Fab>
                                 </TableCell>

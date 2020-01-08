@@ -70,7 +70,7 @@ export default ({deleteWarehouse, warehouses}) => {
                                     </TableCell>)
                                 })}
                                 <TableCell align="center">
-                                    <Fab color="default" aria-label="add" onClick={() => deleteWarehouse(row.id)}>
+                                    <Fab color="default" size="small" onClick={() => deleteWarehouse(row.id)}>
                                         <DeleteIcon/>
                                     </Fab>
                                 </TableCell>
