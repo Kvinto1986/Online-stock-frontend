@@ -3,9 +3,6 @@ import Link from '@material-ui/core/Link'
 import Box from '@material-ui/core/Box'
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import facebookIcon from '../../resources/images/socialMediaIcons/facebook-app-logo.png'
-import twiterIcon from '../../resources/images/socialMediaIcons/twitter-logo-on-black-background.png'
-import instagramIcon from '../../resources/images/socialMediaIcons/instagram.png'
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import GithubIcon from '@material-ui/icons/GitHub';
@@ -59,7 +56,7 @@ const useStyles = makeStyles(() => ({
     footerWrapper: {
         padding: '15px',
         background: '#3e43a1',
-        color:'white'
+        color:'white',
     },
     social__text: {
         margin: 0,

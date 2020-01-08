@@ -2,9 +2,12 @@ import {Bar} from "react-chartjs-2";
 import React from "react";
 import jsPDF from 'jspdf';
 import Button from '@material-ui/core/Button';
+import useStyles from "./reportPageStyles";
+import moment from "moment";
 
-export default function Char({error, fromDate, toDate, statistic,classes}) {
+export default function Char({error, fromDate, toDate, statistic}) {
 
+    const classes = useStyles()
     if (statistic.created && !error) {
 
         const pdfCreate=(e)=>{
@@ -32,7 +35,7 @@ export default function Char({error, fromDate, toDate, statistic,classes}) {
         };
 
         const data = {
-            labels: [`From ${fromDate}                      To ${toDate}`],
+            labels: [`From ${moment(fromDate).format('L')}                     To ${moment(toDate).format('L')}`],
             datasets: [
                 {
                     label: 'Created',
@@ -52,11 +55,11 @@ export default function Char({error, fromDate, toDate, statistic,classes}) {
 
 
         return (
-            <div>
-                <h2>Char</h2>
+            <div className={classes.char}>
                 <Bar
+                    options={{ maintainAspectRatio: false }}
                     data={data}/>
-                <Button variant="contained" color="secondary" className={classes.button} onClick={pdfCreate}>
+                <Button variant="contained" color="default" className={classes.buttonPdf} onClick={pdfCreate}>
                     Download PDF
                 </Button>
             </div>

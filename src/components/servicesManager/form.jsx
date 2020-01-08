@@ -12,22 +12,24 @@ export default ({onCreate, error}) => {
     const [form, setForm] = useState({name: '', email: ''})
 
     return (
-        <Box mb={15}>
-            <Box mb={5}>
-                <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom className={classes.welcomeTitle}>
+        <>
+        <Grid item sm={12} xl={12}>
+                <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom className={classes.center}>
                     Create new service
                 </Typography>
-            </Box>
-            <Box>
+        </Grid>
                 <Grid
+                    xl={12}
+                    sm={12}
                     spacing={3}
                     container
                     component={ValidatorForm}
                     onSubmit={() => onCreate(form)}
                     noValidate
                     alignItems="center"
+                    className={classes.center}
                 >
-                    <Grid item sm={6} md={5} см={12} xs={12}>
+                    <Grid item xs={12} xl={6}>
                         <TextField
                             required
                             fullWidth
@@ -43,7 +45,7 @@ export default ({onCreate, error}) => {
                             helperClass={classes.error}
                         />
                     </Grid>
-                    <Grid item sm={6} md={5} см={12} xs={12}>
+                    <Grid item xs={12} xl={5}>
                         <TextField
                             required
                             fullWidth
@@ -59,13 +61,12 @@ export default ({onCreate, error}) => {
                             helperClass={classes.error}
                         />
                     </Grid>
-                    <Grid item md={2} className={classes.center}>
-                        <Button data-testid="create" type="submit" variant="contained" >
+                    <Grid item xs={12} xl={1}>
+                        <Button data-testid="create" type="submit" variant="contained">
                             Add
                         </Button>
-                    </Grid>
                 </Grid>
-            </Box>
-        </Box>
+            </Grid>
+            </>
     )
 }
