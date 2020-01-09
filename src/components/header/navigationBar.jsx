@@ -1,37 +1,22 @@
-import useStyles from './headerStyles'
-import Link from './Link'
 import React from 'react'
 
-export default ({user}) => {
-    const classes = useStyles()
-
-    const navigation = (linkArr) => {
-        const navList = linkArr.map((elem) => {
-            return (
-                <Link key={elem.name} variant="button" to={elem.link} className={classes.link}>
-                    {elem.name}
-                </Link>)
-        })
-        return <nav>{navList}</nav>
-    }
+export default (user) => {
 
     switch (user.role) {
         case 'mainAdmin':
-            return navigation([
-                {name: 'Home', link: '/'},
+            return [
                 {name: 'Services', link: '/serviceManager'},
                 {name: 'Create company admin', link: '/newCompanyAdmin'},
                 {name: 'Companies', link: '/companiesList'},
                 {name: 'Reports', link: '/reports'}
-            ])
+            ]
         case 'companyAdmin':
-            return navigation([
-                {name: 'Home', link: '/'},
+            return [
                 {name: 'Create new employee', link: '/createUser'},
                 {name: 'My warehouses', link: '/myWarehouses'},
                 {name: 'Company employees', link: '/employees'},
                 {name: 'Service Now', link: '/serviceNow'}
-            ])
+            ]
         case 'employee':
             let arr = []
 
@@ -56,7 +41,7 @@ export default ({user}) => {
                 ])
             }
 
-            return navigation(arr)
+            return arr
 
         default:
             return null

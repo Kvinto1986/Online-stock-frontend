@@ -3,7 +3,7 @@ import {makeStyles} from '@material-ui/core/styles'
 const useStyles = makeStyles(theme => ({
     '@global': {
         body: {
-            backgroundColor: theme.palette.common.white,
+            backgroundColor: 'WhiteSmoke',
         },
     },
     root: {
@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
         marginBottom: 12,
     },
     tab: {
-        backgroundColor:'#4d6cc9'
+        backgroundColor:'WhiteSmoke'
     },
     error: {
         marginTop: '3%',
@@ -65,10 +65,19 @@ const useStyles = makeStyles(theme => ({
         color: 'red',
     },
     h5: {
+        paddingTop:'3%',
+        textAlign:'center',
         color: '#3f51b5'
     },
     dark: {
         color:'black'
+    },
+    tabContainer:{
+        backgroundColor:'WhiteSmoke'
+    },
+    createForm:{
+        marginTop:'3%',
+        backgroundColor:'white'
     }
 }))
 

@@ -5,8 +5,8 @@ import Box from '@material-ui/core/Box'
 
 const ErrorBtn = ({setFormVisibility, formVisibility}) => {
     return (
-        <Container component="main" maxWidth="sm">
-            <Box display="flex" justifyContent="center" mt={5} mb={5}>
+        <Container component="main" maxWidth="md">
+            <Box display="flex" justifyContent="center">
                 <Button color="primary" variant="outlined"
                         onClick={() => setFormVisibility(!formVisibility)}>
                     {formVisibility ? ('Close form') : 'Create new'}

@@ -14,6 +14,8 @@ import Char from './char'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {getStatistic} from '../../actions/companyAdminAction'
+import {Paper} from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 
 const Report = (props) => {
     const classes = useStyles()
@@ -35,9 +37,9 @@ const Report = (props) => {
 
 
     return (
-        <React.Fragment>
-            <CssBaseline/>
-            <Container maxWidth="sm" component="main" className={classes.heroContent}>
+            <Container maxWidth="md" component="main">
+                <CssBaseline/>
+                <Paper className={classes.heroContent}>
                 <Typography variant="h5" align="center" color="textSecondary" component="p">
                     Show report about companies
                 </Typography>
@@ -55,15 +57,15 @@ const Report = (props) => {
                         Show statistic
                     </Button>
                 </Container>
+                </Paper>
+
                 <Char
                     error={props.errors.date}
                     fromDate={fromDate}
                     toDate={toDate}
                     statistic={statistic}
-                    classes={classes}
                 />
             </Container>
-        </React.Fragment>
     )
 }
 

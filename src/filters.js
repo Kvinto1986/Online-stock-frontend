@@ -13,5 +13,7 @@ export const ttnsOutFilter = store => store.ttnsOut
 export const ttnsExportOrderFilter = store => store.ttnsExportOrders
 export const ttnsImportOrderFilter = store => store.ttnsImportOrders
 export const servicesFilter = store => store.services
+export const errors = store => store.errors
+
 
 

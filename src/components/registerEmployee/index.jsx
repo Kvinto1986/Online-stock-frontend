@@ -1,14 +1,15 @@
 import React from 'react'
 import Form from './registerEmployeeForm'
 import {useAddEmployee} from '../../api/apiRequests'
-import successSwal from '../warehousesPage/successSwal'
 import {useReset} from '../../hooks/hook'
+import findSwal from '../swal/findSwal'
 
 export default () => {
     const [formKey, resetForm] = useReset()
 
     const handleReset = () => {
-        successSwal(resetForm, 'New employee successfully registered.')
+        findSwal()
+        resetForm()
     }
 
     const [addEmployee, , errors] = useAddEmployee(handleReset)

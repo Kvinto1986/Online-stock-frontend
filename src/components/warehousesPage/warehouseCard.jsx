@@ -14,8 +14,8 @@ const AreaCard = ({list, handleDeleteArea}) => {
     const classes = useStyles()
 
     return (
-        <Box>
-            <Box mb={5}>
+        <Box mt={30} mr={5}>
+            <Box mb={5} mt={5}>
                 <Typography component="h1" variant="h5" className={classes.h5}>
                     Created areas
                 </Typography>

@@ -1,9 +1,10 @@
-import React from "react";
-import useStyles from "./registerEmployeeStyles";
-import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
-import RegisterUser from "./registerEmployee";
+import React from "react"
+import useStyles from "./registerEmployeeStyles"
+import Container from "@material-ui/core/Container"
+import CssBaseline from "@material-ui/core/CssBaseline"
+import Typography from "@material-ui/core/Typography"
+import RegisterUser from "./index"
+import {Paper} from "@material-ui/core"
 
 
 export default () => {
@@ -12,12 +13,12 @@ export default () => {
     return (
         <Container component="main" maxWidth="md">
             <CssBaseline />
-            <div className={classes.paper}>
+            <Paper className={classes.paper}>
                 <Typography component="h1" variant="h5" className={classes.formName}>
                     New user information
                 </Typography>
                 <RegisterUser/>
-            </div>
+            </Paper>
         </Container>
     )
 };

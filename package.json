@@ -59,7 +59,10 @@
     "renderer": "^0.1.5",
     "slick-carousel": "^1.8.1",
     "sweetalert2": "^8.13.6",
-    "use-state-with-callback": "^1.0.18"
+    "use-state-with-callback": "^1.0.18",
+    "lodash": "latest",
+    "autosuggest-highlight": "^3.1.1",
+    "react-virtualized": "^9.21.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -69,13 +69,14 @@ export const getCompaniesList = () => dispatch => {
         })
 }
 
-export const getCompany = (company) => dispatch => {
+export const getCompany = (company,setCompany) => dispatch => {
     axios.get(`${server}api/companyAdmins/${company}`)
         .then(res => {
             dispatch({
                 type: GET_CURRENT_COMPANY,
                 payload: res.data
             })
+            setCompany(res.data)
         })
         .then(() => {
             dispatch({
@@ -93,8 +94,13 @@ export const getCompany = (company) => dispatch => {
         })
 }
 
-export const changeStatus = (id,data) => {
+export const changeStatus = (id, data, swal) => dispatch => {
     axios.post(`${server}api/companyAdmins/${id}`, data)
-        .then(()=> {
+        .then(res => {
+            dispatch({
+                type: GET_CURRENT_COMPANY,
+                payload: res.data
+            });
+            swal()
         })
-}
+};

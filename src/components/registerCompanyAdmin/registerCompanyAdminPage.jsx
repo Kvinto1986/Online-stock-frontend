@@ -7,14 +7,15 @@ import Container from '@material-ui/core/Container'
 import useStyles from './registerCompanyAdminStyles'
 import Form from './registerCompanyAdminForm'
 import Box from '@material-ui/core/Box'
+import Paper from "@material-ui/core/Paper";
 
 export default ({onSubmit, errors, keyReset}) => {
     const classes = useStyles()
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="sm">
             <CssBaseline/>
-            <div className={classes.paper}>
+            <Paper className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon/>
                 </Avatar>
@@ -28,7 +29,7 @@ export default ({onSubmit, errors, keyReset}) => {
                     errors={errors}
                     key={keyReset}
                 />
-            </div>
+            </Paper>
         </Container>
     )
 }
