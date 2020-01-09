@@ -1,6 +1,11 @@
 import {makeStyles} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
+    '@global': {
+        body: {
+            backgroundColor: 'WhiteSmoke',
+        },
+    },
     appBar: {
         borderBottom: `5px solid ${theme.palette.divider}`,
     },

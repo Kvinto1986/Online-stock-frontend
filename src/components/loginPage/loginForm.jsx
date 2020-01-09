@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import React, {useState} from 'react'
 import useStyles from './loginStyles'
+import {Paper} from "@material-ui/core";
 
 export default ({onSubmit, errors}) => {
     const [values, setValues] = useState({
