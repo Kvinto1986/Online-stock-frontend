@@ -8,7 +8,6 @@ import Box from '@material-ui/core/Box'
 
 export default function Home() {
     const classes = useStyles()
-
     return (
         <Container maxWidth='xl'>
             <CssBaseline />

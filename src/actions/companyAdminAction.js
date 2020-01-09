@@ -1,25 +1,25 @@
-import axios from 'axios';
-import {GET_CURRENT_STATISTIC, SET_ERRORS, GET_CURRENT_COMPANIES_LIST, GET_CURRENT_COMPANY} from './types';
+import axios from 'axios'
+import {GET_CURRENT_STATISTIC, SET_ERRORS, GET_CURRENT_COMPANIES_LIST, GET_CURRENT_COMPANY} from './types'
 import server from '../serverConfig'
 
 export const registerAdmin = (admin, reset) => dispatch => {
     axios.post(`${server}api/companyadmins/registration`, admin)
         .then(() => {
-            reset();
+            reset()
             dispatch({
-                type: SET_ERRORS,
-                payload: {}
-            });
+                 type: SET_ERRORS,
+                 payload: {}
+            })
         })
         .catch(err => {
             if (err.response) {
                 dispatch({
                     type: SET_ERRORS,
                     payload: err.response.data
-                });
+                })
             }
-        });
-};
+        })
+}
 
 export const getStatistic = (date) => dispatch => {
     axios.post(`${server}api/companyAdminsStatistic/`, date)
@@ -27,23 +27,23 @@ export const getStatistic = (date) => dispatch => {
             dispatch({
                 type: GET_CURRENT_STATISTIC,
                 payload: res.data
-            });
+            })
         })
         .then(() => {
             dispatch({
                 type: SET_ERRORS,
                 payload: {}
-            });
+            })
         })
         .catch(err => {
             if (err.response) {
                 dispatch({
                     type: SET_ERRORS,
                     payload: err.response.data
-                });
+                })
             }
-        });
-};
+        })
+}
 
 export const getCompaniesList = () => dispatch => {
     axios.get(`${server}api/companyadmins/`)
@@ -51,23 +51,23 @@ export const getCompaniesList = () => dispatch => {
             dispatch({
                 type: GET_CURRENT_COMPANIES_LIST,
                 payload: res.data
-            });
+            })
         })
         .then(() => {
             dispatch({
                 type: SET_ERRORS,
                 payload: {}
-            });
+            })
         })
         .catch(err => {
             if (err.response) {
                 dispatch({
                     type: SET_ERRORS,
                     payload: err.response.data
-                });
+                })
             }
-        });
-};
+        })
+}
 
 export const getCompany = (company,setCompany) => dispatch => {
     axios.get(`${server}api/companyAdmins/${company}`)
@@ -75,24 +75,24 @@ export const getCompany = (company,setCompany) => dispatch => {
             dispatch({
                 type: GET_CURRENT_COMPANY,
                 payload: res.data
-            });
+            })
             setCompany(res.data)
         })
         .then(() => {
             dispatch({
                 type: SET_ERRORS,
                 payload: {}
-            });
+            })
         })
         .catch(err => {
             if (err.response) {
                 dispatch({
                     type: SET_ERRORS,
                     payload: err.response.data
-                });
+                })
             }
-        });
-};
+        })
+}
 
 export const changeStatus = (id, data, swal) => dispatch => {
     axios.post(`${server}api/companyAdmins/${id}`, data)

@@ -20,12 +20,14 @@ import SendCargo from '../components/sendCargo'
 import Warehousing from '../components/managerWarehousing'
 import Employees from '../components/employeesPage'
 import Employee from '../components/employeePage'
+import TaskHome from '../components/homePage/taskerHome'
 import ControllerPage from '../components/controllerPage'
 import CheckTtn from '../components/checkTtn'
 import EmployeeEditPage from '../components/employeeEditPage'
 import ServicesManager from '../components/servicesManager'
 import WarehouseInfo from '../components/warehouseInfo'
 import ServiceNow from '../components/serviceNow'
+
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
@@ -36,19 +38,20 @@ const SecurityRoute = (props) => {
                 roleRoutes = [
                     <Route exact path="/warehousing" component={Warehousing}/>,
                     <Route exact path="/outTtnRegister" component={SendCargo}/>,
-                    <Route exact path="/warehausesInfo" component={WarehouseInfo}/>
+                    <Route exact path="/warehausesInfo" component={WarehouseInfo}/>,
                 ]
             }
             else if(props.auth.user.position.includes('operator')) {
                 roleRoutes = [
                     <Route exact path="/ttnRegister" component={TTNregister}/>,
                     <Route exact path="/allCarrier" component={AllCarrier}/>,
-                    <Route exact path="/checkTtn" component={CheckTtn}/>
+                    <Route exact path="/checkTtn" component={CheckTtn}/>,
                 ]
             }
             else if(props.auth.user.position.includes('controller')) {
                 roleRoutes = [
-                    <Route exact path="/controlTTN" component={ControllerPage}/>
+                    <Route exact path="/controlTTN" component={ControllerPage}/>,
+                    <Route component={TaskHome} />,
                 ]
             }
         }
