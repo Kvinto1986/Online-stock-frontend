@@ -38,3 +38,6 @@ export const TTN_EXPORT_ORDERS  = 'TTN_EXPORT_ORDERS'
 export const TTN_IMPORT_ORDER = 'TTN_IMPORT_ORDER'
 export const TTN_IMPORT_ORDERS  = 'TTN_IMPORT_ORDERS'
 
+export const TTNS_EXPORT = 'TTNS_EXPORT'
+export const TTN_DATEOUT  = 'TTN_DATEOUT'
+

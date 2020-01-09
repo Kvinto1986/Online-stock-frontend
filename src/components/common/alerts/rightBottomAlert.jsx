@@ -5,7 +5,7 @@ import succes from '../../../resources/images/checked.png'
 const RightBottomAlert = ({message, status}) => {
 
     const classes = useStyles()
-    
+
     return (
         <div className={classes.rightBottomAlertStyle}>
             {status && (
