@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { memo } from 'react'
+import { connect } from 'react-redux'
 import { Box } from '@material-ui/core'
 import TaskList from './TaskList'
 
-const Content = () => {
+const Content = (props) => {
     return (
         <Box style={{background: 'white'}}>
             <Box mt={3} >
-                <TaskList />
+                <TaskList contentData={props.contentData}/>
             </Box>
         </Box>
     )
 }
 
-export default Content
+const mapStateToProps = (state) => ({
+    contentData: state.roleTasks.contentData,
+})
+  
+  export default connect(mapStateToProps, {})(memo(Content))

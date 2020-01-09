@@ -38,20 +38,20 @@ const SecurityRoute = (props) => {
                 roleRoutes = [
                     <Route exact path="/warehousing" component={Warehousing}/>,
                     <Route exact path="/outTtnRegister" component={SendCargo}/>,
-                    <Route exact path="/warehausesInfo" component={WarehouseInfo}/>
+                    <Route exact path="/warehausesInfo" component={WarehouseInfo}/>,
                 ]
             } 
             else if(props.auth.user.position.includes('operator')) {
                 roleRoutes = [
                     <Route exact path="/ttnRegister" component={TTNregister}/>,
                     <Route exact path="/allCarrier" component={AllCarrier}/>,
-                    <Route exact path="/checkTtn" component={CheckTtn}/>
+                    <Route exact path="/checkTtn" component={CheckTtn}/>,
                 ]
             } 
             else if(props.auth.user.position.includes('controller')) {
                 roleRoutes = [
+                    <Route exact path="/controlTTN" component={ControllerPage}/>,
                     <Route component={TaskHome} />,
-                    <Route exact path="/controlTTN" component={ControllerPage}/>
                 ]
             } 
         }

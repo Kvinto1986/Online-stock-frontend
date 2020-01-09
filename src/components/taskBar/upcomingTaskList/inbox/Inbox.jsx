@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { memo } from 'react'
 import ArchiveIcon from '@material-ui/icons/Archive'
 import { makeStyles } from '@material-ui/core/styles'
 import { ListItem, ListItemText, ListItemIcon } from '@material-ui/core'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import InboxPopUpList from './InboxPopUpList'
 
-const Inbox = ({ handleClick, isOpen, roleTasks = [] }) => {
+const Inbox = ({ handleClick, isOpen, roleTasks = [], inboxData, getTTNdateOut }) => {
     const classes = useStyles()
 
     return (
@@ -25,7 +25,12 @@ const Inbox = ({ handleClick, isOpen, roleTasks = [] }) => {
                 {isOpen ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
             {isOpen && (
-                <InboxPopUpList roleTasks={roleTasks} isOpen={isOpen} />
+                <InboxPopUpList 
+                    roleTasks={roleTasks} 
+                    isOpen={isOpen} 
+                    inboxData={inboxData}
+                    getTTNdateOut={getTTNdateOut}
+                />
             )}
         </>
     )
@@ -38,4 +43,4 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export default Inbox
+export default memo(Inbox)

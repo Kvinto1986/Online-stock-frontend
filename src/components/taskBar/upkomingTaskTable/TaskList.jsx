@@ -1,5 +1,4 @@
-import React, { memo } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
     Box, 
@@ -7,54 +6,49 @@ import {
     TableBody, 
     TableCell, 
     TableContainer, 
-    TableHead, 
-    TablePagination, 
+    TableHead,
     TableRow,
-    Typography
+    Typography,
 } from '@material-ui/core'
-
 
 const TaskList = (props) => {
     const classes = useStyles()
 
+    const isHotTask = (ttnOrder) => Date.parse(`01/01/2011 ${ttnOrder.timeOut}`) < Date.parse('01/01/2011 01:00:00')
+
     return (
       <Box p={5}>
-        {props.roleTasks.length > 0 ? (
-          <>
-            <TableContainer>
-              <Table aria-label="Inbox table">
-                <TableHead className={classes.thead}>
-                  <TableRow>
-                    <TableCell>Status</TableCell>
-                    <TableCell>TTN number</TableCell>
-                    <TableCell>Car number</TableCell>
-                    <TableCell>Date/Time</TableCell>
-                    <TableCell>Time out</TableCell>
+        {props.contentData && props.contentData.data && props.contentData.data.length > 0 ? (
+          <TableContainer>
+            <Table aria-label="Inbox table">
+              <TableHead className={classes.thead}>
+                <TableRow>
+                  <TableCell>TTN number</TableCell>
+                  <TableCell>Car number</TableCell>
+                  <TableCell>Registration date</TableCell>
+                  <TableCell>Task date</TableCell>
+                  <TableCell>Time out</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {props.contentData.data.map(ttnOrder => (
+                  <TableRow id={ttnOrder.id} hover role="checkbox">
+                    <TableCell>{ttnOrder.number}</TableCell>
+                    <TableCell>{ttnOrder.carNumber}</TableCell>
+                    <TableCell>{ttnOrder.dateOfRegistration}</TableCell>
+                    <TableCell>{ttnOrder.deadlineData}</TableCell>
+                    <TableCell>
+                      {
+                        isHotTask(ttnOrder)
+                          ? <span className={classes.redTime}>{ttnOrder.timeOut}</span>
+                          : <span>{ttnOrder.timeOut}</span>
+                      }
+                    </TableCell>
                   </TableRow>
-                </TableHead>
-                <TableBody>
-                  {props.roleTasks.map(ttnOrder => (
-                    <TableRow id={ttnOrder.id} hover role="checkbox">
-                      <TableCell></TableCell>    
-                      <TableCell>{ttnOrder.number}</TableCell>
-                      <TableCell>{ttnOrder.carNumber}</TableCell>
-                      <TableCell>{ttnOrder.deadlineData}</TableCell>
-                      <TableCell>{ttnOrder.deadlineData}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[10, 25, 100]}
-              component="div"
-              //   count={rows.length}
-              //   rowsPerPage={rowsPerPage}
-              //   page={page}
-              //   onChangePage={handleChangePage}
-              //   onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-          </>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         ) : (
           <Box>
             <Typography variant="em">
@@ -70,10 +64,9 @@ const useStyles = makeStyles(() => ({
     thead: {
       backgroundColor: 'white',
     },
+    redTime: {
+      color: '#F88379'
+    },
 }))
 
-const mapStateToProps = (state) => ({
-    roleTasks: state.roleTasks
-})
-
-export default connect(mapStateToProps, {})(memo(TaskList))
+export default TaskList
