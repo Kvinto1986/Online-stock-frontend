@@ -62,7 +62,7 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
             else if(data.index === elem.id) {
                 //TODO: SetState
                 elem.checked = data.checked
-            } 
+            }
         })
     }
 
@@ -88,7 +88,7 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
         const {reasonNumber, reasonType} = reportSelectDetails
 
         let report = {
-            reasonNumber, 
+            reasonNumber,
             reasonType,
             date: moment().format()
         }
@@ -122,10 +122,10 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
                 updatedCargo = currentTTN.products.filter(product => product.checked !== true)
                 break
             }
-            default: 
+            default:
                 break
         }
-        
+
         const reportData = {
             report,
             status: 'checked',
@@ -159,7 +159,7 @@ export default ({ttns, getTtn, getTtnError, editTtn, user}) => {
                 length={10}
             />
             {ttns[ttnId] && (
-                <Fragment>
+                <Fragment >
                     <TTNcard
                         ttn={ttns[ttnId]}
                         open={open}

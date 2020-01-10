@@ -6,6 +6,8 @@ import Table from '@material-ui/core/Table'
 import React, {useState} from 'react'
 import useStyles from './controlTTNstyle'
 import TablePagination from '@material-ui/core/TablePagination'
+import Paper from "@material-ui/core/Paper";
+import TableContainer from "@material-ui/core/TableContainer";
 
 export default ({cargo}) => {
 
@@ -26,8 +28,8 @@ export default ({cargo}) => {
     const allRowsCount = page * rowsPerPage + rowsPerPage
 
     return (
-        <>
-            <Table size="small">
+        <TableContainer >
+            <Table className={classes.table} size="small">
                 <TableHead>
                     <TableRow>
                         <TableCell align="center">ID</TableCell>
@@ -73,7 +75,7 @@ export default ({cargo}) => {
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
-        </>
+        </TableContainer>
     )
 }
 
