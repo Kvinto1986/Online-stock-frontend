@@ -22,23 +22,18 @@ const Footer = () => {
                     </Typography>
                 </Box>
                 <Box display="flex" alignItems="center">
-                    <Box>
-                        <Typography align="center" variant="body2"  gutterBottom className={classes.social__text}>
-                            <b>Social links:</b>
-                        </Typography>
-                    </Box>
-                    <Box ml={1} display="flex" alignItems="center">
-                        <Box ml={0.5}>
+                    <Box ml={3} display="flex" alignItems="center">
+                        <Box ml={2}>
                             <Link color="inherit" href="https://github.com/Kvinto1986/Online-stock-frontend/">
                                <FacebookIcon/>
                             </Link>
                         </Box>
-                        <Box ml={0.5}>
+                        <Box ml={2}>
                             <Link color="inherit" href="https://github.com/Kvinto1986/Online-stock-frontend/">
                                <TwitterIcon/>
                             </Link>
                         </Box>
-                        <Box ml={0.5}>
+                        <Box ml={2}>
                             <Link color="inherit" href="https://github.com/Kvinto1986/Online-stock-frontend/">
                                 <GithubIcon/>
                             </Link>

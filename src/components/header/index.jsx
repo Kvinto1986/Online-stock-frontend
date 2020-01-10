@@ -16,7 +16,7 @@ export default () => {
 
     useEffect(() => {
         setSize(window.innerWidth)
-    });
+    })
 
     window.addEventListener('resize', updateSize);
 

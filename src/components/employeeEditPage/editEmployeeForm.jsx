@@ -37,7 +37,6 @@ export default ({onSubmit, errors, initial}) => {
         }
     })
     const [avatarUri, setAvatarUri] = useState(false)
-    // const handleInputChange = e => setForm({...form, [e.target.name]: e.target.value})
 
     ValidatorForm.addValidationRule('isPasswordMatch', value => value === form.password)
 
@@ -47,7 +46,6 @@ export default ({onSubmit, errors, initial}) => {
         }
     }
     const handleUpl = () => {
-        console.log('sdsd')
         const uploadTask = storage.ref(`employes/${avatar.name}`).put(avatar)
         uploadTask.on(
           'state_changed',
@@ -83,13 +81,13 @@ export default ({onSubmit, errors, initial}) => {
         }, form.password ? {password: form.password} : {})
         onSubmit(employee)
     }
-
+    
     return (
         <ValidatorForm noValidate onSubmit={handleSubmit}>
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={4}>
                     <label>
-                        <img src={avatarUri ? avatarUri : initial.avatar} className={classes.avatar} alt="avatar"/>
+                        {avatarUri && <img src={avatarUri} className={classes.avatar} alt="avatar"/>}
                         <input type="file" className={classes.file} onChange={handleUpldChange}/>
                     </label>
                 </Grid>

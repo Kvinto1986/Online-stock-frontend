@@ -7,6 +7,7 @@ import React from 'react'
 import useStyles from './headerStyles'
 import Link from './Link'
 import Box from '@material-ui/core/Box'
+const logo = require('../../resources/logo/appLogo1.png')
 
 export default ({user, logout}) => {
     const classes = useStyles()
@@ -27,8 +28,8 @@ export default ({user, logout}) => {
         <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
             <Toolbar className={classes.toolbar}>
                 <Box className={classes.toolbarTitle}>
-                    <Link to='/Home' variant="h6" style={{textDecoration: 'none'}}>
-                        • Warehousing •
+                    <Link to="/Home" variant="h6" style={{textDecoration: 'none', display:'flex', flexAlign: 'center'}}>
+                        <img src={logo} alt="logo" width="128px"/>
                     </Link>
                 </Box>
                 <Navigation

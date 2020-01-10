@@ -35,15 +35,15 @@ const UpcomingList = props => {
         }, 4000)
     }, [props.barData])
     
-    const workerWorking = (worker, hours) => {
-        worker.onmessage = (e) => {
-            setInboxData(prevState => [...prevState, e.data])
-        }
-        worker.postMessage({barData: props.barData ,hours})
-    }
-    
-    if (isBardata && workerFlag === true) {
+    if (isBardata && workerFlag) {
         if (window.Worker) {
+            const workerWorking = (worker, hours) => {
+                worker.onmessage = (e) => {
+                    setInboxData(prevState => [...prevState, e.data])
+                }
+                worker.postMessage({barData: props.barData ,hours})
+            }
+
             setWorkerFlag(false)
             const worker2H  = new Worker(worker_script2)
             const worker8H  = new Worker(worker_script8)
