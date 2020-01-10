@@ -15,6 +15,7 @@ const logo = require('../../resources/logo/appLogo1.png')
 const useStyles = makeStyles(theme => ({
     title: {
         flexGrow: 1,
+        marginTop: '7px'
     },
     userInfo: {
         marginTop: theme.spacing(3),
@@ -62,7 +63,7 @@ export default ({user, logout}) => {
         <AppBar position="static">
             <Toolbar>
                 <Typography variant="h6" className={classes.title}>
-                    <Link to="/Home" style={{textDecoration: 'none', display:'flex', flexAlign: 'center'}}>
+                    <Link to="/Home" style={{textDecoration: 'none'}}>
                         <img src={logo} alt="logo" width="96px"/>
                     </Link>
                 </Typography>
