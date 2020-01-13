@@ -1,20 +1,20 @@
 import LoginForm from './loginForm'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import React, {useCallback, useState} from 'react'
 import {loginUser} from '../../actions/authenticationAction'
+import {errors} from '../../filters'
 
 export default () => {
     const dispatch = useDispatch()
-    const [errors, setErrors] = useState({})
+    const error = useSelector(errors)
 
     const onSubmit = useCallback(
-        user => loginUser(dispatch)(user).catch(({response: {data}}) => {
-            setErrors(data)
-        }), [dispatch]
+        user => loginUser(dispatch)(user)
+        , [dispatch]
     )
 
     return <LoginForm
         onSubmit={onSubmit}
-        errors={errors}
+        errors={error}
     />
 }

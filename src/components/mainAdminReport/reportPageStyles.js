@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core";
 const useStyles = makeStyles(theme => ({
     '@global': {
         body: {
-            backgroundColor: theme.palette.common.white,
+            backgroundColor: 'whiteSmoke',
         },
         ul: {
             margin: 0,
@@ -14,7 +14,11 @@ const useStyles = makeStyles(theme => ({
         },
     },
     heroContent: {
-        padding: theme.spacing(8, 0, 6)
+        marginTop:theme.spacing(3),
+        padding: theme.spacing(3, 3, 3,3)
+    },
+    char: {
+        marginTop:theme.spacing(5),
     },
     time:{
         padding: theme.spacing(3, 0, 6),
@@ -44,6 +48,11 @@ const useStyles = makeStyles(theme => ({
 
     button: {
         marginTop: theme.spacing(3),
+    },
+    buttonPdf: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(2),
+        marginLeft: theme.spacing(3),
     },
 }))
 

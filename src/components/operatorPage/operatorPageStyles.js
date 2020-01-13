@@ -1,6 +1,11 @@
 import {makeStyles} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
+        '@global': {
+            body: {
+                backgroundColor: 'WhiteSmoke',
+            },
+        },
       root: {
           display: 'flex',
           flexDirection: 'column',
@@ -12,7 +17,8 @@ const useStyles = makeStyles(theme => ({
           marginBottom: '10%',
       },
       table: {
-          marginTop: '2%',
+          marginTop: theme.spacing(3),
+          minWidth: 700,
       },
       rootExpansion: {
           marginTop: '2%',
@@ -32,7 +38,7 @@ const useStyles = makeStyles(theme => ({
       },
       main: {
           marginTop: theme.spacing(3),
-          marginBottom: theme.spacing(3),
+          marginBottom: theme.spacing(5),
       },
       footer: {
           padding: theme.spacing(2),
@@ -149,7 +155,16 @@ const useStyles = makeStyles(theme => ({
           width: '200px',
           marginRight: '10px'
       },
-
+    formH1:{
+        marginBottom: theme.spacing(3),
+        textAlign: 'center',
+        marginTop:theme.spacing(3)
+    },
+        formCarrier:{
+            backgroundColor:'white',
+            marginTop:theme.spacing(3),
+            padding: theme.spacing(3,5,5,5),
+        },
   }
 ))
 

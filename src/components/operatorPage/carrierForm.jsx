@@ -33,8 +33,8 @@ export default ({onSubmit, error, id}) => {
     const classes = useStyles()
 
     return (
-        <Container component="main" maxWidth="sm">
-            <Typography component="h1" variant="h5" style={{textAlign: 'center', marginBottom: '5%',marginTop:'5%'}}>
+        <Container component="main" maxWidth="sm" className={classes.formCarrier}>
+            <Typography component="h1" variant="h5" className={classes.formH1}>
                 Register new Carrier
             </Typography>
             <ValidatorForm className={classes.form} onSubmit={handleSubmit}>

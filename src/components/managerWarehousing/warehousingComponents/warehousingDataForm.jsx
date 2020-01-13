@@ -16,7 +16,6 @@ const initialListState = {
 }
 
 const WarehousingDataForm = ({setCurrentTTN, dndIsShown, getFormData, getTtn, ttnError, ttns, currentManager}) => {
-
     const [formState, setFormState] = useState(initialFormState)
     const [listState, setListState] = useState(initialListState)
     const [ttnStatusErr, setTtnStatusErr] = useState(null)

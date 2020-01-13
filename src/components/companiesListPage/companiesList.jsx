@@ -14,7 +14,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
+import swal from '../swal/findSwal';
 
 import Moment from 'react-moment';
 
@@ -25,54 +25,37 @@ import Box from '@material-ui/core/Box'
 const Companies = (props) => {
     const classes = useStyles();
 
-    const [companyName, setCompanyName] = useState(false);
+
+    const [companyName, setCompanyName] = useState(props.currentCompany.email);
+    const [company, setCompany] = useState(props.currentCompany);
 
     const handleChangeCompanyName = (e) => {
         setCompanyName(e.target.value)
     };
 
     const handleSubmit = () => {
-        props.getCompany(companyName);
+        props.getCompany(companyName,setCompany);
     };
 
     const handleChangeStatus = () => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you want to change company status?",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Accept',
-            allowOutsideClick: false
-        }).then((result) => {
-            if (result.value) {
-                changeStatus(props.currentCompany.id,{active:!props.currentCompany.active});
-                Swal.fire({
-                    type: 'success',
-                    title: 'Congratulations!',
-                    text: 'Data successfully changed !',
-                    allowOutsideClick: false,
-                    timer: 3000
-                }).then(() => {
-                    window.location.reload()
-                })
-            }
-        })
+        props.changeStatus(props.currentCompany.email,{active:!props.currentCompany.active},swal);
 
     };
+
+    useEffect(() => setCompany(props.currentCompany), []);
 
     return (
         <div className={classes.root}>
             <CssBaseline/>
             <Container component="main" className={classes.main} maxWidth="sm">
                 <Typography variant="h5" align="center" color="textSecondary" component="p" className={classes.main}>
-                    Find company by email or name
+                    Find company by email
                 </Typography>
                 <Paper className={classes.rootPaper}>
                     <InputBase
+                        value={companyName}
                         className={classes.input}
-                        placeholder="Find company by email or name"
+                        placeholder="Search..."
                         inputProps={{ 'aria-label': 'search google maps' }}
                         onChange={handleChangeCompanyName}
                     />
@@ -87,7 +70,7 @@ const Companies = (props) => {
                 <Box mt={1}>
                 <span style={{color: 'red'}}>{props.errors.user}</span>
                 </Box>
-                {props.currentCompany.id ? (<Card className={classes.card}>
+                {company.email ? (<Card className={classes.card}>
                     <CardContent>
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
                             Company name: <span className={classes.bullet}>{props.currentCompany.company}</span>

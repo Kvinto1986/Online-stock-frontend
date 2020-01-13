@@ -125,8 +125,8 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
           <CssBaseline/>
           <Box mt={5} mb={5}>
             <Paper className={classes.root}>
-                <Typography 
-                    variant="h4" 
+                <Typography
+                    variant="h4"
                     component="h4"
                     style={{width: '100%', textAlign: 'center', marginTop: '2%'}}
                 >
@@ -338,15 +338,15 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                         <MenuItem value={'container'}>Container</MenuItem>
                                     </Select>
                                 </FormControl>
-                                <Button 
-                                    variant="contained" 
+                                <Button
+                                    variant="contained"
                                     color="primary"
                                     type="button"
                                     onClick={handleAddProduct}
                                 >
                                     Add to current cargo list
                                 </Button>
-                                <Grid container>
+                                <Grid container style={{marginTop:'1%'}}>
                                     <Grid item xs={12}>
                                         <span style={{color: 'red'}}>{idError}</span>
                                     </Grid>
@@ -370,9 +370,9 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                                 offButton={false}
                                             />}
                                             <Box mt={5}>
-                                                <Button 
-                                                    variant="contained" 
-                                                    color="primary" 
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
                                                     type="submit"
                                                 >
                                                     Submit

@@ -8,7 +8,7 @@ import UserForm from '../components/registerEmployee/registerEmployeePage'
 import Home from '../components/homePage/homePage'
 import Login from '../components/loginPage/loginPage'
 import Report from '../components/mainAdminReport/reportPage'
-import Header from '../components/header/header'
+import Header from '../components/header'
 import Footer from '../components/footer/footer'
 import Companies from '../components/companiesListPage/companiesList'
 import Landing from '../components/landingPage/landing'
@@ -20,12 +20,14 @@ import SendCargo from '../components/sendCargo'
 import Warehousing from '../components/managerWarehousing'
 import Employees from '../components/employeesPage'
 import Employee from '../components/employeePage'
+import TaskHome from '../components/homePage/taskerHome'
 import ControllerPage from '../components/controllerPage'
 import CheckTtn from '../components/checkTtn'
 import EmployeeEditPage from '../components/employeeEditPage'
 import ServicesManager from '../components/servicesManager'
 import WarehouseInfo from '../components/warehouseInfo'
 import ServiceNow from '../components/serviceNow'
+
 
 const SecurityRoute = (props) => {
     if (props.auth.isAuthenticated) {
@@ -36,21 +38,22 @@ const SecurityRoute = (props) => {
                 roleRoutes = [
                     <Route exact path="/warehousing" component={Warehousing}/>,
                     <Route exact path="/outTtnRegister" component={SendCargo}/>,
-                    <Route exact path="/warehausesInfo" component={WarehouseInfo}/>
+                    <Route exact path="/warehausesInfo" component={WarehouseInfo}/>,
                 ]
-            } 
+            }
             else if(props.auth.user.position.includes('operator')) {
                 roleRoutes = [
                     <Route exact path="/ttnRegister" component={TTNregister}/>,
                     <Route exact path="/allCarrier" component={AllCarrier}/>,
-                    <Route exact path="/checkTtn" component={CheckTtn}/>
+                    <Route exact path="/checkTtn" component={CheckTtn}/>,
                 ]
-            } 
+            }
             else if(props.auth.user.position.includes('controller')) {
                 roleRoutes = [
-                    <Route exact path="/controlTTN" component={ControllerPage}/>
+                    <Route exact path="/controlTTN" component={ControllerPage}/>,
+                    <Route component={TaskHome} />,
                 ]
-            } 
+            }
         }
 
         switch (props.auth.user.role) {
@@ -113,7 +116,7 @@ const SecurityRoute = (props) => {
                     <Switch>
                         <Route exact path="/login" component={Login}/>
                         <Route component={Landing}/>
-                    </Switch>  
+                    </Switch>
                 </Box>
                 <Footer/>
             </div>

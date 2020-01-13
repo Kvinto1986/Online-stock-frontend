@@ -3,10 +3,11 @@ import {makeStyles} from '@material-ui/core'
 const useStyles = makeStyles(theme => ({
     '@global': {
         body: {
-            backgroundColor: theme.palette.common.white,
+            backgroundColor: 'whiteSmoke',
         },
     },
     cargoTable: {
+        backgroundColor: 'white',
         borderRadius: '10px',
         border:'1px solid #e0e0e0'
     },
@@ -66,6 +67,7 @@ const useStyles = makeStyles(theme => ({
     select: {
         width: '100%',
         marginTop: theme.spacing(5),
+        marginBottom: theme.spacing(5),
     },
     submit: {
         width: '100%',

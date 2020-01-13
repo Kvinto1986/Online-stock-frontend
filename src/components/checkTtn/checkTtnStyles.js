@@ -4,6 +4,7 @@ const useStyles = makeStyles({
     root: {
         width: '100%',
         overflowX: 'auto',
+        marginBottom: '5%'
     },
     tableCell: {
         borderRight: '1px solid RGB(224, 224, 224)'

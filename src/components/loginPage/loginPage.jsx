@@ -10,12 +10,13 @@ import NavigationIcon from '@material-ui/icons/Navigation'
 import useStyles from './loginStyles'
 import LoginForm from './login'
 import Link from '../header/Link'
+import {Paper} from "@material-ui/core";
 
 export default () => {
     const classes = useStyles();
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="sm">
             <CssBaseline/>
             <Box className={classes.paper}>
                 <Link variant="button" color="primary" to='/' className={classes.link}>
@@ -24,6 +25,7 @@ export default () => {
                         Go to main page
                     </Fab>
                 </Link>
+                <Paper className={classes.paperForm}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon/>
                 </Avatar>
@@ -33,6 +35,7 @@ export default () => {
                     </Typography>
                 </Box>
                 <LoginForm/>
+                </Paper>
             </Box>
         </Container>
     )
