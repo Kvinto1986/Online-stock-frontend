@@ -51,6 +51,7 @@ const useStyles = makeStyles(theme => ({
     },
     buttonPdf: {
         marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(2),
         marginLeft: theme.spacing(3),
     },
 }))

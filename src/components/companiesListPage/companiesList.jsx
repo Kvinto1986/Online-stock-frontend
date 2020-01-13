@@ -25,6 +25,7 @@ import Box from '@material-ui/core/Box'
 const Companies = (props) => {
     const classes = useStyles();
 
+
     const [companyName, setCompanyName] = useState(props.currentCompany.email);
     const [company, setCompany] = useState(props.currentCompany);
 
