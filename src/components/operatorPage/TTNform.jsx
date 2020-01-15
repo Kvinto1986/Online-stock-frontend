@@ -24,8 +24,20 @@ const options = [
     { value: 'PL', label: 'PL' },
 ]
 
-export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services, order}) => {
+const initialProdictState = {
+    package: '',
+    amount: '',
+    name: '',
+    id: '',
+}
 
+export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services, order}) => {
+    const [cargo, setCargo] = useState([])
+    const [service, setService] = useState('')
+    const [idError, setIdError] = useState('')
+    const [carNumber, setCarNumber] = useState({ value: 'BLR', label: 'BLR' })
+    const [patternErr, setPatternError ] = useState(false)
+    const [product, setProduct] = useState(initialProdictState)
     const [TTN, setTTN] = useState({
         number: ttnNumber,
         carrier: {
@@ -45,6 +57,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
         warehouseCompany: authUser.company,
         owner: '',
     })
+
     const countryExpl = {
         BLR: {
             value: '3434AT-1',
@@ -59,18 +72,6 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
             pattern: /\D{2}\d{4}\D{1}/
         }
     }
-    const [cargo, setCargo] = useState([])
-    const [service, setService] = useState('')
-    const [idError, setIdError] = useState('')
-    const [carNumber, setCarNumber] = useState({ value: "BLR", label: "BLR" })
-    const [patternErr, setPatternError ] = useState(false)
-
-    const [product, setProduct] = useState({
-        package: '',
-        amount: '',
-        name: '',
-        id: '',
-    })
 
     const handleChangeProduct = (e) => {
         setProduct({...product, [e.target.name]: e.target.value})
@@ -128,7 +129,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                 <Typography
                     variant="h4"
                     component="h4"
-                    style={{width: '100%', textAlign: 'center', marginTop: '2%'}}
+                    className={classes.ttnTitle}
                 >
                     International waybill №{TTN.number}
                 </Typography>
@@ -194,7 +195,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                     fullWidth
                                     disabled={true}
                                     label="Carrier UNP"
-                                    value={` ${TTN.carrier.unp}`}
+                                    value={TTN.carrier.unp}
                                 />
                             </Grid>
                             <Grid item sm={4} xs={12}>
@@ -202,7 +203,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                     fullWidth
                                     disabled={true}
                                     label="Phone number"
-                                    value={`${TTN.carrier.tel}`}
+                                    value={TTN.carrier.tel}
                                 />
                             </Grid>
                             <Grid item sm={4} xs={12}>
@@ -210,7 +211,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                     fullWidth
                                     disabled={true}
                                     label="Company Name"
-                                    value={`${TTN.carrier.company}`}
+                                    value={TTN.carrier.company}
                                 />
                             </Grid>
                         </Grid>
@@ -219,8 +220,8 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                 <TextValidator
                                     fullWidth
                                     disabled={true}
-                                    label="Driver"
-                                    value={`Name: ${TTN.driver.name}`}
+                                    label="Driver Name"
+                                    value={TTN.driver.name}
                                 />
                             </Grid>
                             <Grid item sm={2} xs={12}>
@@ -228,7 +229,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                     fullWidth
                                     disabled={true}
                                     label="Driver license"
-                                    value={`Driver license №${TTN.driver.license}`}
+                                    value={TTN.driver.license}
                                 />
                             </Grid>
                             <Grid item sm={4} xs={12}>
@@ -353,7 +354,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                 </Grid>
                             </Container>
                         )}
-                        {order || cargo.length > 0 ? (
+                        {order || cargo.length > 0 ? (<>
                             <Container maxWidth="xl">
                                 <Box mt={5}>
                                     <Grid container>
@@ -369,20 +370,21 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                                 handleDeleteProduct={handleDeleteProduct}
                                                 offButton={false}
                                             />}
-                                            <Box mt={5}>
-                                                <Button
-                                                    variant="contained"
-                                                    color="primary"
-                                                    type="submit"
-                                                >
-                                                    Submit
-                                                </Button>
-                                            </Box>
                                         </Grid>
                                     </Grid>
                                 </Box>
                             </Container>
-                        ) : null}
+                            <Box mt={5} mb={5}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    type="submit"
+                                    size="large"
+                                >
+                                    Submit
+                                </Button>
+                            </Box>
+                        </>) : null}
                     </Container>
                 </ValidatorForm>
             </Paper>

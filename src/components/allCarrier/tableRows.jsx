@@ -1,11 +1,9 @@
 import React from 'react'
 import TableCell from '@material-ui/core/TableCell'
-import Fab from '@material-ui/core/Fab'
+import Box from '@material-ui/core/Box'
 import TableRow from '@material-ui/core/TableRow'
-import EditIcon from '@material-ui/icons/Edit'
-import DeleteIcon from '@material-ui/icons/Delete'
+import Button from '@material-ui/core/Button'
 import useStyles from './allCarrierStyle'
-import AddIcon from '@material-ui/icons/Add'
 
 const TableRowsComponent = ({row, tableCells, handleEdit, handleNewCarrier, removeItem}) => {
     const classes = useStyles()
@@ -31,32 +29,37 @@ const TableRowsComponent = ({row, tableCells, handleEdit, handleNewCarrier, remo
                 })
             }
             <TableCell align="right">
-                {row.isDisabled
-                    ? <Fab
-                        color="primary"
-                        aria-label="add"
-                        className={classes.add_btn}
-                        onClick={handleNewCarrier(id)}
-                    >
-                        <AddIcon/>
-                    </Fab>
-                    : <Fab
-                        aria-label="edit"
-                        className={classes.add_btn}
-                        onClick={handleEdit(id)}
-                    >
-                        <EditIcon/>
-                    </Fab>
-                }
-                <Fab
-                    id={row.id}
-                    onClick={removeItem(id)}
-                    aria-label="delete"
-                    className={classes.fab}
-                    color="secondary"
-                >
-                    <DeleteIcon/>
-                </Fab>
+                <Box display="flex" justifyContent="flex-end">
+                    <Box>
+                        {row.isDisabled
+                            ? <Button
+                                color="primary"
+                                variant="outlined"
+                                size="small"
+                                onClick={handleNewCarrier(id)}
+                            >
+                                Save
+                            </Button>
+                            : <Button
+                                color="primary"
+                                variant="outlined"
+                                size="small"
+                                onClick={handleEdit(id)}
+                            >
+                                Edit
+                            </Button>
+                        }
+                    </Box>
+                    <Box ml={1.5}>
+                        <Button
+                            variant="outlined"
+                            size="small"
+                            onClick={removeItem(id)}
+                        >
+                            Block
+                        </Button>
+                    </Box>
+                </Box>
             </TableCell>
         </TableRow>
     )

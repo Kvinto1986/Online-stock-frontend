@@ -5,7 +5,9 @@ import TableCell from '@material-ui/core/TableCell'
 import TableFooter from '@material-ui/core/TableFooter'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
-import Paper from '@material-ui/core/Paper'
+import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
 import useStyles from './allCarrierStyle'
 import Spinner from '../spinner'
 import TablePaginationActions from './tablePagination'
@@ -19,7 +21,6 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
     const [loaded, setLoaded] = useState(false)
     const [inputValue, setInputValue] = useState({})
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
-
 
     function handleChangePage(event, newPage) {
         setPage(newPage)
@@ -40,7 +41,6 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
     const removeItem = (unp) => () => {
         delCarrier(unp)
     }
-
 
     function handleChangeRowsPerPage(event) {
         setRowsPerPage(parseInt(event.target.value, 10))
@@ -97,62 +97,74 @@ function CustomPaginationActionsTable({allCarriers, delCarrier, editCarrier}) {
     }
     const tableCells = [
         {type: 'text', name: 'carrier', typeComponent: 'th', scope: 'row', action: handelEditInput},
-        {type: 'text', name: 'email', float: 'right', action: handelEditInput},
-        {type: 'number', name: 'tel', float: 'right', action: handelEditInput},
+        {type: 'text', name: 'email', float: 'left', action: handelEditInput},
+        {type: 'number', name: 'tel', float: 'left', action: handelEditInput},
     ]
     const thHead = [
         {id: 1, label: 'Carrier'},
-        {id: 2, label: 'Email', float: 'right'},
-        {id: 3, label: 'Phone', float: 'right'},
-        {id: 4, float: 'right'},
+        {id: 2, label: 'Email', float: 'left'},
+        {id: 3, label: 'Phone', float: 'left'},
+        {id: 4, float: 'left'},
     ]
+
     return (
-        <Paper className={classes.root}>
-            <div className={classes.tableWrapper}>
-                <Table className={classes.table}>
-                    <TableBody>
-                        <TableRow>
-                            {
-                                thHead.map((item) => <TableCell key={item.id}
-                                                                align={item.float}> {item.label} </TableCell>)
+        <Container fixed>
+            <Box className={classes.root}>
+                <Box mb={3} display="flex" justifyContent="center">
+                    <Typography variant="h4">
+                        Carriers list
+                    </Typography>
+                </Box>
+                <Box>
+                    <Table>
+                        <TableBody>
+                            <TableRow>{
+                                thHead.map((item) => (
+                                    <TableCell 
+                                        key={item.id}
+                                        align={item.float}
+                                    > 
+                                        <b>{item.label}</b> 
+                                    </TableCell>
+                                ))
+                            }</TableRow>
+                            {!loaded
+                                ? <Spinner/>
+                                : rows.map((row) => (
+                                    <TableRowsComponent
+                                        key={row.id}
+                                        tableCells={tableCells}
+                                        row={row}
+                                        handleNewCarrier={handleNewCarrier}
+                                        handleEdit={handleEdit}
+                                        removeItem={removeItem}
+                                    />
+                                ))
                             }
-                        </TableRow>
-                        {!loaded
-                            ? <Spinner/>
-                            : rows.map((row) => {
-                                return <TableRowsComponent
-                                    key={row.id}
-                                    tableCells={tableCells}
-                                    row={row}
-                                    handleNewCarrier={handleNewCarrier}
-                                    handleEdit={handleEdit}
-                                    removeItem={removeItem}
+                            {emptyRows > 0 && (
+                                <TableRow style={{height: 35 * emptyRows}}>
+                                    <TableCell colSpan={6}/>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                        <TableFooter>
+                            <TableRow>
+                                <TablePagination
+                                    rowsPerPageOptions={[5, 10]}
+                                    colSpan={3}
+                                    count={rows.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    onChangePage={handleChangePage}
+                                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                                    ActionsComponent={TablePaginationActions}
                                 />
-                            })
-                        }
-                        {emptyRows > 0 && (
-                            <TableRow style={{height: 35 * emptyRows}}>
-                                <TableCell colSpan={6}/>
                             </TableRow>
-                        )}
-                    </TableBody>
-                    <TableFooter>
-                        <TableRow>
-                            <TablePagination
-                                rowsPerPageOptions={[5, 10]}
-                                colSpan={3}
-                                count={rows.length}
-                                rowsPerPage={rowsPerPage}
-                                page={page}
-                                onChangePage={handleChangePage}
-                                onChangeRowsPerPage={handleChangeRowsPerPage}
-                                ActionsComponent={TablePaginationActions}
-                            />
-                        </TableRow>
-                    </TableFooter>
-                </Table>
-            </div>
-        </Paper>
+                        </TableFooter>
+                    </Table>
+                </Box>
+            </Box>
+        </Container>
     )
 }
 export default CustomPaginationActionsTable

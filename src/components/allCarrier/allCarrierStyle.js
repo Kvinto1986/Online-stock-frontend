@@ -5,24 +5,11 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
   },
   root: {
-    width: '100%',
-    marginTop: theme.spacing(3),
-  },
-  table: {
-    minWidth: 500,
-  },
-  tableWrapper: {
-    overflowX: 'auto',
-    position: 'relative',
-
-  },
-  add_carrier: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end'
-  },
-  add_btn: {
-    marginRight: '20px'
+    backgroundColor: 'white',
+    borderRadius: '5px',
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
+    padding: '25px'
   },
   nav: {
     flexShrink: 0,

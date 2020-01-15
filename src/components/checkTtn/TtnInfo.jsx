@@ -117,9 +117,10 @@ export default ({ttn, onDelete}) => {
                             </TableCell>
                         </TableRow>
                         <TableRow className={classes.cargoRow}>
-                            <TableCell align="center" colSpan={4}><Typography variant="h5" gutterBottom>
-                                <span className={classes.spanTable}>Cargo list:</span>
-                            </Typography>
+                            <TableCell align="center" colSpan={4}>
+                                <Typography variant="h5" gutterBottom>
+                                    <span className={classes.spanTable}>Cargo list:</span>
+                                </Typography>
                             </TableCell>
                         </TableRow>
                         <TableRow>

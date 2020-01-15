@@ -4,7 +4,7 @@ const withTaskBar = (WrappedComponent) => {
     class WithTaskBar extends React.Component {
         render() {
             return (
-                <WrappedComponent />
+                <WrappedComponent {...this.props}/>
             )
         }
     }

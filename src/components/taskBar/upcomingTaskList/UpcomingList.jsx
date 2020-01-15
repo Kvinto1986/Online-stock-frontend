@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
-import { ListSubheader, List, Box, IconButton } from '@material-ui/core'
+import { ListSubheader, List, Box } from '@material-ui/core'
 import { getExportTTN, getTTNdateOut } from '../../../actions/taskBarActions'
-import AutorenewIcon from '@material-ui/icons/Autorenew'
 import Inbox from './inbox/Inbox'
 import worker_script2 from './inboxWorker2'
 import worker_script8 from './inboxWorker8'
@@ -64,23 +63,6 @@ const UpcomingList = props => {
                     <ListSubheader component="div" id="nested-list-subheader">
                         Upcoming
                     </ListSubheader>
-                    <Box mr={2}>
-                        <IconButton 
-                            aria-label="reload" 
-                            size="small" 
-                            color="primary"
-                            onClick={() => {
-                                props.getExportTTN()
-                                props.getTTNdateOut(new Date(), props.contentData.HOUR_FLAG)
-                            }}
-                        >
-                            <AutorenewIcon 
-                                fontSize="small" 
-                                color="primary" 
-                                className={classes.autorenewIcon}
-                            />
-                        </IconButton>
-                    </Box>
                 </Box>
             }>
                 <Inbox 

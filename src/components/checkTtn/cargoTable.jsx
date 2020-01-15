@@ -10,9 +10,9 @@ import ReportWindow from './reportWindow'
 const columns = [
     {id: 'id', label: 'Number', align: 'left'},
     {id: 'name', label: 'Name', align: 'left'},
-    {id: 'amount', label: 'Actual amount/Initial amount', align: 'center'},
-    {id: 'type', label: 'Packaging type', align: 'center'},
-    {id: 'dmgFeedback', label: 'Report', align: 'center'},
+    {id: 'type', label: 'Packaging type', align: 'left'},
+    {id: 'amount', label: 'Actual/initial amount', align: 'left'},
+    {id: 'dmgFeedback', label: 'Report', align: 'left'},
 ]
 
 export default ({cargo, initialCargo}) => {

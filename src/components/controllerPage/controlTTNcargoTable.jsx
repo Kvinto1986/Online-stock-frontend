@@ -6,8 +6,8 @@ import Table from '@material-ui/core/Table'
 import React, {useState} from 'react'
 import useStyles from './controlTTNstyle'
 import TablePagination from '@material-ui/core/TablePagination'
-import Paper from "@material-ui/core/Paper";
-import TableContainer from "@material-ui/core/TableContainer";
+import Paper from '@material-ui/core/Paper'
+import TableContainer from '@material-ui/core/TableContainer'
 
 export default ({cargo}) => {
 
@@ -32,26 +32,26 @@ export default ({cargo}) => {
             <Table className={classes.table} size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell align="center">ID</TableCell>
-                        <TableCell align="center">Name</TableCell>
-                        <TableCell align="center">Amount</TableCell>
-                        <TableCell align="center">Packing material</TableCell>
+                        <TableCell align="left">ID</TableCell>
+                        <TableCell align="left">Name</TableCell>
+                        <TableCell align="left">Amount</TableCell>
+                        <TableCell align="left">Packing material</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {cargo.slice(rowsCount, allRowsCount).map((elem) => {
                         return (
                             <TableRow key={elem.id}>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                     {elem.id}
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                     {elem.name}
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                     {elem.amount}
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                     {elem.package}
                                 </TableCell>
                             </TableRow>
