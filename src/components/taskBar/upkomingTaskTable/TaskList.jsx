@@ -52,9 +52,11 @@ const TaskList = (props) => {
     const sortIcon = (key) => sortOrder[key] 
     ? <ArrowDropDownIcon
       fontSize="small"
+      className={classes.sortIcon}
     />
     : <ArrowDropUpIcon
       fontSize="small"
+      className={classes.sortIcon}
     />
 
     return (
@@ -142,6 +144,10 @@ const useStyles = makeStyles(() => ({
     },
     iconPointer: {
       cursor: 'pointer',
+    },
+    sortIcon: {
+      position: 'relative',
+      top: '5px',
     }
 }))
 
