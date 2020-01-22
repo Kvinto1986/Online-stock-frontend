@@ -42,3 +42,17 @@ export const getTTNdateOut = (clientDate, substractedHoursAmount) => dispatch =>
         }
     })   
 }
+
+export const sortTasks = (data) => dispatch => {
+    axios
+    .post(`${server}api/ttnExportOrders/sortTasks`, data)
+    .then(res => {
+        dispatch({
+            type: TTN_DATEOUT,
+            payload: {
+                data: res.data.response,
+                isDesc: res.data.isDesc
+            }
+        })
+    }) 
+}

@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import withTaskBar from './withTaskBar'
 import { Box, Typography, Button } from '@material-ui/core'
 import Content from './upkomingTaskTable/Content'
-import { getExportTTN, getTTNdateOut } from '../../actions/taskBarActions'
+import { getExportTTN, getTTNdateOut, sortTasks } from '../../actions/taskBarActions'
 
-class TaskContent extends React.Component {
+class TaskContent extends PureComponent {
     render() {
         return (
             <Box>
@@ -36,7 +36,10 @@ class TaskContent extends React.Component {
                     </Box>
                 </Box>
                 <Box>
-                    <Content />
+                    <Content 
+                        contentData={this.props.contentData}
+                        sortTasks={this.props.sortTasks}
+                    />
                 </Box>
             </Box>
         )
@@ -47,4 +50,8 @@ const mapStateToProps = (state) => ({
     contentData: state.roleTasks.contentData,
 })
 
-export default connect(mapStateToProps, { getExportTTN, getTTNdateOut })(withTaskBar(TaskContent))
+export default connect(mapStateToProps, { 
+    getExportTTN, 
+    getTTNdateOut,
+    sortTasks 
+})(withTaskBar(TaskContent))

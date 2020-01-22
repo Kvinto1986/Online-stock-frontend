@@ -1,9 +1,9 @@
-import {Bar} from "react-chartjs-2";
-import React from "react";
-import jsPDF from 'jspdf';
-import Button from '@material-ui/core/Button';
-import useStyles from "./reportPageStyles";
-import moment from "moment";
+import {Bar} from 'react-chartjs-2'
+import React from 'react'
+import jsPDF from 'jspdf'
+import Button from '@material-ui/core/Button'
+import useStyles from './reportPageStyles'
+import moment from 'moment'
 
 export default function Char({error, fromDate, toDate, statistic}) {
 
@@ -11,9 +11,9 @@ export default function Char({error, fromDate, toDate, statistic}) {
     if (statistic.created && !error) {
 
         const pdfCreate=(e)=>{
-            e.preventDefault();
+            e.preventDefault()
 
-            const doc = new jsPDF();
+            const doc = new jsPDF()
             doc.text(
                 `
          ************************************************************************************
@@ -29,10 +29,10 @@ export default function Char({error, fromDate, toDate, statistic}) {
          ************************************************************************************
                 
                 `
-                ,1,1);
+                ,1,1)
 
             doc.save('statistic.pdf')
-        };
+        }
 
         const data = {
             labels: [`From ${moment(fromDate).format('L')}                     To ${moment(toDate).format('L')}`],
