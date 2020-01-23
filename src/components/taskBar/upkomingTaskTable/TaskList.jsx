@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
@@ -25,6 +25,12 @@ const TaskList = (props) => {
     const [page, setPage] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(10)
     const [sortOrder, setSortOrder] = useState(initialState)
+
+    useEffect(() => {
+      if (props?.contentData?.isDesc === null) {
+        setSortOrder(initialState)
+      }
+    }, [props])
 
     const handleChangePage = (event, newPage) => {
       setPage(newPage)

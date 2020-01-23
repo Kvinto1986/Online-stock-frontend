@@ -29,7 +29,8 @@ export const getTTNdateOut = (clientDate, substractedHoursAmount) => dispatch =>
             type: TTN_DATEOUT,
             payload: {
                 data: res.data,
-                HOUR_FLAG: substractedHoursAmount
+                HOUR_FLAG: substractedHoursAmount,
+                isDesc: null,
             }
         })
     })
