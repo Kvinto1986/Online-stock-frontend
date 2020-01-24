@@ -10,7 +10,7 @@ import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import MenuItem from '@material-ui/core/MenuItem'
-import SelectCustom from 'react-select';
+import SelectCustom from 'react-select'
 import InputText from '../fields/textField'
 import CargoTable from './cargoTable'
 import Autocomplete from '../fields/autocomplete'
@@ -354,7 +354,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                 </Grid>
                             </Container>
                         )}
-                        {order || cargo.length > 0 ? (<>
+                        {(order || cargo.length > 0) && (
                             <Container maxWidth="xl">
                                 <Box mt={5}>
                                     <Grid container>
@@ -374,17 +374,7 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                     </Grid>
                                 </Box>
                             </Container>
-                            <Box mt={5} mb={5}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    type="submit"
-                                    size="large"
-                                >
-                                    Submit
-                                </Button>
-                            </Box>
-                        </>) : null}
+                        )}
                     </Container>
                 </ValidatorForm>
             </Paper>

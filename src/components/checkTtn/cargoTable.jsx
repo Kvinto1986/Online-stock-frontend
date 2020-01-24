@@ -11,7 +11,7 @@ const columns = [
     {id: 'id', label: 'Number', align: 'left'},
     {id: 'name', label: 'Name', align: 'left'},
     {id: 'type', label: 'Packaging type', align: 'left'},
-    {id: 'amount', label: 'Actual/initial amount', align: 'left'},
+    {id: 'amount', label: 'Actual/initial cargo units amount', align: 'left'},
     {id: 'dmgFeedback', label: 'Report', align: 'left'},
 ]
 

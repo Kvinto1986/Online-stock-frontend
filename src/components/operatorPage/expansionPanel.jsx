@@ -1,7 +1,7 @@
 import React from 'react'
 import useStyles from './operatorPageStyles'
 import ErrorBtn from './errorBtn'
-import Container from "@material-ui/core/Container";
+import Container from '@material-ui/core/Container'
 
 export default function ({formVisibility, setFormVisibility, Form, onSubmit, error, id}) {
     const classes = useStyles()

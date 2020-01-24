@@ -11,6 +11,7 @@ import ExpansionPanel from './expansionPanel'
 import SuccessPage from './successPage'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
+import Container from '@material-ui/core/Container'
 
 const steps = ['Carrier check', 'Driver check', 'Check order', 'Create TTN']
 
@@ -85,16 +86,19 @@ export default ({
                         length={10}
                     />
                     {searchOrderError.order && (
-                        <Box display="flex" justifyContent="center" mt={5}>
-                            <Button
-                                variant="outlined"
-                                color="primary"
-                                type="button"
-                                onClick={() => setActiveStep(x => x + 1)}
-                            >
-                                Create custom TTN order
-                            </Button>
-                        </Box>
+                        <Container maxWidth="sm">
+                            <Box mt={5}>
+                                <Button
+                                    variant="contained"
+                                    color="primary" 
+                                    type="button"
+                                    size="medium"
+                                    onClick={() => setActiveStep(x => x + 1)}
+                                >
+                                    Create custom TTN order
+                                </Button>
+                            </Box>
+                        </Container>
                     )}
                 </Fragment>
             case 3:
