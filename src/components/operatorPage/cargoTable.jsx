@@ -24,20 +24,20 @@ export default ({cargoList, handleDeleteProduct, offButton}) => {
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell align="center">Number</TableCell>
-                            <TableCell align="center">Type</TableCell>
-                            <TableCell align="center">Boxing</TableCell>
-                            <TableCell align="center">Amount</TableCell>
+                            <TableCell align="left">Number</TableCell>
+                            <TableCell align="left">Type</TableCell>
+                            <TableCell align="left">Boxing</TableCell>
+                            <TableCell align="left">Amount</TableCell>
                             {!offButton && (<TableCell align="center">Action</TableCell>)}
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {cargoList.map((elem, index) => (
                             <TableRow key={elem.id}>
-                                <TableCell align="center">{elem.id}</TableCell>
-                                <TableCell align="center">{elem.name}</TableCell>
-                                <TableCell align="center">{elem.package}</TableCell>
-                                <TableCell align="center">{elem.amount}</TableCell>
+                                <TableCell align="left">{elem.id}</TableCell>
+                                <TableCell align="left">{elem.name}</TableCell>
+                                <TableCell align="left">{elem.package}</TableCell>
+                                <TableCell align="left">{elem.amount}</TableCell>
                                 {!offButton && (
                                     <TableCell align="center">
                                         <Fab size="small" color="default"
