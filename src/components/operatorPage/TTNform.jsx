@@ -370,6 +370,15 @@ export default ({ttnNumber, onSubmit, error, authUser, carrier, driver, services
                                                 handleDeleteProduct={handleDeleteProduct}
                                                 offButton={false}
                                             />}
+                                             <Box mt={5}>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    type="submit"
+                                                >
+                                                    Submit
+                                                </Button>
+                                            </Box>
                                         </Grid>
                                     </Grid>
                                 </Box>
